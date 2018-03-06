@@ -1,0 +1,29 @@
+<div class="login">
+  <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+      <!-- Email Field -->
+      <div class="col-sm-12">
+        <input id="email" formControlName="email" placeholder="Your Email*" type="text" value="" [ngClass]="{'error-field': (loginForm.controls['email'].hasError('required') || loginForm.controls['email'].hasError('email')) && loginForm.controls['email'].touched }">
+        <div class="error" *ngIf="loginForm.controls['email'].hasError('email') && loginForm.controls['email'].touched">
+          <span *ngIf="loginForm.controls['email'].hasError('required'); else requiredError">Email is <strong>required</strong></span>
+          <ng-template #requiredError>Please enter a valid email address</ng-template>
+        </div>
+      </div>
+      <!-- Email Field [ END ] -->
+      <!-- Password Field  -->
+      <div class="col-xs-12">
+        <input type="password" cols="5" rows="10" id="password" formControlName="password" placeholder="Your password....*" [ngClass]="{'error-field': loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched }">
+        <div class="error" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+          Password is <strong>required</strong>
+        </div>
+      </div>
+      <!-- Password Field [ END ] -->
+
+      <div class="col-xs-12">
+        <button class="submit active" type="submit" [disabled]="!loginForm.valid">Login</button>
+      </div>
+      <a [routerLink]="['/resetpassword']">forgot a password</a>
+  </form>
+  
+</div>
+
+

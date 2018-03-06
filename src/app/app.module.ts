@@ -26,13 +26,15 @@ import { LoginComponent } from './components/login/login.component';
 import { RoutingModule } from './routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

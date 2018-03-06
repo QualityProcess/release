@@ -139,10 +139,48 @@ body {
   text-align: center;
 }
 
-.login-form a {
-  text-transform: uppercase;
-  margin-top: 15px;
-  display: block;
+.input-box {
+  color: #999;
+}
+
+.input-box label {
+  cursor: pointer;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.forgot-password a {
   color: #999;
   text-decoration: none;
+}
+
+.login-registration a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+.login-registration {
+  margin-top: 15px;
+  color: #999;
+}
+
+.remember-me {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  float: left;
+}
+
+.remember-me input {
+  width: 30px;
+}
+
+.password input{
+  margin-bottom: 0;
 }

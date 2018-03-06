@@ -1,12 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 
-.reset-password {
+.registration {
   width: 100vw;
   height: 100vh;
 }
 
-.reset-password-form {
+.registration-form {
   position: relative;
   z-index: 1;
   background: #FFFFFF;
@@ -17,7 +17,7 @@
   //box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.reset-password-form input {
+.registration-form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -29,7 +29,7 @@
   font-size: 14px;
 }
 
-.reset-password-form button {
+.registration-form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
@@ -44,22 +44,22 @@
   cursor: pointer;
 }
 
-.reset-password-form button:hover, .reset-password-form button:active, .reset-password-form button:focus {
+.registration-form button:hover, .registration-form button:active, .registration-form button:focus {
   background: #2985e1;
 }
 
-.reset-password-form .message {
+.registration-form .message {
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
 }
 
-.reset-password-form .message a {
+.registration-form .message a {
   color: #4CAF50;
   text-decoration: none;
 }
 
-.reset-password-form .register-form {
+.registration-form .register-form {
   display: none;
 }
 
@@ -115,7 +115,7 @@ body {
 }
 
 
-.reset-password-form fieldset {
+.registration-form fieldset {
   border: none;
 }
 
@@ -138,17 +138,12 @@ body {
   text-align: center;
 }
 
-.reset-password-login a {
+.registration-form a {
   color: #1976d2;
   text-decoration: none;
 }
 
-.reset-password-login {
+.registration-login {
   margin-top: 15px;
   color: #999;
-}
-
-.reset-info {
-  text-align: center;
-  color: #343434;
 }

@@ -49,6 +49,10 @@ export class AuthService {
       })*/
   }
 
+  registration(data: any) : boolean {
+    return true;
+  }
+
   resetPassword(email: string) : string {
     return 'Answer from fake server';
   }

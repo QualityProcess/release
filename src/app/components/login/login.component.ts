@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   error = '';
-
+  //@ViewChild('rememberMe') rememberMe;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public snackBar: MatSnackBar) {
     this.loginForm = this.fb.group({
@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const val = this.loginForm.value;
     this.loading = true;
-
     let result = this.authService.login(val.email, val.password);
         /*.subscribe(
         (result) => {

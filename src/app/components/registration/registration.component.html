@@ -1,0 +1,47 @@
+<div class="registration">
+  <form [formGroup]="registrationForm" class="registration-form" (ngSubmit)="onSubmit()">
+
+    <!-- Username Field  -->
+    <div class="col-xs-12">
+      <input type="text" id="username" formControlName="username" placeholder="Your name....*" [ngClass]="{'error-field': registrationForm.controls['username'].hasError('required') && registrationForm.controls['username'].touched }">
+      <div class="error" *ngIf="registrationForm.controls['username'].hasError('required') && registrationForm.controls['username'].touched">
+        Username is <strong>required</strong>
+      </div>
+    </div>
+    <!-- Username Field [ END ] -->
+
+    <!-- Company Field  -->
+    <div class="col-xs-12">
+      <input type="text" id="company" formControlName="company" placeholder="Your company....*" [ngClass]="{'error-field': registrationForm.controls['company'].hasError('required') && registrationForm.controls['company'].touched }">
+      <div class="error" *ngIf="registrationForm.controls['company'].hasError('required') && registrationForm.controls['company'].touched">
+        Company is <strong>required</strong>
+      </div>
+    </div>
+    <!-- Company Field [ END ] -->
+
+    <!-- Email Field -->
+    <div class="col-sm-12">
+      <input id="email" formControlName="email" placeholder="Your Email....*" type="text" value="" [ngClass]="{'error-field': (registrationForm.controls['email'].hasError('required') || registrationForm.controls['email'].hasError('email')) && registrationForm.controls['email'].touched }">
+      <div class="error" *ngIf="registrationForm.controls['email'].hasError('email') && registrationForm.controls['email'].touched">
+        <span *ngIf="registrationForm.controls['email'].hasError('required'); else requiredError">Email is <strong>required</strong></span>
+        <ng-template #requiredError>Please enter a valid email address</ng-template>
+      </div>
+    </div>
+    <!-- Email Field [ END ] -->
+
+    <!-- Password Field  -->
+    <div class="col-xs-12">
+      <input type="password" id="password" formControlName="password" placeholder="Your password....*" [ngClass]="{'error-field': registrationForm.controls['password'].hasError('required') && registrationForm.controls['password'].touched }">
+      <div class="error" *ngIf="registrationForm.controls['password'].hasError('required') && registrationForm.controls['password'].touched">
+        Password is <strong>required</strong>
+      </div>
+    </div>
+    <!-- Password Field [ END ] -->
+
+    <div class="col-xs-12">
+      <button class="submit active" type="submit" [disabled]="!registrationForm.valid">Sign Up</button>
+    </div>
+    <div class="registration-login">Have an account? <a [routerLink]="['/login']">Login</a></div>
+  </form>
+
+</div>

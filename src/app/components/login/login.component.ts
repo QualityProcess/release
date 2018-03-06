@@ -47,9 +47,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       } else {
         this.error = 'Username or password is incorrect';
-        let snackBarRef = this.snackBar.open(this.error, '', {
-          duration: 7000
-        });
 
         this.snackBar.open(this.error, '', {
           duration: 2000,
@@ -61,20 +58,4 @@ export class LoginComponent implements OnInit {
 
   }
 
-}
-
-
-@Component({
-  selector: 'snack-error',
-  template: ``,
-  styles: [],
-})
-export class SnackError {
-  constructor(public snackBar: MatSnackBar) { }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
 }

@@ -2,8 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app"
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\login",
+    "\\src\\app\\components\\registration",
+    "\\src\\app\\components\\reset-password",
+    "\\src\\app\\helpers",
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\app.component.scss",
+  "SelectedNode": "\\package.json",
   "PreviewInSolutionExplorer": false
 }

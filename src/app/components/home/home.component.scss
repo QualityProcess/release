@@ -1,7 +1,26 @@
+@import "../../../assets/styles/variables.scss";
+
 h1 {
   text-align: center
 }
 
-.navbar {
-  background-color: #1976d2;
+.projects-page {
+
+  .navbar {
+    background-color: $primary-secondary;
+    height: 50px;
+
+    .profile {
+      button {
+        background-color: $primary;
+      }
+    }
+
+    .menu {
+      .nav {
+        margin: 0;
+        list-style: none;
+      }
+    }
+  }
 }

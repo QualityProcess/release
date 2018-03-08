@@ -1,13 +1,16 @@
-<mat-toolbar class="navbar">
-  <span>Main page</span>
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="btn-more">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="logout()">
-      <span>Logout</span>
-    </button>
-  </mat-menu>
-</mat-toolbar>
-
-<h1>Dashboard</h1>
+<div class="ui-g projects-page">
+  <div class="ui-g-12 navbar">
+    <div class="ui-g-8 ui-md-8 menu">
+      <ul class="nav">
+         <li><a routerLink="/projects">Projects</a></li>
+      </ul>
+    </div>
+    <div class="ui-g-4 ui-md-4 profile">
+      <button pButton type="button" label="Logout" class="btn" (click)="logout()"></button>
+    </div>    
+  </div>
+  <div class="ui-g-12 ui-g-nopad">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+ 

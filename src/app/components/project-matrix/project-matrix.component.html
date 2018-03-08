@@ -1,0 +1,15 @@
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let item of data">{{item.discipline.category}}</th>
+    </tr>
+   </thead>
+  <tbody>
+    <tr *ngFor="let item of data; let i = index;">
+      <td>{{item.discipline.design_stage[i].design_stage_category}}</td>
+      <td *ngFor="let design_stage of item.discipline.design_stage">+</td>
+    </tr>
+  </tbody>
+</table>

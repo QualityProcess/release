@@ -4,8 +4,12 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatGridListModule, MatSnackBarModule, MatToolbarModule, MatIconModule, MatTableModule, MatMenuModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
+// framework
+import { MaterialModule } from './framework/material/material.module';
+import { PrimengModule } from './framework/material/primeng.module';
+ 
 // routing 
 import { routing } from './routing';
 
@@ -13,7 +17,10 @@ import { routing } from './routing';
 import { AuthGuard } from './guard/auth.guard';
 
 // services
-import { AuthService, UserService } from './services';
+import { AuthService, UserService, ProjectsService } from './services';
+
+//resolvers
+import { ProjectResolver } from './components/project/project.resolver';
 
 // used to create fake backend
 import { fakeBackendProvider } from './helpers/fake-backend';
@@ -27,6 +34,10 @@ import { RoutingModule } from './routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { ProjectComponent } from './components/project/project.component';
+import { ProjectMatrixComponent } from './components/project-matrix/project-matrix.component';
+import { PhasesComponent } from './components/phases/phases.component';
 
 @NgModule({
   declarations: [
@@ -34,21 +45,28 @@ import { RegistrationComponent } from './components/registration/registration.co
     LoginComponent,
     HomeComponent,
     ResetPasswordComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProjectsComponent,
+    ProjectComponent,
+    ProjectMatrixComponent,
+    PhasesComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     routing,
-    MatButtonModule, MatCheckboxModule, RoutingModule, MatGridListModule, MatSnackBarModule, MatIconModule, MatTableModule, MatToolbarModule, MatMenuModule
+    MaterialModule,
+    PrimengModule
   ],
   providers: [
     AuthGuard,
     AuthService,
     UserService,
-
+    ProjectsService,
+    ProjectResolver
 
     // providers used to create fake backend
     //fakeBackendProvider,

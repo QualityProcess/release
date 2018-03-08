@@ -1,0 +1,9 @@
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
+:host {
+   .ui-card-shadow {
+    padding: 0 10px;
+  }
+}
+

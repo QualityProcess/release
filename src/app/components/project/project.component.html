@@ -1,0 +1,16 @@
+<div class="ui-g-12 project">
+  <div class="ui-g-12 ui-md-5 image-wrapper">
+    <img src="{{project.image.url}}" alt="{{project.name}}" title="{{project.name}}">
+  </div>
+  <div  class="ui-g-12 ui-md-7">
+    <h1>{{project.name}}</h1>
+    <div class="description">{{project.description}}</div>
+  </div>
+</div>
+<div class="ui-g-12">
+  <phases [projectId]="project.id"></phases>
+</div>
+
+
+  
+

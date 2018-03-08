@@ -1,0 +1,54 @@
+
+<div class="projects-header">
+  <div class="control-item">
+    <select (change)="sortData($event)">
+      <option></option>
+      <option value="name">Name</option>
+      <option value="id">Id</option>
+    </select>
+  </div>
+  <div class="control-item">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="Keyword" (keyup)="applyFilter($event.target.value)">
+    </div>
+  </div>
+  <div class="control-item">
+    <div class="buttons">
+      <button class="list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')"><i class="fa fa-bars"></i></button>
+      <button class="grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')"><i class="fa fa-th"></i></button>
+    </div>
+  </div>
+</div>
+<div *ngIf="!loaded" class="loading"><p-progressSpinner></p-progressSpinner></div>
+
+<p-dataGrid *ngIf="gridView; else listView" [value]="filterData" [paginator]="true" [rows]="20">
+  <ng-template let-project pTemplate="item" >
+    <div style="padding:3px" class="ui-g-12 ui-md-3 project-item" (click)="onSelect(project)">
+      <p-panel [header]="project.name" [style]="{'text-align':'center'}">
+        <img src="{{ project.image.thumbnail.url }}" width="60">
+      </p-panel>
+    </div>
+  </ng-template>
+</p-dataGrid>
+<ng-template #listView>
+  <p-dataList [value]="filterData" [paginator]="true" [rows]="5">
+    <ng-template let-project pTemplate="item">
+      <div class="ui-g ui-fluid project-item" (click)="onSelect(project)">
+        <div class="ui-g-12 ui-md-3" style="text-align:center">
+          <img src="{{ project.image.thumbnail.url }}">
+        </div>
+        <div class="ui-g-12 ui-md-9 car-details">
+          <div class="ui-g">
+            <div class="ui-g-2 ui-sm-6">Name: </div>
+            <div class="ui-g-10 ui-sm-6">{{project.name}}</div>
+          </div>
+        </div>
+      </div>
+      <hr class="ui-widget-content" style="border-top:0">
+    </ng-template>
+    
+
+  </p-dataList>
+</ng-template>
+
+

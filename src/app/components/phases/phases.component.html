@@ -1,0 +1,12 @@
+<div *ngFor="let phase of phases" class="ui-g-6 ui-md-3">
+  <p-card title="{{phase.name}}" subtitle="" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+    <p-header>
+      <img src="{{phase.image.url}}">
+    </p-header>
+    <div>
+    </div>
+    <p-footer>
+      <button pButton type="button" label="Matrix" icon="fa-check" (click)="goToMatrix(phase.id)"></button>
+    </p-footer>
+  </p-card>
+</div>

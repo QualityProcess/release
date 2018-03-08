@@ -3,8 +3,46 @@
 // material theme
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+// veriables and mixins
+@import "assets/styles/variables.scss";
 
 body {
+  color: $primary-text;
+  font-size: $font-size;
+  font-family: $font--preferred;
+  font-weight: $font--normal;
+  line-height: 1.4;
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  color: green;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Hind', sans-serif;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  color: #343333;
+}
+
+p {
+  font-size: 14px;
+  line-height: 1.42;
+}
+
+a {
+  text-decoration: none;
+  color: $primary;
+
+  &:hover {
+    color: $primary-light;
+  }
 }

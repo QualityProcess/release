@@ -2,11 +2,16 @@
   <div class="ui-g-12 navbar">
     <div class="ui-g-8 ui-md-8 menu">
       <ul class="nav">
-         <li><a routerLink="/projects">Projects</a></li>
+         <li><i class="material-icons">folder_open</i><a routerLink="/projects">Projects</a></li>
+         <li><i class="material-icons">event</i><a routerLink="/tasks/3">Tasks</a></li>
       </ul>
     </div>
     <div class="ui-g-4 ui-md-4 profile">
-      <button pButton type="button" label="Logout" class="btn" (click)="logout()"></button>
+      <ul>
+        <li>
+          <i class="material-icons" (click)="logout()">exit_to_app</i>
+        </li>
+      </ul> 
     </div>    
   </div>
   <div class="ui-g-12 ui-g-nopad">

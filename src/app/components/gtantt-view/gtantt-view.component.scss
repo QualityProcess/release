@@ -1,0 +1,9 @@
+@import "../../../assets/styles/variables.scss";
+@import "../../../assets/styles/mixins.scss";
+
+.activities {
+  .ng-star-inserted {
+    @include flex();
+    align-items: center;
+  }
+} 

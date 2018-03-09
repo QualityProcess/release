@@ -1,0 +1,16 @@
+<div class="sub-navbar">
+  <div class="control-item" (click)="goToView('googleKeep')">
+    Google keep
+  </div>
+  <div class="control-item" (click)="goToView('horizontalHistogram')">
+    Bar chart
+  </div>
+  <div class="control-item" (click)="goToView('grantt')">
+    Pie chart
+  </div>
+</div>
+<div class="ui-g-12">
+  <google-keep-task-view *ngIf="views.googleKeepView" [data]="data.task_phases"></google-keep-task-view>
+  <horizontal-histogram *ngIf="views.horizontalHistogramView" [data]="data.task_phases"> </horizontal-histogram>
+  <gtantt-view *ngIf="views.granttView" [data]="data.task_phases" ></gtantt-view> 
+</div>

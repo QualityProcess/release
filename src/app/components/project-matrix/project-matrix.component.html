@@ -1,5 +1,5 @@
 
-<table>
+<!--<table>
   <thead>
     <tr>
       <th></th>
@@ -13,3 +13,18 @@
     </tr>
   </tbody>
 </table>
+
+    -->
+
+
+<div class="wrapper">
+  <div class="box"></div>
+  <div *ngFor="let item of data" class="box">{{item.discipline.category}}</div>
+
+  <!-- Table Row -->
+  <div class="row" *ngFor="let item of data; let i = index;">
+    <div class="design-stage">{{item.discipline.design_stage[i].design_stage_category}}</div>
+    <div *ngFor="let design_stage of item.discipline.design_stage" class="add"></div>
+  </div>
+
+</div>

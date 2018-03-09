@@ -1,0 +1,49 @@
+<div *ngFor="let phase of dataSource">
+  <h2>{{phase.category}}</h2>
+
+  <div *ngFor="let item of phase.task_activities" class="activities">
+
+  <div class="example-container mat-elevation-z8">
+    <mat-table #table [dataSource]="item.task_activity_items">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>{{ item.name }}</mat-header-cell>
+        <mat-cell *matCellDef="let element"><mat-checkbox [checked]="element.is_locked">{{element.name}}</mat-checkbox></mat-cell>
+      </ng-container> 
+
+
+      <ng-container matColumnDef="checkedBy">
+        <mat-header-cell *matHeaderCellDef> Checked By </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.checkedBy}}</mat-cell>
+      </ng-container>
+
+      <!-- Check Date Column -->
+      <ng-container matColumnDef="checkDate">
+        <mat-header-cell *matHeaderCellDef> Check Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{formatDate(element.created_at)}} </mat-cell>
+      </ng-container>
+
+      <!-- Estimate Column -->
+      <ng-container matColumnDef="estimate">
+        <mat-header-cell *matHeaderCellDef> Estimate </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.hours_estimated}} </mat-cell>
+      </ng-container>
+
+      <!-- Actual Column -->
+      <ng-container matColumnDef="actual">
+        <mat-header-cell *matHeaderCellDef> Actual </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.hours_actual}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+  </div>
+</div> 
+
+

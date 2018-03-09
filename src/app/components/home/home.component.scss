@@ -1,4 +1,5 @@
 @import "../../../assets/styles/variables.scss";
+@import "../../../assets/styles/mixins.scss";
 
 h1 {
   text-align: center
@@ -9,17 +10,71 @@ h1 {
   .navbar {
     background-color: $primary-secondary;
     height: 50px;
+    padding: 0 10px;
 
     .profile {
-      button {
-        background-color: $primary;
+      text-align: right;
+      padding: 0 10px;
+      height: 100%;
+
+      ul {
+        list-style: none;
+
+        li {
+          cursor: pointer;
+          color: #ffffff;
+
+          i {
+            color: #ffffff;
+            //padding: 0 10px;
+            //border-right: 1px solid #eee;
+          }
+
+          &:hover {
+            i {
+              color: $primary-light;
+            }
+          }
+        }
       }
     }
 
     .menu {
-      .nav {
-        margin: 0;
+      text-align: right;
+      padding: 0 10px;
+      height: 100%;
+
+      ul.nav {
         list-style: none;
+        padding: 0;
+
+        @include flex();
+
+        li {
+          cursor: pointer;
+
+          i {
+            float: left;
+            color: #ffffff;
+          }
+
+          a {
+            color: #ffffff;
+            padding: 0 20px 0 3px;
+          }
+
+          &:hover {
+            a, i {
+              color: $primary-light;
+            }
+          }
+
+          @include phone() {
+            i {
+              display:none;
+            }
+          }
+        }
       }
     }
   }

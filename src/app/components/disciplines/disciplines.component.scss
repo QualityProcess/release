@@ -1,0 +1,42 @@
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
+.loading {
+  position: fixed;
+  @include flex();
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.project-item {
+  cursor: pointer;
+
+  p-footer {
+    @include flex();
+    justify-content: space-between;
+
+    .actions {
+      display: inline-block;
+
+      i {
+        line-height: 1.2;
+        color: $primary-purple;
+        font-size: 1.6em;
+
+        &:hover {
+          color: $primary-purple-light;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    p-panel {
+
+      .ui-panel {
+        background: #eee;
+      }
+    }
+  }
+}

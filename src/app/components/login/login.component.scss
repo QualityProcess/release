@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
 
 .login {
   width: 100vw;
@@ -34,7 +35,7 @@
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #1976d2;
+  background: $primary-purple;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -46,7 +47,7 @@
 }
 
 .login-form button:hover, .login-form button:active, .login-form button:focus {
-  background: #2985e1;
+  background: $primary-purple-light;
 }
 
 .login-form .message {
@@ -132,7 +133,7 @@ body {
 
 .error {
   margin: 0 0 15px;
-  color: #2985e1;
+  color: $primary-purple-light;
 }
 
 .mat-simple-snackbar {
@@ -158,7 +159,7 @@ body {
 }
 
 .login-registration a {
-  color: #1976d2;
+  color: $primary-purple;
   text-decoration: none;
 }
 

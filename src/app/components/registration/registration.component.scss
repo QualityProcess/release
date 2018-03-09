@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
 
 .registration {
   width: 100vw;
@@ -33,7 +34,7 @@
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #1976d2;
+  background: $primary-purple;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -45,7 +46,7 @@
 }
 
 .registration-form button:hover, .registration-form button:active, .registration-form button:focus {
-  background: #2985e1;
+  background: $primary-purple-light;
 }
 
 .registration-form .message {
@@ -131,7 +132,7 @@ body {
 
 .error {
   margin: 0 0 15px;
-  color: #2985e1;
+  color: $primary-purple-light;
 }
 
 .mat-simple-snackbar {
@@ -139,7 +140,7 @@ body {
 }
 
 .registration-form a {
-  color: #1976d2;
+  color: $primary-purple;
   text-decoration: none;
 }
 

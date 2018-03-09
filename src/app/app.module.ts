@@ -9,7 +9,9 @@ import { FormsModule } from '@angular/forms';
 // framework
 import { MaterialModule } from './framework/material/material.module';
 import { PrimengModule } from './framework/material/primeng.module';
- 
+import { ChartsModule } from 'ng2-charts';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
 // routing 
 import { routing } from './routing';
 
@@ -21,6 +23,7 @@ import { AuthService, UserService, ProjectsService } from './services';
 
 //resolvers
 import { ProjectResolver } from './components/project/project.resolver';
+import { DisciplineResolver } from './components/discipline/discipline.resolver';
 
 // used to create fake backend
 import { fakeBackendProvider } from './helpers/fake-backend';
@@ -38,6 +41,14 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectMatrixComponent } from './components/project-matrix/project-matrix.component';
 import { PhasesComponent } from './components/phases/phases.component';
+import { TaskComponent } from './components/task/task.component';
+import { GoogleKeepTaskViewComponent } from './components/google-keep-task-view/google-keep-task-view.component';
+import { TaskService } from './services/task.service';
+import { DisciplinesComponent } from './components/disciplines/disciplines.component';
+import { DesignStagesComponent } from './components/design-stages/design-stages.component';
+import { DisciplineComponent } from './components/discipline/discipline.component';
+import { HorizontalHistogramComponent } from './components/horizontal-histogram/horizontal-histogram.component';
+import { GtanttViewComponent } from './components/gtantt-view/gtantt-view.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +60,14 @@ import { PhasesComponent } from './components/phases/phases.component';
     ProjectsComponent,
     ProjectComponent,
     ProjectMatrixComponent,
-    PhasesComponent
+    PhasesComponent,
+    TaskComponent,
+    GoogleKeepTaskViewComponent,
+    DisciplinesComponent,
+    DesignStagesComponent,
+    DisciplineComponent,
+    HorizontalHistogramComponent,
+    GtanttViewComponent
   ],
   imports: [
     BrowserModule,
@@ -59,14 +77,18 @@ import { PhasesComponent } from './components/phases/phases.component';
     FormsModule,
     routing,
     MaterialModule,
-    PrimengModule
+    PrimengModule,
+    ChartsModule,
+    Ng2GoogleChartsModule
   ],
   providers: [
     AuthGuard,
     AuthService,
     UserService,
     ProjectsService,
-    ProjectResolver
+    ProjectResolver,
+    DisciplineResolver,
+    TaskService
 
     // providers used to create fake backend
     //fakeBackendProvider,

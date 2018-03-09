@@ -1,3 +1,5 @@
+import { Discipline } from './discipline';
+
 export interface Phases {
   id: number;
   project_id: number;
@@ -12,22 +14,7 @@ export interface Phases {
       url: string;
     }
   };
-  disciplines: [{
-    id: number;
-    project_phase_id: number;
-    description: string;
-    is_enabled: boolean;
-    category: string;
-    created_at: Date;
-    updated_at: Date;
-    image: {
-      url: string;
-      thumbnail: {
-        url: string;
-      }
-    };
-    sort: number;
-  }];
+  disciplines: Discipline[];
   sort: number;
 }
 

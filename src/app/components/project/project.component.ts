@@ -21,11 +21,11 @@ export class ProjectComponent implements OnInit {
     private router: Router,
     private service: ProjectsService
   ) {
-    route.params.subscribe(({ id }) => {
+    /*route.params.subscribe(({ id }) => {
       service.getProject(+id).subscribe(project => {
         this.project = project;
       });
-    });
+    });*/
   }
 
   ngOnInit() {

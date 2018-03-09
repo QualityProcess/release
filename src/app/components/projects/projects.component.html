@@ -1,15 +1,23 @@
 
-<div class="projects-header">
+<div class="sub-navbar">
   <div class="control-item">
-    <select (change)="sortData($event)">
-      <option></option>
-      <option value="name">Name</option>
+
+    <select name="Sort By" (change)="sortData($event)">
+       <option value="">Sort by</option>
+       <option value="name">Name</option>
       <option value="id">Id</option>
     </select>
+
   </div>
   <div class="control-item">
-    <div class="ui-inputgroup">
-      <input type="text" pInputText placeholder="Keyword" (keyup)="applyFilter($event.target.value)">
+    <div class="ui-inputgroup"> 
+      <div class="box">
+        <div class="container-2">
+          <span class="icon"><i class="fa fa-search"></i></span>
+          <input type="search" id="search" placeholder="Search..." (keyup)="applyFilter($event.target.value)"/>
+        </div>
+      </div>
+      <!--<input type="text" class="filter" pInputText placeholder="Keyword" (keyup)="applyFilter($event.target.value)">-->
     </div>
   </div>
   <div class="control-item">
@@ -23,9 +31,28 @@
 
 <p-dataGrid *ngIf="gridView; else listView" [value]="filterData" [paginator]="true" [rows]="20">
   <ng-template let-project pTemplate="item" >
-    <div style="padding:3px" class="ui-g-12 ui-md-3 project-item" (click)="onSelect(project)">
-      <p-panel [header]="project.name" [style]="{'text-align':'center'}">
+    <div style="padding:3px" class="ui-g-12 ui-md-3 project-item">
+      <!--<p-panel [header]="project.name" [style]="{'text-align':'center'}">
         <img src="{{ project.image.thumbnail.url }}" width="60">
+      </p-panel>-->
+      <p-panel>
+        <p-header (click)="onSelect(project)">
+          <img src="{{ project.image.thumbnail.url }}" width="60">
+        </p-header>
+        <div (click)="onSelect(project)">{{ project.name }}</div>
+        <p-footer>
+          <div class="actions left">
+            <label class="switch">
+              <input type="checkbox" checked (change)="toggleProject($event, project.id)">
+              <span class="slider round"></span>
+            </label>
+            <i class="material-icons" (click)="goToMatrix(project.id)">view_comfy</i>
+          </div>
+          <div class="actions right">
+            <i class="material-icons">create</i><i class="material-icons">delete_forever</i>
+          </div>
+          
+        </p-footer>
       </p-panel>
     </div>
   </ng-template>

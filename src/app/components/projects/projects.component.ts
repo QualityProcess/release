@@ -15,8 +15,8 @@ import { SelectItem } from 'primeng/api';
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[];
-  currentSort: string;
-  sortOptions: string[] = ['name'];
+  sortOption: string;
+  sortOptions: string[] = ['name', 'id'];
   sortedData: any;
   filterData: any;
   gridView: boolean = true;
@@ -73,6 +73,14 @@ export class ProjectsComponent implements OnInit {
   onSelect(project: Project) {
     this.router.navigate(['projects', project.id]);
   }
+
+  goToMatrix(id) {
+    this.router.navigate(['phases', id, 'matrix']);
+  }
+
+  toggleProject(event, id) {
+    console.log(event.srcElement.checked);
+  } 
 
 }
 

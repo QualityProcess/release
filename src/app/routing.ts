@@ -13,6 +13,9 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectResolver } from './components/project/project.resolver';
 import { ProjectMatrixComponent } from './components/project-matrix/project-matrix.component';
+import { TaskComponent } from './components/task/task.component';
+import { DisciplineComponent } from './components/discipline/discipline.component';
+import { DisciplineResolver } from './components/discipline/discipline.resolver';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,9 +34,18 @@ const appRoutes: Routes = [
         resolve: { projectData: ProjectResolver }
       },
       {
+        path: 'disciplines/:id',
+        component: DisciplineComponent,
+        resolve: { disciplineData: DisciplineResolver }
+      },
+      {
         path: 'phases/:id/matrix',
         component: ProjectMatrixComponent
-      }
+      },
+      {
+        path: 'tasks/:id', 
+        component: TaskComponent
+      },
     ]
   },
   

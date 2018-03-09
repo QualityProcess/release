@@ -1,0 +1,26 @@
+
+<div *ngFor="let phase of dataSource">
+  <h2>{{phase.category}}</h2>
+
+  <div *ngFor="let item of phase.task_activities" class="activities">
+    <h4>{{item.name}}</h4>
+    <div *ngFor="let task_activity_items of item.task_activity_items" class="ui-g-12">
+      <div class="ui-g-12 ui-md-5"><h5>{{task_activity_items.name}}</h5></div>
+      <div class="ui-g-12 ui-md-7">
+        <google-chart [data]="{
+        chartType: 'PieChart',
+        options: {
+          backgroundColor: {fill: 'transparent'}
+        },
+        dataTable: [
+          ['Task', 'hours'],
+          ['Estimated', task_activity_items.hours_estimated],
+          ['Actual', task_activity_items.hours_actual],
+          ['Over', task_activity_items.hours_estimated-task_activity_items.hours_actual]
+        ]
+      }"></google-chart>
+
+      </div>
+    </div>
+  </div> 
+</div>

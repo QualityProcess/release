@@ -13,6 +13,9 @@ import { Task } from "../../models/task";
 })
 export class TaskComponent implements OnInit {
   loaded: boolean = false;
+  googleKeepView: boolean = true;
+  horizontalHistogramView: boolean = false;
+  granttView: boolean = false;
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: any;
   constructor(private service: TaskService, private router: Router) {
@@ -42,24 +45,24 @@ export class TaskComponent implements OnInit {
 
     switch(view){
       case 'googleKeep':
-        this.views['googleKeepView'] = true;
-        this.views['horizontalHistogramView'] = false;
-        this.views['granttView'] = false;
+        this.googleKeepView = true;
+        this.horizontalHistogramView = false;
+        this.granttView = false;
         break;
       case 'horizontalHistogram':
-        this.views['googleKeepView'] = false;
-        this.views['horizontalHistogramView'] = true;
-        this.views['granttView'] = false;
+        this.googleKeepView = false;
+        this.horizontalHistogramView = true;
+        this.granttView = false;
         break;
       case 'grantt':
-        this.views['googleKeepView'] = false;
-        this.views['horizontalHistogramView'] = false;
-        this.views['granttView'] = true;
+        this.googleKeepView = false;
+        this.horizontalHistogramView = false;
+        this.granttView = true;
         break;
       default:
-        this.views['googleKeepView'] = true;
-        this.views['horizontalHistogramView'] = false;
-        this.views['granttView'] = false;
+        this.googleKeepView = true;
+        this.horizontalHistogramView = false;
+        this.granttView = false;
     }
   }
 

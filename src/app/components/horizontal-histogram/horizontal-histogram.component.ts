@@ -53,15 +53,6 @@ export class HorizontalHistogramComponent implements OnInit {
     }; 
   }
 
-  @HostListener('window:resize', ['$event'])
-  onWindowResize(event: any) {
-    // console.log(event.target.innerWidth);
-    // Make sure you don't call redraw() in ngOnInit()
-    //   - chart would not be initialised by that time, and
-    //   - this would cause chart being drawn twice
-    this.chart.redraw();
-  }
-
   chartOptions = {
     responsive: true
   };

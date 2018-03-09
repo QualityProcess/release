@@ -15,7 +15,11 @@ export class TaskComponent implements OnInit {
   loaded: boolean = false;
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: any;
-  constructor(private service: TaskService, private router: Router) { }
+  constructor(private service: TaskService, private router: Router) {
+    this.views['googleKeepView'] = true;
+    this.views['horizontalHistogramView'] = false;
+    this.views['granttView'] = false;
+  }
 
   ngOnInit() {
     this.getTask();

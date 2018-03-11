@@ -36,6 +36,7 @@ import { DraggableDirective } from './components/project-matrix/project-matrix.c
 import { CardViewDirective } from './components/projects/projects.component';
 
 // dialogs
+import { LoginDialog } from './components/login/login-dialog';
 
 // components
 import { AppComponent } from './app.component';
@@ -81,8 +82,10 @@ import { SearchComponent } from './components/custom-elements/search/search.comp
     NavbarComponent,
     DraggableDirective,
     CardViewDirective,
+    LoginDialog,
     SubNavbarComponent,
     SearchComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@
           <a class="top-link dropdown-menu" (click)="menu.open()" >{{username}}</a>
         </li>
       </ul>
-      <mdc-menu #menu [anchorCorner]="bottom-end">
+      <mdc-menu #menu>
         <mdc-menu-divider></mdc-menu-divider>
         <mdc-menu-item id="1" (click)="logout()">
           <mdc-icon mdc-list-item-graphic>exit_to_app</mdc-icon>Logout
@@ -34,7 +34,7 @@
   </mdc-toolbar-row>
 </mdc-toolbar>
 
-<mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="tempcontent">
+<mdc-drawer #temporary drawer='temporary'>
   <mdc-drawer-header class="mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
     <mdc-drawer-header-content [primary]="true" class="temporary-header">
       {{username}}

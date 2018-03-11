@@ -1,81 +1,106 @@
+<sub-navbar title="Projects" class="sub-navbar"> 
+  <button mdc-fab #fab class="main-fab-btn">
+    <mdc-icon>add</mdc-icon>
+  </button>
+  <search (onChange)="applyFilter($event)" class="search"></search> 
+</sub-navbar>
 
-<div class="sub-navbar">
-  <div class="control-item">
+<div class="layout-wrapper">
 
-    <select name="Sort By" (change)="sortData($event)">
-       <option value="">Sort by</option>
-       <option value="name">Name</option>
-      <option value="id">Id</option>
-    </select>
-
+  <div class="navbar-header">
+    <div class="flex-spacer"></div>
+    <!--<div class="control-item">
+      <select name="Sort By" (change)="sortData($event)">
+        <option value="">Sort by</option>
+        <option value="name">Name</option>
+        <option value="id">Id</option>
+      </select>
+    </div>-->
+    <div class="control-item">
+      <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')">reorder</i>
+      <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')">apps</i>
+    </div>
   </div>
-  <div class="control-item">
-    <div class="ui-inputgroup"> 
-      <div class="box">
-        <div class="container-2">
-          <span class="icon"><i class="fa fa-search"></i></span>
-          <input type="search" id="search" placeholder="Search..." (keyup)="applyFilter($event.target.value)"/>
+
+  <div *ngIf="!loaded" class="loading"><p-progressSpinner></p-progressSpinner></div>
+
+  <div *ngIf="filterData && filterData.length === 0 && loaded" class="no-results"><h3>No projects</h3></div>
+
+  <div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
+    <ul class="mdc-grid-list__tiles" cardview>
+      <li class="mdc-grid-tile" *ngFor="let project of filterData">
+        <div class="mdc-grid-tile__primary">
+          <mdc-card class="project-card mdc-grid-tile__primary-content">
+            <mdc-card-primary-action mdc-ripple class="primary-action" (click)="onSelect(project)">
+              <img src="{{project.image.url}}" />  
+              
+            </mdc-card-primary-action>
+            
+            <mdc-card-actions class="card-action">
+              <div class="project-card__primary" (click)="onSelect(project)">
+                <h2 class="project-card__title" mdc-typography-title>{{ project.name }}</h2>
+              </div>
+              <mdc-card-action-icons class="card-action-icons">
+                <mdc-icon mdcCardAction="icon" class="icon">edit</mdc-icon>
+                <mdc-icon mdcCardAction="icon" class="icon">delete</mdc-icon>
+              </mdc-card-action-icons>
+            </mdc-card-actions>
+          </mdc-card>
         </div>
-      </div>
-      <!--<input type="text" class="filter" pInputText placeholder="Keyword" (keyup)="applyFilter($event.target.value)">-->
-    </div>
+      </li>
+    </ul>
   </div>
-  <div class="control-item">
-    <div class="buttons">
-      <button class="list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')"><i class="fa fa-bars"></i></button>
-      <button class="grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')"><i class="fa fa-th"></i></button>
-    </div>
-  </div>
-</div>
-<div *ngIf="!loaded" class="loading"><p-progressSpinner></p-progressSpinner></div>
 
-<p-dataGrid *ngIf="gridView; else listView" [value]="filterData" [paginator]="true" [rows]="20">
-  <ng-template let-project pTemplate="item" >
-    <div style="padding:3px" class="ui-g-12 ui-md-3 project-item">
-      <!--<p-panel [header]="project.name" [style]="{'text-align':'center'}">
-        <img src="{{ project.image.thumbnail.url }}" width="60">
-      </p-panel>-->
-      <p-panel>
-        <p-header (click)="onSelect(project)">
-          <img src="{{ project.image.thumbnail.url }}" width="60">
-        </p-header>
-        <div (click)="onSelect(project)">{{ project.name }}</div>
-        <p-footer>
-          <div class="actions left">
-            <label class="switch">
-              <input type="checkbox" checked (change)="toggleProject($event, project.id)">
-              <span class="slider round"></span>
-            </label>
-            <i class="material-icons" (click)="goToMatrix(project.id)">view_comfy</i>
-          </div>
-          <div class="actions right">
-            <i class="material-icons">create</i><i class="material-icons">delete_forever</i>
-          </div>
-          
-        </p-footer>
-      </p-panel>
-    </div>
-  </ng-template>
-</p-dataGrid>
-<ng-template #listView>
-  <p-dataList [value]="filterData" [paginator]="true" [rows]="5">
+
+
+
+  <!--
+
+  <p-dataGrid *ngIf="gridView; else listView" [value]="filterData" [paginator]="true" [rows]="20">
     <ng-template let-project pTemplate="item">
-      <div class="ui-g ui-fluid project-item" (click)="onSelect(project)">
-        <div class="ui-g-12 ui-md-3" style="text-align:center">
-          <img src="{{ project.image.thumbnail.url }}">
-        </div>
-        <div class="ui-g-12 ui-md-9 car-details">
-          <div class="ui-g">
-            <div class="ui-g-2 ui-sm-6">Name: </div>
-            <div class="ui-g-10 ui-sm-6">{{project.name}}</div>
+      <div style="padding:3px" class="ui-g-12 ui-md-3 project-item">
+
+        <p-panel>
+          <p-header (click)="onSelect(project)">
+            <img src="{{ project.image.thumbnail.url }}" width="60">
+          </p-header>
+          <div (click)="onSelect(project)">{{ project.name }}</div>
+          <p-footer>
+            <div class="actions left">
+              <label class="switch">
+                <input type="checkbox" checked (change)="toggleProject($event, project.id)">
+                <span class="slider round"></span>
+              </label>
+              <i class="material-icons" (click)="goToMatrix(project.id)">view_comfy</i>
+            </div>
+            <div class="actions right">
+              <i class="material-icons">create</i><i class="material-icons">delete_forever</i>
+            </div>
+          </p-footer>
+        </p-panel>
+      </div>
+    </ng-template>
+  </p-dataGrid>
+
+  <ng-template #listView>
+    <p-dataList [value]="filterData" [paginator]="true" [rows]="5">
+      <ng-template let-project pTemplate="item">
+        <div class="ui-g ui-fluid project-item" (click)="onSelect(project)">
+          <div class="ui-g-12 ui-md-3" style="text-align:center">
+            <img src="{{ project.image.thumbnail.url }}">
+          </div>
+          <div class="ui-g-12 ui-md-9 car-details">
+            <div class="ui-g">
+              <div class="ui-g-2 ui-sm-6">Name: </div>
+              <div class="ui-g-10 ui-sm-6">{{project.name}}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <hr class="ui-widget-content" style="border-top:0">
-    </ng-template>
-    
-
-  </p-dataList>
-</ng-template>
+        <hr class="ui-widget-content" style="border-top:0">
+      </ng-template>
+    </p-dataList>
+  </ng-template>
+      -->
+</div>
 
 

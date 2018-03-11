@@ -1,6 +1,10 @@
 <!-- main app container -->
 
-<div class="layout">
+<div *ngIf="loaded; else loading" class="layout">
     <router-outlet></router-outlet>
 </div>
 
+<ng-template #loading>
+
+  <h1>Loading...</h1>
+</ng-template>

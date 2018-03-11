@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 // framework
 import { MaterialModule } from './framework/material/material.module';
 import { PrimengModule } from './framework/material/primeng.module';
+import { MaterialMDCModule } from './framework/material/material-mdc.module';
 import { ChartsModule } from 'ng2-charts';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
@@ -21,7 +22,7 @@ import { AuthGuard } from './guard/auth.guard';
 // services
 import { AuthService, UserService, ProjectsService } from './services';
 
-//resolvers
+// resolvers
 import { ProjectResolver } from './components/project/project.resolver';
 import { DisciplineResolver } from './components/discipline/discipline.resolver';
 
@@ -29,6 +30,12 @@ import { DisciplineResolver } from './components/discipline/discipline.resolver'
 import { fakeBackendProvider } from './helpers/fake-backend';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
+
+// directives
+import { DraggableDirective } from './components/project-matrix/project-matrix.component';
+import { CardViewDirective } from './components/projects/projects.component';
+
+// dialogs
 
 // components
 import { AppComponent } from './app.component';
@@ -49,6 +56,9 @@ import { DesignStagesComponent } from './components/design-stages/design-stages.
 import { DisciplineComponent } from './components/discipline/discipline.component';
 import { HorizontalHistogramComponent } from './components/horizontal-histogram/horizontal-histogram.component';
 import { GtanttViewComponent } from './components/gtantt-view/gtantt-view.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SubNavbarComponent } from './components/sub-navbar/sub-navbar.component';
+import { SearchComponent } from './components/custom-elements/search/search.component';
 
 @NgModule({
   declarations: [
@@ -64,10 +74,15 @@ import { GtanttViewComponent } from './components/gtantt-view/gtantt-view.compon
     TaskComponent,
     GoogleKeepTaskViewComponent,
     DisciplinesComponent,
-    DesignStagesComponent,
+    DesignStagesComponent, 
     DisciplineComponent,
     HorizontalHistogramComponent,
-    GtanttViewComponent
+    GtanttViewComponent,
+    NavbarComponent,
+    DraggableDirective,
+    CardViewDirective,
+    SubNavbarComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +92,7 @@ import { GtanttViewComponent } from './components/gtantt-view/gtantt-view.compon
     FormsModule,
     routing,
     MaterialModule,
+    MaterialMDCModule,
     PrimengModule,
     ChartsModule,
     Ng2GoogleChartsModule

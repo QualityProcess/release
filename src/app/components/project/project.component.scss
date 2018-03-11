@@ -1,7 +1,6 @@
 @import "../../../assets/styles/mixins.scss";
 @import "../../../assets/styles/variables.scss";
 
-
 .sub-navbar {
   @include flex();
   justify-content: flex-end;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, OnInit, HostListener, ElementRef, Renderer2, EventEmitter} from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Router, ParamMap } from '@angular/router';
@@ -80,10 +80,52 @@ export class ProjectsComponent implements OnInit {
 
   toggleProject(event, id) {
     console.log(event.srcElement.checked);
-  } 
+  }
 
 }
 
 function compare(a: any, b: any, isAsc: any) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+@Directive({
+  selector: '[cardview]' 
+})
+export class CardViewDirective implements OnInit {
+  constructor(private element: ElementRef, private renderer: Renderer2) { }
+
+  ngOnInit() {
+    this.onResize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+
+    if (!this.element.nativeElement.children[0]) return;
+     
+    let cardWidthValue = window.getComputedStyle(this.element.nativeElement.children[0], null).width;
+    let cardMarginValue = window.getComputedStyle(this.element.nativeElement.children[0], null).marginRight;
+    let cardPaddingValue = window.getComputedStyle(this.element.nativeElement.children[0], null).paddingRight;
+    let wrapperWidthVvalue = window.getComputedStyle(this.element.nativeElement.parentElement, null).width;
+
+    if (!/px/i.test(cardWidthValue) || !/px/.test(wrapperWidthVvalue) || !/px/.test(cardMarginValue) || !/px/.test(cardPaddingValue)) return;
+
+    let cardWidth = parseInt(cardWidthValue.replace(/px/, ''));
+    let cardMargin = parseInt(cardMarginValue.replace(/px/, ''));
+    let cardPadding = parseInt(cardPaddingValue.replace(/px/, ''));
+    let wrapperWidth = parseInt(wrapperWidthVvalue.replace(/px/, ''));
+
+    let allCardWidth = cardWidth + cardMargin * 2 + cardPadding * 2;
+
+
+    let columnCount = Math.floor(wrapperWidth / allCardWidth);
+    let margin = (wrapperWidth - allCardWidth * columnCount) / 2
+
+    if (isNaN(margin) || wrapperWidth - margin * 2 < allCardWidth) return;
+
+    this.renderer.setAttribute(this.element.nativeElement, "style", `width: ${wrapperWidth - margin * 2}px`);
+  }
+
+
 }

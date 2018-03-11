@@ -4,9 +4,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 
+import { MdcDialog } from '@angular-mdc/web';
+import { LoginDialog } from './login-dialog';
+
 @Component({
   selector: 'login',
-  templateUrl: './login.component.html',
+  templateUrl: './login.component.html', 
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
@@ -15,7 +18,7 @@ export class LoginComponent implements OnInit {
   error = '';
   //@ViewChild('rememberMe') rememberMe;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, public snackBar: MatSnackBar, private dialog: MdcDialog) {
     this.loginForm = this.fb.group({
       email: [null, Validators.compose([Validators.required, Validators.email])],
       password: [null, Validators.required]
@@ -25,6 +28,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // reset login status
     this.authService.logout();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(LoginDialog, {
+      escapeToClose: true,
+      clickOutsideToClose: true,
+    });
   }
 
   onSubmit() {

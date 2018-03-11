@@ -4,12 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\login",
-    "\\src\\app\\components\\registration",
-    "\\src\\app\\components\\reset-password",
-    "\\src\\app\\helpers",
-    "\\src\\app\\services"
+    "\\src\\app\\components\\custom-elements\\search",
+    "\\src\\app\\components\\projects",
+    "\\src\\app\\framework",
+    "\\src\\app\\framework\\material",
+    "\\src\\assets",
+    "\\src\\assets\\styles"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\src\\app\\components\\projects\\projects.component.scss",
   "PreviewInSolutionExplorer": false
 }

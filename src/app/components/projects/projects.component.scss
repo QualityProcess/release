@@ -1,22 +1,37 @@
 @import "../../../assets/styles/mixins.scss";
 @import "../../../assets/styles/variables.scss";
 
+
+:host {
+  max-width: $max-width;
+}
 .loading {
   position: fixed;
   @include flex();
   align-items: center;
   justify-content: center;
   width: 100%;
-
 }
 
+
 .sub-navbar {
-  @include flex();
-  justify-content: flex-end;
-  align-items: center;
-  height: 40px;
-  padding: 0 10px;
-  background: #fff;
+  .main-fab-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    z-index: 2;
+    background-color: red;
+  }
+
+  .search {
+    position: relative;
+    top: 10px;
+    left: 20px;
+  }
+}
+
+
+.navbar-header {
 
   @include phone() {
     flex-direction: column;
@@ -35,24 +50,25 @@
       width: 100px;
       height: 30px;
       cursor: pointer;
-      background: #354052;
+      background: $primary-purple--middle;
       border: none;
+      border-radius: 2px;
       font-size: 10pt;
       float: left;
       padding-left: 15px;
-      color: #4f5b66;
+      color: $primary-gray;
       -webkit-transition: width .55s ease;
       transition: width .55s ease;
     }
 
 
     .filter {
-      border: 1px solid #111;
+      border: 1px solid $primary-gray;
       background: transparent;
       width: 150px;
       padding: 5px 35px 5px 5px;
       font-size: 16px;
-      border: 1px solid #ccc;
+      border: 1px solid $primary-gray;
       height: 20px;
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -72,27 +88,28 @@
         margin-left: 3px;
         margin-top: 3px;
         z-index: 1;
-        color: #4f5b66;
+        color: $primary-gray;
       }
 
       &:hover {
         width: 170px;
 
         .icon {
-          color: #93a2ad;
+          color: $primary-gray--light;
         }
       }
 
       input#search {
         width: 170px;
         height: 30px;
-        background: #354052;
+        background: $primary-purple--middle;
         border: none;
+        border-radius: 2px;
         font-size: 10pt;
         float: left;
-        color: #262626;
+        color: $primary-gray;
         padding-left: 35px;
-        color: #fff; 
+        color: $white;
         -webkit-transition: width .55s ease;
         -moz-transition: width .55s ease;
         -ms-transition: width .55s ease;
@@ -103,6 +120,17 @@
           outline: none;
           width: 170px;
         }
+      }
+    }
+
+    .list-view, .grid-view {
+      color: $primary-icon;
+      font-size: 30px;
+      padding: 6px 0;
+      cursor: pointer;
+
+      &.on {
+        color: $primary-icon--hover;
       }
     }
 
@@ -127,27 +155,69 @@
   }
 }
 
-button {
-  height: 30px;
-  width: 40px;
-  margin-left: 4px;
-  font-size: 20px;
-  background-color: #354052;
-  color: #4f5b66;
-  text-align: center;
-  line-height: 1.2;
-  border: none;
-  outline: none;
-  box-shadow: 0px 1px 2px #bbb;
+.mdc-grid-list {
+  .mdc-grid-list__tiles {
 
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0px 0px 3px #666;
-    color: #fff;
-  }
+    .mdc-grid-tile {
+      width: 330px;
+      margin: 15px 20px;
 
-  &.on {
-    color: white;
+      .mdc-grid-tile__primary {
+        .project-card {
+          justify-content: space-between;
+
+          &:hover {
+            .card-action {
+              .card-action-icons {
+                .icon {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+
+          .primary-action {
+            cursor: pointer;
+
+            img {
+              width: 100%;
+              max-height: 185px;
+            }
+          }
+
+          .card-action {
+            min-height: 20px;
+
+            .project-card__primary {
+              cursor: pointer;
+
+              .project-card__title {
+                margin: 0 5px 0 0;
+              }
+            }
+
+            .card-action-icons {
+              height: 20px;
+
+              .icon {
+                color: $primary-icon;
+                padding: 5px;
+                font-size: 20px;
+                opacity: 0;
+
+                &:hover {
+                  color: $primary-icon--hover;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @include phone() {
+      justify-content: center;
+    }
   }
 }
 
@@ -165,6 +235,7 @@ button {
         line-height: 1.2;
         color: $primary-purple;
         font-size: 1.6em;
+        
 
         &:hover {
           color: $primary-purple-light;
@@ -182,6 +253,7 @@ button {
     }
   }
 }
+
 
 
 

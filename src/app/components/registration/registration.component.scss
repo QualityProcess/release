@@ -34,7 +34,7 @@
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: $primary-purple;
+  background: $primary-purple--middle;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -46,7 +46,7 @@
 }
 
 .registration-form button:hover, .registration-form button:active, .registration-form button:focus {
-  background: $primary-purple-light;
+  opacity: 0.95;
 }
 
 .registration-form .message {
@@ -132,7 +132,7 @@ body {
 
 .error {
   margin: 0 0 15px;
-  color: $primary-purple-light;
+  color: $primary-purple--light;
 }
 
 .mat-simple-snackbar {
@@ -140,11 +140,11 @@ body {
 }
 
 .registration-form a {
-  color: $primary-purple;
+  color: $primary-purple--middle;
   text-decoration: none;
 }
 
 .registration-login {
   margin-top: 15px;
-  color: #999;
+  color: $primary-gray--dark;
 }

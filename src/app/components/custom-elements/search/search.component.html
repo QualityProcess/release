@@ -1,0 +1,9 @@
+<div class="search-wrapper" #wrapper>
+  <div class="input-holder" #holder>
+    <input type="text" class="search-input" placeholder="Type to search" #input (keyup)="onChanged($event.target.value)"/>
+    <button mdc-fab [mini]="true" (click)="searchToggle($event)">
+      <mdc-icon>search</mdc-icon>
+    </button>
+    <!--<button class="search-icon" (click)="searchToggle($event)" #input><span></span></button>-->
+  </div>
+</div>

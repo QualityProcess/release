@@ -1,39 +1,60 @@
-<div class="login">
-  <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
-      <!-- Email Field -->
-      <div class="col-sm-12">
-        <input id="email" formControlName="email" placeholder="Your Email....*" type="text" value="" [ngClass]="{'error-field': (loginForm.controls['email'].hasError('required') || loginForm.controls['email'].hasError('email')) && loginForm.controls['email'].touched }">
-        <div class="error" *ngIf="loginForm.controls['email'].hasError('email') && loginForm.controls['email'].touched">
-          <span *ngIf="loginForm.controls['email'].hasError('required'); else requiredError">Email is <strong>required</strong></span>
-          <ng-template #requiredError>Please enter a valid email address</ng-template>
-        </div>
-      </div>
-      <!-- Email Field [ END ] -->
 
-      <!-- Password Field  -->
-      <div class="col-xs-12 password">
-        <input type="password" cols="5" rows="10" id="password" formControlName="password" placeholder="Your password....*" [ngClass]="{'error-field': loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched }">
-        <div class="error" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
-          Password is <strong>required</strong>
+
+
+<div class="panel-wrapper">
+  <div class="panel">
+
+    <div class="login"> 
+      <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+        <!-- Email Field -->
+        <div class="col-sm-12 input-field">
+          <!--<div class="error" *ngIf="loginForm.controls['email'].hasError('email') && loginForm.controls['email'].touched">
+            <span *ngIf="loginForm.controls['email'].hasError('required'); else requiredError">Email is <strong>required</strong></span>
+            <ng-template #requiredError>Please enter a valid email address</ng-template>
+          </div>
+          <div class="error" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched">
+            Password is <strong>required</strong>
+          </div>-->
+          <label for="email" class="form__label">Email</label>
+          <input id="email" formControlName="email" placeholder="Your Email....*" type="text" value="" [ngClass]="{'error-field': (loginForm.controls['email'].hasError('required') || loginForm.controls['email'].hasError('email')) && loginForm.controls['email'].touched }">
         </div>
-      </div>
-      <div class="input-box">
-        <!--<div class="remember-me">
+        <!-- Email Field [ END ] -->
+        <!-- Password Field  -->
+        <div class="col-xs-12 input-field password">
+          <label for="password" class="form__label">Password</label>
+          <input type="password" cols="5" rows="10" id="password" formControlName="password" placeholder="Your password....*" [ngClass]="{'error-field': loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched }">
+          <a [routerLink]="['/resetpassword']" class="form__help">Forgot password?</a>
+        </div>
+        <div class="input-box">
+          <!--<div class="remember-me">
           <input type="checkbox" id="autologin" name="autologin" #rememberMe/>
-          <label for="autologin">Remember&nbsp;me</label> 
-        </div>-->
-        <div class="forgot-password">
-          <a [routerLink]="['/resetpassword']">Forgot password?</a>
+          <label for="autologin">Remember&nbsp;me</label>
         </div>
-      </div>
-      <!-- Password Field [ END ] -->
-      
-      <div class="col-xs-12">
-        <button class="submit active" type="submit" [disabled]="!loginForm.valid">Login</button>
-      </div>
-    <div class="login-registration">Don't have an account? <a [routerLink]="['/registration']">Sign Up</a></div>
-  </form>
-  
+          <div class="forgot-password">
+            <a [routerLink]="['/resetpassword']">Forgot password?</a>
+          </div>-->
+        </div>
+        <!-- Password Field [ END ] -->
+
+        <div class="col-xs-12">
+          <button class="submit active" type="submit" [disabled]="!loginForm.valid">Sign In</button>
+        </div>
+        <!--<div class="login-registration">Don't have an account? <a [routerLink]="['/registration']">Sign Up</a></div>-->
+      </form>
+    </div>
+    
+
+    <div class="introduction">
+      <h2>Quality Planner</h2>
+      <p>Ad postea aliquando expetendis has, ad ius placerat consequuntur. Eu laoreet copiosae oportere cum, mea error nonumy adipisci cu, mea tamquam volutpat cu.</p>
+    </div>
+   
+
+  </div>
 </div>
+
+
+
+
 
 

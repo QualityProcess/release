@@ -16,18 +16,19 @@
 
     -->
 
+<div class="outer-wrapper">
+  <div class="wrapper" [draggable]>
+    <div class="box"></div>
+    <div *ngFor="let item of data" class="box">{{item.discipline.category}}</div>
 
-<div class="wrapper">
-  <div class="box"></div>
-  <div *ngFor="let item of data" class="box">{{item.discipline.category}}</div>
-
-  <!-- Table Row -->
-  <div class="row" *ngFor="let item of data; let i = index;">
-    <div class="design-stage">{{item.discipline.design_stage[i].design_stage_category}}</div>
-    <div *ngFor="let design_stage of item.discipline.design_stage" class="add">
-      <div *ngIf="item.discipline.design_stage[i].params.method == 'create'"><i class="material-icons">add_box</i></div>
-      <div *ngIf="item.discipline.design_stage[i].params.method == 'show'"><i class="material-icons">remove_red_eye</i></div>
+    <!-- Table Row -->
+    <div class="row" *ngFor="let item of data; let i = index;">
+      <div class="design-stage">{{item.discipline.design_stage[i].design_stage_category}}</div>
+      <div *ngFor="let design_stage of item.discipline.design_stage" class="add">
+        <div *ngIf="item.discipline.design_stage[i].params.method == 'create'"><i class="material-icons">add_box</i></div>
+        <div *ngIf="item.discipline.design_stage[i].params.method == 'show'"><i class="material-icons">remove_red_eye</i></div>
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>

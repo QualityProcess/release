@@ -1,0 +1,56 @@
+
+
+<mdc-toolbar class="toolbar">
+  <mdc-toolbar-row class="toolbar-row">
+    <mdc-toolbar-section [alignStart]="true" class="toolbar__mobile">
+      <button mdc-toolbar-menu-icon material-icon (click)="temporary.open()"><mdc-icon>menu</mdc-icon></button>
+    </mdc-toolbar-section>
+
+    <mdc-toolbar-section [alignStart]="true" class="toolbar-row__section">
+      <ul class="main-nav">
+        <li class="top-list-item">
+          <a class="top-link" routerLink="/projects">Projects</a>
+        </li>
+        <li class="top-list-item">
+          <a class="top-link" routerLink="/tasks/3">Tasks</a>
+        </li>
+      </ul>
+    </mdc-toolbar-section>
+
+    <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false"  class="toolbar-row__section">
+      <ul class="secondary-nav">
+        <li class="top-list-item">
+          <a class="top-link dropdown-menu" (click)="menu.open()" >{{username}}</a>
+        </li>
+      </ul>
+      <mdc-menu #menu [anchorCorner]="bottom-end">
+        <mdc-menu-divider></mdc-menu-divider>
+        <mdc-menu-item id="1" (click)="logout()">
+          <mdc-icon mdc-list-item-graphic>exit_to_app</mdc-icon>Logout
+        </mdc-menu-item>
+      </mdc-menu>
+      <!--<i class="material-icons" (click)="logout()">exit_to_app</i>-->
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+
+<mdc-drawer #temporary drawer='temporary' [fixedAdjustElement]="tempcontent">
+  <mdc-drawer-header class="mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
+    <mdc-drawer-header-content [primary]="true" class="temporary-header">
+      {{username}}
+    </mdc-drawer-header-content>
+  </mdc-drawer-header>
+  <mdc-drawer-content>
+    <mdc-list-group>
+      <mdc-list>
+        <mdc-list-item>
+          <mdc-icon mdc-list-item-graphic>email</mdc-icon>Projects
+        </mdc-list-item>
+        <mdc-list-divider></mdc-list-divider>
+        <mdc-list-item (click)="logout()">
+          <mdc-icon mdc-list-item-graphic>exit_to_app</mdc-icon>Logout
+        </mdc-list-item>
+      </mdc-list>
+    </mdc-list-group>
+  </mdc-drawer-content>
+</mdc-drawer>

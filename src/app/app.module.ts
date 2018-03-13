@@ -9,7 +9,7 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 // framework
 import { MaterialModule } from './framework/material/material.module';
@@ -79,6 +79,7 @@ import { CreateDesignStageComponent } from './components/create-design-stage/cre
 import { DesignStageFormComponent } from './components/design-stage-form/design-stage-form.component';
 import { EditDesignStageComponent } from './components/edit-design-stage/edit-design-stage.component';
 import { DesignStageComponent } from './components/design-stage/design-stage.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { DesignStageComponent } from './components/design-stage/design-stage.com
     DesignStageFormComponent,
     EditDesignStageComponent,
     DesignStageComponent,
+    TasksComponent,
 
   ],
   imports: [
@@ -145,7 +147,8 @@ import { DesignStageComponent } from './components/design-stage/design-stage.com
     DesignStageResolver,
     TaskResolver,
     TaskService,
-    { provide: 'localStorage', useFactory: getLocalStorage }
+    { provide: 'localStorage', useFactory: getLocalStorage },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
 
     // providers used to create fake backend
     //fakeBackendProvider,

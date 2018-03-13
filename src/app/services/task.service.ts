@@ -12,4 +12,8 @@ export class TaskService {
     return this.http.get<Task>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks/${id}/tasksheet`);
   }
 
+  getTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks`);
+  }
+
 }

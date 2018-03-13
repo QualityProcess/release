@@ -86,7 +86,7 @@ export class FileUploaderComponent implements ControlValueAccessor, ControlValue
 
   handleInputChange(e: any) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-
+    console.log('handleInputChange file', file);
     var pattern = /image-*/;
     var reader = new FileReader();
 
@@ -103,6 +103,7 @@ export class FileUploaderComponent implements ControlValueAccessor, ControlValue
 
   _handleReaderLoaded(e: any) {
     var reader = e.target;
+    console.log('reader file', reader);
     this.imageSrc = reader.result;
     this.loaded = true;
   }

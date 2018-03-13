@@ -41,9 +41,13 @@ export class ProjectFormComponent implements OnInit, OnChanges {
         duration: 2000,
       });
     } else {
-      console.log('Save project');
+      console.log('Save project', this.addProject.get('image')); 
     }
 
+  }
+
+  changed() {
+    console.log('On change work'); 
   }
 
 }

@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
 @Injectable()
-export class TaskResolver implements Resolve<any> {
+export class TasksResolver implements Resolve<any> {
   constructor(private service: TaskService, private router: Router) { }
 
   resolve() {

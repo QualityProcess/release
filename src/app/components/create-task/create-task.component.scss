@@ -1,0 +1,14 @@
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
+.sub-navbar {
+  .main-fab-btn {
+    background-color: $green;
+  }
+}
+
+.layout-wrapper {
+  .heading {
+    text-align: center;
+  }
+}

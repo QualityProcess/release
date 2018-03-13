@@ -32,6 +32,7 @@ import { ProjectResolver } from './components/project/project.resolver';
 import { DisciplineResolver } from './components/discipline/discipline.resolver';
 import { DesignStageResolver } from './components/design-stage/design-stage.resolver';
 import { TaskResolver } from './components/task/task.resolver';
+import { TasksResolver } from './components/tasks/tasks.resolver';
 
 // used to create fake backend
 import { fakeBackendProvider } from './helpers/fake-backend';
@@ -80,6 +81,9 @@ import { DesignStageFormComponent } from './components/design-stage-form/design-
 import { EditDesignStageComponent } from './components/edit-design-stage/edit-design-stage.component';
 import { DesignStageComponent } from './components/design-stage/design-stage.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { CreateTaskComponent } from './components/create-task/create-task.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +97,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
     ProjectMatrixComponent,
     PhasesComponent,
     TaskComponent,
+    TasksComponent,
     GoogleKeepTaskViewComponent,
     DisciplinesComponent,
     DesignStagesComponent, 
@@ -117,7 +122,10 @@ import { TasksComponent } from './components/tasks/tasks.component';
     DesignStageFormComponent,
     EditDesignStageComponent,
     DesignStageComponent,
-    TasksComponent,
+    CreateTaskComponent,
+    TaskFormComponent,
+    EditTaskComponent,
+    
 
   ],
   imports: [
@@ -140,6 +148,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
   providers: [
     AuthGuard,
     AuthService,
+    
     UserService,
     ProjectsService,
     ProjectResolver,
@@ -147,8 +156,10 @@ import { TasksComponent } from './components/tasks/tasks.component';
     DesignStageResolver,
     TaskResolver,
     TaskService,
+    //TasksResolver,
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    
 
     // providers used to create fake backend
     //fakeBackendProvider,

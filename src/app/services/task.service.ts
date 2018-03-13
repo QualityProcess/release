@@ -13,7 +13,7 @@ export class TaskService {
   }
 
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks`);
+    return this.http.get<Task[]>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks/1/tasksheet`);
   }
 
 }

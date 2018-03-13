@@ -1,0 +1,12 @@
+<sub-navbar title="Edit {{ task.name }}" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" (click)="onSaveTask()">
+    <mdc-icon>save</mdc-icon>
+  </button>
+</sub-navbar>
+
+<div class="layout-wrapper">
+  <div class="elevation-container mdc-elevation--z14">
+    <h1 class="heading">{{ task.name }}</h1>
+    <task-form [task]="task" [submit]="saveTask"></task-form>
+  </div>
+</div>

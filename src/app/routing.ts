@@ -25,7 +25,10 @@ import { EditDesignStageComponent } from './components/edit-design-stage/edit-de
 import { DesignStageComponent } from './components/design-stage/design-stage.component';
 import { DesignStageResolver } from './components/design-stage/design-stage.resolver';
 import { TaskResolver } from './components/task/task.resolver';
-
+import { TasksComponent } from './components/tasks/tasks.component';
+import { TasksResolver } from './components/tasks/tasks.resolver';
+import { CreateTaskComponent } from './components/create-task/create-task.component';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -86,6 +89,21 @@ const appRoutes: Routes = [
         resolve: { projectData: ProjectResolver }
       },
       {
+        path: 'tasks',
+        component: TasksComponent,
+        //resolve: { tasksData: TasksResolver} 
+      },
+      {
+        path: 'tasks/create',
+        component: CreateTaskComponent,
+        //resolve: { tasksData: TasksResolver} 
+      },
+      {
+        path: 'tasks/:id/edit',
+        component: EditTaskComponent,
+        resolve: { taskData: TaskResolver }
+      },
+      {
         path: 'tasks/:id', 
         component: TaskComponent,
         resolve: { taskData: TaskResolver }
@@ -98,4 +116,4 @@ const appRoutes: Routes = [
   { path: '**', redirectTo: '' }
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+export const routing = RouterModule.forRoot(appRoutes, { useHash: true });

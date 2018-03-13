@@ -47,6 +47,20 @@
   }
 }
 
+.row-add {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary-gray;
+  }
+
+  .row-add-icon {
+    @include flex();
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .add-btn {
   line-height: 1;
 }

@@ -15,6 +15,7 @@ import { Discipline } from '../../models/discipline';
 export class DisciplineComponent implements OnInit {
 
   discipline: Discipline;
+  filterValue: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +25,10 @@ export class DisciplineComponent implements OnInit {
 
   ngOnInit() {
     this.discipline = this.route.snapshot.data.disciplineData;
+  }
+
+  setFilter(filterValue: string) {
+    this.filterValue = typeof this.filterValue === 'undefined' ? '' : filterValue;
   }
 
 }

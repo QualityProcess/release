@@ -4,7 +4,7 @@
     <button mdc-fab #fab class="main-fab-btn" [routerLink]="['/disciplines', discipline.id, 'edit']">
       <mdc-icon>edit</mdc-icon>
     </button>
-    <search (onChange)="applyFilter($event)" class="search"></search>
+    <search (onChange)="setFilter($event)" class="search"></search>
   </sub-navbar>
 
 

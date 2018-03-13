@@ -25,7 +25,7 @@ export class EditDisciplineComponent implements OnInit {
     this.discipline = this.route.snapshot.data.disciplineData;
   }
 
-  onSaveProject() {
+  onSaveDiscipline() {
     this.saveDiscipline = !this.saveDiscipline;
   }
 

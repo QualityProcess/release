@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng build --aot --prod",
+    "start": "node server.js",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -45,7 +45,6 @@
     "express": "^4.16.2",
     "firebase": "^4.11.0",
     "font-awesome": "^4.7.0",
-    "hammerjs": "^2.0.8",
     "jsdom": "^11.6.2",
     "material-design-icons": "^3.0.1",
     "ng2-charts": "^1.6.0",

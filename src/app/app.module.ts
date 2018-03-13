@@ -118,7 +118,7 @@ import { DesignStageComponent } from './components/design-stage/design-stage.com
 
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'qp-front-id' }),
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,

@@ -171,6 +171,9 @@ a {
 .mat-input-element, .select {
   color: $primary-purple--middle;
 }
+.mat-table {
+  background-color: $primary-purple--light;
+}
 
 .layout-wrapper {
   max-width: $max-width;

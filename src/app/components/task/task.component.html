@@ -1,15 +1,16 @@
-<div class="sub-navbar">
-  <div class="control-item" (click)="goToView('googleKeep')">
-    Google keep
-  </div>
-  <div class="control-item" (click)="goToView('horizontalHistogram')">
-    Bar chart
-  </div>
-  <div class="control-item" (click)="goToView('grantt')">
-    Pie chart
-  </div>
-</div>
-<div class="ui-g-12">
+<sub-navbar title="{{ data.name }}" class="sub-navbar">
+  <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section">
+    <div (click)="goToView('googleKeep')"></div>
+    <div (click)="goToView('horizontalHistogram')"></div>
+    <div (click)="goToView('grantt')"></div>
+  </mdc-toolbar-section>
+  <button mdc-fab #fab class="main-fab-btn"> 
+    <mdc-icon>add</mdc-icon>
+  </button>
+  
+</sub-navbar>
+
+<div class="ui-g-12 layout-wrapper">
   <google-keep-task-view *ngIf="googleKeepView" [data]="data.task_phases"></google-keep-task-view>
   <horizontal-histogram *ngIf="horizontalHistogramView" [data]="data.task_phases"> </horizontal-histogram>
   <gtantt-view *ngIf="granttView" [data]="data.task_phases" ></gtantt-view> 

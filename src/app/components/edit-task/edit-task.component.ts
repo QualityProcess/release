@@ -26,7 +26,7 @@ export class EditTaskComponent implements OnInit {
     this.task = this.route.snapshot.data.taskData;
   }
 
-  onSaveDiscipline() {
+  onSaveTask() {
     this.saveTask = !this.saveTask;
   }
 

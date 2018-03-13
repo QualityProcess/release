@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div *ngIf="!loaded" class="loading"><p-progressSpinner></p-progressSpinner></div>
+  <div *ngIf="!loaded" class="loading"><mat-spinner></mat-spinner></div>
 
   <div *ngIf="filterData && filterData.length === 0 && loaded" class="no-results"><h3>No projects</h3></div>
 

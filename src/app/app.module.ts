@@ -31,6 +31,7 @@ import { AuthService, UserService, ProjectsService } from './services';
 import { ProjectResolver } from './components/project/project.resolver';
 import { DisciplineResolver } from './components/discipline/discipline.resolver';
 import { DesignStageResolver } from './components/design-stage/design-stage.resolver';
+import { TaskResolver } from './components/task/task.resolver';
 
 // used to create fake backend
 import { fakeBackendProvider } from './helpers/fake-backend';
@@ -142,6 +143,7 @@ import { DesignStageComponent } from './components/design-stage/design-stage.com
     ProjectResolver,
     DisciplineResolver,
     DesignStageResolver,
+    TaskResolver,
     TaskService,
     { provide: 'localStorage', useFactory: getLocalStorage }
 

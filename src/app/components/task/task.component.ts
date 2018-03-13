@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
-import { Router, ParamMap } from '@angular/router';
+import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 
 import { TaskService } from "../../services/task.service";
 import { Task } from "../../models/task";
@@ -18,22 +18,22 @@ export class TaskComponent implements OnInit {
   granttView: boolean = false;
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: any;
-  constructor(private service: TaskService, private router: Router) {
+  constructor(private service: TaskService, private router: Router, private route: ActivatedRoute) {
     this.views['googleKeepView'] = true;
     this.views['horizontalHistogramView'] = false;
     this.views['granttView'] = false;
   }
 
   ngOnInit() {
-    this.getTask();
+    this.data = this.route.snapshot.data.taskData;
   }
 
   getTask() {
     this.loaded = true;
-    this.data = mockData;
+    //this.data = mockData;
 
-    /*
-    this.service.getTasks(1).subscribe(data => {
+    
+    /*this.service.getTasks(1).subscribe(data => {
       this.loaded = true;
       this.data = data;
       console.log(data);

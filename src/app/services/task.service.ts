@@ -8,8 +8,8 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  getTasks(id: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks/3/tasksheet`);
+  getTask(id: number): Observable<Task> {
+    return this.http.get<Task>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks/${id}/tasksheet`);
   }
 
 }

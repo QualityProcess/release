@@ -24,6 +24,7 @@ import { CreateDesignStageComponent } from './components/create-design-stage/cre
 import { EditDesignStageComponent } from './components/edit-design-stage/edit-design-stage.component';
 import { DesignStageComponent } from './components/design-stage/design-stage.component';
 import { DesignStageResolver } from './components/design-stage/design-stage.resolver';
+import { TaskResolver } from './components/task/task.resolver';
 
 
 const appRoutes: Routes = [
@@ -86,7 +87,8 @@ const appRoutes: Routes = [
       },
       {
         path: 'tasks/:id', 
-        component: TaskComponent
+        component: TaskComponent,
+        resolve: { taskData: TaskResolver }
       },
     ]
   },

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProjectsService } from "../../services";
 import { Project } from '../../models/project';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -22,9 +22,10 @@ import 'rxjs/add/operator/startWith';
   templateUrl: './project-matrix.component.html',
   styleUrls: ['./project-matrix.component.scss']
 })
-export class ProjectMatrixComponent implements OnInit {
+export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   data: any;
   project: Project;
+  loaded = false;
   disciplineNames: Object[] = [
     { category: "Mechanical", icon: 'settings' },
     { category: "Electrical", icon: 'flash_on' },
@@ -56,6 +57,12 @@ export class ProjectMatrixComponent implements OnInit {
 
   ngOnInit() {
     this.project = this.route.snapshot.data.projectData;
+  }
+
+
+  ngAfterViewInit() {
+    setTimeout(() => { console.log('Loaded!'); this.loaded = true; }, 400);
+    
   }
 
   createDiscipline(){
@@ -107,8 +114,6 @@ export class DraggableDirective {
       this.startY = e.clientY + window.scrollY;
 
     });
-
-
 
 
     // draggin
@@ -164,9 +169,10 @@ export class DraggableDirective {
       this.prevX = dx;
     }
 
+    if (dx > 0) dx = 0;
     console.log(dy);
 
-    this.element.nativeElement.style.transform = `translate(${dx}px, ${dy}px)`;
+    this.element.nativeElement.style.transform = `translate(${dx}px, ${0}px)`;
     //this.element.nativeElement.setAttribute("style", this.CSS.translate(dx, dy));
   }
 

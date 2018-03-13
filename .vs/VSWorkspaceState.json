@@ -1,15 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\dist",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\components",
+    "\\src\\app\\components\\custom-elements\\file-uploader",
+    "\\src\\app\\components\\custom-elements\\search",
+    "\\src\\app\\components\\project",
     "\\src\\app\\framework\\material",
-    "\\src\\app\\services",
     "\\src\\assets",
-    "\\src\\assets\\styles"
+    "\\src\\assets\\styles",
+    "\\src\\environments"
   ],
-  "SelectedNode": "\\src\\app\\services\\projects.service.ts",
+  "SelectedNode": "\\src\\assets\\styles",
   "PreviewInSolutionExplorer": false
 }

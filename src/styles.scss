@@ -76,7 +76,7 @@ a {
         right: 15px;
         top: 50%;
         z-index: 2;
-        background-color: red;
+        background-color: $red;
       }
 
       .search {
@@ -87,6 +87,45 @@ a {
     }
   }
 }
+
+.matrix-sub-navbar {
+  margin-bottom: 0;
+
+  .sub-toolbar-row {
+
+    .sub-toolbar-row__section {
+
+      .add-btn {
+        position: absolute;
+        right: 15px;
+        top: 100%;
+        z-index: 2;
+        background-color: transparent;
+        line-height: 60px;
+      }
+
+      .search {
+        position: relative;
+        top: 10px;
+        left: 20px;
+      }
+    }
+  }
+}
+.loading {
+  margin-top: 100px;
+
+  .mat-spinner {
+    margin: 50px auto;
+
+    svg {
+      circle {
+        stroke: $primary-purple;
+      }
+    }
+  }
+}
+
 
 .form {
   max-width: 400px;

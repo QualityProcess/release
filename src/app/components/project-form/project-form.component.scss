@@ -1,0 +1,36 @@
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
+.project-form {
+  @include flex();
+  flex-direction: column;
+
+  .project-full-width {
+    max-width: 400px;
+    margin: 0 auto;
+
+    .input-field {
+      color: $primary-gray--dark;
+    }
+
+    .mat-input-wrapper {
+      background: green;
+    }
+
+    .mat-form-field-wrapper {
+      background: red;
+
+      .mat-form-field-label {
+        color: $primary-gray--dark;
+      }
+
+      .mat-form-field-underline {
+        background-color: $primary-gray--dark;
+
+        .mat-input-ripple {
+          background-color: $primary-purple--middle;
+        }
+      }
+    }
+  }
+}

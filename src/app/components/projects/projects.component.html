@@ -1,5 +1,5 @@
 <sub-navbar title="Projects" class="sub-navbar"> 
-  <button mdc-fab #fab class="main-fab-btn">
+  <button mdc-fab #fab class="main-fab-btn" [routerLink]="['create']">
     <mdc-icon>add</mdc-icon>
   </button>
   <search (onChange)="applyFilter($event)" class="search"></search> 
@@ -28,20 +28,20 @@
 
   <div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
     <ul class="mdc-grid-list__tiles" cardview>
-      <li class="mdc-grid-tile" *ngFor="let project of filterData">
+      <li class="mdc-grid-tile" *ngFor="let project of filterData" [mdc-elevation]="5" hoverElevation> 
         <div class="mdc-grid-tile__primary">
           <mdc-card class="project-card mdc-grid-tile__primary-content">
-            <mdc-card-primary-action mdc-ripple class="primary-action" (click)="onSelect(project)">
+            <mdc-card-primary-action mdc-ripple class="primary-action" (click)="goToMatrix(project.id)">
               <img src="{{project.image.url}}" />  
-              
             </mdc-card-primary-action>
             
             <mdc-card-actions class="card-action">
-              <div class="project-card__primary" (click)="onSelect(project)">
+              <div class="project-card__primary" (click)="goToMatrix(project.id)">
                 <h2 class="project-card__title" mdc-typography-title>{{ project.name }}</h2>
               </div>
               <mdc-card-action-icons class="card-action-icons">
-                <mdc-icon mdcCardAction="icon" class="icon">edit</mdc-icon>
+                <mdc-icon mdcCardAction="icon" class="icon" (click)="onSelect(project)">remove_red_eye</mdc-icon>
+                <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', project.id, 'edit']">edit</mdc-icon>
                 <mdc-icon mdcCardAction="icon" class="icon">delete</mdc-icon>
               </mdc-card-action-icons>
             </mdc-card-actions>
@@ -50,9 +50,6 @@
       </li>
     </ul>
   </div>
-
-
-
 
   <!--
 

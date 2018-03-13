@@ -126,6 +126,29 @@ export class CardViewDirective implements OnInit {
 
     this.renderer.setAttribute(this.element.nativeElement, "style", `width: ${wrapperWidth - margin * 2}px`);
   }
+}
 
+@Directive({ 
+  selector: '[hoverElevation]'
+})
+export class ElevationDirective implements OnInit {
+  hover: boolean = false;
+
+  constructor(private element: ElementRef, private renderer: Renderer2) { }
+
+  ngOnInit() {
+  }
+
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.hover = true;
+    this.element.nativeElement.classList.add('mdc-elevation--z14');
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.hover = false;
+    this.element.nativeElement.classList.remove('mdc-elevation--z14');
+  }
 
 }

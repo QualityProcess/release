@@ -1,10 +1,15 @@
 // core
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ServerModule } from '@angular/platform-server';
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
+
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { isPlatformBrowser } from '@angular/common';
 
 // framework
 import { MaterialModule } from './framework/material/material.module';
@@ -25,6 +30,7 @@ import { AuthService, UserService, ProjectsService } from './services';
 // resolvers
 import { ProjectResolver } from './components/project/project.resolver';
 import { DisciplineResolver } from './components/discipline/discipline.resolver';
+import { DesignStageResolver } from './components/design-stage/design-stage.resolver';
 
 // used to create fake backend
 import { fakeBackendProvider } from './helpers/fake-backend';
@@ -34,6 +40,7 @@ import { BaseRequestOptions } from '@angular/http';
 // directives
 import { DraggableDirective } from './components/project-matrix/project-matrix.component';
 import { CardViewDirective } from './components/projects/projects.component';
+import { ElevationDirective } from './components/projects/projects.component';
 
 // dialogs
 import { LoginDialog } from './components/login/login-dialog';
@@ -60,6 +67,17 @@ import { GtanttViewComponent } from './components/gtantt-view/gtantt-view.compon
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SubNavbarComponent } from './components/sub-navbar/sub-navbar.component';
 import { SearchComponent } from './components/custom-elements/search/search.component';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { FileUploaderComponent } from './components/custom-elements/file-uploader/file-uploader.component';
+import { EditProjectComponent } from './components/edit-project/edit-project.component';
+import { CreateDisciplineComponent } from './components/create-discipline/create-discipline.component';
+import { DisciplineFormComponent } from './components/discipline-form/discipline-form.component';
+import { EditDisciplineComponent } from './components/edit-discipline/edit-discipline.component';
+import { CreateDesignStageComponent } from './components/create-design-stage/create-design-stage.component';
+import { DesignStageFormComponent } from './components/design-stage-form/design-stage-form.component';
+import { EditDesignStageComponent } from './components/edit-design-stage/edit-design-stage.component';
+import { DesignStageComponent } from './components/design-stage/design-stage.component';
 
 @NgModule({
   declarations: [
@@ -82,17 +100,33 @@ import { SearchComponent } from './components/custom-elements/search/search.comp
     NavbarComponent,
     DraggableDirective,
     CardViewDirective,
+    ElevationDirective,
     LoginDialog,
     SubNavbarComponent,
     SearchComponent,
+    CreateProjectComponent,
+    ProjectFormComponent,
+    FileUploaderComponent,
+    EditProjectComponent,
+    CreateDisciplineComponent,
+    DisciplineFormComponent,
+    EditDisciplineComponent,
+    CreateDesignStageComponent,
+    DesignStageFormComponent,
+    EditDesignStageComponent,
+    DesignStageComponent,
 
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'qp-front-id' }),
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+
+    //ServerModule,
+    //ModuleMapLoaderModule,
+
     routing,
     MaterialModule,
     MaterialMDCModule,
@@ -107,7 +141,9 @@ import { SearchComponent } from './components/custom-elements/search/search.comp
     ProjectsService,
     ProjectResolver,
     DisciplineResolver,
-    TaskService
+    DesignStageResolver,
+    TaskService,
+    { provide: 'localStorage', useFactory: getLocalStorage }
 
     // providers used to create fake backend
     //fakeBackendProvider,
@@ -116,4 +152,16 @@ import { SearchComponent } from './components/custom-elements/search/search.comp
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(APP_ID) private appId: string) {
+    const platform = isPlatformBrowser(platformId) ?
+      'in the browser' : 'on the server';
+    console.log(`Running ${platform} with appId=${appId}`);
+  }
+}
+
+export function getLocalStorage() {
+  return (typeof window !== "undefined") ? window.localStorage : null;
+}

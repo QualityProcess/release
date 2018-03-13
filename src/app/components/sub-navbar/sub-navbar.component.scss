@@ -17,6 +17,10 @@
         padding-left: 0;
         margin-left: 0;
         font-size: 2em;
+
+        @include phone(){
+          display: none;
+        }
       }
 
       a, i {

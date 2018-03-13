@@ -1,0 +1,19 @@
+<sub-navbar title="{{ designStage.category }}" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" [routerLink]="['/design-stages', designStage.id, 'edit']">
+    <mdc-icon>edit</mdc-icon>
+  </button>
+  <search (onChange)="applyFilter($event)" class="search"></search>
+</sub-navbar>
+
+
+<div class="layout-wrapper">
+  <div class="ui-g-12 design-stage">
+    <div class="ui-g-12 ui-md-5 image-wrapper">
+      <img src="{{designStage.image.url}}" alt="{{designStage.category}}" title="{{designStage.category}}">
+    </div>
+    <div class="ui-g-12 ui-md-7">
+      <h1>{{designStage.category}}</h1>
+      <div class="description">{{designStage.description}}</div>
+    </div>
+  </div>
+</div>

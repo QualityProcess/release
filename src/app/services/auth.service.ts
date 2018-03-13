@@ -1,32 +1,48 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map'
+
+import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
 @Injectable()
 export class AuthService {
   public token: string;
 
-  constructor(private http: HttpClient) {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, @Inject('localStorage') private localStorage: any) {
+    if (isPlatformBrowser(this.platformId)) {
+      console.log('AuthService constr');
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.token = currentUser && currentUser.token;
+    }
+    
   }
 
   login(email: string, password: string):boolean {
+    if (isPlatformBrowser(this.platformId)) {
 
-    if (email == "test@test" && password == "test") {
+      if (email == "test@test" && password == "test") {
 
-      let token = 'fake-token';
-      this.token = token;
+        let token = 'fake-token';
+        this.token = token;
 
-      // store username and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('currentUser', JSON.stringify({ token: token }));
 
-      // return true to indicate successful login
+
+        console.log('AuthService login');
+        // store username and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify({ token: token }));
+        // return true to indicate successful login
+        return true;
+      } else {
+        // return false to indicate failed login
+        return false;
+      }
+
+    }
+
+    if (isPlatformServer(this.platformId)) {
+      console.log('AuthService login server');
       return true;
-    } else {
-      // return false to indicate failed login
-      return false;
     }
 
     /*return this.http.post<any>('/api/login', JSON.stringify({ email: email, password: password }))
@@ -58,9 +74,11 @@ export class AuthService {
   }
 
   logout(): void {
-    // clear token remove user from local storage to log user out
-    this.token = null;
-    localStorage.removeItem('currentUser');
+    if (isPlatformBrowser(this.platformId)) {
+      // clear token remove user from local storage to log user out
+      this.token = null;
+      localStorage.removeItem('currentUser');
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Router, ParamMap } from '@angular/router';
@@ -10,11 +10,12 @@ import { Discipline } from "../../models/discipline";
   templateUrl: './disciplines.component.html',
   styleUrls: ['./disciplines.component.scss']
 })
-export class DisciplinesComponent implements OnInit {
+export class DisciplinesComponent implements OnInit, OnChanges {
   loaded = false;
   disciplines: Discipline[];
   filterData: Discipline[];
   gridView: boolean = true;
+  @Input('filter') filterValue: string;
 
   constructor(private service: ProjectsService, private router: Router) { }
 
@@ -45,6 +46,23 @@ export class DisciplinesComponent implements OnInit {
 
   toggleDiscipline(event, id) {
     console.log(event.srcElement.checked);
+  }
+
+  applyFilter() {
+    if (typeof this.filterValue === 'undefined') return;
+
+    this.filterValue = this.filterValue.trim(); // Remove whitespace
+    this.filterValue = this.filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.filterData = this.disciplines.filter((descipline) => {
+      let regExp = new RegExp(this.filterValue.toString(), 'gi');
+      return regExp.test(descipline.category.toString());
+    });
+  }
+
+  ngOnChanges(changes) {
+    console.log('discipline Value: ', this.filterValue);
+    this.applyFilter();
+    
   }
 
 }

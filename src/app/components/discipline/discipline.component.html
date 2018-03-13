@@ -1,18 +1,24 @@
-<div class="sub-navbar">
-  <div class="control-item">
-    Add new discipline
-  </div>
-</div>
 
-<div class="ui-g-12 discipline">
-  <div class="ui-g-12 ui-md-5 image-wrapper">
-    <img src="{{discipline.image.url}}" alt="{{discipline.category}}" title="{{discipline.category}}">
+
+  <sub-navbar title="{{ discipline.category }}" class="sub-navbar">
+    <button mdc-fab #fab class="main-fab-btn" [routerLink]="['/disciplines', discipline.id, 'edit']">
+      <mdc-icon>edit</mdc-icon>
+    </button>
+    <search (onChange)="applyFilter($event)" class="search"></search>
+  </sub-navbar>
+
+
+<div class="layout-wrapper">
+  <div class="ui-g-12 discipline">
+    <div class="ui-g-12 ui-md-5 image-wrapper">
+      <img src="{{discipline.image.url}}" alt="{{discipline.category}}" title="{{discipline.category}}">
+    </div>
+    <div class="ui-g-12 ui-md-7">
+      <h1>{{discipline.category}}</h1>
+      <div class="description">{{discipline.description}}</div>
+    </div>
   </div>
-  <div class="ui-g-12 ui-md-7">
-    <h1>{{discipline.category}}</h1>
-    <div class="description">{{discipline.description}}</div>
+  <div class="ui-g-12 disciplines">
+    <design-stages [disciplineId]="discipline.id"></design-stages>
   </div>
-</div>
-<div class="ui-g-12 disciplines">
-  <design-stages [disciplineId]="discipline.id"></design-stages>
 </div>

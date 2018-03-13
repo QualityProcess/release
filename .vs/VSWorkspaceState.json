@@ -1,16 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+    "\\dist",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\custom-elements\\search",
-    "\\src\\app\\components\\projects",
-    "\\src\\app\\framework",
     "\\src\\app\\framework\\material",
+    "\\src\\app\\services",
     "\\src\\assets",
     "\\src\\assets\\styles"
   ],
-  "SelectedNode": "\\src\\app\\components\\projects\\projects.component.scss",
+  "SelectedNode": "\\src\\app\\services\\projects.service.ts",
   "PreviewInSolutionExplorer": false
 }

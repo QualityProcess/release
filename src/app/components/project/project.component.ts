@@ -15,6 +15,7 @@ import { Project } from '../../models/project';
 export class ProjectComponent implements OnInit {
 
   project: Project;
+  filterValue: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +40,11 @@ export class ProjectComponent implements OnInit {
 
   gotToMatrix() {
     this.router.navigate(['projects', this.project.id, 'matrix']);
+  }
+
+  setFilter(filterValue: string) {
+    this.filterValue = typeof this.filterValue === 'undefined' ? '' : filterValue;
+    console.log('product Value: ', filterValue); 
   }
 
 }

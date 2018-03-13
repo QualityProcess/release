@@ -1,0 +1,12 @@
+<sub-navbar title="Edit {{ designStage.category }}" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" (click)="onSaveDesignStage()">
+    <mdc-icon>save</mdc-icon>
+  </button>
+</sub-navbar>
+
+<div class="layout-wrapper">
+  <div class="elevation-container mdc-elevation--z14">
+    <h1 class="heading">{{ designStage.category }}</h1>
+    <design-stage-form [designStage]="designStage" [submit]="saveDesignStage"></design-stage-form>
+  </div>
+</div>

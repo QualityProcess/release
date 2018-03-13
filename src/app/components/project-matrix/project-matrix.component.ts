@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from "../../services";
+import { Project } from '../../models/project';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Directive, EventEmitter, HostListener, ElementRef, Renderer2, Output } from '@angular/core';
-
 
 
 import { BrowserModule } from '@angular/platform-browser'
@@ -24,6 +24,19 @@ import 'rxjs/add/operator/startWith';
 })
 export class ProjectMatrixComponent implements OnInit {
   data: any;
+  project: Project;
+  disciplineNames: Object[] = [
+    { category: "Mechanical", icon: 'settings' },
+    { category: "Electrical", icon: 'flash_on' },
+    { category: "Fire", icon: 'whatshot' },
+    { category: "Hydraulic", icon: 'opacity' },
+    { category: "ELV", icon: 'tune' },
+    { category: "Elevators", icon: 'swap_vert' },
+    { category: "AV", icon: 'play_circle_filled' },
+    { category: "ICT", icon: 'storage' },
+    { category: "Acoustics", icon: 'hearing' },
+  ]
+
   xStartElementPoint;
   yStartElementPoint;
   xStartMousePoint;
@@ -31,7 +44,7 @@ export class ProjectMatrixComponent implements OnInit {
   mousemoveEvent;
   mouseupEvent;
   curX;
-  curY
+  curY;
 
   constructor(private service: ProjectsService, private route: ActivatedRoute, private elementRef: ElementRef, private renderer: Renderer2) {
     route.params.subscribe(({ id }) => {
@@ -42,8 +55,12 @@ export class ProjectMatrixComponent implements OnInit {
   } 
 
   ngOnInit() {
-
+    this.project = this.route.snapshot.data.projectData;
   }
+
+  createDiscipline(){
+  
+}
 }
 
 

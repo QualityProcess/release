@@ -1,0 +1,18 @@
+<form class="form" [formGroup]="addDiscipline">
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="name" placeholder="Name" class="input-field">
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width file-uploader">
+    <file-uploader formControlName="image" placeholder="Image"></file-uploader>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <textarea matInput formControlName="description" placeholder="Description" atTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" class="form-text-area"></textarea>
+  </mat-form-field>
+
+  <mdc-form-field [alignEnd]="true">
+    <mdc-switch></mdc-switch>
+    <label>Is enable</label>
+  </mdc-form-field>
+</form>

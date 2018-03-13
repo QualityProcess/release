@@ -46,4 +46,8 @@ export class ProjectsService {
   getDesignStages(): Observable<DesignStage[]> {
     return this.http.get<DesignStage[]>(`https://qualityprocess-development.herokuapp.com/api/v1/design_stages`);
   }
+
+  getDesignStage(id: number): Observable<DesignStage> {
+    return this.http.get<DesignStage>(`https://qualityprocess-development.herokuapp.com/api/v1/design_stages/${id}`);
+  }
 }

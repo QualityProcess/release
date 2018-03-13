@@ -14,22 +14,6 @@
 }
 
 
-.sub-navbar {
-  .main-fab-btn {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    z-index: 2;
-    background-color: red;
-  }
-
-  .search {
-    position: relative;
-    top: 10px;
-    left: 20px;
-  }
-}
-
 
 .navbar-header {
 
@@ -152,72 +136,6 @@
 
   @include phone() {
     margin-top: 12px;
-  }
-}
-
-.mdc-grid-list {
-  .mdc-grid-list__tiles {
-
-    .mdc-grid-tile {
-      width: 330px;
-      margin: 15px 20px;
-
-      .mdc-grid-tile__primary {
-        .project-card {
-          justify-content: space-between;
-
-          &:hover {
-            .card-action {
-              .card-action-icons {
-                .icon {
-                  opacity: 1;
-                }
-              }
-            }
-          }
-
-          .primary-action {
-            cursor: pointer;
-
-            img {
-              width: 100%;
-              max-height: 185px;
-            }
-          }
-
-          .card-action {
-            min-height: 20px;
-
-            .project-card__primary {
-              cursor: pointer;
-
-              .project-card__title {
-                margin: 0 5px 0 0;
-              }
-            }
-
-            .card-action-icons {
-              height: 20px;
-
-              .icon {
-                color: $primary-icon;
-                padding: 5px;
-                font-size: 20px;
-                opacity: 0;
-
-                &:hover {
-                  color: $primary-icon--hover;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    @include phone() {
-      justify-content: center;
-    }
   }
 }
 

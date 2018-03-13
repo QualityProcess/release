@@ -1,46 +1,28 @@
 <div *ngIf="!loaded" class="loading"><p-progressSpinner></p-progressSpinner></div>
 
-<p-dataGrid *ngIf="gridView; else listView" [value]="filterData" [paginator]="true" [rows]="20">
-  <ng-template let-discipline pTemplate="item">
-    <div style="padding:3px" class="ui-g-12 ui-md-3 project-item">
-      <!--<p-panel [header]="project.name" [style]="{'text-align':'center'}">
-        <img src="{{ discipline.image.thumbnail.url }}" width="60">
-      </p-panel>-->
-      <p-panel>
-        <p-header (click)="onSelect(discipline)">
-          <img src="{{ discipline.image.thumbnail.url }}" width="60">
-        </p-header>
-        <div (click)="onSelect(discipline)">{{ discipline.category }}</div>
-        <p-footer>
-          <div class="actions left">
-            <label class="switch">
-              <input type="checkbox" checked (change)="toggleDiscipline($event, discipline.id)">
-              <span class="slider round"></span>
-            </label>
-          </div>
-          <div class="actions right">
-            <i class="material-icons">create</i><i class="material-icons">delete_forever</i>
-          </div>
-        </p-footer>
-      </p-panel>
-    </div>
-  </ng-template> 
-</p-dataGrid>
-<ng-template #listView>
-  <p-dataList [value]="filterData" [paginator]="true" [rows]="5">
-    <ng-template let-discipline pTemplate="item">
-      <div class="ui-g ui-fluid discipline-item" (click)="onSelect(discipline)">
-        <div class="ui-g-12 ui-md-3" style="text-align:center">
-          <img src="{{ discipline.image.thumbnail.url }}">
-        </div>
-        <div class="ui-g-12 ui-md-9 car-details">
-          <div class="ui-g">
-            <div class="ui-g-2 ui-sm-6">Name: </div>
-            <div class="ui-g-10 ui-sm-6">{{discipline.category}}</div>
-          </div>
-        </div>
+<div *ngIf="filterData && filterData.length === 0 && loaded" class="no-results"><h3>No projects</h3></div>
+
+<div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
+  <ul class="mdc-grid-list__tiles" cardview>
+    <li class="mdc-grid-tile" *ngFor="let discipline of filterData" [mdc-elevation]="5" hoverElevation>
+      <div class="mdc-grid-tile__primary" >
+        <mdc-card class="project-card mdc-grid-tile__primary-content">
+          <mdc-card-primary-action mdc-ripple class="primary-action" (click)="onSelect(discipline)">
+            <img src="{{discipline.image.url}}" />
+
+          </mdc-card-primary-action>
+
+          <mdc-card-actions class="card-action">
+            <div class="project-card__primary" (click)="onSelect(discipline)">
+              <h2 class="project-card__title" mdc-typography-title>{{ discipline.category }}</h2>
+            </div>
+            <mdc-card-action-icons class="card-action-icons">
+              <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['/disciplines', discipline.id, 'edit']">edit</mdc-icon>
+              <mdc-icon mdcCardAction="icon" class="icon">delete</mdc-icon>
+            </mdc-card-action-icons>
+          </mdc-card-actions>
+        </mdc-card>
       </div>
-      <hr class="ui-widget-content" style="border-top:0">
-    </ng-template>
-  </p-dataList>
-</ng-template>
+    </li>
+  </ul>
+</div>

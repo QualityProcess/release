@@ -5,7 +5,7 @@
   position: relative; 
   overflow: hidden;
   height: calc(100vh - 52px);
-  width: 100vw;
+  max-width: 100vw;
 }
 
 
@@ -22,7 +22,7 @@
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(10, minmax(100px, 1fr));
-  grid-auto-rows: minmax(100px,1fr);
+  grid-auto-rows: minmax(60px,1fr);
 }
 
 .box {
@@ -34,8 +34,8 @@
 }
 
 .add {
-  border: 4px solid #e6e8ec;
-  background: #fff;
+  border: 4px solid $white;
+  background: $primary-gray;
 
   @include flex();
   align-items: center;
@@ -74,5 +74,13 @@ table {
       border: 1px solid #eee;
     }
   }
+}
+
+.created-design-stage {
+  background-color: $green;
+}
+
+.create-design-stage {
+  background-color: $primary-gray--dark;
 }
 

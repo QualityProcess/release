@@ -1,32 +1,27 @@
-
-<!--<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th *ngFor="let item of data">{{item.discipline.category}}</th>
-    </tr>
-   </thead>
-  <tbody>
-    <tr *ngFor="let item of data; let i = index;">
-      <td>{{item.discipline.design_stage[i].design_stage_category}}</td>
-      <td *ngFor="let design_stage of item.discipline.design_stage">+</td>
-    </tr>
-  </tbody>
-</table>
-
-    -->
+<sub-navbar title="{{ project.name }}" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" [routerLink]="['/disciplines', 'create']">
+    <mdc-icon>add</mdc-icon>
+  </button>
+</sub-navbar>
 
 <div class="outer-wrapper">
   <div class="wrapper" [draggable]>
     <div class="box"></div>
     <div *ngFor="let item of data" class="box">{{item.discipline.category}}</div>
-
     <!-- Table Row -->
     <div class="row" *ngFor="let item of data; let i = index;">
       <div class="design-stage">{{item.discipline.design_stage[i].design_stage_category}}</div>
-      <div *ngFor="let design_stage of item.discipline.design_stage" class="add">
-        <div *ngIf="item.discipline.design_stage[i].params.method == 'create'"><i class="material-icons">add_box</i></div>
-        <div *ngIf="item.discipline.design_stage[i].params.method == 'show'"><i class="material-icons">remove_red_eye</i></div>
+      <div *ngFor="let design_stage of item.discipline.design_stage; let desing_stage_count = index;" class="add">
+        <div *ngIf="item.discipline.design_stage[i].params.method == 'create'">
+          <button mdc-fab [mini]="true" class="create-design-stage" [routerLink]="['/design-stages', 'create']">
+            <mdc-icon>{{ disciplineNames[desing_stage_count].icon }}</mdc-icon>
+          </button>
+        </div>
+        <div *ngIf="item.discipline.design_stage[i].params.method == 'show'">
+          <button mdc-fab [mini]="true" class="created-design-stage" [routerLink]="['/design-stages', item.discipline.design_stage[i].params.id, 'edit']">
+            <mdc-icon>{{ disciplineNames[desing_stage_count].icon }}</mdc-icon>
+          </button>
+        </div>
       </div>
     </div>
 

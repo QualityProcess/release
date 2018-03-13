@@ -9,7 +9,10 @@ import {
   MdcToolbarModule,
   MdcDrawerModule,
   MdcListModule,
-  MdcCardModule
+  MdcCardModule,
+  MdcElevationModule,
+  MdcFormFieldModule,
+  MdcSwitchModule
 } from '@angular-mdc/web';
 
 @NgModule({
@@ -21,7 +24,10 @@ import {
     MdcToolbarModule,
     MdcDrawerModule,
     MdcListModule,
-    MdcCardModule
+    MdcCardModule,
+    MdcElevationModule,
+    MdcFormFieldModule,
+    MdcSwitchModule
   ]
 })
 export class MaterialMDCModule {

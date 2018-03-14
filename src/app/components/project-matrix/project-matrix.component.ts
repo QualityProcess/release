@@ -110,9 +110,20 @@ export class DraggableDirective {
   }
 
   ngOnInit() {
-    this.handleTouch();
-    this.handleMouse();
+    //this.handleTouch();
+
+    if (this.is_touch_device()) {
+      this.renderer.setAttribute(this.element.nativeElement.parentElement, "style", "overflow: scroll"); 
+    } else {
+      this.handleMouse();
+    }
   }
+
+  is_touch_device() {
+    console.log(window.ontouchstart);
+    console.log(navigator.maxTouchPoints);
+    return 'ontouchstart' in window || navigator.maxTouchPoints;      
+  };
 
   handleTouch() {
 

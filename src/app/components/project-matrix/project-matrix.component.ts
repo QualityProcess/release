@@ -119,8 +119,7 @@ export class DraggableDirective {
     // inititial dtagging values
     this.touchStart$.subscribe((e: TouchEvent) => {
       if (!e) return;
-      console.log(e);
-      //e.preventDefault();
+
       this.startX = e.changedTouches[0].clientX;
       this.startY = e.changedTouches[0].clientY;
     });
@@ -128,9 +127,8 @@ export class DraggableDirective {
     this.touchEnd$.subscribe((e: TouchEvent) => {
       if (!e) return;
 
-      //e.preventDefault();
-      this.currentXTouchPosition = e.changedTouches[0].clientX - this.startX;
-      this.currentYTouchPosition = e.changedTouches[0].clientY - this.startY;
+      this.currentXTouchPosition = e.changedTouches[0].clientX - this.startX + this.currentXTouchPosition;
+      this.currentYTouchPosition = e.changedTouches[0].clientY - this.startY + this.currentYTouchPosition;
     });
 
 
@@ -138,10 +136,7 @@ export class DraggableDirective {
 
       const transform = this.element.nativeElement.style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
       
-      
       if (!e) return;
-      
-     // e.preventDefault();
 
       const dx = -this.startX + e.changedTouches[0].clientX + this.currentXTouchPosition,
         dy = e.changedTouches[0].clientY - this.startY + this.currentYTouchPosition;
@@ -179,7 +174,7 @@ export class DraggableDirective {
   moveTo(dx: number, dy: number) {
 
     const transform = this.element.nativeElement.style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
-
+    console.log('before: ', dy);
     if (transform[2] > 0 && dy > 0 || dy < 0 && this.element.nativeElement.parentElement.offsetHeight >= dy + this.element.nativeElement.offsetHeight) {
       dy = this.prevY || 0;
     } else {
@@ -193,8 +188,13 @@ export class DraggableDirective {
     }
 
     if (dx > 0) dx = 0;
+    if (dy > 0) dy = 0;
 
-    this.element.nativeElement.style.transform = `translate(${dx}px, ${0}px)`;
+    dx = +dx.toFixed(2);
+    dy = +dy.toFixed(2);
+
+    console.log('after: ', dy);
+    this.element.nativeElement.style.transform = `translate(${dx}px, ${dy}px)`;
     //this.element.nativeElement.setAttribute("style", this.CSS.translate(dx, dy));
   }
 

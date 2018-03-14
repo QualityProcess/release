@@ -81,6 +81,10 @@ export class DraggableDirective {
   mouseUp$ = Observable.fromEvent(this.element.nativeElement, 'mouseup');
   mouseLeave$ = Observable.fromEvent(this.element.nativeElement, 'mouseleave');
 
+  touchStart$ = Observable.fromEvent(this.element.nativeElement, 'touchstart');
+  touchMove$ = Observable.fromEvent(this.element.nativeElement, 'touchmove');
+  touchEnd$ = Observable.fromEvent(this.element.nativeElement, 'touchend');
+
   CSS = {
     translate: function (x, y) {
       var tr = '-webkit-transform: translate(' + x + 'px, ' + y + 'px);' +
@@ -97,12 +101,56 @@ export class DraggableDirective {
   prevY: number;
   startX: number;
   startY: number;
+  currentXTouchPosition: number = 0;
+  currentYTouchPosition: number = 0; 
+
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
     this.renderer.setAttribute(this.element.nativeElement, "style", this.CSS.translate(0, 0)); 
   }
 
   ngOnInit() {
+    this.handleTouch();
+    this.handleMouse();
+  }
+
+  handleTouch() {
+
+    // inititial dtagging values
+    this.touchStart$.subscribe((e: TouchEvent) => {
+      if (!e) return;
+      console.log(e);
+      //e.preventDefault();
+      this.startX = e.changedTouches[0].clientX;
+      this.startY = e.changedTouches[0].clientY;
+    });
+
+    this.touchEnd$.subscribe((e: TouchEvent) => {
+      if (!e) return;
+
+      //e.preventDefault();
+      this.currentXTouchPosition = e.changedTouches[0].clientX - this.startX;
+      this.currentYTouchPosition = e.changedTouches[0].clientY - this.startY;
+    });
+
+
+    this.touchMove$.subscribe((e: TouchEvent) => {
+
+      const transform = this.element.nativeElement.style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
+      
+      
+      if (!e) return;
+      
+     // e.preventDefault();
+
+      const dx = -this.startX + e.changedTouches[0].clientX + this.currentXTouchPosition,
+        dy = e.changedTouches[0].clientY - this.startY + this.currentYTouchPosition;
+
+      this.moveTo(dx, dy);
+    });
+  }
+
+  handleMouse() {
     const moveUntilMouseUp$ = this.mouseMove$.takeUntil(this.mouseUp$);
     const drag$ = this.mouseDown$.switchMapTo(moveUntilMouseUp$.startWith(null));
 
@@ -115,7 +163,6 @@ export class DraggableDirective {
 
     });
 
-
     // draggin
     drag$.subscribe((e: MouseEvent) => {
       if (!e) return;
@@ -125,37 +172,13 @@ export class DraggableDirective {
 
 
       this.moveTo(dx, dy);
-      
+
     });
-
-    /*const mousedrag$ = this.mouseDown$((md) => {
-      const startX = md.clientX + window.scrollX,
-        startY = md.clientY + window.scrollY,
-        startLeft = parseInt(md.target.style.left, 10) || 0,
-        startTop = parseInt(md.target.style.top, 10) || 0;
-
-      return this.mouseMove$.map((mm) => {
-        mm.preventDefault();
-
-        return {
-          left: startLeft + mm.clientX - startX,
-          top: startTop + mm.clientY - startY
-        };
-      }).takeUntil(this.mouseUp$);
-    });
-
-    const subscription = mousedrag$.subscribe((pos) => {
-      target.style.top = pos.top + 'px';
-      target.style.left = pos.left + 'px';
-    });*/
-
   }
 
   moveTo(dx: number, dy: number) {
 
     const transform = this.element.nativeElement.style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
-    console.log('before', transform[2]);
-    console.log(this.element.nativeElement.parentElement.offsetHeight >= dy + this.element.nativeElement.offsetHeight);
 
     if (transform[2] > 0 && dy > 0 || dy < 0 && this.element.nativeElement.parentElement.offsetHeight >= dy + this.element.nativeElement.offsetHeight) {
       dy = this.prevY || 0;
@@ -170,7 +193,6 @@ export class DraggableDirective {
     }
 
     if (dx > 0) dx = 0;
-    console.log(dy);
 
     this.element.nativeElement.style.transform = `translate(${dx}px, ${0}px)`;
     //this.element.nativeElement.setAttribute("style", this.CSS.translate(dx, dy));

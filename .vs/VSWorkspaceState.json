@@ -3,14 +3,13 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\components\\custom-elements\\file-uploader",
-    "\\src\\app\\components\\custom-elements\\search",
-    "\\src\\app\\components\\project",
-    "\\src\\app\\framework\\material",
-    "\\src\\assets",
-    "\\src\\assets\\styles",
-    "\\src\\environments"
+    "\\src\\app\\components",
+    "\\src\\app\\components\\gtantt-view",
+    "\\src\\app\\components\\home",
+    "\\src\\app\\components\\horizontal-histogram",
+    "\\src\\app\\components\\navbar",
+    "\\src\\app\\components\\task",
+    "\\src\\app\\components\\tasks"
   ],
-  "SelectedNode": "\\src\\assets\\styles",
   "PreviewInSolutionExplorer": false
 }

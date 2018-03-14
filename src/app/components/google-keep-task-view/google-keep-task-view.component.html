@@ -1,8 +1,7 @@
 
 <div *ngFor="let phase of dataSource">
   <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
+    <mat-expansion-panel [expanded]="true"> 
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{phase.category}}
@@ -40,13 +39,13 @@
             <!-- Estimate Column -->
             <ng-container matColumnDef="estimate">
               <mat-header-cell *matHeaderCellDef> Estimate </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.hours_estimated}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.hours_actual}} </mat-cell>
             </ng-container>
 
             <!-- Actual Column -->
             <ng-container matColumnDef="actual">
               <mat-header-cell *matHeaderCellDef> Actual </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.hours_actual}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.hours_estimated}} </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -54,7 +53,6 @@
           </mat-table>
         </div>
       </div>
-
     </mat-expansion-panel>
   </mat-accordion>
 </div>

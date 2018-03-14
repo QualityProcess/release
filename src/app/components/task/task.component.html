@@ -1,3 +1,20 @@
+<mdc-toolbar class="sub-toolbar">
+  <mdc-toolbar-row class="sub-toolbar-row">
+    <mdc-toolbar-section [alignStart]="true" class="sub-toolbar-row__section">
+      <mdc-toolbar-title class="title">Tasks</mdc-toolbar-title>
+    </mdc-toolbar-section>
+    <!--<button mdc-fab #fab class="main-fab-btn">
+      <mdc-icon>add</mdc-icon>
+    </button>-->
+    <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section">
+      <button mat-button (click)="goToView('googleKeep')">Google Keep</button>
+      <button mat-button (click)="goToView('horizontalHistogram')">Horizontal histogram</button>
+      <button mat-button (click)="goToView('grantt')">Grantt</button>
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+
+<!--
 <sub-navbar title="{{ data.name }}" class="sub-navbar">
   <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section">
     <div (click)="goToView('googleKeep')"></div>
@@ -9,6 +26,7 @@
   </button>
   
 </sub-navbar>
+-->
 
 <div class="ui-g-12 layout-wrapper">
   <google-keep-task-view *ngIf="googleKeepView" [data]="data.task_phases"></google-keep-task-view>

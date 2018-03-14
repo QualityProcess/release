@@ -6,4 +6,12 @@
     @include flex();
     align-items: center;
   }
-} 
+}
+
+.inputs {
+  margin-top: 50px;
+  background: $primary-gray;
+  .sub-title {
+    color: $primary-purple;
+  }
+}

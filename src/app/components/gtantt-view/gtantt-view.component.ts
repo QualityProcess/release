@@ -10,6 +10,9 @@ export class GtanttViewComponent implements OnInit {
   @Input('data') dataSource;
   date: Date = new Date(2015, 0, 1);
   date1: Date = new Date(2015, 0, 3);
+  inputData: any;
+  currentData = [];
+  data: any;
   constructor() { }
 
   dataa:any = {
@@ -29,7 +32,70 @@ export class GtanttViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.dataSource);
+    
 
+    for (let obj of this.dataSource) {
+
+      this.inputData = {
+        input: obj.id,
+        data: []
+      }
+
+      
+
+      obj.task_activities.forEach((task_activity) => {
+        let taskActivityData = {
+          taskActivity: task_activity.id,
+          resultEstimated: 0,
+          resultActivite: 0,
+          google: {
+            chartType: 'PieChart',
+            options: {
+              backgroundColor: { fill: 'transparent' }
+            },
+            dataTable: []
+          }
+        }
+        
+        task_activity.task_activity_items.forEach((task_activity_item) => {
+          taskActivityData.resultEstimated += task_activity_item.hours_estimated;
+          taskActivityData.resultActivite += task_activity_item.hours_actual;
+          
+        });
+        //console.log('est', taskActivityData.resultEstimated);
+        //console.log('', taskActivityData.resultActivite);
+
+        taskActivityData.google.dataTable = [
+          ['Task', 'hours'],
+          ['Actual', taskActivityData.resultEstimated],
+          ['Estimated', taskActivityData.resultActivite],
+          ['Over', taskActivityData.resultEstimated - taskActivityData.resultActivite]
+        ]
+
+
+        this.inputData.data.push(taskActivityData);
+      })
+
+      this.currentData.push(this.inputData);
+      
+
+    }
+
+    console.log('', this.currentData);
+
+    /*this.data = {
+      chartType: 'PieChart',
+      options: {
+        backgroundColor: { fill: 'transparent' }
+      },
+      dataTable: [
+        ['Task', 'hours'],
+        ['Estimated', 5],
+        ['Actual', 4],
+        ['Over', 1]
+      ]
+    }*/
 
   }
 

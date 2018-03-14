@@ -25,12 +25,14 @@ export class TaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data = this.route.snapshot.data.taskData;
+    //this.data = this.route.snapshot.data.taskData;
+
+    this.getTask();
   }
 
   getTask() {
     this.loaded = true;
-    //this.data = mockData;
+    this.data = mockData;
 
     
     /*this.service.getTasks(1).subscribe(data => {
@@ -65,9 +67,6 @@ export class TaskComponent implements OnInit {
         this.granttView = false;
     }
   }
-
-
-
 }
 
 

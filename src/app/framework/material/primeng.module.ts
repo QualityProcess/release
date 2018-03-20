@@ -11,6 +11,8 @@ import { PanelModule } from 'primeng/panel';
 import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { CalendarModule } from 'primeng/calendar';
+import { DataTableModule } from 'primeng/datatable';
 
 @NgModule({
   exports: [
@@ -23,7 +25,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     PanelModule,
     DropdownModule,
     PaginatorModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    CalendarModule,
+    DataTableModule
   ]
 })
 export class PrimengModule {

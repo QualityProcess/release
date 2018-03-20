@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Router, ParamMap, ActivatedRoute } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
+import { DeleteDialog } from "../dialogs/delete-dialog";
 import { TaskService } from "../../services/task.service";
 import { Task } from "../../models/task";
 
@@ -17,7 +19,7 @@ export class TasksComponent implements OnInit {
   loaded: boolean = false;
   gridView: boolean = true;
 
-  constructor(private service: TaskService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private service: TaskService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getTasks();
@@ -63,6 +65,33 @@ export class TasksComponent implements OnInit {
 
   toogleView(view) {
     this.gridView = view === 'list' ? false : true;
+  }
+
+  openDeleteDialog(task){
+    let dialogRef = this.dialog.open(DeleteDialog, {
+      width: '350px',
+      data: {
+        taks: task,
+        title: `Delete task ${task.name}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed' ,result);
+      if (result) {
+        this.delete(task);
+      }
+    });
+  }
+
+  delete(deleteTask: Task) {
+     this.service.deleteTask(deleteTask.id).subscribe();
+     this.tasks = this.filterData.filter( (task: Task)=> {
+       return task.id !== deleteTask.id;
+     });
+    this.filterData = this.filterData.filter( (task: Task)=> {
+       return task.id !== deleteTask.id;
+     });
   }
 
 }

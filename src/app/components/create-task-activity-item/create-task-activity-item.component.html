@@ -1,0 +1,12 @@
+<sub-navbar title="New task activity item" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" (click)="onSaveTaskActivityItem()">
+    <mdc-icon>save</mdc-icon>
+  </button>
+</sub-navbar>
+
+<div class="layout-wrapper">
+  <div class="elevation-container mdc-elevation--z14">
+    <h1 class="heading">Create new task activity item</h1>
+    <form-task-activity-item [submit]="saveTaskActivityItem" [taskActivityId]="taskActivityId" [taskId]="taskId"></form-task-activity-item>
+  </div>
+</div>

@@ -1,26 +1,51 @@
-<div *ngIf="!loaded" class="loading"><p-progressSpinner></p-progressSpinner></div>
+<sub-navbar title="Design stages" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" [routerLink]="['create']">
+    <mdc-icon>add</mdc-icon>
+  </button>
+  <search (onChange)="applyFilter($event)" class="search"></search>
+</sub-navbar>
+
+<div class="layout-wrapper">
+
+  <div class="navbar-header">
+    <div class="flex-spacer"></div>
+    <!--<div class="control-item">
+      <select name="Sort By" (change)="sortData($event)">
+        <option value="">Sort by</option>
+        <option value="name">Name</option>
+        <option value="id">Id</option>
+      </select>
+    </div>-->
+    <div class="control-item">
+      <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')">reorder</i>
+      <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')">apps</i>
+    </div>
+  </div>
+
+  <div *ngIf="!loaded" class="loading"><p-progressSpinner></p-progressSpinner></div>
 
 
-<div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
-  <ul class="mdc-grid-list__tiles" cardview>
-    <li class="mdc-grid-tile" *ngFor="let designStage of filterData" [mdc-elevation]="5" hoverElevation>
-      <div class="mdc-grid-tile__primary">
-        <mdc-card class="project-card mdc-grid-tile__primary-content">
-          <mdc-card-primary-action mdc-ripple class="primary-action" [routerLink]="['/design-stages', designStage.id]">
-            <img src="{{designStage.image.url}}" />
-          </mdc-card-primary-action>
+  <div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
+    <ul class="mdc-grid-list__tiles" cardview>
+      <li class="mdc-grid-tile" *ngFor="let designStage of filterData" [mdc-elevation]="5" hoverElevation>
+        <div class="mdc-grid-tile__primary">
+          <mdc-card class="project-card mdc-grid-tile__primary-content">
+            <mdc-card-primary-action mdc-ripple class="primary-action" [routerLink]="['/design-stages', designStage.id]">
+              <img src="{{designStage.image.url}}" />
+            </mdc-card-primary-action>
 
-          <mdc-card-actions class="card-action">
-            <div class="project-card__primary" [routerLink]="['/design-stages', designStage.id]">
-              <h2 class="project-card__title" mdc-typography-title>{{ designStage.category }}</h2>
-            </div>
-            <mdc-card-action-icons class="card-action-icons">
-              <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['/design-stages', designStage.id, 'edit']">edit</mdc-icon>
-              <mdc-icon mdcCardAction="icon" class="icon">delete</mdc-icon>
-            </mdc-card-action-icons>
-          </mdc-card-actions>
-        </mdc-card>
-      </div>
-    </li>
-  </ul>
+            <mdc-card-actions class="card-action">
+              <div class="project-card__primary" [routerLink]="['/design-stages', designStage.id]">
+                <h2 class="project-card__title" mdc-typography-title>{{ designStage.category }}</h2>
+              </div>
+              <mdc-card-action-icons class="card-action-icons">
+                <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['/design-stages', designStage.id, 'edit']">edit</mdc-icon>
+                <mdc-icon mdcCardAction="icon" class="icon">delete</mdc-icon>
+              </mdc-card-action-icons>
+            </mdc-card-actions>
+          </mdc-card>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

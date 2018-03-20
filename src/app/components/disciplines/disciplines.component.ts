@@ -26,9 +26,6 @@ export class DisciplinesComponent implements OnInit, OnChanges {
   getDisciplines() {
     this.service.getDisciplines().subscribe(disciplines => {
       this.loaded = true;
-      disciplines = disciplines.filter((disc) => {
-        return disc.project_phase_id === 1;
-      });
       this.disciplines = disciplines;
       this.filterData = disciplines;
 
@@ -48,21 +45,21 @@ export class DisciplinesComponent implements OnInit, OnChanges {
     console.log(event.srcElement.checked);
   }
 
-  applyFilter() {
-    if (typeof this.filterValue === 'undefined') return;
+  applyFilter(filterValue) {
 
-    this.filterValue = this.filterValue.trim(); // Remove whitespace
-    this.filterValue = this.filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+
+    if (typeof filterValue === 'undefined') return;
+
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.filterData = this.disciplines.filter((descipline) => {
-      let regExp = new RegExp(this.filterValue.toString(), 'gi');
+      let regExp = new RegExp(filterValue.toString(), 'gi');
       return regExp.test(descipline.category.toString());
     });
   }
 
   ngOnChanges(changes) {
-    console.log('discipline Value: ', this.filterValue);
-    this.applyFilter();
-    
+    console.log('discipline Value: ', this.filterValue);    
   }
 
 }

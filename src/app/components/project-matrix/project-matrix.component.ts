@@ -25,6 +25,7 @@ import 'rxjs/add/operator/startWith';
 export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   data: any;
   project: Project;
+  projectMatrix: any;
   loaded = false;
   disciplineNames: Object[] = [
     { category: "Mechanical", icon: 'settings' },
@@ -49,14 +50,18 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
 
   constructor(private service: ProjectsService, private route: ActivatedRoute, private elementRef: ElementRef, private renderer: Renderer2) {
     route.params.subscribe(({ id }) => {
-      service.getPhasesMatrix(+id).subscribe(data => {
+      /*service.getPhasesMatrix(+id).subscribe(data => {
         this.data = data;
-      });
+      });*/
     });
   } 
 
   ngOnInit() {
     this.project = this.route.snapshot.data.projectData;
+    
+    this.data = this.route.snapshot.data.projectMatrixData;
+    console.log(this.project);
+    console.log(this.data);
   }
 
 

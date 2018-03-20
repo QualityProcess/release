@@ -1,9 +1,11 @@
-import { Component, Directive, OnInit, HostListener, ElementRef, Renderer2, EventEmitter} from '@angular/core';
+import { Component, Directive, Inject, OnInit, HostListener, ElementRef, Renderer2, EventEmitter} from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Router, ParamMap } from '@angular/router';
 import { Sort } from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
+import { DeleteDialog } from "../dialogs/delete-dialog";
 import { ProjectsService } from "../../services";
 import { Project } from "../../models/project";
 import { SelectItem } from 'primeng/api';
@@ -22,7 +24,7 @@ export class ProjectsComponent implements OnInit {
   gridView: boolean = true;
   loaded = false;
 
-  constructor(private service: ProjectsService, private router: Router) { }
+  constructor(private service: ProjectsService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
       this.getProjects();
@@ -74,8 +76,29 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(['projects', project.id]);
   }
 
+  openDeleteDialog(project){
+    let dialogRef = this.dialog.open(DeleteDialog, {
+      width: '350px',
+      data: {
+        project: project,
+        title: `Delete project ${project.name}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed' ,result);
+      if (result) {
+        this.delete(project);
+      }
+    });
+  }
+
+  delete(project: Project) {
+     this.service.deleteProject(project.id).subscribe();
+  }
+
   goToMatrix(id) {
-    this.router.navigate(['phases', id, 'matrix']);
+    this.router.navigate(['projects', id, 'matrix']);
   }
 
   toggleProject(event, id) {
@@ -152,3 +175,5 @@ export class ElevationDirective implements OnInit {
   }
 
 }
+
+

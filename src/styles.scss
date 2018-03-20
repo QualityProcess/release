@@ -175,6 +175,10 @@ a {
   background-color: $primary-purple--light;
 }
 
+.form .mat-form-field-wrapper .mat-select-value {
+  color: #343333;
+}
+
 .layout-wrapper {
   max-width: $max-width;
   margin: 0 auto;

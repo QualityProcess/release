@@ -4,7 +4,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-full-width file-uploader">
-    <file-uploader formControlName="image" placeholder="Image"></file-uploader>
+    <file-uploader formControlName="image" placeholder="Image" (onUploaded)="onUploadedImage($event)"></file-uploader>
   </mat-form-field>
 
   <mat-form-field class="form-full-width">

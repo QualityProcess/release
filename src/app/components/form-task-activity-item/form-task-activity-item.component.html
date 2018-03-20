@@ -1,0 +1,61 @@
+<form class="form" [formGroup]="addTaskActivityItem">
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="name" placeholder="Name" class="input-field">
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width file-uploader">
+    <file-uploader formControlName="image" placeholder="Image" (onUploaded)="onUploadedImage($event)"></file-uploader>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="link" placeholder="Link" class="input-field">
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <textarea matInput formControlName="description" placeholder="Description" atTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" class="form-text-area"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <textarea matInput formControlName="customisation" placeholder="Customisation" atTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" class="form-text-area"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="checked_on" [matDatepicker]="checked_on" placeholder="Checked on">
+    <mat-datepicker-toggle matSuffix [for]="checked_on"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #checked_on></mat-datepicker> 
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="checked_by" placeholder="Checked By" class="input-field">
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="estimated_start" [matDatepicker]="estimated_start" placeholder="Start date">
+    <mat-datepicker-toggle matSuffix [for]="estimated_start"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #estimated_start></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="estimated_completion" [matDatepicker]="estimated_completion" placeholder="End date">
+    <mat-datepicker-toggle matSuffix [for]="estimated_completion"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #estimated_completion></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="hours_estimated" placeholder="Hours estimated" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" class="input-field">
+  </mat-form-field>
+
+  <mat-form-field class="form-full-width">
+    <input matInput formControlName="hours_actual" placeholder="Hours actual" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" class="input-field">
+  </mat-form-field>
+
+  <mdc-form-field [alignEnd]="true">
+    <mdc-switch formControlName="is_locked"></mdc-switch>
+    <label>Is locked</label>
+  </mdc-form-field>
+
+  <mdc-form-field [alignEnd]="true">
+    <mdc-switch formControlName="is_enabled"></mdc-switch>
+    <label>Is enable</label>
+  </mdc-form-field>
+</form>

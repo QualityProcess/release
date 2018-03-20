@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit, ElementRef, OnDestroy, HostBinding, Renderer2, HostListener } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, Output, EventEmitter, ElementRef, OnDestroy, HostBinding, Renderer2, HostListener } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material';
@@ -34,6 +34,8 @@ export class FileUploaderComponent implements ControlValueAccessor, ControlValue
   @Input() valuePlaceholder: string;
   onChange: any = () => { };
   onTouched: any = () => { };
+
+  @Output() onUploaded = new EventEmitter<boolean>(); 
 
 
   get value() {
@@ -103,7 +105,7 @@ export class FileUploaderComponent implements ControlValueAccessor, ControlValue
 
   _handleReaderLoaded(e: any) {
     var reader = e.target;
-    console.log('reader file', reader);
+    this.onUploaded.emit(reader);
     this.imageSrc = reader.result;
     this.loaded = true;
   }

@@ -1,0 +1,30 @@
+<div class="phase" *ngFor="let phase of dataSource; let phaseIndex = index">
+  <h1>{{phase.category}}</h1>
+
+  <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities">
+    <p-dataTable [value]="item.task_activity_items" [editable]="true">
+      <p-header>{{ item.name }}</p-header>
+      <p-column field="name" header="Task activity item" [editable]="false"></p-column>
+      <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible' }">
+        <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+          {{task_activity_item[col.field]|date }}
+        </ng-template>
+        <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
+          <p-calendar [(ngModel)]="task_activity_item[estimated_start]" appendTo="body"></p-calendar>
+        </ng-template>
+      </p-column>
+      <p-column field="estimated_completion" header="End Date" [editable]="true" [style]=" {'overflow':'visible' }">
+        <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+          {{task_activity_item[col.field]|date }}
+        </ng-template>
+        <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
+          <p-calendar [(ngModel)]="task_activity_item[estimated_completion]" appendTo="body"></p-calendar>
+        </ng-template>
+      </p-column>
+      <p-column field="hours_estimated" header="Hours estimated" [editable]="true"></p-column>
+      <p-column field="hours_actual" header="Actual hours" [editable]="true"></p-column>
+ 
+    </p-dataTable>
+    <div><button mat-button class="btn-add-item" [routerLink]="['/task-activity-items', 'create', item.id, {taskId: dataSource[0].task_id}]">Add Task Activity item</button></div>
+  </div>
+</div>

@@ -1,19 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import { forkJoin } from "rxjs/observable/forkJoin";
+
 import { Task } from "../models/task";
+import { TaskActivity } from "../models/task-activity";
+import { TaskActivityItem } from "../models/task-activity-item";
+import { TaskPhase } from "../models/task-phase";
 
 @Injectable()
 export class TaskService {
+  private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
 
   constructor(private http: HttpClient) { }
 
   getTask(id: number): Observable<Task> {
-    return this.http.get<Task>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks/${id}/tasksheet`);
+    return this.http.get<Task>(`${this.apiUrl}/tasks/${id}`);
+  }
+
+  addTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`${this.apiUrl}/tasks`, task); 
+  }
+
+  updateTask(task: Task, id): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}/tasks/${id}`, task);
+  }
+
+  deleteTask(id: number): Observable<{}> {
+    return this.http.delete(`${this.apiUrl}/tasks/${id}`);
   }
 
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`https://qualityprocess-development.herokuapp.com/api/v1/tasks/1/tasksheet`);
+    return this.http.get<Task[]>(`${this.apiUrl}/tasks`);
   }
 
+  // task activities
+
+  getTaskActivities(): Observable<TaskActivity[]>{
+    return this.http.get<TaskActivity[]>(`${this.apiUrl}/task_activities`);
+  }
+
+  getTaskActivity(id: number): Observable<TaskActivity> {
+    return this.http.get<TaskActivity>(`${this.apiUrl}/task_activities/${id}`);
+  }
+
+  addTaskActivity(taskActivity: TaskActivity): Observable<TaskActivity> {
+    return this.http.post<TaskActivity>(`${this.apiUrl}/task_activities/`, taskActivity);
+  }
+
+  // task activity items
+
+  getTaskActivityItems(): Observable<TaskActivityItem[]>{
+    return this.http.get<TaskActivityItem[]>(`${this.apiUrl}/task_activity_items`);
+  }
+
+  addTaskActivityItem(taskActivityItem: TaskActivityItem): Observable<TaskActivityItem> {
+    return this.http.post<TaskActivityItem>(`${this.apiUrl}/task_activity_items/`, taskActivityItem);
+  }
 }

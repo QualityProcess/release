@@ -27,12 +27,23 @@ import { AuthGuard } from './guard/auth.guard';
 // services
 import { AuthService, UserService, ProjectsService } from './services';
 
+// Error Handlers
+import { HttpErrorHandler } from './services/http-error-handler.service';
+import { MessageService } from './services/message.service';
+
 // resolvers
 import { ProjectResolver } from './components/project/project.resolver';
+import { ProjectsResolver } from './components/projects/projects.resolver';
+import { ProjectMatrixResolver } from './components/project-matrix/project-matrix.resolver';
 import { DisciplineResolver } from './components/discipline/discipline.resolver';
+import { DisciplinesResolver } from './components/disciplines/disciplines.resolver';
 import { DesignStageResolver } from './components/design-stage/design-stage.resolver';
+import { DesignStagesResolver } from './components/design-stages/design-stages.resolver';
 import { TaskResolver } from './components/task/task.resolver';
 import { TasksResolver } from './components/tasks/tasks.resolver';
+import { TaskActivitiesResolver } from './components/task-activities/task-activities.resolver';
+
+
 
 // used to create fake backend
 import { fakeBackendProvider } from './helpers/fake-backend';
@@ -46,6 +57,7 @@ import { ElevationDirective } from './components/projects/projects.component';
 
 // dialogs
 import { LoginDialog } from './components/login/login-dialog';
+import { DeleteDialog } from './components/dialogs/delete-dialog';
 
 // components
 import { AppComponent } from './app.component';
@@ -84,6 +96,15 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { CreateTaskComponent } from './components/create-task/create-task.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
+import { TaskActivitiesComponent } from './components/task-activities/task-activities.component';
+import { CreateTaskActivityComponent } from './components/create-task-activity/create-task-activity.component';
+import { TaskActivityComponent } from './components/task-activity/task-activity.component';
+import { EditTaskActivityComponent } from './components/edit-task-activity/edit-task-activity.component';
+import { TaskActivityFromComponent } from './components/task-activity-from/task-activity-from.component';
+import { ConfigTaskComponent } from './components/config-task/config-task.component';
+import { CreateTaskActivityItemComponent } from './components/create-task-activity-item/create-task-activity-item.component';
+import { FormTaskActivityItemComponent } from './components/form-task-activity-item/form-task-activity-item.component';
+import { EditTaskActivityItemComponent } from './components/edit-task-activity-item/edit-task-activity-item.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +130,7 @@ import { EditTaskComponent } from './components/edit-task/edit-task.component';
     CardViewDirective,
     ElevationDirective,
     LoginDialog,
+    DeleteDialog,
     SubNavbarComponent,
     SearchComponent,
     CreateProjectComponent,
@@ -125,6 +147,15 @@ import { EditTaskComponent } from './components/edit-task/edit-task.component';
     CreateTaskComponent,
     TaskFormComponent,
     EditTaskComponent,
+    TaskActivitiesComponent,
+    CreateTaskActivityComponent,
+    TaskActivityComponent,
+    EditTaskActivityComponent,
+    TaskActivityFromComponent,
+    ConfigTaskComponent,
+    CreateTaskActivityItemComponent,
+    FormTaskActivityItemComponent,
+    EditTaskActivityItemComponent,
     
 
   ],
@@ -152,11 +183,18 @@ import { EditTaskComponent } from './components/edit-task/edit-task.component';
     UserService,
     ProjectsService,
     ProjectResolver,
+    ProjectsResolver,
+    ProjectMatrixResolver,
     DisciplineResolver,
     DesignStageResolver,
     TaskResolver,
+    DisciplinesResolver,
+    DesignStagesResolver,
     TaskService,
-    //TasksResolver,
+    HttpErrorHandler,
+    MessageService,
+    TasksResolver,
+    TaskActivitiesResolver,
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     
@@ -166,6 +204,7 @@ import { EditTaskComponent } from './components/edit-task/edit-task.component';
     //MockBackend,
     //BaseRequestOptions 
   ],
+  entryComponents: [DeleteDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule {

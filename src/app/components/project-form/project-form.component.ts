@@ -1,7 +1,12 @@
+// Angular core
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Project } from '../../models/project';
 import { FormGroup, FormControl, FormBuilder, FormArray, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+
+
+import { Project } from '../../models/project';
+import { ProjectsService } from '../../services/projects.service';
 
 @Component({
   selector: 'project-form',
@@ -12,12 +17,13 @@ export class ProjectFormComponent implements OnInit, OnChanges {
   addProject: FormGroup;
   _project: Project;
   @Input('submit') submit: boolean;
+  @Input('edit') isEdit: boolean = false; 
 
   @Input() set project(project: Project) {
     if (project) this._project = project;
   }
 
-  constructor(private fb: FormBuilder, public snackBar: MatSnackBar) { }
+  constructor(private fb: FormBuilder, public snackBar: MatSnackBar, private service: ProjectsService, private router: Router) { }
 
   ngOnInit() {
     console.log(this._project);
@@ -27,6 +33,14 @@ export class ProjectFormComponent implements OnInit, OnChanges {
       description: typeof this._project === 'undefined' ? null : this._project.description,
       image: [{ value: typeof this._project === 'undefined' ? null : this._project.image.url, disabled: false }]
     });
+  }
+
+  onUploadedImage(reader) {
+    this.addProject.patchValue({
+      image: reader.result
+    });
+
+    console.log(this.addProject.value); 
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -41,7 +55,19 @@ export class ProjectFormComponent implements OnInit, OnChanges {
         duration: 2000,
       });
     } else {
-      console.log('Save project', this.addProject.get('image')); 
+      if (this.isEdit) {
+          this.service.updateProject(this.addProject.value, this._project.id)
+            .subscribe( project => {
+              this.snackBar.open('Project saved!', '', {
+                duration: 2000,
+              });
+          });
+      }else {
+          this.service.addProject(this.addProject.value)
+            .subscribe( project => {
+              this.router.navigate(['projects']);
+          });
+      }
     }
 
   }

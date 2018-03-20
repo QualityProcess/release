@@ -66,11 +66,15 @@ export class GtanttViewComponent implements OnInit {
         //console.log('est', taskActivityData.resultEstimated);
         //console.log('', taskActivityData.resultActivite);
 
+        let resultHours = taskActivityData.resultEstimated - taskActivityData.resultActivite;
+
+        resultHours = resultHours <= 0 ? 0 : taskActivityData.resultEstimated - taskActivityData.resultActivite;
+
         taskActivityData.google.dataTable = [
           ['Task', 'hours'],
           ['Actual', taskActivityData.resultEstimated],
           ['Estimated', taskActivityData.resultActivite],
-          ['Over', taskActivityData.resultEstimated - taskActivityData.resultActivite]
+          ['Over', resultHours]
         ]
 
 

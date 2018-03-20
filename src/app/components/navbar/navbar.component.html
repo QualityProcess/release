@@ -12,7 +12,13 @@
           <a class="top-link" routerLink="/projects">Projects</a>
         </li>
         <li class="top-list-item">
-          <a class="top-link" routerLink="/tasks/3">Tasks</a>
+          <a class="top-link" routerLink="/tasks">Tasks</a>
+        </li>
+        <li class="top-list-item">
+          <a class="top-link" routerLink="/disciplines">Disciplines</a> 
+        </li>
+        <li class="top-list-item">
+          <a class="top-link" routerLink="/design-stages">Design stages</a>
         </li>
       </ul>
     </mdc-toolbar-section>
@@ -46,8 +52,14 @@
         <mdc-list-item routerLink="/projects">
           <mdc-icon mdc-list-item-graphic>email</mdc-icon>Projects
         </mdc-list-item>
-        <mdc-list-item routerLink="/tasks/3">
+        <mdc-list-item routerLink="/tasks">
           <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Tasks
+        </mdc-list-item>
+        <mdc-list-item routerLink="/disciplines">
+          <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Disciplines
+        </mdc-list-item>
+        <mdc-list-item routerLink="/design-stages">
+          <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Design stages
         </mdc-list-item>
         <mdc-list-divider></mdc-list-divider>
         <mdc-list-item (click)="logout()">

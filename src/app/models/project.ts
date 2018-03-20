@@ -1,3 +1,5 @@
+import  { Task } from './task';
+
 export interface Project {
   id: number;
   name: string;
@@ -11,5 +13,6 @@ export interface Project {
     }
   }
   sort: number;
+  tasks: Task[];
 }
 

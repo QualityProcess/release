@@ -4,12 +4,10 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\gtantt-view",
-    "\\src\\app\\components\\home",
-    "\\src\\app\\components\\horizontal-histogram",
-    "\\src\\app\\components\\navbar",
-    "\\src\\app\\components\\task",
-    "\\src\\app\\components\\tasks"
+    "\\src\\app\\components\\project",
+    "\\src\\app\\components\\project-matrix",
+    "\\src\\app\\services"
   ],
+  "SelectedNode": "\\src\\app\\components\\project-matrix\\project-matrix.component.scss",
   "PreviewInSolutionExplorer": false
 }

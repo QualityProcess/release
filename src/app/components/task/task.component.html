@@ -1,12 +1,16 @@
 <mdc-toolbar class="sub-toolbar">
   <mdc-toolbar-row class="sub-toolbar-row">
     <mdc-toolbar-section [alignStart]="true" class="sub-toolbar-row__section">
-      <mdc-toolbar-title class="title">Tasks</mdc-toolbar-title>
+      <mdc-toolbar-title class="title">{{data.name}}</mdc-toolbar-title>
     </mdc-toolbar-section>
-    <!--<button mdc-fab #fab class="main-fab-btn">
-      <mdc-icon>add</mdc-icon>
-    </button>-->
-    <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section">
+    <mdc-toolbar-section [alignStart]="true" class="sub-toolbar-row__section">
+      <button mdc-fab #fab class="main-fab-btn add" [routerLink]="['/task-activities','create', data.id]">
+        <mdc-icon>add</mdc-icon>
+      </button>
+    </mdc-toolbar-section>
+    
+    <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section sub-menu">
+      <button mat-button (click)="goToView('editTask')">Edit task</button>
       <button mat-button (click)="goToView('googleKeep')">Google Keep</button>
       <button mat-button (click)="goToView('horizontalHistogram')">Horizontal histogram</button>
       <button mat-button (click)="goToView('grantt')">Grantt</button>
@@ -29,6 +33,7 @@
 -->
 
 <div class="ui-g-12 layout-wrapper">
+  <config-task *ngIf="editTask" [data]="data.task_phases"></config-task>
   <google-keep-task-view *ngIf="googleKeepView" [data]="data.task_phases"></google-keep-task-view>
   <horizontal-histogram *ngIf="horizontalHistogramView" [data]="data.task_phases"> </horizontal-histogram>
   <gtantt-view *ngIf="granttView" [data]="data.task_phases" ></gtantt-view> 

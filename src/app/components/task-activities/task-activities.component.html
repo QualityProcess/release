@@ -1,0 +1,54 @@
+<sub-navbar title="Task Activities" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" [routerLink]="['create']">
+    <mdc-icon>add</mdc-icon>
+  </button>
+  <search (onChange)="applyFilter($event)" class="search"></search>
+</sub-navbar>
+
+
+<div class="layout-wrapper">
+
+  <div class="navbar-header">
+    <div class="flex-spacer"></div>
+    <!--<div class="control-item">
+      <select name="Sort By" (change)="sortData($event)">
+        <option value="">Sort by</option>
+        <option value="name">Name</option>
+        <option value="id">Id</option>
+      </select>
+    </div>-->
+    <div class="control-item">
+      <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')">reorder</i>
+      <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')">apps</i>
+    </div>
+  </div>
+
+  <div *ngIf="!loaded" class="loading"><mat-spinner></mat-spinner></div>
+
+  <div *ngIf="filterData && filterData.length === 0 && loaded" class="no-results"><h3>No task activities</h3></div>
+
+  <div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
+    <ul class="mdc-grid-list__tiles" cardview>
+      <li class="mdc-grid-tile" *ngFor="let taskActivity of filterData" [mdc-elevation]="5" hoverElevation>
+        <div class="mdc-grid-tile__primary">
+          <mdc-card class="task-activity-card mdc-grid-tile__primary-content">
+            <mdc-card-primary-action mdc-ripple class="primary-action">
+              <img src="{{taskActivity.image.url}}" />
+            </mdc-card-primary-action>
+
+            <mdc-card-actions class="card-action">
+              <div class="project-card__primary">
+                <h2 class="project-card__title" mdc-typography-title>{{ taskActivity.name }}</h2>
+              </div>
+              <mdc-card-action-icons class="card-action-icons">
+                <mdc-icon mdcCardAction="icon" class="icon" (click)="onSelect(taskActivity)">remove_red_eye</mdc-icon>
+                <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'tasks-activity', taskActivity.id, 'edit']">edit</mdc-icon>
+                <mdc-icon mdcCardAction="icon" class="icon" (click)="openDeleteDialog(taskActivity)">delete</mdc-icon>
+              </mdc-card-action-icons>
+            </mdc-card-actions>
+          </mdc-card>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

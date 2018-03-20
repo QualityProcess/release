@@ -1,2 +1,56 @@
 @import "../../../assets/styles/mixins.scss";
 @import "../../../assets/styles/variables.scss";
+
+.sub-toolbar {
+  background-color: $primary-purple;
+  margin-bottom: 50px;
+
+  .sub-toolbar-row {
+    max-width: $max-width;
+    margin: 0 auto;
+
+    .sub-toolbar-row__section {
+      line-height: 44px;
+      padding: 0 15px;
+
+      .mdc-toolbar__title {
+        padding-left: 0;
+        margin-left: 0;
+        font-size: 2em;
+
+        @include phone() {
+          display: none;
+        }
+      }
+
+      a, i {
+        padding: 0 15px;
+      }
+
+      &:last-child {
+        margin-right: 16px;
+      }
+
+      .main-fab-btn {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+      }
+    }
+
+    .sub-menu:last-child {
+      margin-right: 100px;
+    }
+  }
+}
+
+.matrix-sub-navbar {
+  margin-bottom: 0;
+}
+
+.sub-toolbar {
+  .main-fab-btn {
+    background-color: $red;
+  }
+}
+

@@ -78,4 +78,12 @@ export class FormTaskActivityItemComponent implements OnInit {
     }
   }
 
+  onUploadedImage(reader) {
+    this.addTaskActivityItem.patchValue({
+      image: reader.result
+    });
+
+    console.log(this.addTaskActivityItem.value);
+  }
+
 }

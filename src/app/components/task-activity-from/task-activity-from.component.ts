@@ -69,4 +69,12 @@ export class TaskActivityFromComponent implements OnInit {
     }
   }
 
+  onUploadedImage(reader) {
+    this.addTaskActivity.patchValue({
+      image: reader.result
+    });
+
+    console.log(this.addTaskActivity.value);
+  }
+
 }

@@ -42,6 +42,7 @@ import { DesignStagesResolver } from './components/design-stages/design-stages.r
 import { TaskResolver } from './components/task/task.resolver';
 import { TasksResolver } from './components/tasks/tasks.resolver';
 import { TaskActivitiesResolver } from './components/task-activities/task-activities.resolver';
+import { TaskActivityResolver } from './components/task-activity/task-activity.resolver';
 
 
 
@@ -105,6 +106,7 @@ import { ConfigTaskComponent } from './components/config-task/config-task.compon
 import { CreateTaskActivityItemComponent } from './components/create-task-activity-item/create-task-activity-item.component';
 import { FormTaskActivityItemComponent } from './components/form-task-activity-item/form-task-activity-item.component';
 import { EditTaskActivityItemComponent } from './components/edit-task-activity-item/edit-task-activity-item.component';
+import { CircleViewComponent } from './components/circle-view/circle-view.component';
 
 @NgModule({
   declarations: [
@@ -156,6 +158,7 @@ import { EditTaskActivityItemComponent } from './components/edit-task-activity-i
     CreateTaskActivityItemComponent,
     FormTaskActivityItemComponent,
     EditTaskActivityItemComponent,
+    CircleViewComponent,
     
 
   ],
@@ -195,6 +198,7 @@ import { EditTaskActivityItemComponent } from './components/edit-task-activity-i
     MessageService,
     TasksResolver,
     TaskActivitiesResolver,
+    TaskActivityResolver,
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     

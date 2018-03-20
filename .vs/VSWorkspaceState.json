@@ -4,10 +4,11 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\project",
-    "\\src\\app\\components\\project-matrix",
+    "\\src\\app\\components\\form-task-activity-item",
+    "\\src\\app\\components\\task-activity-from",
+    "\\src\\app\\framework\\material",
     "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\components\\project-matrix\\project-matrix.component.scss",
+  "SelectedNode": "\\src\\app\\components\\form-task-activity-item\\form-task-activity-item.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -1,3 +1,6 @@
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
 
 .btn-add-item {
   width: 100%;
@@ -5,6 +8,27 @@
 
 .phase {
   background: #ebedf0;
-  text-align: center;
   margin-bottom: 75px;
+
+  .activities {
+
+    .table {
+      text-align: center;
+    }
+
+    .table-footer {
+      padding: .5em .75em;
+    }
+  }
+}
+
+.action-wrapper {
+  @include flex();
+  justify-content: space-between;
+  align-items: center;
+
+  .action-button {
+    background-color: green;
+    color: $white;
+  }
 }

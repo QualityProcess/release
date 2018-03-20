@@ -2,8 +2,11 @@
   <h1>{{phase.category}}</h1>
 
   <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities">
-    <p-dataTable [value]="item.task_activity_items" [editable]="true">
-      <p-header>{{ item.name }}</p-header>
+    <p-dataTable  class="table" [value]="item.task_activity_items" [rowStyleMap]="table" [editable]="true">
+      <p-header class="action-wrapper">
+        <span class="action-header">{{ item.name }}</span>
+        <button mat-button class="action-btn" [routerLink]="['/task-activities', item.id, 'edit', {taskId: dataSource[0].task_id}]"><mat-icon>edit</mat-icon></button>
+      </p-header>
       <p-column field="name" header="Task activity item" [editable]="false"></p-column>
       <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible' }">
         <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
@@ -25,6 +28,11 @@
       <p-column field="hours_actual" header="Actual hours" [editable]="true"></p-column>
  
     </p-dataTable>
-    <div><button mat-button class="btn-add-item" [routerLink]="['/task-activity-items', 'create', item.id, {taskId: dataSource[0].task_id}]">Add Task Activity item</button></div>
+    <div class="table-footer">
+      <div class="action-wrapper">
+        <span class="action-header">Add Task Activity item</span>
+        <button mat-button class="action-btn" [routerLink]="['/task-activity-items', 'create', item.id, {taskId: dataSource[0].task_id}]"><mat-icon>add</mat-icon></button>
+      </div>
+    </div>
   </div>
 </div>

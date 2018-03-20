@@ -1,6 +1,21 @@
 @import '~@angular/material/theming';
 
+
+
 @import url('https://fonts.googleapis.com/css?family=Roboto:100');
+
+
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Robotica, Robotica Thin, Helvetica Neue, Arial, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include mat-base-typography($custom-typography);
+@include mat-checkbox-typography($custom-typography);
+@include angular-material-typography($custom-typography);
+@include mat-core($custom-typography);
 
 /**
  * Depth
@@ -26,8 +41,8 @@ $space: map-get($spacing-units, base) !default;
 /**
  * Typography    
  */
-$font--preferred: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
-//$font--preferred: 'Robotica Thin', 'Robotica', 'Helvetica Neue', 'Arial', sans-serif;
+//$font--preferred: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif; 
+$font--preferred: 'Robotica', 'Robotica Thin', 'Helvetica Neue', 'Arial', sans-serif;
 $font--console: 'Monaco', 'Menlo', 'Consolas', 'Ubuntu Mono', monospace;
 
 $font-weights: (

@@ -21,6 +21,7 @@ export class TaskComponent implements OnInit {
   googleKeepView: boolean = false;
   horizontalHistogramView: boolean = false;
   granttView: boolean = false;
+  circleView: boolean = false;
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: Task;
   taskActivities: TaskActivity[];
@@ -82,24 +83,35 @@ export class TaskComponent implements OnInit {
         this.googleKeepView = false;
         this.horizontalHistogramView = false;
         this.granttView = false;
+        this.circleView = false;
         this.editTask = true;
         break;
       case 'googleKeep':
         this.googleKeepView = true;
         this.horizontalHistogramView = false;
         this.granttView = false;
+        this.circleView = false;
         this.editTask = false;
         break;
       case 'horizontalHistogram':
         this.googleKeepView = false;
         this.horizontalHistogramView = true;
         this.granttView = false;
+        this.circleView = false;
         this.editTask = false;
         break;
       case 'grantt':
         this.googleKeepView = false;
         this.horizontalHistogramView = false;
         this.granttView = true;
+        this.circleView = false;
+        this.editTask = false;
+        break;
+      case 'circle':
+        this.googleKeepView = false;
+        this.horizontalHistogramView = false;
+        this.granttView = true;
+        this.circleView = false;
         this.editTask = false;
         break;
       default:

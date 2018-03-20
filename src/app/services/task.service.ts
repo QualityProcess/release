@@ -34,6 +34,12 @@ export class TaskService {
     return this.http.get<Task[]>(`${this.apiUrl}/tasks`);
   }
 
+  // task Phases
+
+  getPhases(): Observable<TaskPhase[]>{
+    return this.http.get<TaskPhase[]>(`${this.apiUrl}/task_phases`);
+  }
+
   // task activities
 
   getTaskActivities(): Observable<TaskActivity[]>{
@@ -46,6 +52,10 @@ export class TaskService {
 
   addTaskActivity(taskActivity: TaskActivity): Observable<TaskActivity> {
     return this.http.post<TaskActivity>(`${this.apiUrl}/task_activities/`, taskActivity);
+  }
+
+  updateTaskActivity(taskActivity: TaskActivity, id: number): Observable<TaskActivity> {
+    return this.http.put<TaskActivity>(`${this.apiUrl}/task_activities/${id}`, taskActivity);
   }
 
   // task activity items

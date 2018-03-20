@@ -16,20 +16,31 @@ export class GtanttViewComponent implements OnInit {
   constructor() { }
 
   dataa:any = {
-      chartType: 'Timeline',
+      chartType: 'Gantt',
       dataTable: [
-        ['Name', 'From', 'To'],
-        ['Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)]
+        [['string', 'Task Name'], ['string', 'Resource'], ['date', 'Start Date'], ['date', 'End Date'], ['number', 'Duration'], ['number', 'Percent Complete'], ['string', 'Dependencies']],
+        ['Research', 'Find sources',
+          new Date(2015, 0, 1), new Date(2015, 0, 5), null, 100, null],
+        ['Write', 'Write paper',
+          null, new Date(2015, 0, 9), this.daysToMilliseconds(3), 25, null],
+        ['Cite', 'Create bibliography',
+          null, new Date(2015, 0, 7), this.daysToMilliseconds(1), 20, null],
+        ['Complete', 'Hand in paper',
+          null, new Date(2015, 0, 10), this.daysToMilliseconds(1), 0, null],
+        ['Outline', 'Outline paper',
+          null, new Date(2015, 0, 6), this.daysToMilliseconds(1), 100, null]
       ],
       options: {
-        width: 400,
-        height: 40,
-        legend: { position: 'top', maxLines: 5 },
-        bar: { groupWidth: '75%' },
-        isStacked: true,
-        backgroundColor: { fill: 'transparent' }
+        grantt: {
+          arrow: null
+        }
       }
   }
+
+  daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+  }
+
 
   ngOnInit() {
     console.log(this.dataSource);
@@ -39,10 +50,10 @@ export class GtanttViewComponent implements OnInit {
 
       this.inputData = {
         input: obj.id,
-        data: []
+        data: [
+          
+        ]
       }
-
-      
 
       obj.task_activities.forEach((task_activity) => {
         let taskActivityData = {
@@ -50,31 +61,32 @@ export class GtanttViewComponent implements OnInit {
           resultEstimated: 0,
           resultActivite: 0,
           google: {
-            chartType: 'PieChart',
+            chartType: 'Gantt',
             options: {
-              backgroundColor: { fill: 'transparent' }
+              criticalPathEnabled: false,
+              width: 1400
+              //backgroundColor: { fill: 'transparent' }
             },
-            dataTable: []
+            dataTable: [
+              
+            ]
           }
         }
+
+        let granttData = [];
         
         task_activity.task_activity_items.forEach((task_activity_item) => {
-          taskActivityData.resultEstimated += task_activity_item.hours_estimated;
-          taskActivityData.resultActivite += task_activity_item.hours_actual;
+          granttData.push([task_activity_item.name, task_activity_item.name, new Date(task_activity_item.estimated_start), new Date(task_activity_item.estimated_completion), this.daysToMilliseconds(10), 100, null])
           
         });
-        //console.log('est', taskActivityData.resultEstimated);
-        //console.log('', taskActivityData.resultActivite);
 
         let resultHours = taskActivityData.resultEstimated - taskActivityData.resultActivite;
 
         resultHours = resultHours <= 0 ? 0 : taskActivityData.resultEstimated - taskActivityData.resultActivite;
 
         taskActivityData.google.dataTable = [
-          ['Task', 'hours'],
-          ['Actual', taskActivityData.resultEstimated],
-          ['Estimated', taskActivityData.resultActivite],
-          ['Over', resultHours]
+          [['string', 'Task Name'], ['string', 'Resource'], ['date', 'Start Date'], ['date', 'End Date'], ['number', 'Duration'], ['number', 'Percent Complete'], ['string', 'Dependencies']],
+          ...granttData
         ]
 
 
@@ -82,24 +94,9 @@ export class GtanttViewComponent implements OnInit {
       })
 
       this.currentData.push(this.inputData);
-      
-
     }
 
     console.log('', this.currentData);
-
-    /*this.data = {
-      chartType: 'PieChart',
-      options: {
-        backgroundColor: { fill: 'transparent' }
-      },
-      dataTable: [
-        ['Task', 'hours'],
-        ['Estimated', 5],
-        ['Actual', 4],
-        ['Over', 1]
-      ]
-    }*/
 
   }
 

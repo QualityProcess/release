@@ -1,3 +1,12 @@
-<p>
-  edit-task-activity works!
-</p>
+<sub-navbar title="Edit {{ taskActivity.name }}" class="sub-navbar">
+  <button mdc-fab #fab class="main-fab-btn" (click)="onSaveTaskActivity()">
+    <mdc-icon>save</mdc-icon>
+  </button>
+</sub-navbar>
+
+<div class="layout-wrapper">
+  <div class="elevation-container mdc-elevation--z14">
+    <h1 class="heading">{{ taskActivity.name }}</h1>
+    <task-activity-form [taskActivity]="taskActivity" [taskPhases]="taskPhases" [taskId]="taskId" [submit]="saveTaskActivity" [edit]="true"></task-activity-form>
+  </div>
+</div>

@@ -7,6 +7,7 @@
 // material theme
 @import "~@angular/material/prebuilt-themes/purple-green.css";
 
+
 // mdc material
 $mdc-theme-primary: $primary-purple;
 $mdc-theme-secondary: $primary-purple--middle;
@@ -112,6 +113,8 @@ a {
     }
   }
 }
+
+
 .loading {
   margin-top: 100px;
 
@@ -168,6 +171,12 @@ a {
   }
 }
 
+// Overide material style
+
+.ui-widget {
+  font-family: $font--preferred!important;
+}
+
 .mat-input-element, .select {
   color: $primary-purple--middle;
 }
@@ -200,6 +209,11 @@ a {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+}
+
+.action-btn {
+  background: green;
+  color: $white!important; 
 }
 
 .switch {

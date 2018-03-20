@@ -22,6 +22,7 @@ export class TaskActivityFromComponent implements OnInit {
   @Input('submit') submit: boolean;
   @Input('edit') isEdit: boolean = false;
   @Input('taskPhases') taskPhases: TaskPhase[];
+  @Input('taskId') taskIdEdit: number;
 
   @Input() set taskActivity(taskActivity: TaskActivity) {
     if (taskActivity) this._taskActivity = taskActivity;
@@ -30,12 +31,19 @@ export class TaskActivityFromComponent implements OnInit {
   constructor(private fb: FormBuilder, public snackBar: MatSnackBar, private service: TaskService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.taskId = +this.route.snapshot.paramMap.get('id');
-    console.log(this._taskActivity);
 
+    if (!this.isEdit) {
+      this.taskId = +this.route.snapshot.paramMap.get('id');
+    } else {
+      this.taskId = this.taskIdEdit;
+      this.getTaskPhases();
+    }
+    
+    console.log(this._taskActivity);
+    console.log(this.taskId);
     this.addTaskActivity = this.fb.group({
       name: [typeof this._taskActivity === 'undefined' ? null : this._taskActivity.name, Validators.required],
-      task_phase_id: [typeof this._taskActivity === 'undefined' ? this.taskPhases[0].id : this._taskActivity.task_phase_id, Validators.required],
+      task_phase_id: [typeof this._taskActivity === 'undefined' ? this.taskPhases[0].id || null : this._taskActivity.task_phase_id, Validators.required],
       description: typeof this._taskActivity === 'undefined' ? null : this._taskActivity.description,
       image: [{ value: typeof this._taskActivity === 'undefined' ? null : this._taskActivity.image.url, disabled: false }],
       is_enabled: typeof this._taskActivity === 'undefined' ? null : this._taskActivity.is_enabled
@@ -50,14 +58,12 @@ export class TaskActivityFromComponent implements OnInit {
       console.log('Not Valid', this.addTaskActivity.value);
     } else {
       if (this.isEdit) {
-        console.log('Edit task', this.addTaskActivity.value)
-        /*this.service.updateTaskActivity(this.addTaskActivity.value, this._taskActivity.id)
-          .subscribe(project => {
-            console.log('Return project: ', project);
-            this.snackBar.open('Project saved!', '', {
-              duration: 2000,
-            });
-          });*/
+        console.log('Edit task activity', this.addTaskActivity.value)
+        this.service.updateTaskActivity(this.addTaskActivity.value, this._taskActivity.id)
+          .subscribe(taskActivity => {
+            console.log('Return ask activity: ', taskActivity);
+            this.router.navigate(['/tasks', this.taskId]);
+          });
       } else {
         console.log('Add task', this.addTaskActivity.value);
 
@@ -75,6 +81,15 @@ export class TaskActivityFromComponent implements OnInit {
     });
 
     console.log(this.addTaskActivity.value);
+  }
+
+  getTaskPhases() {
+    this.service.getPhases().subscribe(phases => {
+      this.taskPhases = phases.filter(phase => {
+        return phase.task_id === this.taskId;
+      });
+
+    })
   }
 
 }

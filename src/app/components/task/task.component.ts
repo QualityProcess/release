@@ -110,8 +110,8 @@ export class TaskComponent implements OnInit {
       case 'circle':
         this.googleKeepView = false;
         this.horizontalHistogramView = false;
-        this.granttView = true;
-        this.circleView = false;
+        this.granttView = false;
+        this.circleView = true;
         this.editTask = false;
         break;
       default:

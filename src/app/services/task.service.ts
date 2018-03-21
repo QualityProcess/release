@@ -67,4 +67,12 @@ export class TaskService {
   addTaskActivityItem(taskActivityItem: TaskActivityItem): Observable<TaskActivityItem> {
     return this.http.post<TaskActivityItem>(`${this.apiUrl}/task_activity_items/`, taskActivityItem);
   }
+
+  updateTaskActivityItem(taskActivityItem: TaskActivityItem, id: number): Observable<TaskActivityItem> {
+    return this.http.put<TaskActivityItem>(`${this.apiUrl}/task_activity_items/${id}`, taskActivityItem);
+  }
+
+  deleteTaskActivityItem(id: number): Observable<{}> {
+    return this.http.delete(`${this.apiUrl}/task_activity_items/${id}`); 
+  }
 }

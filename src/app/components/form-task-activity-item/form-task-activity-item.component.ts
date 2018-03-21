@@ -60,13 +60,11 @@ export class FormTaskActivityItemComponent implements OnInit {
     } else {
       if (this.isEdit) {
         console.log('Edit task', this.addTaskActivityItem.value)
-        /*this.service.updateTaskActivity(this.addTaskActivity.value, this._taskActivity.id)
-          .subscribe(project => {
-            console.log('Return project: ', project);
-            this.snackBar.open('Project saved!', '', {
-              duration: 2000,
-            });
-          });*/
+        this.service.updateTaskActivityItem(this.addTaskActivityItem.value, this._taskActivityItem.id)
+          .subscribe(item => {
+            console.log('Return item: ', item);
+            this.router.navigate(['/tasks', this.taskId]);
+          });
       } else {
         console.log('Add task', this.addTaskActivityItem.value);
 

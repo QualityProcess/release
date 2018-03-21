@@ -32,3 +32,13 @@
     color: $white;
   }
 }
+
+.edit-btn, .delete-btn {
+  background-color: transparent;
+  color: #747474!important;
+  cursor: pointer;
+
+  &:hover {
+    color: #212121!important;
+  }
+}

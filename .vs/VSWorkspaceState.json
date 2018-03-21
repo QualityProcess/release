@@ -4,11 +4,12 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\form-task-activity-item",
-    "\\src\\app\\components\\task-activity-from",
-    "\\src\\app\\framework\\material",
-    "\\src\\app\\services"
+    "\\src\\app\\components\\circle-view",
+    "\\src\\app\\components\\task",
+    "\\src\\assets",
+    "\\src\\assets\\styles",
+    "\\src\\assets\\styles\\robotica"
   ],
-  "SelectedNode": "\\src\\app\\components\\form-task-activity-item\\form-task-activity-item.component.ts",
+  "SelectedNode": "\\src\\app\\components\\task\\task.component.ts",
   "PreviewInSolutionExplorer": false
 }

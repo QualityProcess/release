@@ -44,6 +44,7 @@ import { EditTaskActivityComponent } from './components/edit-task-activity/edit-
 import { CreateTaskActivityItemComponent } from './components/create-task-activity-item/create-task-activity-item.component';
 import { EditTaskActivityItemComponent } from './components/edit-task-activity-item/edit-task-activity-item.component';
 import { TaskActivityResolver } from './components/task-activity/task-activity.resolver';
+import { TaskActivityItemsResolver } from './components/edit-task-activity-item/edit-task-activity-items.resolver';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -149,7 +150,14 @@ const appRoutes: Routes = [
       {
         path: 'task-activity-items/create/:id',
         component: CreateTaskActivityItemComponent,
-        //resolve: { taskData: TaskResolver }
+        //resolve: { taskData: TaskResolver } 
+      },
+      {
+        path: 'task-activity-items/:id/edit',
+        component: EditTaskActivityItemComponent,
+        resolve: {
+          taskActivityItemsData: TaskActivityItemsResolver
+        }
       },
     ]
   },

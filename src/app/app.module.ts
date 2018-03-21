@@ -43,7 +43,7 @@ import { TaskResolver } from './components/task/task.resolver';
 import { TasksResolver } from './components/tasks/tasks.resolver';
 import { TaskActivitiesResolver } from './components/task-activities/task-activities.resolver';
 import { TaskActivityResolver } from './components/task-activity/task-activity.resolver';
-
+import { TaskActivityItemsResolver } from './components/edit-task-activity-item/edit-task-activity-items.resolver';
 
 
 // used to create fake backend
@@ -199,6 +199,7 @@ import { CircleViewComponent } from './components/circle-view/circle-view.compon
     TasksResolver,
     TaskActivitiesResolver,
     TaskActivityResolver,
+    TaskActivityItemsResolver,
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     

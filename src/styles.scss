@@ -4,15 +4,116 @@
 @import "assets/styles/variables.scss";
 @import "assets/styles/mixins.scss";
 
-// material theme
+$test_var: yellow;
+
+
+
+/** ======================================================================= 
+                            MATERIAL THEMES OVERRIDE
+    ======================================================================= */
+
+
+
+/*  -------------------        MATERIAL IO THEME -------------------------------*/
+
+@import '~@angular/material/theming';
 @import "~@angular/material/prebuilt-themes/purple-green.css";
 
+$custom-typography: mat-typography-config( $font-family: 'Robotica, Robotica Thin, Helvetica Neue, Arial, sans-serif', $headline: mat-typography-level(32px, 48px, 700), $body-1: mat-typography-level(16px, 24px, 500) );
 
-// mdc material
+@include mat-base-typography($custom-typography);
+@include mat-checkbox-typography($custom-typography);
+@include angular-material-typography($custom-typography);
+@include mat-core($custom-typography);
+
+/*  -------------------        END MATERIAL IO THEME -------------------------------*/
+
+
+
+/*  -------------------        MDC THEME   -------------------------------*/
+
 $mdc-theme-primary: $primary-purple;
 $mdc-theme-secondary: $primary-purple--middle;
 @import "~@angular-mdc/theme/material";
 
+/*  -------------------        END MDC THEME   -------------------------------*/
+
+
+
+
+/*  -------------------        PRIMENG THEME -------------------------------*/
+
+$fontFamily: Lucida Grande, Lucida Sans, Arial, sans-serif;
+$fontSize: 1em;
+$borderRadius: 6px;
+$disabledOpacity: 0.35;
+
+//Header
+$headerBorderWidth: 1px;
+$headerBorderColor: #aed0ea;
+$headerBgColor: #deedf7;
+$headerTextColor: #222222;
+$headerFontWeight: bold;
+$headerIconTextColor: #222222;
+
+//Content
+$contentBorderWidth: 1px;
+$contentBorderColor: #dddddd;
+$contentBgColor: #f2f5f7;
+$contentTextColor: #362b36;
+
+//Default State
+$stateDefaultBorderWidth: 1px;
+$stateDefaultBorderColor: #aed0ea;
+$stateDefaultBgColor: #d7ebf9;
+$stateDefaultTextColor: #2779aa;
+
+//Active State
+$stateActiveBorderColor: #2694e8;
+$stateActiveBgColor: #3baae3;
+$stateActiveTextColor: #ffffff;
+
+//Highlight State
+$stateHighlightBorderColor: #f9dd34;
+$stateHighlightBgColor: #ffef8f;
+$stateHighlightTextColor: #363636;
+
+//Focus State
+$stateFocusBorderColor: #74b2e2;
+$stateFocusBgColor: #e4f1fb;
+$stateFocusTextColor: #0070a3;
+
+//Error State
+$stateErrorBorderColor: #cd0a0a;
+$stateErrorBgColor: #cd0a0a;
+$stateErrorTextColor: #ffffff;
+
+//Hover State
+$stateHoverBorderColor: #74b2e2;
+$stateHoverBgColor: #e4f1fb;
+$stateHoverTextColor: #0070a3;
+
+//Forms
+$inputBgColor: #ffffff;
+$inputTextColor: #222222;
+$invalidInputBorderColor: #cd0a0a;
+$inputGroupTextColor: #2779aa;
+
+@import '/assets/styles/material-themes/primeng-theme';
+
+/*  -------------------      END PRIMENG THEME  -----------------------------*/
+
+
+
+/** ======================================================================= 
+                            END MATERIAL THEMES OVERRIDE
+    ======================================================================= */
+
+
+
+/** ======================================================================= 
+                            TYPOGTAPHY
+    ======================================================================= */
 
 body {
   color: $primary-text;
@@ -57,6 +158,20 @@ a {
   }
 }
 
+/** ======================================================================= 
+                            END TYPOGTAPHY
+    ======================================================================= */
+
+
+
+
+/** ======================================================================= 
+                            COMMON COMPONENT STYLES
+    ======================================================================= */
+
+
+/*  -------------------    NAV BAR  -----------------------------*/
+
 .navbar-header {
   @include flex();
   -ms-flex-wrap: wrap;
@@ -67,7 +182,10 @@ a {
   padding: 8px 16px;
 }
 
+/*  -------------------    END NAV BAR  -----------------------------*/
 
+
+/*  -------------------    SUB NAV BAR  -----------------------------*/
 
 .sub-navbar {
   .sub-toolbar {
@@ -114,7 +232,9 @@ a {
   }
 }
 
+/*  -------------------    END NAV BAR  -----------------------------*/
 
+// loading 
 .loading {
   margin-top: 100px;
 
@@ -130,6 +250,7 @@ a {
 }
 
 
+// form 
 .form {
   max-width: 400px;
   margin: 0 auto;
@@ -171,12 +292,80 @@ a {
   }
 }
 
-// Overide material style
 
-.ui-widget {
-  font-family: $font--preferred!important;
+.flex-spacer {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
+.action-btn {
+  background: green;
+  color: $white !important;
+}
+
+
+// switch
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 25px;
+
+  input {
+    display: none;
+  }
+}
+
+// slider
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 0px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+}
+
+input:checked + .slider {
+  background-color: $primary-purple;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*  -------------------    OVERRIDE MATERIAL STYLE  -----------------------------*/
 .mat-input-element, .select {
   color: $primary-purple--middle;
 }
@@ -200,31 +389,8 @@ a {
   }
 }
 
-
 .mat-raised-button {
   background-color: $primary-purple--middle;
-}
-
-.flex-spacer {
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.action-btn {
-  background: green;
-  color: $white!important; 
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 45px;
-  height: 25px;
-
-  input {
-    display: none;
-  }
 }
 
 .mdc-grid-list {
@@ -295,130 +461,6 @@ a {
   }
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+/*  -------------------    END OVERRIDE MATERIAL STYLES  -----------------------------*/
 
-  &:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 0px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-}
 
-input:checked + .slider {
-  background-color: $primary-purple;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-// framework style
-.ui-datagrid {
-  .ui-datagrid-header{
-    display:none;
-  }
-
-  .ui-datagrid-content {
-    background-color: transparent !important;
-    border: none !important;
-
-    .ui-g {
-      //justify-content: space-around!important;
-      .ng-star-inserted {
-        max-width: 300px;
-
-        .ui-panel {
-          justify-content: space-between;
-          height: 100%;
-          text-align: center;
-
-          .ui-panel-titlebar {
-            img {
-              width: 100%;
-            }
-            //order: 1;
-          }
-
-          .ui-panel-content-wrapper {
-            //order: 0;
-            .ui-panel-content {
-              img {
-                width: 100%;
-              }
-            }
-
-            .ui-panel-footer {
-              text-align: right;
-            }
-          }
-        }
-      }
-
-      @include phone() {
-        justify-content: center;
-      }
-    }
-
-    .ui-panel {
-      min-height: 200px;
-      @include flex();
-      flex-flow: column nowrap;
-
-      .ui-panel-titlebar {
-        background: transparent;
-        border: none !important;
-      }
-    }
-  }
-}
-
-.ui-datalist {
-  .ui-datalist-content {
-    .ng-star-inserted {
-      .ng-star-inserted {
-        .ui-md-3{
-          img {
-            width: 100%;
-          }
-        }
-        .car-details {
-        }
-      }
-    }
-  }
-}
-
-.ui-paginator {
-  background: transparent!important;
-  border: none!important;
-}

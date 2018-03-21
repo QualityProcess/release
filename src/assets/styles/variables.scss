@@ -1,46 +1,15 @@
-@import '~@angular/material/theming';
-
 
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:100');
 
 
 
-$custom-typography: mat-typography-config(
-  $font-family: 'Robotica, Robotica Thin, Helvetica Neue, Arial, sans-serif',
-  $headline: mat-typography-level(32px, 48px, 700),
-  $body-1: mat-typography-level(16px, 24px, 500)
-);
 
-@include mat-base-typography($custom-typography);
-@include mat-checkbox-typography($custom-typography);
-@include angular-material-typography($custom-typography);
-@include mat-core($custom-typography);
-
-/**
- * Depth
- */
-$z-indexes: ( splash-screen );
-
-/**
- * Spacing units
- */
-$spacing-units: ( base: rem(1), xs: rem(0.4), sm: rem(0.8), md: rem(1.2), lg: rem(1.6), xl: rem(2.4), xxl: rem(3.2) );
-
-$space--base: map-get($spacing-units, base) !default;
-$space--xs: map-get($spacing-units, xs) !default;
-$space--sm: map-get($spacing-units, sm) !default;
-$space--md: map-get($spacing-units, md) !default;
-$space--lg: map-get($spacing-units, lg) !default;
-$space--xl: map-get($spacing-units, xl) !default;
-$space--xxl: map-get($spacing-units, xxl) !default;
-
-// default
-$space: map-get($spacing-units, base) !default;
 
 /**
  * Typography    
  */
+
 //$font--preferred: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif; 
 $font--preferred: 'Robotica', 'Robotica Thin', 'Helvetica Neue', 'Arial', sans-serif;
 $font--console: 'Monaco', 'Menlo', 'Consolas', 'Ubuntu Mono', monospace;
@@ -106,11 +75,5 @@ $red: red;
 $button--hover: #000057;
 $primary-icon: #747474;
 $primary-icon--hover: #212121;
-
-// Material colors
-$mat-colors: ( red: $mat-red, pink: $mat-pink, purple: $mat-purple, deep-purple: $mat-deep-purple, indigo: $mat-indigo, blue: $mat-blue, light-blue: $mat-light-blue, cyan: $mat-cyan, teal: $mat-teal, green: $mat-green, light-green: $mat-light-green, lime: $mat-lime, yellow: $mat-yellow, amber: $mat-amber, orange: $mat-orange, deep-orange: $mat-deep-orange, brown: $mat-brown, grey: $mat-grey, blue-grey: $mat-blue-grey );
-
-// Colors shorthand
-$ui-colors: ( black: ( base: black ), grey: ( base: rgba(119, 119, 119, 1), boulder: rgba(117, 117, 117, 1), slate: rgba(122, 139, 147, 1), emperor: rgba(81, 70, 73, 1), gallery: rgba(238, 238, 238, 1), mercury: rgba(229, 229, 229, 1), concrete: rgba(242, 242, 242, 1), alabaster: rgba(250, 250, 250, 1) ), white: ( base: white ), );
 
 $max-width: 1980px;

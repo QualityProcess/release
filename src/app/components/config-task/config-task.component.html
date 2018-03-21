@@ -7,8 +7,8 @@
         <span class="action-header">{{ item.name }}</span>
         <button mat-button class="action-btn" [routerLink]="['/task-activities', item.id, 'edit', {taskId: dataSource[0].task_id}]"><mat-icon>edit</mat-icon></button>
       </p-header>
-      <p-column field="name" header="Task activity item" [editable]="false"></p-column>
-      <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible' }">
+      <p-column field="name" header="Task activity item" [editable]="false" [style]=" {'width': '300px' }"></p-column>
+      <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '250px' }">
         <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
           {{task_activity_item[col.field]|date }}
         </ng-template>
@@ -16,7 +16,7 @@
           <p-calendar [(ngModel)]="task_activity_item[estimated_start]" appendTo="body"></p-calendar>
         </ng-template>
       </p-column>
-      <p-column field="estimated_completion" header="End Date" [editable]="true" [style]=" {'overflow':'visible' }">
+      <p-column field="estimated_completion" header="End Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '250px' }">
         <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
           {{task_activity_item[col.field]|date }}
         </ng-template>
@@ -26,6 +26,14 @@
       </p-column>
       <p-column field="hours_estimated" header="Hours estimated" [editable]="true"></p-column>
       <p-column field="hours_actual" header="Actual hours" [editable]="true"></p-column>
+      <p-column field="id" header="Actions" [style]="{'overflow':'visible', 'width': '100px'}" >
+        <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData">
+          <mat-icon class="action-btn edit-btn" [routerLink]="['/task-activity-items', task_activity_item.id, 'edit', {taskId: dataSource[0].task_id}]">edit</mat-icon>
+          <mat-icon class="action-btn delete-btn" (click)="openDeleteTaskActivityItemDialog(task_activity_item)">delete</mat-icon>
+        </ng-template>
+
+      
+      </p-column>
  
     </p-dataTable>
     <div class="table-footer">

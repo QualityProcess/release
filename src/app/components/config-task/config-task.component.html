@@ -2,7 +2,7 @@
   <h1>{{phase.category}}</h1>
 
   <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities">
-    <p-dataTable  class="table" [value]="item.task_activity_items" [rowStyleMap]="table" [editable]="true">
+    <p-dataTable  class="table" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true">
       <p-header class="action-wrapper">
         <span class="action-header">{{ item.name }}</span>
         <button mat-button class="action-btn" [routerLink]="['/task-activities', item.id, 'edit', {taskId: dataSource[0].task_id}]"><mat-icon>edit</mat-icon></button>

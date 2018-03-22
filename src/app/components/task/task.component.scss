@@ -38,6 +38,12 @@
       }
     }
 
+    .sub-menu {
+      @include phone() {
+        display: none;
+      }
+    }
+
     .sub-menu:last-child {
       margin-right: 100px;
     }

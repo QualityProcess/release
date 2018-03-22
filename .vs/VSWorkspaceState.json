@@ -4,12 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\circle-view",
-    "\\src\\app\\components\\task",
+    "\\src\\app\\components\\config-task",
+    "\\src\\app\\components\\projects",
+    "\\src\\app\\services",
+    "\\src\\app\\share",
     "\\src\\assets",
-    "\\src\\assets\\styles",
-    "\\src\\assets\\styles\\robotica"
+    "\\src\\assets\\styles"
   ],
-  "SelectedNode": "\\src\\app\\components\\task\\task.component.ts",
+  "SelectedNode": "\\src\\app\\components\\config-task\\config-task.component.html",
   "PreviewInSolutionExplorer": false
 }

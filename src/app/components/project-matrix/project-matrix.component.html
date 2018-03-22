@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <sub-navbar title="{{ project.name }}" classes="matrix-sub-navbar" class="sub-navbar">
   <!--<button mat-button class="add-btn" [routerLink]="['/disciplines', 'create']">
     <mdc-icon>add</mdc-icon>
@@ -15,7 +17,6 @@
           <tr>
             <th class="cell"></th>
             <th class="cell discipline-header"*ngFor="let item of data.row_headers; let i = index;">{{ item }}</th>
-            <th class="cell"></th>
           </tr>
         </thead>
         <tbody class="table-body">
@@ -29,8 +30,7 @@
                 <div class="create-design-stage circle" [routerLink]="['/tasks', 'create', {projectId: project.id,discipline: data.table.discipline, designStage: design_stage.header}]"><mat-icon>{{ disciplineNames[i].icon }}</mat-icon></div>
               </ng-template>
             </td>
-            <td *ngIf="rowIndex === 0" rowspan="9"></td>
-          </tr>
+          </tr> 
         </tbody>
       </table>
     </div>

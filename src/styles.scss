@@ -25,8 +25,14 @@ $custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, H
 @include angular-material-typography($custom-typography);
 @include mat-core($custom-typography);
 
-.mdc-toolbar__title {
-  font-family: $font--preferred!important;
+.mdc-toolbar__title, .mat-table, .mat-header-cell {
+  font-family: $font--preferred !important;
+  font-weight: $font--normal !important;
+}
+
+.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
+  font-family: $font--preferred !important;
+  font-weight: $font--normal !important;
 }
 
 /*  -------------------        END MATERIAL IO THEME -------------------------------*/
@@ -52,7 +58,8 @@ $borderRadius: 6px;
 $disabledOpacity: 0.35;
 
 .ui-widget {
-  font-family: $font--preferred!important;
+  font-family: $font--preferred !important;
+  font-weight: $font--normal;
 }
 
 //Header
@@ -139,11 +146,12 @@ h1 {
 
 h1 {
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 100;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font--preferred;
+  font-weight: $font--normal;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -154,6 +162,7 @@ p, h1, h2, h3, h4, h5, h6 {
 p {
   font-size: 14px;
   line-height: 1.42;
+  font-weight: $font--normal;
 }
 
 a {

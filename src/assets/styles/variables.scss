@@ -1,7 +1,7 @@
 
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:100');
-
+@import url(http://uk.allfont.net/allfont.css?fonts=roboto-thin);
 
 
 
@@ -10,8 +10,7 @@
  * Typography    
  */
 
-//$font--preferred: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif; 
-$font--preferred: 'Robotica', 'Robotica Thin', 'Helvetica Neue', 'Arial', sans-serif;
+$font--preferred: 'Roboto Thin', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif; 
 $font--console: 'Monaco', 'Menlo', 'Consolas', 'Ubuntu Mono', monospace;
 
 $font-weights: (
@@ -76,4 +75,4 @@ $button--hover: #000057;
 $primary-icon: #747474;
 $primary-icon--hover: #212121;
 
-$max-width: 1980px;
+$max-width: 1280px;

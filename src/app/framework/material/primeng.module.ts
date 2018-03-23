@@ -13,6 +13,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CalendarModule } from 'primeng/calendar';
 import { DataTableModule } from 'primeng/datatable';
+import { ScheduleModule } from 'primeng/schedule';
+import { FullCalendarModule } from 'ng-fullcalendar';
 
 @NgModule({
   exports: [
@@ -27,7 +29,9 @@ import { DataTableModule } from 'primeng/datatable';
     PaginatorModule,
     ProgressSpinnerModule,
     CalendarModule,
-    DataTableModule
+    DataTableModule,
+    ScheduleModule,
+    FullCalendarModule
   ]
 })
 export class PrimengModule {

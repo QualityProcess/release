@@ -35,7 +35,10 @@
         <div class="mdc-grid-tile__primary">
           <mdc-card class="project-card mdc-grid-tile__primary-content">
             <mdc-card-primary-action mdc-ripple class="primary-action" (click)="goToMatrix(project.id)">
-              <img src="{{project.image.url}}" />  
+              <img *ngIf="project.image.url; else placeholder" src="{{project.image.url}}" />
+              <ng-template #placeholder>
+                <img src="assets/images/placeholder.png" />
+              </ng-template>
             </mdc-card-primary-action>
             
             <mdc-card-actions class="card-action">

@@ -22,6 +22,7 @@
   </button>
   <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section sub-menu">
     <button mat-button (click)="goToView('editTask')">Edit task</button>
+    <button mat-button (click)="goToView('schedule')">Schedule</button>
     <button mat-button (click)="goToView('googleKeep')">Google Keep</button>
     <button mat-button (click)="goToView('horizontalHistogram')">Bar</button>
     <button mat-button (click)="goToView('grantt')">Gantt</button>
@@ -29,8 +30,9 @@
   </mdc-toolbar-section>
 </sub-navbar>
 
-<div class="ui-g-12 layout-wrapper">
+<div class="layout-wrapper"> 
   <config-task *ngIf="editTask" [data]="data.task_phases"></config-task>
+  <schedule *ngIf="schedule" [data]="data.task_phases"></schedule>
   <google-keep-task-view *ngIf="googleKeepView" [data]="data.task_phases"></google-keep-task-view>
   <horizontal-histogram *ngIf="horizontalHistogramView" [data]="data.task_phases"> </horizontal-histogram>
   <gtantt-view *ngIf="granttView" [data]="data.task_phases"></gtantt-view>

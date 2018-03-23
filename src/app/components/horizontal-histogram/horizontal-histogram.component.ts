@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core
 import { Chart } from 'chart.js';
 import { GoogleChartComponent } from 'ng2-google-charts';
 
+import * as d3 from 'd3';
+
 @Component({
   selector: 'horizontal-histogram',
   templateUrl: './horizontal-histogram.component.html',
@@ -10,6 +12,7 @@ import { GoogleChartComponent } from 'ng2-google-charts';
 export class HorizontalHistogramComponent implements OnInit {
   @Input('data') dataSource;
   viewData: any;
+  @ViewChild('bar-graph') bar: any;
 
   @ViewChild('your_chart') chart: GoogleChartComponent;
   pieChartData = {
@@ -31,8 +34,26 @@ export class HorizontalHistogramComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit() {
-    
+  ngOnInit(){}
+
+  ngAfterContentInit() {
+    this.renderGraph();
+  }
+
+  renderGraph() {
+    var data = [30, 86, 168, 281, 303, 365];
+
+    var scale = d3.scaleLinear()
+      .domain([0, 365])
+      .range([0, 300]);
+
+    d3.select(".bar-chart")
+      .selectAll("div")
+      .data(data)
+      .enter()
+      .append("div")
+      .style("width", function (d) { return scale(d) + 'px' })
+      .text(function (d) { return '$ ' + d; });
   }
 
   getData(data) {

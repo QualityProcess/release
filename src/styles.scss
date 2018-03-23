@@ -7,7 +7,6 @@
 $test_var: yellow;
 
 
-
 /** ======================================================================= 
                             MATERIAL THEMES OVERRIDE
     ======================================================================= */
@@ -19,12 +18,16 @@ $test_var: yellow;
 @import '~@angular/material/theming';
 @import "~@angular/material/prebuilt-themes/purple-green.css";
 
-$custom-typography: mat-typography-config( $font-family: 'Robotica, Robotica Thin, Helvetica Neue, Arial, sans-serif', $headline: mat-typography-level(32px, 48px, 700), $body-1: mat-typography-level(16px, 24px, 500) );
+$custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, Helvetica Neue, Arial, sans-serif', $headline: mat-typography-level(32px, 48px, 700), $body-1: mat-typography-level(16px, 24px, 500) );
 
 @include mat-base-typography($custom-typography);
 @include mat-checkbox-typography($custom-typography);
 @include angular-material-typography($custom-typography);
 @include mat-core($custom-typography);
+
+.mdc-toolbar__title {
+  font-family: $font--preferred!important;
+}
 
 /*  -------------------        END MATERIAL IO THEME -------------------------------*/
 
@@ -43,10 +46,16 @@ $mdc-theme-secondary: $primary-purple--middle;
 
 /*  -------------------        PRIMENG THEME -------------------------------*/
 
-$fontFamily: Lucida Grande, Lucida Sans, Arial, sans-serif;
+$fontFamily: 'Roboto Thin', Roboto, Lucida Sans, Arial, sans-serif;
 $fontSize: 1em;
 $borderRadius: 6px;
 $disabledOpacity: 0.35;
+
+.ui-widget {
+  font-family: $font--preferred!important;
+}
+
+@import "fullcalendar/dist/fullcalendar.min.css";
 
 //Header
 $headerBorderWidth: 1px;
@@ -254,6 +263,39 @@ a {
 }
 
 /*  -------------------    END NAV BAR  -----------------------------*/
+
+
+// BAR CHART
+
+.bar-chart > div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
+
+// GANTT CHART
+
+#container {
+  margin: 0 auto;
+  position: relative;
+  overflow: visible;
+
+  .phase-section {
+    background-color: $primary-gray;
+  }
+
+  .chart-header {
+    text-align: center;
+  }
+}
+
+
+
+
+
 
 // loading 
 .loading {

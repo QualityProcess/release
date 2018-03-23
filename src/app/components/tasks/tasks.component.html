@@ -60,7 +60,10 @@
         <div class="mdc-grid-tile__primary">
           <mdc-card class="project-card mdc-grid-tile__primary-content">
             <mdc-card-primary-action mdc-ripple class="primary-action" [routerLink]="['../', 'tasks', task.id]">
-              <img src="{{task.image.url}}" />
+              <img *ngIf="task.image.url; else placeholder" src="{{task.image.url}}" />
+              <ng-template #placeholder>
+                <img src="assets/images/placeholder.png" />
+              </ng-template>
             </mdc-card-primary-action>
 
             <mdc-card-actions class="card-action">

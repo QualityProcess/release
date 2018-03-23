@@ -22,6 +22,7 @@ export class TaskComponent implements OnInit {
   horizontalHistogramView: boolean = false;
   granttView: boolean = false;
   circleView: boolean = false;
+  schedule: boolean = false;
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: Task;
   taskActivities: TaskActivity[];
@@ -85,6 +86,7 @@ export class TaskComponent implements OnInit {
         this.granttView = false;
         this.circleView = false;
         this.editTask = true;
+        this.schedule = false;
         break;
       case 'googleKeep':
         this.googleKeepView = true;
@@ -92,6 +94,7 @@ export class TaskComponent implements OnInit {
         this.granttView = false;
         this.circleView = false;
         this.editTask = false;
+        this.schedule = false;
         break;
       case 'horizontalHistogram':
         this.googleKeepView = false;
@@ -99,6 +102,7 @@ export class TaskComponent implements OnInit {
         this.granttView = false;
         this.circleView = false;
         this.editTask = false;
+        this.schedule = false;
         break;
       case 'grantt':
         this.googleKeepView = false;
@@ -106,6 +110,7 @@ export class TaskComponent implements OnInit {
         this.granttView = true;
         this.circleView = false;
         this.editTask = false;
+        this.schedule = false;
         break;
       case 'circle':
         this.googleKeepView = false;
@@ -113,12 +118,22 @@ export class TaskComponent implements OnInit {
         this.granttView = false;
         this.circleView = true;
         this.editTask = false;
+        this.schedule = false;
+        break;
+      case 'schedule':
+        this.googleKeepView = false;
+        this.horizontalHistogramView = false;
+        this.granttView = false;
+        this.circleView = false;
+        this.editTask = false;
+        this.schedule = true;
         break;
       default:
         this.googleKeepView = false;
         this.horizontalHistogramView = false;
         this.granttView = false;
         this.editTask = true;
+        this.schedule = false;
     }
   }
 }

@@ -13,6 +13,8 @@ export class HorizontalHistogramComponent implements OnInit {
   @Input('data') dataSource;
   viewData: any;
   @ViewChild('bar-graph') bar: any;
+  inputData: any;
+  currentData: any[] = [];
 
   @ViewChild('your_chart') chart: GoogleChartComponent;
   pieChartData = {
@@ -34,7 +36,53 @@ export class HorizontalHistogramComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit(){}
+  ngOnInit() {
+    console.log(this.dataSource);
+
+    for (let obj of this.dataSource) {
+
+      let inputData = {
+        input: obj.id,
+        data: []
+      }
+      obj.task_activities.forEach((task_activity) => {
+
+        let barData = [];
+
+        task_activity.task_activity_items.forEach((task_activity_item) => {
+          let value = task_activity_item.hours_estimated - task_activity_item.hours_actual;
+          value = value <= 0 ? 0 : value;
+
+          let taskActivityItemData = {
+            taskActivityItem: task_activity_item.id,
+            google: {
+              chartType: 'BarChart',
+              options: {
+                width: 400,
+                height: 40,
+                legend: { position: 'top', maxLines: 5 },
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+                backgroundColor: { fill: 'transparent' }
+              },
+              dataTable: [
+                ['Genre', 'Estimated hours', 'actual hours', 'hours over', { role: 'style' }, { role: 'annotation' }],
+                ['', task_activity_item.hours_actual, task_activity_item.hours_estimated, value, '', '']
+              ]
+            }
+          }
+
+          barData.push(taskActivityItemData);
+        });
+        console.log(inputData);
+        inputData.data.push(barData);
+      });
+      console.log("SDFSDF", this.currentData);
+      this.currentData.push(inputData); 
+    }
+
+    console.log('', this.currentData);
+  }
 
   ngAfterContentInit() {
     this.renderGraph();

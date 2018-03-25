@@ -13,7 +13,8 @@ export class TaskActivityItem {
         is_enabled: boolean;
         is_locked: boolean;
         created_at: Date;
-        updated_at: Date;   
+        updated_at: Date;
+        percentage_complete: number;
         image: {
           url: string;
           thumbnail: {

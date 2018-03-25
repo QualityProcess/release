@@ -5,12 +5,12 @@
     "\\src\\app",
     "\\src\\app\\components",
     "\\src\\app\\components\\config-task",
-    "\\src\\app\\components\\projects",
+    "\\src\\app\\components\\google-keep-task-view",
+    "\\src\\app\\components\\task-form",
+    "\\src\\app\\models",
     "\\src\\app\\services",
-    "\\src\\app\\share",
-    "\\src\\assets",
-    "\\src\\assets\\styles"
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app\\components\\config-task\\config-task.component.html",
+  "SelectedNode": "\\src\\app\\services\\task.service.ts",
   "PreviewInSolutionExplorer": false
 }

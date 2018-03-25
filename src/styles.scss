@@ -16,7 +16,7 @@ $test_var: yellow;
 /*  -------------------        MATERIAL IO THEME -------------------------------*/
 
 @import '~@angular/material/theming';
-@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 $custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, Helvetica Neue, Arial, sans-serif', $headline: mat-typography-level(32px, 48px, 700), $body-1: mat-typography-level(16px, 24px, 500) );
 
@@ -33,6 +33,24 @@ $custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, H
 .mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
   font-family: $font--preferred !important;
   font-weight: $font--normal !important;
+}
+
+.mat-raised-button {
+  background: $primary-purple;
+  color: $white!important;
+}
+
+td {
+  .mat-checkbox-ripple {
+    max-height: 30px;
+    max-width: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: $primary-purple--light;
 }
 
 /*  -------------------        END MATERIAL IO THEME -------------------------------*/
@@ -61,6 +79,68 @@ $disabledOpacity: 0.35;
   font-family: $font--preferred !important;
   font-weight: $font--normal;
 }
+
+
+.edit-mode {
+  .ui-datatable {
+    .ui-widget-header {
+      background: #48a999;
+      color: $white;
+      text-transform: uppercase;
+    }
+
+    .ui-datatable-thead {
+      > tr {
+        > th {
+          background: $primary-purple--light;
+          color: $white;
+          border: 1px solid $primary-purple--light !important;
+        }
+      }
+    }
+
+    .ui-inputtext {
+      border: none !important;
+      box-shadow: none !important;
+
+      &.ui-state-focus, &:focus, &:enabled, &:hover {
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent;
+      }
+    }
+  }
+}
+
+.bar {
+  .ui-datatable {
+    .ui-widget-header {
+      background: $white;
+      color: $black;
+      text-transform: uppercase;
+      border:none!important;
+    }
+
+    .ui-datatable-thead {
+      > tr {
+        > th {
+          background: $white;
+          color: $black;
+          border: 1px solid $white !important;
+        }
+      }
+    }
+
+    .ui-datatable-data {
+      > tr {
+        >td {
+          border:none!important;
+        }
+      }
+    }
+  }
+}
+
 
 //Header
 $headerBorderWidth: 1px;
@@ -370,8 +450,8 @@ a {
 }
 
 .action-btn {
-  background: green;
-  color: $white !important;
+  //background: green;
+  //color: $white !important;
 }
 
 
@@ -440,7 +520,18 @@ input:checked + .slider:before {
   color: $primary-purple--middle;
 }
 .mat-table {
-  background-color: $primary-purple--light;
+  background-color: $primary-gray--light;
+  @include mat-elevation-transition;
+  @include mat-elevation(0);
+
+  .mat-row {
+    @include mat-elevation-transition;
+    @include mat-elevation(0);
+
+    &:active {
+      @include mat-elevation(8);
+    }
+  }
 }
 
 .form .mat-form-field-wrapper .mat-select-value {
@@ -459,9 +550,6 @@ input:checked + .slider:before {
   }
 }
 
-.mat-raised-button {
-  background-color: $primary-purple--middle;
-}
 
 .mdc-grid-list {
   .mdc-grid-list__tiles {

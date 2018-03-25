@@ -58,6 +58,10 @@ export class TaskService {
     return this.http.put<TaskActivity>(`${this.apiUrl}/task_activities/${id}`, taskActivity);
   }
 
+  deleteTaskActivity(id: number): Observable<{}> {
+    return this.http.delete(`${this.apiUrl}/task_activities/${id}`);
+  }
+
   // task activity items
 
   getTaskActivityItems(): Observable<TaskActivityItem[]>{
@@ -68,7 +72,7 @@ export class TaskService {
     return this.http.post<TaskActivityItem>(`${this.apiUrl}/task_activity_items/`, taskActivityItem);
   }
 
-  updateTaskActivityItem(taskActivityItem: TaskActivityItem, id: number): Observable<TaskActivityItem> {
+  updateTaskActivityItem(taskActivityItem: Object, id: number): Observable<TaskActivityItem> {
     return this.http.put<TaskActivityItem>(`${this.apiUrl}/task_activity_items/${id}`, taskActivityItem);
   }
 

@@ -1,6 +1,56 @@
 @import "../../../assets/styles/variables.scss";
 @import "../../../assets/styles/mixins.scss";
 
+.phase {
+  background: #ebedf0;
+  margin-bottom: 75px;
+  overflow-x: hidden;
+
+  .phase-header {
+    @include flex();
+    align-items: center;
+    justify-content: flex-start;
+    background: $primary-purple--middle;
+    color: $white;
+
+    h2 {
+      margin: 0;
+      color: $white;
+    }
+  }
+
+  .activities {
+    padding: 0;
+
+    .table {
+      text-align: center;
+
+      .table-header {
+        @include flex();
+        justify-content: flex-start;
+      }
+
+      .ui-widget-header {
+        background: $white;
+        color: $black;
+        text-transform: uppercase;
+      }
+
+      .ui-datatable-thead {
+        > tr {
+          > th {
+            background: $white;
+            color: $black;
+            border: 1px solid $white !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
 h5 {
   margin: 0;
 }

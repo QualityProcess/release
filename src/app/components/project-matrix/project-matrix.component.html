@@ -23,7 +23,7 @@
           <tr class="table-body-row" *ngFor="let design_stage of data.columns; let rowIndex = index;">
             <td class="cell design-stage-header">{{data.column_headers[rowIndex]}}</td>
             <td class="cell matrix-box" *ngFor="let data of design_stage.data; let i = index">
-              <div class="created-design-stage circle" *ngIf="data.table.value; else create" [routerLink]="['/tasks', data.table.value]">
+              <div class="created-design-stage circle" *ngIf="data.table.value; else create" [routerLink]="['/tasks', data.table.value.id]">
                   <mat-icon>{{ disciplineNames[i].icon }}</mat-icon>
               </div> 
               <ng-template #create>

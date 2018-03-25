@@ -108,7 +108,7 @@ import { FormTaskActivityItemComponent } from './components/form-task-activity-i
 import { EditTaskActivityItemComponent } from './components/edit-task-activity-item/edit-task-activity-item.component';
 import { CircleViewComponent } from './components/circle-view/circle-view.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
-import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar";
+import { PercentageComponent } from './components/custom-elements/percentage/percentage.component';
 
 @NgModule({
   declarations: [
@@ -162,7 +162,7 @@ import {CalendarComponent} from "ap-angular2-fullcalendar/src/calendar/calendar"
     EditTaskActivityItemComponent,
     CircleViewComponent,
     ScheduleComponent,
-    CalendarComponent,
+    PercentageComponent,
 
   ],
   imports: [

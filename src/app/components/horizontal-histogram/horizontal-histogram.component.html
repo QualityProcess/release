@@ -1,12 +1,64 @@
+
+
+
+<div class="phase bar" *ngFor="let phase of dataSource; let phaseIndex = index">
+  <div class="phase-header">
+    <h2>{{phase.category}}</h2>
+  </div>
+  <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities ui-g-12">
+    <p-dataTable class="table" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true">
+
+      <p-header class="table-header">
+        <span class="action-header">{{ item.name }}</span>
+      </p-header>
+
+      <p-column field="name" [style]=" {'width': '300px', 'text-align': 'start' }"></p-column>
+      <p-column field="id" [style]=" {'width': '300px', 'text-align': 'start' }">
+        <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData" let-i="rowIndex">
+          <google-chart *ngIf="currentData[phaseIndex].data[task_activityIndex][i].google.dataTable" [data]="currentData[phaseIndex].data[task_activityIndex][i].google"></google-chart>
+          <!--<google-chart [data]="{
+            chartType: 'BarChart',
+              dataTable: [
+                ['Genre', 'Estimated hours', 'actual hours', 'hours over', { role: 'style' }, { role: 'annotation' }],
+                ['',task_activity_item.hours_actual, task_activity_item.hours_estimated, task_activity_item.hours_estimated - task_activity_item.hours_actual , '', '']
+              ],
+              options: {
+                width: 400,
+                height: 40,
+                legend: { position: 'top', maxLines: 5 },
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+                backgroundColor: {fill: 'transparent'} ,
+                backgroundColor: 'transparent'
+              }
+            }">
+          </google-chart>-->
+        </ng-template>
+      </p-column>
+
+    </p-dataTable>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 <!--
 <div id="dashboard">
   <p>Earnings</p>
   <div class="bar-chart">
   </div>
 </div>
-    -->
+   
 
-<div *ngFor="let phase of dataSource" class="inputs"> 
+
+
+<div *ngFor="let phase of dataSource" class="inputs">
   <h2>{{phase.category}}</h2>
 
   <div *ngFor="let item of phase.task_activities" class="activities">
@@ -29,12 +81,11 @@
           backgroundColor: {fill: 'transparent'} ,
           backgroundColor: 'transparent'
         }
-      }"></google-chart> 
-     
-      </div> 
+      }"></google-chart>
+
+      </div>
     </div>
   </div>
 </div>
-
+     -->
 <!--<google-chart [data]="pieChartData"></google-chart>-->
-   

@@ -1,0 +1,9 @@
+@import "../../../../assets/styles/variables.scss";
+
+div {
+  width: 3px;
+  height: 20px;
+  background-color: $primary-gray;
+  margin: 6px 0;
+  display: inline-block;
+}

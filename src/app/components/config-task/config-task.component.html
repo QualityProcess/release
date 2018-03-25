@@ -1,46 +1,76 @@
-<div class="phase" *ngFor="let phase of dataSource; let phaseIndex = index">
-  <h1>{{phase.category}}</h1>
 
-  <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities">
-    <p-dataTable  class="table" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true">
-      <p-header class="action-wrapper">
-        <span class="action-header">{{ item.name }}</span>
-        <button mat-button class="action-btn" [routerLink]="['/task-activities', item.id, 'edit', {taskId: dataSource[0].task_id}]"><mat-icon>edit</mat-icon></button>
-      </p-header>
-      <p-column field="name" header="Item" [editable]="false" [style]=" {'width': '300px' }"></p-column>
-      <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '250px' }">
-        <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
-          {{task_activity_item[col.field]|date }}
-        </ng-template>
-        <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
-          <p-calendar [(ngModel)]="task_activity_item[estimated_start]" appendTo="body"></p-calendar>
-        </ng-template>
-      </p-column>
-      <p-column field="estimated_completion" header="End Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '250px' }">
-        <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
-          {{task_activity_item[col.field]|date }}
-        </ng-template>
-        <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
-          <p-calendar [(ngModel)]="task_activity_item[estimated_completion]" appendTo="body"></p-calendar>
-        </ng-template>
-      </p-column>
-      <p-column field="hours_estimated" header="Hours estimated" [editable]="true"></p-column>
-      <p-column field="hours_actual" header="Actual hours" [editable]="true"></p-column>
-      <p-column field="id" header="Actions" [style]="{'overflow':'visible', 'width': '100px'}" >
-        <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData">
-          <mat-icon class="action-btn edit-btn" [routerLink]="['/task-activity-items', task_activity_item.id, 'edit', {taskId: dataSource[0].task_id}]">edit</mat-icon>
-          <mat-icon class="action-btn delete-btn" (click)="openDeleteTaskActivityItemDialog(task_activity_item)">delete</mat-icon>
-        </ng-template>
+<div *ngIf="!loaded; else table" class="loading"><mat-spinner></mat-spinner></div>
 
-      
-      </p-column>
- 
-    </p-dataTable>
-    <div class="table-footer">
-      <div class="action-wrapper">
-        <span class="action-header">Add item</span>
-        <button mat-button class="action-btn" [routerLink]="['/task-activity-items', 'create', item.id, {taskId: dataSource[0].task_id}]"><mat-icon>add</mat-icon></button>
-      </div>
+<ng-template #table>
+  <div class="phase edit-mode" *ngFor="let phase of dataSource; let phaseIndex = index">
+    <div class="phase-header">
+      <h2 class="ui-g-11">{{phase.category}}</h2>
+      <mat-icon class="ui-g-1 action" (click)="addActivity(phase.id)">add</mat-icon>
+    </div>
+    <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities ui-g-12">
+      <p-dataTable class="table" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)">
+
+        <p-header class="table-header">
+          <span class="action-header">{{ item.name }}</span>
+          <div class="action">
+            <mat-icon class="add-btn" (click)="addItem(item)">add</mat-icon>
+            <mat-icon class="edit-btn" [routerLink]="['/task-activities', item.id, 'edit', {taskId: dataSource[0].task_id}]">edit</mat-icon>
+            <mat-icon class="delete-btn" (click)="openDeleteTaskActivityDialog(item)">delete</mat-icon>
+          </div>
+        </p-header>
+
+        <p-column field="name" header="Item" [editable]="true" [style]=" {'width': '300px', 'text-align': 'start' }"></p-column>
+        <p-column field="percentage_complete" header="%" [editable]="false" [style]=" {'overflow':'visible', 'width': '75px' }">
+          <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+            <percentage [data]="task_activity_item[col.field]"></percentage>
+          </ng-template>
+        </p-column>
+        <p-column field="checked_by" header="Cheked By" [editable]="false" [style]=" {'width': '200px' }"></p-column>
+        <p-column field="checked_on" header="Checked Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '250px' }">
+          <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+            {{task_activity_item[col.field]|date }}
+          </ng-template>
+          <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
+            <p-calendar [(ngModel)]="task_activity_item[checked_on]" [defaultDate]="task_activity_item[checked_on]" appendTo="body" [inputId]="task_activity_item[id]" (onSelect)="onDateChanged($event, task_activity_item)"></p-calendar>
+          </ng-template>
+        </p-column>
+        <p-column field="hours_estimated" header="Hours estimated" [editable]="true"></p-column>
+        <p-column field="hours_actual" header="Actual hours" [editable]="true"></p-column>
+        <p-column field="is_locked" header="QA" [style]="{'overflow':'visible', 'width': '100px'}">
+          <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+            <mat-checkbox [checked]="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
+          </ng-template>
+          <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
+            <mat-checkbox [(ngModel)]="task_activity_item[is_locked]" [checked]="task_activity_item.is_locked" value="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
+          </ng-template>
+        </p-column>
+        <p-column field="description" header="Note" [style]="{'overflow':'visible', 'width': '100px'}">
+          <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData">
+            <mat-icon matTooltip="{{task_activity_item.description}}" [matTooltipPosition]="'left'" class="icon-note">note</mat-icon>
+          </ng-template>
+        </p-column>
+        <p-column field="id" header="Actions" [style]="{'overflow':'visible', 'width': '100px'}">
+          <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData">
+            <mat-icon class="action-btn edit-btn" [routerLink]="['/task-activity-items', task_activity_item.id, 'edit', {taskId: dataSource[0].task_id}]">edit</mat-icon>
+            <mat-icon class="action-btn add-btn" (click)="changePercentage(item, task_activity_item)">add</mat-icon>
+            <mat-icon class="action-btn delete-btn" (click)="openDeleteTaskActivityItemDialog(task_activity_item)">delete</mat-icon>
+          </ng-template>
+        </p-column>
+        <!--<p-footer class="table-footer">
+          <div class="action-wrapper">
+            <span class="action-header">Add item</span>
+            <mat-icon (click)="addItem(item)">add</mat-icon>
+          </div>
+        </p-footer>-->
+      </p-dataTable>
     </div>
   </div>
-</div>
+</ng-template>
+
+
+
+
+
+
+
+

@@ -38,10 +38,10 @@ export class ScheduleComponent implements OnInit {
         task_activity.task_activity_items.forEach((task_activity_item) => {
 
           const dateObj = new Date(task_activity_item.estimated_start);
-          const yearMonthDay = dateObj.getUTCFullYear() + '-' + pad(dateObj.getUTCMonth() + 1) + '-' + pad(dateObj.getUTCDate());
+          const yearMonthDay = dateObj.getUTCFullYear() + '-' + pad(dateObj.getUTCMonth() + 1) + '-' + pad(dateObj.getUTCDate()+1);
 
           const dateObjEnd = new Date(task_activity_item.estimated_completion);
-          const yearMonthDayEnd = dateObjEnd.getUTCFullYear() + '-' + pad(dateObjEnd.getUTCMonth() + 1) + '-' + pad(dateObjEnd.getUTCDate());
+          const yearMonthDayEnd = dateObjEnd.getUTCFullYear() + '-' + pad(dateObjEnd.getUTCMonth() + 1) + '-' + pad(dateObjEnd.getUTCDate() + 1);
 
 
           this.currentData.push({

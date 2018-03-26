@@ -1,6 +1,6 @@
 import { TaskPhase } from './task-phase';
 
-export interface Task {
+export class Task {
   id: number;
   project_id: number;
   discipline_id: number;

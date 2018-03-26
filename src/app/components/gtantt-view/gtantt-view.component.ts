@@ -122,14 +122,20 @@ export class GtanttViewComponent implements OnInit {
         let granttData = [];
         
         task_activity.task_activity_items.forEach((task_activity_item) => {
-          granttData.push([task_activity_item.name, task_activity_item.name, new Date(task_activity_item.estimated_start), new Date(task_activity_item.estimated_completion), this.daysToMilliseconds(10), 100, null])
-          granttData1.push({
-            startDate: new Date(task_activity_item.estimated_start),
-            endDate: new Date(task_activity_item.estimated_completion),
-            label: task_activity_item.name,
-            id: 'm01',
-            dependsOn: []
-          });
+          granttData.push([task_activity_item.name, task_activity_item.name, new Date(task_activity_item.estimated_start), new Date(task_activity_item.estimated_completion), this.daysToMilliseconds(10), 100, null]);
+          let dateStart = new Date(task_activity_item.estimated_start);
+          let dateEnd = new Date(task_activity_item.estimated_completion);
+          let compareDate = new Date(2000, 10, 10);
+          if (dateStart > compareDate && dateEnd > compareDate) {
+            granttData1.push({
+              startDate: new Date(dateStart.getUTCFullYear(), dateStart.getUTCMonth(), dateStart.getUTCDate()),
+              endDate: new Date(dateEnd.getUTCFullYear(), dateEnd.getUTCMonth(), dateEnd.getUTCDate()),
+              label: task_activity_item.name,
+              id: 'm01',
+              dependsOn: []
+            });
+          }
+          
         });
 
         let resultHours = taskActivityData.resultEstimated - taskActivityData.resultActivite;
@@ -281,7 +287,7 @@ var createGanttChart = function (placeholder, data, {
     .domain([new Date(minStartDate), new Date(maxEndDate)])
     .range([0, scaleWidth]);
 
-  const xAxis = d3.axisBottom(xScale);
+  const xAxis = d3.axisBottom(xScale).tickArguments([d3.timeDay.every(1)]).tickFormat(d3.timeFormat("%m/%d"));
 
   const g1 = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
@@ -424,3 +430,15 @@ var createGanttChart = function (placeholder, data, {
     .append('title')
     .text((d: any) => d.tooltip);
 };
+
+
+function ganttTickFunc(t0, t1, step) {
+  var startTime = new Date(t0),
+    endTime = new Date(t1), times = [];
+  endTime.setUTCDate(endTime.getUTCDate() + 1);
+  while (startTime < endTime) {
+    startTime.setUTCDate(startTime.getUTCDate() + 2);
+    times.push(new Date(startTime));
+  }
+  return times;
+}

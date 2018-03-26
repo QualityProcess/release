@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProjectsService } from "../../services";
+import { TaskService } from "../../services/task.service";
 import { Project } from '../../models/project';
+import { Task } from '../../models/task';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Directive, EventEmitter, HostListener, ElementRef, Renderer2, Output } from '@angular/core';
 
@@ -48,7 +50,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   curX;
   curY;
 
-  constructor(private service: ProjectsService, private route: ActivatedRoute, private elementRef: ElementRef, private renderer: Renderer2) {
+  constructor(private service: ProjectsService, private taskService: TaskService, private route: ActivatedRoute, private router: Router, private elementRef: ElementRef, private renderer: Renderer2) {
     route.params.subscribe(({ id }) => {
       /*service.getPhasesMatrix(+id).subscribe(data => {
         this.data = data;
@@ -86,6 +88,20 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => { console.log('Loaded!'); this.loaded = true; }, 400);
     
+  }
+
+  createTask(projectId, disciplineId, designStageId) {
+    let defaultTask: Task = new Task();
+    defaultTask.name = 'New Task';
+    defaultTask.project_id = projectId;
+    defaultTask.discipline_id = disciplineId;
+    defaultTask.design_stage_id = designStageId;
+    console.log(defaultTask);
+    this.taskService.addTask(defaultTask).subscribe(res => {
+      console.log(res);
+
+      this.router.navigate(['/tasks', res.id])
+    });
   }
 
   createDiscipline(){

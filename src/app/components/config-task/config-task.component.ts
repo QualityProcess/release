@@ -29,6 +29,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
   deleteActivitySubcribe: any
   onDateChangedSubscribe: any;
   selectedItem: any;
+  sortField = "created_at"; 
   taskActivityItems: TaskActivityItem[];
 
   constructor(private service: TaskService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
@@ -150,6 +151,8 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       if (+item.id === +i.id) itemIndex = index;
       return +item.id === +i.id
     });
+
+    if (this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex].percentage_complete >= percentage) return;
 
     this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex].percentage_complete = percentage;
    

@@ -42,7 +42,7 @@ export class ScheduleComponent implements OnInit {
 
           const dateObjEnd = new Date(task_activity_item.estimated_completion);
           const yearMonthDayEnd = dateObjEnd.getUTCFullYear() + '-' + pad(dateObjEnd.getUTCMonth() + 1) + '-' + pad(dateObjEnd.getUTCDate() + 1);
-
+          console.log('date:',yearMonthDay);
 
           this.currentData.push({
             id: task_activity_item.id,
@@ -91,17 +91,13 @@ export class ScheduleComponent implements OnInit {
   }
 
   updateEvent(model: any) {
-    model = {
-      event: {
-        id: model.event.id,
-        start: model.event.start,
-        end: model.event.end,
-        title: model.event.title
-      },
-      duration: {
-        _data: model.duration._data
-      }
-    }
+    console.log(model);
+
+    if (model.event.start === null) return;
+    if (model.event.end === null) {
+      model.event.end = new Date();
+      model.event.end.setDate(model.event.start._d.getDate() + 1);
+    };
 
     let data = {
       estimated_start: model.event.start._d,

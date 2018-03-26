@@ -23,7 +23,7 @@ export class PercentageComponent implements OnInit {
   }
 
   setPercentage(value) {
-    console.log('Set percentage: ', value);
+    if (value <= this.tmpPercentage) return;
     this.tmpPercentage = value;
     this.percentage = value;
     this.onChanged.emit(this.percentage);

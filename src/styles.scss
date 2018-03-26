@@ -292,6 +292,10 @@ a {
         align-items: center;
 
         .title {
+          font-size: 1em!important;
+          span {
+            font-size: 1.2em;
+          }
         }
 
         .main-fab-btn {
@@ -514,6 +518,21 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+//gantt chart
+#container {
+  .chart-header {
+    background: $primary-purple--light;
+    text-align: left;
+    padding: 0 16px;
+
+    h3 {
+      color: $white;
+    }
+  }
+}
+
 
 /*  -------------------    OVERRIDE MATERIAL STYLE  -----------------------------*/
 .mat-input-element, .select {

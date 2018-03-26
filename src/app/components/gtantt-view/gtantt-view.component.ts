@@ -155,9 +155,11 @@ export class GtanttViewComponent implements OnInit {
       div.classList.add('phase-section');
       let header = document.createElement("div");
       header.classList.add('chart-header');
-      let h3 = document.createElement("h3");
-      h3.innerHTML = obj.category;
-      header.appendChild(h3);
+      let h2 = document.createElement("h2");
+      h2.style.color = '#ffffff';
+      h2.style.lineHeight = '2em';
+      h2.innerHTML = obj.category;
+      header.appendChild(h2);
       div.appendChild(header);
       this.canvas.nativeElement.appendChild(div);
 
@@ -287,7 +289,7 @@ var createGanttChart = function (placeholder, data, {
     .domain([new Date(minStartDate), new Date(maxEndDate)])
     .range([0, scaleWidth]);
 
-  const xAxis = d3.axisBottom(xScale).tickArguments([d3.timeDay.every(1)]).tickFormat(d3.timeFormat("%m/%d"));
+  const xAxis = d3.axisBottom(xScale).tickArguments([d3.timeDay.every(1)]).tickFormat(d3.timeFormat("%d %M"));
 
   const g1 = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
@@ -416,12 +418,12 @@ var createGanttChart = function (placeholder, data, {
     .attr('y', (d: any) => d.y)
     .attr('width', (d: any) => d.width)
     .attr('height', (d: any) => d.height)
-    .style('fill', 'green')
-    .style('stroke', '#000063');
+    .style('fill', '#ffffff')
+    .style('stroke', '#48a999');
 
   bars
     .append('text')
-    .style('stroke', '#000063')
+    .style('stroke', '#000000')
     .attr('x', (d: any) => d.labelX)
     .attr('y', (d: any) => d.labelY)
     .text((d: any) => d.label);

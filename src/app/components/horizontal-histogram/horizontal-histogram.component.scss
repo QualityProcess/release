@@ -2,20 +2,23 @@
 @import "../../../assets/styles/mixins.scss";
 
 .phase {
-  background: #ebedf0;
+  background: transparent;
   margin-bottom: 75px;
   overflow-x: hidden;
+
 
   .phase-header {
     @include flex();
     align-items: center;
     justify-content: flex-start;
-    background: $primary-purple--middle;
+    background: $primary-purple--light;
     color: $white;
+    padding: 0 16px;
 
     h2 {
       margin: 0;
       color: $white;
+      line-height: 2em;
     }
   }
 

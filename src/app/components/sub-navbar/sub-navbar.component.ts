@@ -7,7 +7,8 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 })
 export class SubNavbarComponent implements OnInit {
   @Input() title: string = '';
-  @Input() classes: string = '';
+  @Input() subtitle: string = '';
+  @Input() classes: string = ''; 
 
   constructor() { }
 

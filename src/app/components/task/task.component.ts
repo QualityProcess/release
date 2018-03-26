@@ -6,7 +6,10 @@ import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 import { TaskService } from "../../services/task.service";
+import { ProjectsService } from "../../services";
 import { Task } from "../../models/task";
+import { Discipline } from "../../models/discipline";
+import { DesignStage } from "../../models/design-stage";
 import { TaskActivity } from "../../models/task-activity";
 import { TaskActivityItem } from "../../models/task-activity-item";
 
@@ -25,10 +28,12 @@ export class TaskComponent implements OnInit {
   schedule: boolean = false;
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: Task;
+  discipline: string;
+  design_stage: string;
   taskActivities: TaskActivity[];
   taskActivityItems: TaskActivityItem[];
 
-  constructor(private service: TaskService, private router: Router, private route: ActivatedRoute) {
+  constructor(private service: TaskService, private projectService: ProjectsService, private router: Router, private route: ActivatedRoute) {
     this.views['googleKeepView'] = true;
     this.views['horizontalHistogramView'] = false;
     this.views['granttView'] = false;
@@ -62,13 +67,22 @@ export class TaskComponent implements OnInit {
           });
         });
 
-      }) 
-    }) 
-
-    /*this.service.getTaskActivities().subscribe(taskActivities => {
-      
+      })
     });
 
+
+
+
+    this.projectService.getDescipline(this.data.discipline_id).subscribe(discipline => {
+      this.discipline = discipline.category;
+      console.log(discipline);
+    });
+
+    this.projectService.getDesignStage(this.data.design_stage_id).subscribe(design_stage => {
+      this.design_stage = design_stage.category;
+      console.log(design_stage);
+    });
+    /*
     this.service.getTaskActivityItems().subscribe(taskActivityItems => {
       this.taskActivityItems = taskActivityItems;
     });*/

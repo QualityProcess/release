@@ -19,10 +19,19 @@
           </div>
         </p-header>
 
-        <p-column field="name" header="Item" [editable]="true" [style]=" {'width': '300px', 'text-align': 'start' }"></p-column>
+        <p-column field="is_enabled" header="" [style]="{'overflow':'visible', 'width': '35px', 'border': 'none'}">
+          <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+            <mat-checkbox [checked]="task_activity_item.is_enabled" [value]="task_activity_item.is_enabled" (change)="onEnableValueChanged($event, task_activity_item)"></mat-checkbox>
+          </ng-template>
+          <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
+            <mat-checkbox [(ngModel)]="task_activity_item[is_enabled]" [checked]="task_activity_item.is_enabled" value="task_activity_item.is_enabled" (change)="onEnableValueChanged($event, task_activity_item)"></mat-checkbox>
+          </ng-template>
+        </p-column>
+
+        <p-column field="name" header="Item" [editable]="true" [style]=" {'width': '300px', 'text-align': 'start', 'border': 'none' }"></p-column>
         <p-column field="percentage_complete" header="%" [editable]="false" [style]=" {'overflow':'visible', 'width': '75px' }">
           <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
-            <percentage [data]="task_activity_item[col.field]"></percentage>
+            <percentage [data]="task_activity_item[col.field]" (onChanged)="changePercentage($event, item, task_activity_item)"></percentage>
           </ng-template>
         </p-column>
         <p-column field="checked_by" header="Cheked By" [editable]="false" [style]=" {'width': '200px' }"></p-column>
@@ -52,7 +61,6 @@
         <p-column field="id" header="Actions" [style]="{'overflow':'visible', 'width': '100px'}">
           <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData">
             <mat-icon class="action-btn edit-btn" [routerLink]="['/task-activity-items', task_activity_item.id, 'edit', {taskId: dataSource[0].task_id}]">edit</mat-icon>
-            <mat-icon class="action-btn add-btn" (click)="changePercentage(item, task_activity_item)">add</mat-icon>
             <mat-icon class="action-btn delete-btn" (click)="openDeleteTaskActivityItemDialog(task_activity_item)">delete</mat-icon>
           </ng-template>
         </p-column>

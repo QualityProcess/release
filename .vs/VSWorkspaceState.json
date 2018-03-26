@@ -4,13 +4,12 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\config-task",
-    "\\src\\app\\components\\google-keep-task-view",
-    "\\src\\app\\components\\task-form",
-    "\\src\\app\\models",
-    "\\src\\app\\services",
-    "\\src\\assets"
+    "\\src\\app\\components\\custom-elements\\percentage",
+    "\\src\\app\\components\\schedule",
+    "\\src\\app\\framework\\material",
+    "\\src\\assets",
+    "\\src\\assets\\styles"
   ],
-  "SelectedNode": "\\src\\app\\services\\task.service.ts",
+  "SelectedNode": "\\src\\app\\components\\schedule\\schedule.component.ts",
   "PreviewInSolutionExplorer": false
 }

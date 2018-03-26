@@ -1,6 +1,6 @@
 
-<div [ngStyle]="{'background-color':percentage >= 20 ? 'green' : '' }"></div>
-<div [ngStyle]="{'background-color':percentage >= 40 ? 'green' : '' }"></div>
-<div [ngStyle]="{'background-color':percentage >= 60 ? 'green' : '' }"></div>
-<div [ngStyle]="{'background-color':percentage >= 80 ? 'green' : '' }"></div>
-<div [ngStyle]="{'background-color':percentage >= 100 ? 'green' : '' }"></div>
+<div data-value="20" [ngStyle]="{'background-color':percentage >= 20 ? 'green' : '' }" [persentage]="tmpPercentage"  (onChanged)="changed($event)" (click)="setPercentage(20)"></div>
+<div data-value="40" [ngStyle]="{'background-color':percentage >= 40 ? 'green' : '' }" [persentage]="tmpPercentage"  (onChanged)="changed($event)" (click)="setPercentage(40)"></div>
+<div data-value="60" [ngStyle]="{'background-color':percentage >= 60 ? 'green' : '' }" [persentage]="tmpPercentage"  (onChanged)="changed($event)" (click)="setPercentage(60)"></div>
+<div data-value="80" [ngStyle]="{'background-color':percentage >= 80 ? 'green' : '' }" [persentage]="tmpPercentage"  (onChanged)="changed($event)" (click)="setPercentage(80)"></div>
+<div data-value="100" [ngStyle]="{'background-color':percentage >= 100 ? 'green' : '' }" [persentage]="tmpPercentage" (onChanged)="changed($event)" (click)="setPercentage(100)"></div>

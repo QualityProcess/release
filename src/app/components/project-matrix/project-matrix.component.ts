@@ -27,7 +27,8 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   project: Project;
   projectMatrix: any;
   loaded = false;
-  disciplineNames: Object[] = [
+  icons: any[] = [];
+  disciplineNames: any[] = [
     { category: "Mechanical", icon: 'settings' },
     { category: "Electrical", icon: 'flash_on' },
     { category: "Fire", icon: 'whatshot' },
@@ -37,8 +38,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     { category: "AV", icon: 'play_circle_filled' },
     { category: "ICT", icon: 'storage' },
     { category: "Acoustics", icon: 'hearing' },
-  ]
-
+  ];
   xStartElementPoint;
   yStartElementPoint;
   xStartMousePoint;
@@ -60,8 +60,26 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     this.project = this.route.snapshot.data.projectData;
     
     this.data = this.route.snapshot.data.projectMatrixData;
+    this.data.row_headers.forEach((disciplineName: string) => {
+      let name = disciplineName.toLocaleLowerCase().trim();
+
+      let icon = this.disciplineNames.find(nameWithIcon => {
+        return name === nameWithIcon.category.toLocaleLowerCase().trim();
+      });
+
+      if (icon) {
+        this.icons.push(icon);
+      } else {
+        this.icons.push({
+          category: disciplineName,
+          icon: 'add'
+        })
+      }
+   
+    }); 
     console.log(this.project);
     console.log(this.data);
+    console.log(this.icons);
   }
 
 

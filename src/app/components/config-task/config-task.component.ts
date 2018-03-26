@@ -119,14 +119,19 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ is_locked: e.checked }, +item.id).subscribe(res => { });
   }
 
-  changePercentage(activity, item) {
-    
+  onEnableValueChanged(e, item) {
+    console.log('sDFFDS: ', e);
+    console.log('sDFFDS: ', item);
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
-    if (item.percentage_complete >= 100) return;
 
-    let increasePercentage = item.percentage_complete + 20;
+    this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ is_enabled: e.checked }, +item.id).subscribe(res => { });
 
-    if (increasePercentage > 100) increasePercentage = 100;
+  }
+
+  changePercentage(percentage, activity, item) {
+
+    if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
+    if (percentage >= 100) return;
 
     let phaseIndex;
     let activityIndex;
@@ -146,9 +151,9 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       return +item.id === +i.id
     });
 
-    this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex].percentage_complete = increasePercentage;
+    this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex].percentage_complete = percentage;
    
-    this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ percentage_complete: increasePercentage}, +item.id).subscribe(res => { });
+    this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ percentage_complete: percentage}, +item.id).subscribe(res => { });
   }
 
   onDateChanged(event, item) {

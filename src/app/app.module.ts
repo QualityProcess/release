@@ -55,6 +55,7 @@ import { BaseRequestOptions } from '@angular/http';
 import { DraggableDirective } from './components/project-matrix/project-matrix.component';
 import { CardViewDirective } from './components/projects/projects.component';
 import { ElevationDirective } from './components/projects/projects.component';
+import { PersentageDirective } from './components/custom-elements/percentage/percentage.component';
 
 // dialogs
 import { LoginDialog } from './components/login/login-dialog';
@@ -133,6 +134,7 @@ import { PercentageComponent } from './components/custom-elements/percentage/per
     DraggableDirective,
     CardViewDirective,
     ElevationDirective,
+    PersentageDirective,
     LoginDialog,
     DeleteDialog,
     SubNavbarComponent,

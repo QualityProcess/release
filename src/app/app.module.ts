@@ -23,6 +23,7 @@ import { routing } from './routing';
 
 // guard
 import { AuthGuard } from './guard/auth.guard';
+import { IsSecureGuard } from './guard/https.guard';
 
 // services
 import { AuthService, UserService, ProjectsService } from './services';
@@ -186,6 +187,7 @@ import { PercentageComponent } from './components/custom-elements/percentage/per
   ],
   providers: [
     AuthGuard,
+    IsSecureGuard,
     AuthService,
     
     UserService,

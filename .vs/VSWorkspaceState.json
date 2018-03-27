@@ -4,12 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\custom-elements\\percentage",
-    "\\src\\app\\components\\schedule",
-    "\\src\\app\\framework\\material",
-    "\\src\\assets",
-    "\\src\\assets\\styles"
+    "\\src\\app\\components\\circle-view",
+    "\\src\\app\\components\\gtantt-view",
+    "\\src\\app\\components\\project-matrix",
+    "\\src\\app\\models",
+    "\\src\\app\\services",
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app\\components\\schedule\\schedule.component.ts",
+  "SelectedNode": "\\src\\app\\components\\gtantt-view\\gtantt-view.component.ts",
   "PreviewInSolutionExplorer": false
 }

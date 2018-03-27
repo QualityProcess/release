@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 //guard
 import { AuthGuard } from './guard/auth.guard';
+import { IsSecureGuard } from './guard/https.guard';
 
 // components
 import { LoginComponent } from './components/login';
@@ -51,7 +52,7 @@ const appRoutes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {
-    path: '', component: HomeComponent, canActivate: [AuthGuard],
+    path: '', component: HomeComponent, canActivate: [AuthGuard, IsSecureGuard],
     children: [
       {
         path: 'projects',

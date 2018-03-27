@@ -27,6 +27,14 @@ import 'rxjs/add/operator/startWith';
 export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   data: any;
   project: Project;
+
+  breadcrumbs: Object[] = [
+    {
+      title: 'Projects',
+      url: '/projects'
+    }
+  ];
+
   projectMatrix: any;
   loaded = false;
   icons: any[] = [];
@@ -77,8 +85,14 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
           icon: 'add'
         })
       }
-   
-    }); 
+    });
+
+    this.breadcrumbs.push(
+      {
+        title: this.project.name,
+        url: `/projects/${this.project.id}`
+      }
+    );
     console.log(this.project);
     console.log(this.data);
     console.log(this.icons);

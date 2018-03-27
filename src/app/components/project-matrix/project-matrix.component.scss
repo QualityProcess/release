@@ -18,7 +18,7 @@
   margin: 0 auto;
 
   &.created-design-stage {
-    background-color: $primary-purple--light;
+    background-color: transparent;
     opacity: 1;
 
     &:hover {
@@ -65,7 +65,7 @@
         .discipline-header {
           background-color: $primary-purple--middle;
           color: $white;
-          font-weight: 300;
+          font-weight: 100;
         }
 
         .cell {

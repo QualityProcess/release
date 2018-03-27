@@ -80,6 +80,21 @@ $disabledOpacity: 0.35;
   font-weight: $font--normal;
 }
 
+.ui-paginator {
+  a {
+    color: $primary-purple--light;
+  }
+
+  .ui-paginator-page {
+    border-radius: 0;
+
+    .ui-state-active {
+      background: $primary-purple;
+      border-color: $primary-purple;
+      border-radius: 0;
+    }
+  }
+}
 
 .edit-mode {
   .ui-datatable {

@@ -1,7 +1,9 @@
 @import "../../../assets/styles/mixins.scss";
 @import "../../../assets/styles/variables.scss";
 
-
+.fa-angle-right:before {
+  content: "\f105";
+}
 
 .toolbar {
   background-color: $primary-purple;
@@ -39,6 +41,7 @@
 
         .top-list-item {
           float: left;
+          font-size: 0.8em;
           list-style: none;
           text-transform: uppercase;
         }
@@ -49,6 +52,16 @@
 
         @include tablet() {
           display: none;
+        }
+      }
+
+      .main-nav.breadcrumbs {
+        .top-list-item {
+          font-size: 0.8em;
+
+          a, i {
+            padding: 0 5px;
+          }
         }
       }
 

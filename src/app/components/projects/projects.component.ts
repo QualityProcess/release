@@ -1,4 +1,4 @@
-import { Component, Directive, Inject, OnInit, HostListener, ElementRef, Renderer2, EventEmitter} from '@angular/core';
+import { Component, Directive, Inject, OnInit, ViewChild, HostListener, ElementRef, Renderer2, EventEmitter} from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Router, ParamMap } from '@angular/router';
@@ -23,11 +23,12 @@ export class ProjectsComponent implements OnInit {
   filterData: any;
   gridView: boolean = true;
   loaded = false;
+  @ViewChild('cardview') element
 
   constructor(private service: ProjectsService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
-      this.getProjects();
+    this.getProjects();
   }
 
   getProjects() {
@@ -35,6 +36,8 @@ export class ProjectsComponent implements OnInit {
       this.loaded = true;
       this.projects = projects;
       this.filterData = projects;
+      this.sortData('name');
+      console.log(this.filterData);
     });
   }
 
@@ -57,8 +60,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   sortData(name) {
-    name = name.srcElement.value;
-    console.log(name); 
     const data = this.filterData.slice();
     
 
@@ -66,7 +67,10 @@ export class ProjectsComponent implements OnInit {
       let isAsc = 'asc';
       switch (name) {
         case 'id': return compare(+a.id, +b.id, isAsc);
-        case 'name': return compare(a.name, b.name, isAsc)
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'name-revers': return compare(a.name, b.name, null);
+        case 'date': return compare(a.created_at, b.created_at, isAsc);
+        case 'date-revers': return compare(a.created_at, b.created_at, null)
         default: return 0;
       }
     });
@@ -116,10 +120,14 @@ function compare(a: any, b: any, isAsc: any) {
   selector: '[cardview]' 
 })
 export class CardViewDirective implements OnInit {
-  constructor(private element: ElementRef, private renderer: Renderer2) { }
+  constructor(private element: ElementRef, private renderer: Renderer2) {
+  }
 
   ngOnInit() {
-    this.onResize();
+   
+  }
+
+  ngAfterContentInit() {
   }
 
   @HostListener('window:resize', ['$event'])

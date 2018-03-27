@@ -17,7 +17,8 @@ import { PrimengModule } from './framework/material/primeng.module';
 import { MaterialMDCModule } from './framework/material/material-mdc.module';
 import { ChartsModule } from 'ng2-charts';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-
+import { BreadcrumbService } from 'ng5-breadcrumb';
+import { Ng5BreadcrumbModule } from 'ng5-breadcrumb';
 // routing 
 import { routing } from './routing';
 
@@ -111,6 +112,7 @@ import { EditTaskActivityItemComponent } from './components/edit-task-activity-i
 import { CircleViewComponent } from './components/circle-view/circle-view.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PercentageComponent } from './components/custom-elements/percentage/percentage.component';
+import { CalculationComponent } from './components/calculation/calculation.component';
 
 @NgModule({
   declarations: [
@@ -166,6 +168,7 @@ import { PercentageComponent } from './components/custom-elements/percentage/per
     CircleViewComponent,
     ScheduleComponent,
     PercentageComponent,
+    CalculationComponent,
 
   ],
   imports: [
@@ -183,13 +186,14 @@ import { PercentageComponent } from './components/custom-elements/percentage/per
     MaterialMDCModule,
     PrimengModule,
     ChartsModule,
-    Ng2GoogleChartsModule
+    Ng2GoogleChartsModule,
+    Ng5BreadcrumbModule.forRoot()
   ],
   providers: [
     AuthGuard,
     IsSecureGuard,
     AuthService,
-    
+    BreadcrumbService,
     UserService,
     ProjectsService,
     ProjectResolver,

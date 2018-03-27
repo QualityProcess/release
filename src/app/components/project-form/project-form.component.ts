@@ -58,9 +58,10 @@ export class ProjectFormComponent implements OnInit, OnChanges {
       if (this.isEdit) {
           this.service.updateProject(this.addProject.value, this._project.id)
             .subscribe( project => {
-              this.snackBar.open('Project saved!', '', {
+              /*this.snackBar.open('Project saved!', '', {
                 duration: 2000,
-              });
+              });*/
+              this.router.navigate(['projects']);
           });
       }else {
           this.service.addProject(this.addProject.value)

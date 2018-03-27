@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar [breadcrumbs]="breadcrumbs"></app-navbar>
 
 <sub-navbar title="{{ project.name }}" classes="matrix-sub-navbar" class="sub-navbar">
   <!--<button mat-button class="add-btn" [routerLink]="['/disciplines', 'create']">
@@ -27,7 +27,7 @@
                 <mat-icon>{{ icons[i].icon }}</mat-icon>
               </div> 
               <ng-template #create>
-                <div class="create-design-stage circle" (click)="createTask(project.id,  data.table.discipline, design_stage.header)"><mat-icon>{{ icons[i].icon }}</mat-icon></div> 
+                <div class="create-design-stage circle" (click)="createTask(project.id,  data.table.discipline, design_stage.header)"><mat-icon>add</mat-icon></div> 
               </ng-template>
             </td>
           </tr> 

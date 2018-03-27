@@ -12,13 +12,15 @@
 
   <div class="navbar-header">
     <div class="flex-spacer"></div>
-    <!--<div class="control-item">
-      <select name="Sort By" (change)="sortData($event)">
+    <div class="control-item">
+      <select name="Sort By" (change)="sortData($event.srcElement.value)">
         <option value="">Sort by</option>
-        <option value="name">Name</option>
-        <option value="id">Id</option>
+        <option value="name">Name (A to Z)</option>
+        <option value="name-revers">Name (Z to A)</option>
+        <option value="date">Date created (from early to late)</option>
+        <option value="date-revers">Date created (from late to early)</option>
       </select>
-    </div>-->
+    </div>
     <div class="control-item">
       <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')">reorder</i>
       <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')">apps</i>
@@ -30,7 +32,7 @@
   <div *ngIf="filterData && filterData.length === 0 && loaded" class="no-results"><h3>No projects</h3></div>
 
   <div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
-    <ul class="mdc-grid-list__tiles" cardview>
+    <ul class="mdc-grid-list__tiles" cardview #cardview>
       <li class="mdc-grid-tile" *ngFor="let project of filterData" [mdc-elevation]="5" hoverElevation> 
         <div class="mdc-grid-tile__primary">
           <mdc-card class="project-card mdc-grid-tile__primary-content">

@@ -67,7 +67,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
   updateData() {
 
-    if (this.subscribe) console.log(this.subscribe.unsubscribe());
+    if (this.subscribe) this.subscribe.unsubscribe();
 
     let data = this.route.snapshot.data.taskData;
 

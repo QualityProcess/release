@@ -289,7 +289,7 @@ var createGanttChart = function (placeholder, data, {
     .domain([new Date(minStartDate), new Date(maxEndDate)])
     .range([0, scaleWidth]);
 
-  const xAxis = d3.axisBottom(xScale).tickArguments([d3.timeDay.every(1)]).tickFormat(d3.timeFormat("%d %M"));
+  const xAxis = d3.axisBottom(xScale).tickArguments([d3.timeDay.every(1)]).tickFormat(d3.timeFormat("%d/%m"));
 
   const g1 = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 

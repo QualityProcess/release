@@ -1,5 +1,4 @@
 
-
 <mdc-toolbar class="toolbar">
   <mdc-toolbar-row class="toolbar-row">
     <mdc-toolbar-section [alignStart]="true" class="toolbar__mobile">
@@ -7,20 +6,24 @@
     </mdc-toolbar-section>
 
     <mdc-toolbar-section [alignStart]="true" class="toolbar-row__section">
-      <ul class="main-nav">
+      
+      <ul class="main-nav" *ngIf="!breadcrumbs; else breadcrumb">
         <li class="top-list-item">
           <a class="top-link" routerLink="/projects">Projects</a>
         </li>
-        <li class="top-list-item">
-          <a class="top-link" routerLink="/tasks">Tasks</a>
-        </li>
-        <!--<li class="top-list-item">
-          <a class="top-link" routerLink="/disciplines">Disciplines</a> 
-        </li>
-        <li class="top-list-item">
-          <a class="top-link" routerLink="/design-stages">Design stages</a>
-        </li>-->
       </ul>
+      <ng-template #breadcrumb >
+
+        <ul class="main-nav breadcrumbs" >
+          <li class="top-list-item" *ngFor="let link of breadcrumbs; let i = index">
+            <a *ngIf="i!=breadcrumbs.length-1" class="top-link" routerLink="{{link.url}}">{{ link.title }}</a>
+            <a *ngIf="i==breadcrumbs.length-1" class="top-link" >{{ link.title }}</a>
+            <i *ngIf="i!=breadcrumbs.length-1" class="fa fa-angle-right g-ml-7"></i>
+          </li>
+        </ul>
+        
+      </ng-template>
+
     </mdc-toolbar-section>
 
     <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false"  class="toolbar-row__section">

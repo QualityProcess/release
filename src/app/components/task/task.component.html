@@ -1,4 +1,4 @@
-<app-navbar>
+<app-navbar [breadcrumbs]="breadcrumbs">
   <mdc-list-item (click)="goToView('editTask')">
     <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Edit task
   </mdc-list-item>
@@ -19,10 +19,10 @@
   </mdc-list-item>
 </app-navbar>
 
-<sub-navbar title="{{data.name}}" subtitle="({{ discipline }} / {{design_stage}})" class="sub-navbar">
-  <button mdc-fab #fab class="main-fab-btn" [routerLink]="['/task-activities','create', data.id]">
+<sub-navbar title="{{discipline}}" subtitle="{{design_stage}}" class="sub-navbar">
+  <!--<button mdc-fab #fab class="main-fab-btn" [routerLink]="['/task-activities','create', data.id]">
     <mdc-icon>add</mdc-icon>
-  </button>
+  </button>-->
   <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section sub-menu">
     <button mat-button (click)="goToView('editTask')">Edit task</button>
     <button mat-button (click)="goToView('schedule')">Schedule</button>

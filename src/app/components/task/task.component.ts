@@ -20,6 +20,12 @@ import { TaskActivityItem } from "../../models/task-activity-item";
 })
 export class TaskComponent implements OnInit {
   loaded: boolean = false;
+  breadcrumbs: Object[] = [
+    {
+      title: 'Projects',
+      url: '/projects'
+    }
+  ];
   editTask: boolean = true;
   googleKeepView: boolean = false;
   horizontalHistogramView: boolean = false;
@@ -70,8 +76,18 @@ export class TaskComponent implements OnInit {
       })
     });
 
-
-
+    this.projectService.getProject(this.data.project_id).subscribe(project => {
+      this.breadcrumbs.push(
+        {
+          title: project.name,
+          url: `/projects/${project.id}/matrix`
+        },
+        {
+          title: this.data.name,
+          url: `/tasks/${this.data.id}`
+        }
+      )
+    });
 
     this.projectService.getDescipline(this.data.discipline_id).subscribe(discipline => {
       this.discipline = discipline.category;

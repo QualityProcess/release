@@ -22,8 +22,11 @@ export class ProjectsComponent implements OnInit {
   sortItems = [
     { sort: 'name', name: 'Name (A to Z)' },
     { sort: 'name-revers', name: 'Name (Z to A)' },
+    { sort: 'status-code', name: 'Status code (A to Z)' },
+    { sort: 'status-code-revers', name: 'Status code (Z to A)' },
     { sort: 'date', name: 'Date of creation (from early to late)' },
     { sort: 'date-revers', name: 'Date of creation (from late to early)' }
+    
   ];
   currentSortItem: string;
 
@@ -78,7 +81,9 @@ export class ProjectsComponent implements OnInit {
         case 'name': return compare(a.name, b.name, isAsc);
         case 'name-revers': return compare(a.name, b.name, null);
         case 'date': return compare(a.created_at, b.created_at, isAsc);
-        case 'date-revers': return compare(a.created_at, b.created_at, null)
+        case 'date-revers': return compare(a.created_at, b.created_at, null);
+        case 'status-code': return compare(a.status_code, b.status_code, isAsc);
+        case 'status-code-revers': return compare(a.status_code, b.status_code, null)
         default: return 0;
       }
     });

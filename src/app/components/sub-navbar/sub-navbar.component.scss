@@ -43,3 +43,49 @@
 .matrix-sub-navbar {
   margin-bottom: 0;
 }
+
+
+.breadcrumbs {
+  .top-list-item {
+    font-size: 0.8em;
+
+    a, i {
+      padding: 0 5px;
+    }
+  }
+}
+
+.top-list-item {
+  float: left;
+  list-style: none;
+  text-transform: uppercase;
+  position: relative;
+  line-height: initial;
+
+  a {
+    padding: 0!important;
+  }
+
+  .top-link.dropdown-menu {
+    &:before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      border-top: 5px solid $primary-gray--dark;
+      top: -25%;
+      right: 0;
+      margin: 9px 0 0;
+      -webkit-transition: border-color .2s ease;
+      transition: border-color .2s ease;
+    }
+  }
+}
+
+
+@media(min-width: 1023px) {
+  .breadcrumbs {
+    display: none;
+  }
+}

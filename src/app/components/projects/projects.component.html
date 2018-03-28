@@ -12,14 +12,24 @@
 
   <div class="navbar-header">
     <div class="flex-spacer"></div>
-    <div class="control-item">
-      <select name="Sort By" (change)="sortData($event.srcElement.value)">
+    <div class="control-item select">
+
+      <ng-select [items]="sortItems"
+                 bindLabel="name"
+                 bindValue="sort"
+                 placeholder="Sort By"
+                 [(ngModel)]="currentSortItem"
+                 (change)="sortData($event.sort)">
+      </ng-select>
+
+
+      <!--<select name="Sort By" (change)="sortData($event.srcElement.value)">
         <option value="">Sort by</option>
         <option value="name">Name (A to Z)</option>
         <option value="name-revers">Name (Z to A)</option>
         <option value="date">Date of creation (from early to late)</option>
         <option value="date-revers">Date of creation (from late to early)</option>
-      </select>
+      </select>-->
     </div>
     <div class="control-item">
       <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')">reorder</i>
@@ -31,7 +41,7 @@
 
   <div *ngIf="filterData && filterData.length === 0 && loaded" class="no-results"><h3>No projects</h3></div>
 
-  <div class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
+  <div *ngIf="gridView; else listView"class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
     <ul class="mdc-grid-list__tiles" cardview #cardview>
       <li class="mdc-grid-tile" *ngFor="let project of filterData" [mdc-elevation]="5" hoverElevation> 
         <div class="mdc-grid-tile__primary">
@@ -58,6 +68,25 @@
       </li>
     </ul>
   </div>
+
+  <ng-template #listView>
+    <ul class="list-view">
+      <li class="list-view-item" *ngFor="let project of filterData" [mdc-elevation]="5" hoverElevation>
+        <img *ngIf="project.image.url; else placeholder" src="{{project.image.url}}" />
+        <ng-template #placeholder>
+          <img src="assets/images/placeholder.png" />
+        </ng-template>
+
+        <h2 class="project-card__title" (click)="goToMatrix(project.id)">{{ project.name }}</h2>
+        <div class="card-action-icons">
+          <mdc-icon class="icon" (click)="onSelect(project)">remove_red_eye</mdc-icon>
+          <mdc-icon class="icon" [routerLink]="['../', 'projects', project.id, 'edit']">edit</mdc-icon>
+          <mdc-icon class="icon" (click)="openDeleteDialog(project)">delete</mdc-icon>
+        </div>
+        
+      </li>
+    </ul>
+  </ng-template>
 
   <!--
 

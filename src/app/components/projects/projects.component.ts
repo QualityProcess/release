@@ -19,6 +19,14 @@ export class ProjectsComponent implements OnInit {
   projects: Project[];
   sortOption: string;
   sortOptions: string[] = ['name', 'id'];
+  sortItems = [
+    { sort: 'name', name: 'Name (A to Z)' },
+    { sort: 'name-revers', name: 'Name (Z to A)' },
+    { sort: 'date', name: 'Date of creation (from early to late)' },
+    { sort: 'date-revers', name: 'Date of creation (from late to early)' }
+  ];
+  currentSortItem: string;
+
   sortedData: any;
   filterData: any;
   gridView: boolean = true;
@@ -62,7 +70,7 @@ export class ProjectsComponent implements OnInit {
   sortData(name) {
     const data = this.filterData.slice();
     
-
+    console.log('Name:', name);
     this.filterData = data.sort((a, b) => {
       let isAsc = 'asc';
       switch (name) {

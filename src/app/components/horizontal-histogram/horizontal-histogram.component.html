@@ -1,7 +1,7 @@
 
 
 
-<div class="phase bar" *ngFor="let phase of dataSource; let phaseIndex = index">
+<div class="phase bar mat-elevation-z8" *ngFor="let phase of dataSource; let phaseIndex = index">
   <div class="phase-header">
     <h2>{{phase.category}}</h2>
   </div>
@@ -12,8 +12,8 @@
         <span class="action-header">{{ item.name }}</span>
       </p-header>
 
-      <p-column field="name" [style]=" {'width': '300px', 'text-align': 'start' }"></p-column>
-      <p-column field="id" [style]=" {'width': '300px', 'text-align': 'start' }">
+      <p-column field="name" [style]=" {'width': '300px', 'text-align': 'start', 'background': 'white' }"></p-column>
+      <p-column field="id" [style]=" {'width': '300px', 'text-align': 'start', 'background': 'white' }">
         <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData" let-i="rowIndex">
           <google-chart *ngIf="currentData[phaseIndex].data[task_activityIndex][i].google.dataTable" [data]="currentData[phaseIndex].data[task_activityIndex][i].google"></google-chart>
           <!--<google-chart [data]="{

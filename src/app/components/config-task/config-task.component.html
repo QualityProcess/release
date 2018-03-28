@@ -2,7 +2,7 @@
 <div *ngIf="!loaded; else table" class="loading"><mat-spinner></mat-spinner></div>
 
 <ng-template #table>
-  <div class="phase edit-mode" *ngFor="let phase of dataSource; let phaseIndex = index">
+  <div class="phase edit-mode mat-elevation-z8" *ngFor="let phase of dataSource; let phaseIndex = index">
     <div class="phase-header">
       <h2 class="ui-g-11">{{phase.category}}</h2>
       <mat-icon class="ui-g-1 action" (click)="addActivity(phase.id)">add</mat-icon>
@@ -43,8 +43,8 @@
             <p-calendar [(ngModel)]="task_activity_item[checked_on]" [defaultDate]="task_activity_item[checked_on]" appendTo="body" [inputId]="task_activity_item[id]" (onSelect)="onDateChanged($event, task_activity_item)"></p-calendar>
           </ng-template>
         </p-column>
-        <p-column field="hours_estimated" header="Est." [editable]="true"></p-column>
-        <p-column field="hours_actual" header="Act." [editable]="true"></p-column>
+        <p-column field="hours_estimated" header="Est." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
+        <p-column field="hours_actual" header="Act." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
         <p-column field="is_locked" header="QA" [style]="{'overflow':'visible', 'width': '100px'}">
           <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
             <mat-checkbox [checked]="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
@@ -55,7 +55,22 @@
         </p-column>
         <p-column field="link" header="Link" [style]="{'overflow':'visible', 'width': '50px'}">
           <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData">
-            <a *ngIf="task_activity_item.link" href="{{task_activity_item.link}}" target="_blank"><mat-icon>link</mat-icon></a>
+            <a *ngIf="task_activity_item.link" href="{{task_activity_item.link}}" target="_blank">
+              <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                       viewBox="0 0 482.8 482.8" style="enable-background:new 0 0 482.8 482.8; width: 20px; margin-top: 3px;" xml:space="preserve"><g><g>
+                  <path d="M255.2,209.3c-5.3,5.3-5.3,13.8,0,19.1c21.9,21.9,21.9,57.5,0,79.4l-115,115c-21.9,21.9-57.5,21.9-79.4,0l-17.3-17.3
+			                  c-21.9-21.9-21.9-57.5,0-79.4l115-115c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-115,115C8.7,322.7,0,343.6,0,365.8
+			                  c0,22.2,8.6,43.1,24.4,58.8l17.3,17.3c16.2,16.2,37.5,24.3,58.8,24.3s42.6-8.1,58.8-24.3l115-115c32.4-32.4,32.4-85.2,0-117.6
+			                  C269.1,204,260.5,204,255.2,209.3z" />
+
+                  <path d="M458.5,58.2l-17.3-17.3c-32.4-32.4-85.2-32.4-117.6,0l-115,115c-32.4,32.4-32.4,85.2,0,117.6c5.3,5.3,13.8,5.3,19.1,0
+			                  s5.3-13.8,0-19.1c-21.9-21.9-21.9-57.5,0-79.4l115-115c21.9-21.9,57.5-21.9,79.4,0l17.3,17.3c21.9,21.9,21.9,57.5,0,79.4l-115,115
+			                  c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l115-115c15.7-15.7,24.4-36.6,24.4-58.8
+			                  C482.8,94.8,474.2,73.9,458.5,58.2z" />
+
+	                  </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+              </svg>
+            </a>
           </ng-template>
         </p-column>
         <p-column field="customisation" header="Note" [style]="{'overflow':'visible', 'width': '100px'}">

@@ -5,7 +5,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 @Component({
   selector: 'delete-dialog',
   template: `
-      <h2 mat-dialog-title style="color: white">{{ data.title }}</h2>
+      <h2 mat-dialog-title style="color: black">{{ data.title }}</h2>
       <mat-dialog-content>Are you sure?</mat-dialog-content>
       <mat-dialog-actions>
         <button mat-button mat-dialog-close>No</button>

@@ -8,20 +8,23 @@
 
 .phase {
   background: #ebedf0;
-  margin-bottom: 75px;
+  background: transparent;
+  //margin: 0 16px;
+  overflow-x: hidden;
+  margin-bottom: 5%;
   overflow-x: hidden;
 
   .phase-header {
     @include flex();
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background: $primary-purple--middle;
     color: $white;
 
     h2 {
       display: inline-block;
       margin: 0;
-      font-size: 1.2em;
+      font-size: 20px;
       color: $white;
     }
 
@@ -30,6 +33,7 @@
       color: $white;
       position: relative;
       top: -12px;
+      left: -24px;
 
       &:hover {
         color: $green--light;

@@ -152,12 +152,11 @@ export class GtanttViewComponent implements OnInit {
       })
 
       let div = document.createElement("div");
-      div.classList.add('phase-section');
+      div.classList.add('phase-section'); 
+      div.classList.add('mat-elevation-z8');
       let header = document.createElement("div");
       header.classList.add('chart-header');
       let h2 = document.createElement("h2");
-      h2.style.color = '#ffffff';
-      h2.style.lineHeight = '2em';
       h2.innerHTML = obj.category;
       header.appendChild(h2);
       div.appendChild(header);
@@ -418,12 +417,12 @@ var createGanttChart = function (placeholder, data, {
     .attr('y', (d: any) => d.y)
     .attr('width', (d: any) => d.width)
     .attr('height', (d: any) => d.height)
-    .style('fill', '#ffffff')
+    .style('fill', '#48a999')
     .style('stroke', '#48a999');
 
   bars
     .append('text')
-    .style('stroke', '#000000')
+    .style('stroke', '#ffffff')
     .attr('x', (d: any) => d.labelX)
     .attr('y', (d: any) => d.labelY)
     .text((d: any) => d.label);

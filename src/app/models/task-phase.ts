@@ -9,6 +9,7 @@ export class TaskPhase {
     created_at: Date;
     updated_at: Date;
     category: string;
+    sort: number;
     image: {
       url: string;
       thumbnail: {

@@ -60,8 +60,8 @@ export class ScheduleComponent implements OnInit {
      this.calendarOptions = {
         editable: true,
         eventLimit: false,
-        contentHeight: window.innerHeight - 270,
-        height: window.innerHeight - 270,
+        contentHeight: window.innerHeight - 310,
+        height: window.innerHeight - 310,
         eventBackgroundColor: '#00796b',
         eventBorderColor: '#00796b',
         header: {

@@ -40,6 +40,11 @@ $custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, H
   color: $white!important;
 }
 
+.mat-dialog-container {
+  background: $primary-gray--light;
+  color: $black;
+}
+
 td {
   .mat-checkbox-ripple {
     max-height: 30px;
@@ -93,6 +98,24 @@ $disabledOpacity: 0.35;
       border-color: $primary-purple;
       border-radius: 0;
     }
+  }
+}
+
+.bar {
+  .ui-datatable tbody {
+    tr {
+      &.ui-widget-content {
+        border: none !important;
+      }
+    }
+
+    tr.ui-widget-content.ui-datatable-odd {
+      border: none !important;
+    }
+  }
+
+  .ui-widget-content {
+    border: none !important;
   }
 }
 
@@ -390,16 +413,25 @@ a {
   overflow: visible;
 
   .phase-section {
-    background-color: $primary-gray;
+    background-color: $white;
   }
 
   .chart-header {
-    text-align: center;
+    text-align: left;
+
+
+    h2 {
+      font-size: 20px;
+      background: $primary-purple--middle;
+      padding: 0.5em;
+      color: $white;
+    }
   }
 }
 
 
-
+// SELECT
+@import "~@ng-select/ng-select/themes/material.theme.css";
 
 
 
@@ -532,20 +564,6 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
-}
-
-
-//gantt chart
-#container {
-  .chart-header {
-    background: $primary-purple--light;
-    text-align: left;
-    padding: 0 16px;
-
-    h3 {
-      color: $white;
-    }
-  }
 }
 
 

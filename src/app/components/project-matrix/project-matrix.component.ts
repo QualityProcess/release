@@ -39,15 +39,17 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   loaded = false;
   icons: any[] = [];
   disciplineNames: any[] = [
-    { category: "Mechanical", icon: 'settings' },
-    { category: "Electrical", icon: 'flash_on' },
+    { category: "Mechanical", svg: '/assets/icons/settings.svg' },
+    { category: "Electrical", svg: '/assets/icons/flash_on.svg' },
     { category: "Fire", icon: 'whatshot' },
-    { category: "Hydraulic", icon: 'opacity' },
+    { category: "Hydraulic", svg: '/assets/icons/opacity.svg' },
     { category: "ELV", icon: 'tune' },
     { category: "Elevators", icon: 'swap_vert' },
     { category: "AV", icon: 'play_circle_filled' },
     { category: "ICT", icon: 'storage' },
     { category: "Acoustics", icon: 'hearing' },
+    { category: "Local Authority", svg: '/assets/icons/localy.svg' },
+    { category: "Structural", svg: '/assets/icons/structural.svg' },
   ];
   xStartElementPoint;
   yStartElementPoint;
@@ -70,6 +72,42 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     this.project = this.route.snapshot.data.projectData;
     
     this.data = this.route.snapshot.data.projectMatrixData;
+
+    let hide = ['LA - Environmental Impact Assessment Report', 'LA - Fire Approval 1st Stage', 'LA Fire Approval 2nd Stage (or Single Stage)', 'LA Construction License'];
+
+    let index = [];
+    this.data.column_headers = this.data.column_headers.filter((val, i) => {
+      let tmp = true;
+
+      hide.forEach(h => {
+        h = h.trim().toLocaleLowerCase();
+        if (h.trim().toLocaleLowerCase() === val.trim().toLocaleLowerCase()) {
+          tmp = false;
+          index.push(i);
+        }
+      });
+
+      return tmp;
+    });
+
+    this.data.columns = this.data.columns.filter((val, i) => {
+      let tmp = true;
+
+      index.forEach(h => {
+        
+        if (h === i) {
+          tmp = false;
+        }
+      });
+
+      return tmp;
+    });
+
+      
+
+
+
+
     this.data.row_headers.forEach((disciplineName: string) => {
       let name = disciplineName.toLocaleLowerCase().trim();
 
@@ -82,7 +120,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
       } else {
         this.icons.push({
           category: disciplineName,
-          icon: 'add'
+          icon: 'build'
         })
       }
     });

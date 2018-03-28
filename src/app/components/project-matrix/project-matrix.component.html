@@ -1,6 +1,6 @@
 <app-navbar [breadcrumbs]="breadcrumbs"></app-navbar>
 
-<sub-navbar title="{{ project.name }}" classes="matrix-sub-navbar" class="sub-navbar">
+<sub-navbar title="{{ project.name }}" classes="matrix-sub-navbar" class="sub-navbar" [breadcrumbs]="breadcrumbs">
   <!--<button mat-button class="add-btn" [routerLink]="['/disciplines', 'create']">
     <mdc-icon>add</mdc-icon>
   </button>-->
@@ -8,10 +8,9 @@
 
 <div class="loading" *ngIf="!loaded; else matrix"><mat-spinner></mat-spinner></div>
 
-
 <ng-template #matrix>
   <div class="outer-wrapper">
-    <div class="wrapper" [draggable]>
+    <div class="wrapper mat-elevation-z8" [draggable]>
       <table class="table">
         <thead class="table-header">
           <tr>
@@ -24,7 +23,10 @@
             <td class="cell design-stage-header">{{data.column_headers[rowIndex]}}</td>
             <td class="cell matrix-box" *ngFor="let data of design_stage.data; let i = index">
               <div class="created-design-stage circle" *ngIf="data.table.value; else create" [routerLink]="['/tasks', data.table.value.id]">
-                <mat-icon>{{ icons[i].icon }}</mat-icon>
+                <mat-icon *ngIf="icons[i].icon; else svgTemplate">{{ icons[i].icon }}</mat-icon>
+                <ng-template #svgTemplate>
+                  <img src="{{icons[i].svg}}" />
+                </ng-template>
               </div> 
               <ng-template #create>
                 <div class="create-design-stage circle" (click)="createTask(project.id,  data.table.discipline, design_stage.header)"><mat-icon>add</mat-icon></div> 
@@ -32,7 +34,7 @@
             </td>
           </tr> 
         </tbody>
-      </table>
+      </table> 
     </div>
   </div>
 </ng-template>

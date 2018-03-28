@@ -9,7 +9,7 @@ export class SubNavbarComponent implements OnInit {
   @Input() title: string = '';
   @Input() subtitle: string = '';
   @Input() classes: string = ''; 
-
+  @Input('breadcrumbs') breadcrumbs: any[];
   constructor() { }
 
   ngOnInit() {

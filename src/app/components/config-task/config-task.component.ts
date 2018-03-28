@@ -75,10 +75,19 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
 
     this.subscribe = response$.subscribe(result => {
+
+      data.task_phases.sort(function (a, b) {
+        return a.sort - b.sort;
+      });
+
       data.task_phases.forEach((taksPhase, index, taskPhases) => {
 
         taskPhases[index].task_activities = result[0].filter(item => {
           return item.task_phase_id == taskPhases[index].id;
+        });
+
+        taskPhases[index].task_activities.sort(function (a, b) {
+          return a.sort - b.sort;
         });
 
         taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {

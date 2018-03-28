@@ -61,10 +61,19 @@ export class TaskComponent implements OnInit {
     let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
 
     response$.subscribe(result => {
+
+      this.data.task_phases.sort(function (a, b) {
+        return a.sort - b.sort;
+      });
+
       this.data.task_phases.forEach((taksPhase, index, taskPhases) => {
 
         taskPhases[index].task_activities = result[0].filter(item => {
           return item.task_phase_id == taskPhases[index].id;
+        });
+
+        taskPhases[index].task_activities.sort(function (a, b) {
+          return a.sort - b.sort;
         });
 
         taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {

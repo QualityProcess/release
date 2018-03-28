@@ -20,6 +20,8 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { BreadcrumbService } from 'ng5-breadcrumb';
 import { Ng5BreadcrumbModule } from 'ng5-breadcrumb';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DragulaService } from 'ng2-dragula';
+
 
 // routing 
 import { routing } from './routing';
@@ -60,6 +62,7 @@ import { DraggableDirective } from './components/project-matrix/project-matrix.c
 import { CardViewDirective } from './components/projects/projects.component';
 import { ElevationDirective } from './components/projects/projects.component';
 import { PersentageDirective } from './components/custom-elements/percentage/percentage.component';
+import { PrimeDragulaDirective } from './share/prime-dragula.directive';
 
 // dialogs
 import { LoginDialog } from './components/login/login-dialog';
@@ -140,6 +143,7 @@ import { CalculationComponent } from './components/calculation/calculation.compo
     CardViewDirective,
     ElevationDirective,
     PersentageDirective,
+    PrimeDragulaDirective,
     LoginDialog,
     DeleteDialog,
     SubNavbarComponent,
@@ -213,6 +217,7 @@ import { CalculationComponent } from './components/calculation/calculation.compo
     TaskActivitiesResolver,
     TaskActivityResolver,
     TaskActivityItemsResolver,
+    DragulaService,
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     

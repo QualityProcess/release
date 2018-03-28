@@ -4,12 +4,8 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\project-matrix",
-    "\\src\\app\\models",
-    "\\src\\app\\services",
-    "\\src\\assets",
-    "\\src\\assets\\styles"
+    "\\src\\app\\components\\config-task"
   ],
-  "SelectedNode": "\\src\\app\\components\\project-matrix\\project-matrix.component.scss",
+  "SelectedNode": "\\src\\app\\components\\config-task\\config-task.component.html",
   "PreviewInSolutionExplorer": false
 }

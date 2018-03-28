@@ -23,26 +23,27 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
   dataSource: any;
   loaded = false;
+  @Input() rows;
   subscribe: any;
   onValueChangedSubscribe: any;
   deleteItemSubcribe: any;
+  orderSubscribe: any;
   deleteActivitySubcribe: any
   onDateChangedSubscribe: any;
   selectedItem: any;
-  sortField = "created_at"; 
+  isSendOrderItem: boolean = false;
+  isOverOrderItem: boolean = false;
   taskActivityItems: TaskActivityItem[];
 
   constructor(private service: TaskService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
 
   addActivity(phaseId) {
-    console.log('phaseId: ', phaseId);
     let defaultActivity = new TaskActivity();
     defaultActivity.name = 'New Section';
     defaultActivity.task_phase_id = phaseId;
     defaultActivity.is_enabled = true;
 
     this.service.addTaskActivity(defaultActivity).subscribe(res => {
-      console.log(res);
       this.addItem(res);
     });
   }
@@ -63,6 +64,33 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.updateData();
+  }
+
+  onDropItem(event) {
+    if (!this.isSendOrderItem) {
+
+      event[1].parentElement.lastElementChild.style.display = 'table-row';
+
+      let phase = this.dataSource.find(phase => phase.id === event[0][0]);
+      let activity = phase.task_activities.find(activity => activity.id === event[0][1]);
+
+      activity.task_activity_items.forEach((el, index: number) => {
+        this.orderSubscribe = this.service.updateTaskActivityItem({ sort: index }, el.id).subscribe(); 
+      });
+      this.isSendOrderItem = true;
+    } else {
+      setTimeout(() => { this.isSendOrderItem = false }, 500);
+    }
+    
+  }
+
+  ngOnOverItem(event) {
+    if (!this.isOverOrderItem) {
+      event[1].parentElement.lastElementChild.style.display = 'none';
+      this.isOverOrderItem = true;
+    } else {
+      setTimeout(() => { this.isOverOrderItem = false }, 500);
+    }
   }
 
   updateData() {
@@ -135,8 +163,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
   }
 
   onEnableValueChanged(e, item) {
-    console.log('sDFFDS: ', e);
-    console.log('sDFFDS: ', item);
+
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
 
     this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ is_enabled: e.checked }, +item.id).subscribe(res => { });
@@ -172,8 +199,6 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     } else {
       itemData.percentage_complete = itemData.percentage_complete + 20;
     }
-
-    console.log('itemData.percentage_complete: ', itemData.percentage_complete);
    
     this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ percentage_complete: itemData.percentage_complete}, +item.id).subscribe(res => { });
   }

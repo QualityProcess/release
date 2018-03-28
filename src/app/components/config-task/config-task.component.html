@@ -8,7 +8,7 @@
       <mat-icon class="ui-g-1 action" (click)="addActivity(phase.id)">add</mat-icon>
     </div>
     <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities ui-g-12">
-      <p-dataTable class="table" [sortField]="sortField" [sortOrder]="1"  [paginator]="false" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)">
+      <p-dataTable class="table" [paginator]="false" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)">
 
         <p-header class="table-header">
           <span class="action-header">{{ item.name }}</span>
@@ -31,7 +31,7 @@
         <p-column field="name" header="Item" [editable]="true" [style]=" {'width': '300px', 'text-align': 'start', 'border': 'none' }"></p-column>
         <p-column field="percentage_complete" header="%" [editable]="false" [style]=" {'overflow':'visible', 'width': '75px' }">
           <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
-            <percentage [data]="task_activity_item[col.field]" (onChanged)="changePercentage($event, item, task_activity_item)"></percentage>
+            <percentage [data]="task_activity_item[col.field]" (click)="changePercentage(item, task_activity_item)"></percentage>
           </ng-template>
         </p-column>
         <p-column field="checked_by" header="Cheked By" [editable]="true" [style]=" {'width': '200px' }"></p-column>

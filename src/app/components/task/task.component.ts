@@ -77,9 +77,17 @@ export class TaskComponent implements OnInit {
         });
 
         taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {
+
+          
+
           task_activities[i].task_activity_items = result[1].filter(item => {
             return item.task_activity_id == task_activities[i].id;
           });
+
+          task_activities[i].task_activity_items = task_activities[i].task_activity_items.sort(function (a, b) {
+            return a.sort - b.sort;
+          });
+
         });
 
       })

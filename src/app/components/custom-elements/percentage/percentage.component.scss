@@ -1,5 +1,9 @@
 @import "../../../../assets/styles/variables.scss";
 
+:host {
+  cursor: pointer;
+}
+
 div {
   width: 4px;
   height: 20px;

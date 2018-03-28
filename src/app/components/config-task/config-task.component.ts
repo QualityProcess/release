@@ -91,8 +91,13 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
         });
 
         taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {
+
           task_activities[i].task_activity_items = result[1].filter(item => {
             return item.task_activity_id == task_activities[i].id;
+          });
+
+          task_activities[i].task_activity_items = task_activities[i].task_activity_items.sort(function (a, b) {
+            return a.sort - b.sort;
           });
         });
 
@@ -138,10 +143,9 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
   }
 
-  changePercentage(percentage, activity, item) {
+  changePercentage(activity, item) {
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
-    if (percentage >= 100) return;
 
     let phaseIndex;
     let activityIndex;
@@ -161,11 +165,17 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       return +item.id === +i.id
     });
 
-    if (this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex].percentage_complete >= percentage) return;
+    let itemData = this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex];
 
-    this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex].percentage_complete = percentage;
+    if (itemData.percentage_complete >= 100) {
+      itemData.percentage_complete = 20;
+    } else {
+      itemData.percentage_complete = itemData.percentage_complete + 20;
+    }
+
+    console.log('itemData.percentage_complete: ', itemData.percentage_complete);
    
-    this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ percentage_complete: percentage}, +item.id).subscribe(res => { });
+    this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ percentage_complete: itemData.percentage_complete}, +item.id).subscribe(res => { });
   }
 
   onDateChanged(event, item) {

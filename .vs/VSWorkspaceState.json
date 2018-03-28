@@ -4,13 +4,12 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\circle-view",
-    "\\src\\app\\components\\gtantt-view",
     "\\src\\app\\components\\project-matrix",
     "\\src\\app\\models",
     "\\src\\app\\services",
-    "\\src\\assets"
+    "\\src\\assets",
+    "\\src\\assets\\styles"
   ],
-  "SelectedNode": "\\src\\app\\components\\gtantt-view\\gtantt-view.component.ts",
+  "SelectedNode": "\\src\\app\\components\\project-matrix\\project-matrix.component.scss",
   "PreviewInSolutionExplorer": false
 }

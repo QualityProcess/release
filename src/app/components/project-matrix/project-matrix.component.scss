@@ -38,8 +38,9 @@
       background: $primary-gray;
     }
 
-    .icon {
-      color: $primary-gray--dark;
+    .mat-icon--small {
+      font-size: 18px;
+      text-align: center;
     }
   }
 }
@@ -58,10 +59,10 @@
     color: #444;
     position: absolute;
     left: 0;
-    margin: 50px 16px 0 16px;
+    margin-top: 50px;
 
     .table {
-      margin: 0px;
+      margin: 0 16px 16px 16px;
       border-collapse: collapse;
       padding: 0px;
 

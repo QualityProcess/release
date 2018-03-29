@@ -3,7 +3,7 @@
 
 .phase {
   background: transparent;
-  margin-bottom: 75px;
+  margin-bottom: 16px;
   overflow-x: hidden;
 
 
@@ -24,50 +24,10 @@
 
   .activities {
     padding: 0;
+    overflow: hidden;
 
-    .table {
-      text-align: center;
-
-      .table-header {
-        @include flex();
-        justify-content: flex-start;
-      }
-
-      .ui-widget-header {
-        background: $white;
-        color: $black;
-        text-transform: uppercase;
-      }
-
-      .ui-datatable-thead {
-        > tr {
-          > th {
-            background: $white;
-            color: $black;
-            border: 1px solid $white !important;
-          }
-        }
-      }
+    .bar {
+      padding: 0.5em;
     }
   }
 }
-
-
-
-h5 {
-  margin: 0;
-}
-
-h2 {
-  text-align: center;
-  margin-top: 50px;
-}
-
-#dashboard {
-  width: 320px;
-  border: 1px solid black;
-}
-
-p {
-  text-align: center;
-} 

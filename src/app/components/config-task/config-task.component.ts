@@ -200,7 +200,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     let itemData = this.dataSource[phaseIndex].task_activities[activityIndex].task_activity_items[itemIndex];
 
     if (itemData.percentage_complete >= 100) {
-      itemData.percentage_complete = 20;
+      itemData.percentage_complete = 0;
     } else {
       itemData.percentage_complete = itemData.percentage_complete + 20;
     }

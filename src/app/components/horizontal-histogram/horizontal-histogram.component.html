@@ -5,87 +5,11 @@
   <div class="phase-header">
     <h2>{{phase.category}}</h2>
   </div>
-  <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities ui-g-12">
-    <p-dataTable class="table" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true">
-
-      <p-header class="table-header">
-        <span class="action-header">{{ item.name }}</span>
-      </p-header>
-
-      <p-column field="name" [style]=" {'width': '300px', 'text-align': 'start', 'background': 'white' }"></p-column>
-      <p-column field="id" [style]=" {'width': '300px', 'text-align': 'start', 'background': 'white' }">
-        <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData" let-i="rowIndex">
-          <google-chart *ngIf="currentData[phaseIndex].data[task_activityIndex][i].google.dataTable" [data]="currentData[phaseIndex].data[task_activityIndex][i].google"></google-chart>
-          <!--<google-chart [data]="{
-            chartType: 'BarChart',
-              dataTable: [
-                ['Genre', 'Estimated hours', 'actual hours', 'hours over', { role: 'style' }, { role: 'annotation' }],
-                ['',task_activity_item.hours_actual, task_activity_item.hours_estimated, task_activity_item.hours_estimated - task_activity_item.hours_actual , '', '']
-              ],
-              options: {
-                width: 400,
-                height: 40,
-                legend: { position: 'top', maxLines: 5 },
-                bar: { groupWidth: '75%' },
-                isStacked: true,
-                backgroundColor: {fill: 'transparent'} ,
-                backgroundColor: 'transparent'
-              }
-            }">
-          </google-chart>-->
-        </ng-template>
-      </p-column>
-
-    </p-dataTable>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-<!--
-<div id="dashboard">
-  <p>Earnings</p>
-  <div class="bar-chart">
-  </div>
-</div>
-   
-
-
-
-<div *ngFor="let phase of dataSource" class="inputs">
-  <h2>{{phase.category}}</h2>
-
-  <div *ngFor="let item of phase.task_activities" class="activities">
-    <h4 class="sub-title">{{item.name}}</h4>
-    <div *ngFor="let task_activity_items of item.task_activity_items" class="ui-g-12">
-      <div class="ui-g-12 ui-md-5"><h5>{{task_activity_items.name}}</h5></div>
-      <div class="ui-g-12 ui-md-7">
-        <google-chart [data]="{
-        chartType: 'BarChart',
-        dataTable: [
-          ['Genre', 'Estimated hours', 'actual hours', 'hours over', { role: 'style' }, { role: 'annotation' }],
-          ['',task_activity_items.hours_actual, task_activity_items.hours_estimated, task_activity_items.hours_estimated - task_activity_items.hours_actual , '', '']
-        ],
-        options: {
-          width: 400,
-          height: 40,
-          legend: { position: 'top', maxLines: 5 },
-          bar: { groupWidth: '75%' },
-          isStacked: true,
-          backgroundColor: {fill: 'transparent'} ,
-          backgroundColor: 'transparent'
-        }
-      }"></google-chart>
-
-      </div>
+  <div class="activities ui-g-12">
+    <div class="bar" *ngFor="let activity of phase.task_activities; let i = index" #bar>  
+      <google-chart *ngIf="activity.task_activity_items.length > 0 && currentData[phaseIndex].data[i].google.dataTable" [data]="currentData[phaseIndex].data[i].google"></google-chart>
     </div>
+    
   </div>
 </div>
-     -->
-<!--<google-chart [data]="pieChartData"></google-chart>-->
+

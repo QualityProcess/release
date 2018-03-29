@@ -28,12 +28,15 @@
       color: $white;
     }
 
-    .action {
+    .actions {
       cursor: pointer;
       color: $white;
       position: relative;
-      top: -12px;
-      left: -24px;
+      padding: .5em;
+
+      .btn {
+        padding: 0;
+      }
 
       &:hover {
         color: $green--light;
@@ -51,7 +54,11 @@
         @include flex();
         justify-content: space-between;
 
-        .action {
+        .action-header {
+          align-self: center;
+        }
+
+        .actions {
           mat-icon {
             cursor: pointer;
           }

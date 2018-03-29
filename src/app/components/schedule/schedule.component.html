@@ -1,9 +1,9 @@
 <div *ngIf="calendarOptions" class="shedule-wrapper mat-elevation-z8">
   <div class="schedule-actions">
-    <button mat-raised-button (click)="showPrev()">Prev</button>
-    <button mat-raised-button (click)="showMonth()">Month view</button>
-    <button mat-raised-button (click)="showWeek()">List view</button>
-    <button mat-raised-button (click)="showNext()">Next</button>
+    <button mat-button class="primary" (click)="showPrev()">Prev</button>
+    <button mat-button class="primary" (click)="showMonth()">Month view</button>
+    <button mat-button class="primary" (click)="showWeek()">List view</button>
+    <button mat-button class="primary" (click)="showNext()">Next</button>
   </div>
   <ng-fullcalendar #ucCalendar [options]="calendarOptions" [(eventsModel)]="events" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
         (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>

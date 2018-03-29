@@ -45,45 +45,7 @@ export class GtanttViewComponent implements OnInit {
       return days * 24 * 60 * 60 * 1000;
   }
 
-  ngAfterContentInit() {
-    console.log(this.canvas.nativeElement.offsetWidth)
-    this.drawGraph();
-  }
-
-  drawGraph() {
-    
-
-
-    /*var svg = d3.selectAll(".svg")
-      //.selectAll("svg")
-      .append("svg")
-      .attr("width", w)
-      .attr("height", h)
-      .attr("class", "svg");
-
-    var data = [{
-      startDate: '2017-02-27',
-      endDate: '2017-03-04',
-      label: 'milestone 01',
-      id: 'm01',
-      dependsOn: []
-    }, {
-      startDate: '2017-02-23',
-      endDate: '2017-03-01',
-      label: 'milestone 01',
-      id: 'm06',
-      //dependsOn: ['m01']
-    }];
-
-    createGanttChart(this.canvas.nativeElement, data, {
-      itemHeight: 20,
-      svgOptions: {
-        width: 1200,
-        height: 400,
-        fontSize: 12
-      }
-    });*/
-  }
+  ngAfterContentInit() { }
 
 
   ngOnInit() {

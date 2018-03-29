@@ -40,6 +40,13 @@ $custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, H
   color: $white!important;
 }
 
+.mat-button {
+  &.primary {
+    background: $primary-purple;
+    color: $white;
+  }
+}
+
 .mat-dialog-container {
   background: $primary-gray--light;
   color: $black;
@@ -498,6 +505,11 @@ a {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+}
+
+svg g {
+  font-family: $font--preferred !important;
+  font-weight: $font--normal !important;
 }
 
 .action-btn {

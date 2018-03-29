@@ -10,8 +10,8 @@
 
 <ng-template #matrix>
   <div class="outer-wrapper">
-    <div class="wrapper mat-elevation-z8" [draggable]>
-      <table class="table">
+    <div class="wrapper">
+      <table class="table mat-elevation-z8">
         <thead class="table-header">
           <tr>
             <th class="cell"></th>
@@ -29,7 +29,7 @@
                 </ng-template>
               </div> 
               <ng-template #create>
-                <div class="create-design-stage circle" (click)="createTask(project.id,  data.table.discipline, design_stage.header)"><mat-icon>add</mat-icon></div> 
+                <div class="create-design-stage circle" (click)="createTask(project.id,  data.table.discipline, design_stage.header)"><mat-icon class="mat-icon--small">add</mat-icon></div> 
               </ng-template>
             </td>
           </tr> 

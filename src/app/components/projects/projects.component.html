@@ -32,8 +32,8 @@
       </select>-->
     </div>
     <div class="control-item">
-      <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="setView('list')">reorder</i>
-      <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="setView('grid')">apps</i>
+      <i class="material-icons list-view" [ngClass]="{'on': currentView === 'list'}" (click)="setView('list')">reorder</i>
+      <i class="material-icons grid-view" [ngClass]="{'on': currentView === 'grid'}" (click)="setView('grid')">apps</i>
     </div>
   </div>
 

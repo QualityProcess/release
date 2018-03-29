@@ -32,8 +32,8 @@
       </select>-->
     </div>
     <div class="control-item">
-      <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')">reorder</i>
-      <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')">apps</i>
+      <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="setView('list')">reorder</i>
+      <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="setView('grid')">apps</i>
     </div>
   </div>
 
@@ -41,7 +41,7 @@
 
   <div *ngIf="filterData && filterData.length === 0 && loaded" class="no-results"><h3>No projects</h3></div>
 
-  <div *ngIf="gridView; else listView"class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
+  <div *ngIf="currentView === 'grid'; else listView"class="mdc-grid-list mdc-grid-list--tile-aspect-16x9">
     <ul class="mdc-grid-list__tiles" cardview #cardview>
       <li class="mdc-grid-tile" *ngFor="let project of filterData" [mdc-elevation]="5" hoverElevation> 
         <div class="mdc-grid-tile__primary">
@@ -70,71 +70,23 @@
   </div>
 
   <ng-template #listView>
-    <ul class="list-view">
-      <li class="list-view-item" *ngFor="let project of filterData" [mdc-elevation]="5" hoverElevation>
-        <img *ngIf="project.image.url; else placeholder" src="{{project.image.url}}" />
-        <ng-template #placeholder>
-          <img src="assets/images/placeholder.png" />
-        </ng-template>
 
-        <h2 class="project-card__title" (click)="goToMatrix(project.id)">{{ project.name }}</h2>
-        <div class="card-action-icons">
+    <mat-list class="list-view mat-elevation-z8">
+      <mat-list-item *ngFor="let project of filterData" hoverElevation>
+        <img matListAvatar src="{{project.image.url}}" alt="...">
+        <h3 matLine> {{project.name}} </h3>
+        <span matLine>
           <mdc-icon class="icon" (click)="onSelect(project)">remove_red_eye</mdc-icon>
           <mdc-icon class="icon" [routerLink]="['../', 'projects', project.id, 'edit']">edit</mdc-icon>
           <mdc-icon class="icon" (click)="openDeleteDialog(project)">delete</mdc-icon>
-        </div>
-        
-      </li>
-    </ul>
+        </span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+
   </ng-template>
 
-  <!--
 
-  <p-dataGrid *ngIf="gridView; else listView" [value]="filterData" [paginator]="true" [rows]="20">
-    <ng-template let-project pTemplate="item">
-      <div style="padding:3px" class="ui-g-12 ui-md-3 project-item">
-
-        <p-panel>
-          <p-header (click)="onSelect(project)">
-            <img src="{{ project.image.thumbnail.url }}" width="60">
-          </p-header>
-          <div (click)="onSelect(project)">{{ project.name }}</div>
-          <p-footer>
-            <div class="actions left">
-              <label class="switch">
-                <input type="checkbox" checked (change)="toggleProject($event, project.id)">
-                <span class="slider round"></span>
-              </label>
-              <i class="material-icons" (click)="goToMatrix(project.id)">view_comfy</i>
-            </div>
-            <div class="actions right">
-              <i class="material-icons">create</i><i class="material-icons">delete_forever</i>
-            </div>
-          </p-footer>
-        </p-panel>
-      </div>
-    </ng-template>
-  </p-dataGrid>
-
-  <ng-template #listView>
-    <p-dataList [value]="filterData" [paginator]="true" [rows]="5">
-      <ng-template let-project pTemplate="item">
-        <div class="ui-g ui-fluid project-item" (click)="onSelect(project)">
-          <div class="ui-g-12 ui-md-3" style="text-align:center">
-            <img src="{{ project.image.thumbnail.url }}">
-          </div>
-          <div class="ui-g-12 ui-md-9 car-details">
-            <div class="ui-g">
-              <div class="ui-g-2 ui-sm-6">Name: </div>
-              <div class="ui-g-10 ui-sm-6">{{project.name}}</div>
-            </div>
-          </div>
-        </div>
-        <hr class="ui-widget-content" style="border-top:0">
-      </ng-template>
-    </p-dataList>
-  </ng-template>
-      -->
 </div>
 
 

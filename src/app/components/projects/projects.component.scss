@@ -15,23 +15,13 @@
 
 .list-view {
   margin: 0 16px;
-  padding: 0;
 
-  li {
-    padding: 10px;
-    overflow: auto;
+  .icon {
+    cursor: pointer;
+    color: $primary-gray;
 
-    img {
-      float: left;
-      margin: 0 15px 0 0;
-      max-height: 400px;
-      max-width: 25%;
-    }
-
-    .card-action-icons {
-      .icon {
-        cursor: pointer;
-      }
+    &:hover {
+      color: $black;
     }
   }
 }
@@ -52,24 +42,8 @@
     }
 
     &.select {
-      min-width: 300px;
+      min-width: 200px;
     }
-
-    select {
-      //width: 100px;
-      height: 30px;
-      cursor: pointer;
-      background: $primary-purple--middle;
-      border: none;
-      border-radius: 2px;
-      font-size: 10pt;
-      float: left;
-      padding-left: 15px;
-      color: $primary-gray;
-      -webkit-transition: width .55s ease;
-      transition: width .55s ease;
-    }
-
 
     .filter {
       border: 1px solid $primary-gray;
@@ -83,53 +57,6 @@
       -moz-appearance: none;
       appearance: none;
       background: url() 96%/15% no-repeat #eee;
-    }
-
-    .container-2 {
-      width: 170px;
-      vertical-align: middle;
-      white-space: nowrap;
-      position: relative;
-
-      .icon {
-        position: absolute;
-        top: 50%;
-        margin-left: 3px;
-        margin-top: 3px;
-        z-index: 1;
-        color: $primary-gray;
-      }
-
-      &:hover {
-        width: 170px;
-
-        .icon {
-          color: $primary-gray--light;
-        }
-      }
-
-      input#search {
-        width: 170px;
-        height: 30px;
-        background: $primary-purple--middle;
-        border: none;
-        border-radius: 2px;
-        font-size: 10pt;
-        float: left;
-        color: $primary-gray;
-        padding-left: 35px;
-        color: $white;
-        -webkit-transition: width .55s ease;
-        -moz-transition: width .55s ease;
-        -ms-transition: width .55s ease;
-        -o-transition: width .55s ease;
-        transition: width .55s ease;
-
-        &:focus, &:active {
-          outline: none;
-          width: 170px;
-        }
-      }
     }
 
     .list-view, .grid-view {
@@ -165,39 +92,3 @@
     margin-top: 12px;
   }
 }
-
-.project-item {
-  cursor: pointer;
-
-  p-footer {
-    @include flex();
-    justify-content: space-between;
-
-    .actions {
-      display: inline-block;
-
-      i {
-        line-height: 1.2;
-        color: $primary-purple;
-        font-size: 1.6em;
-        
-
-        &:hover {
-          color: $primary-purple-light;
-        }
-      }
-    }
-  }
-
-  &:hover {
-    p-panel {
-
-      .ui-panel {
-        background: #eee;
-      }
-    }
-  }
-}
-
-
-// SELECT

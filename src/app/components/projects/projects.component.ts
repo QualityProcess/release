@@ -32,7 +32,8 @@ export class ProjectsComponent implements OnInit {
 
   sortedData: any;
   filterData: any;
-  gridView: boolean = true;
+  viewList: string[] = ['grid', 'list'];
+  currentView: string = 'grid';
   loaded = false;
   @ViewChild('cardview') element
 
@@ -40,6 +41,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.getProjects();
+    this.getView();
   }
 
   getProjects() {
@@ -57,8 +59,16 @@ export class ProjectsComponent implements OnInit {
     return `${dateObj.getDay()}/${dateObj.getMonth()}/${dateObj.getFullYear()}`;
   }
 
-  toogleView(view) {
-    this.gridView = view === 'list' ? false : true;
+  setView(view) {
+    this.service.saveProjectView(view);
+    this.currentView = view;
+  }
+
+  getView() {
+    let view = this.service.getProjectView();
+    console.log(this.viewList.includes(view));
+    console.log(view);
+    if (this.viewList.includes(view)) this.currentView = view;
   }
 
   applyFilter(filterValue: string) {

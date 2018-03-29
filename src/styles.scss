@@ -65,6 +65,27 @@ td {
   background-color: $primary-purple--light;
 }
 
+.list-view {
+  .mat-list-item {
+    .mat-list-item-content {
+      .mat-list-text {
+        @include flex();
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+.ng-dropdown-panel {
+  .ng-dropdown-panel-items {
+    .ng-option {
+      line-height: 2em;
+      height: 2em;
+    }
+  }
+}  
+
 /*  -------------------        END MATERIAL IO THEME -------------------------------*/
 
 

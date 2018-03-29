@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-
+import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
 
 import { Project } from "../models/project";
@@ -19,7 +19,10 @@ export class ProjectsService {
 
   private handleError: HandleError;
 
-  constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
+  constructor(private http: HttpClient,
+    httpErrorHandler: HttpErrorHandler,
+    @Inject('localStorage') private localStorage: any,
+    @Inject(PLATFORM_ID) private platformId: Object) {
     this.handleError = httpErrorHandler.createHandleError('ProjectsService');
   }
 
@@ -120,5 +123,20 @@ export class ProjectsService {
 
   getDesignStage(id: number): Observable<DesignStage> {
     return this.http.get<DesignStage>(`${this.apiUrl}/design_stages/${id}`);
+  }
+
+  saveProjectView(view: string) {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('projectsView', JSON.stringify({ projectsView: view }));
+    }
+  }
+
+  getProjectView(): string {
+
+    if (isPlatformBrowser(this.platformId) && localStorage.getItem("projectsView") !== null) { 
+      let view = JSON.parse(localStorage.getItem('projectsView'));
+      return view.projectsView;
+    }
+
   }
 }

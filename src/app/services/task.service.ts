@@ -76,6 +76,12 @@ export class TaskService {
     return this.http.put<TaskActivityItem>(`${this.apiUrl}/task_activity_items/${id}`, taskActivityItem);
   }
 
+  updateTaskActivityItemOrder(order: Object): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/task_activity_items/sort`, order);
+  }
+
+
+
   deleteTaskActivityItem(id: number): Observable<{}> {
     return this.http.delete(`${this.apiUrl}/task_activity_items/${id}`); 
   }

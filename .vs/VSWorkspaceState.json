@@ -4,8 +4,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\config-task"
+    "\\src\\app\\components\\config-task",
+    "\\src\\app\\models"
   ],
-  "SelectedNode": "\\src\\app\\components\\config-task\\config-task.component.html",
+  "SelectedNode": "\\src\\app\\models\\task.ts",
   "PreviewInSolutionExplorer": false
 }

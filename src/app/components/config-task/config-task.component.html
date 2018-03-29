@@ -30,7 +30,7 @@
           </ng-template>
         </p-column>
 
-        <p-column field="name" header="Item" [editable]="false" [style]=" {'width': '300px', 'text-align': 'start', 'border': 'none' }"></p-column>
+        <p-column field="name" header="Item" [editable]="true" [style]=" {'width': '300px', 'text-align': 'start', 'border': 'none' }"></p-column>
         <p-column field="percentage_complete" header="%" [editable]="false" [style]=" {'overflow':'visible', 'width': '75px' }">
           <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
             <percentage [data]="task_activity_item[col.field]" (click)="changePercentage(item, task_activity_item)"></percentage>

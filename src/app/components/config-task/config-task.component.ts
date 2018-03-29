@@ -73,10 +73,15 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
       let phase = this.dataSource.find(phase => phase.id === event[0][0]);
       let activity = phase.task_activities.find(activity => activity.id === event[0][1]);
-
+      let requestData = {
+        task_activity_item: [],
+        task_activity_id: activity.id
+      }; 
       activity.task_activity_items.forEach((el, index: number) => {
-        this.orderSubscribe = this.service.updateTaskActivityItem({ sort: index }, el.id).subscribe(); 
+        requestData.task_activity_item.push(el.id);
       });
+
+      this.orderSubscribe = this.service.updateTaskActivityItemOrder(requestData).subscribe(); 
       this.isSendOrderItem = true;
     } else {
       setTimeout(() => { this.isSendOrderItem = false }, 500);

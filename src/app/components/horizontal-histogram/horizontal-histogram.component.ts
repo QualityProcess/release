@@ -55,7 +55,7 @@ export class HorizontalHistogramComponent implements OnInit {
                 width: '50%',
                 height: height,
               },
-              title: task_activity.name,
+              //title: task_activity.name,
               titleTextStyle: textStyle,
               legend: {
                 position: 'top',

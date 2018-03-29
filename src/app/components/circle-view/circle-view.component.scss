@@ -4,7 +4,7 @@
 .activities {
   @include flex();
   flex-flow: row wrap;
-  padding: 0 10px;
+  padding: 0.5em;
 
   h4 {
     flex: 0 0 100%;

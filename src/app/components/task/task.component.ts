@@ -12,6 +12,8 @@ import { Discipline } from "../../models/discipline";
 import { DesignStage } from "../../models/design-stage";
 import { TaskActivity } from "../../models/task-activity";
 import { TaskActivityItem } from "../../models/task-activity-item";
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-task',
@@ -39,7 +41,12 @@ export class TaskComponent implements OnInit {
   taskActivities: TaskActivity[];
   taskActivityItems: TaskActivityItem[];
 
-  constructor(private service: TaskService, private projectService: ProjectsService, private router: Router, private route: ActivatedRoute) {
+  constructor(private service: TaskService,
+    private projectService: ProjectsService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private _location: Location
+  ) {
     this.views['googleKeepView'] = true;
     this.views['horizontalHistogramView'] = false;
     this.views['granttView'] = false;
@@ -121,6 +128,10 @@ export class TaskComponent implements OnInit {
     });*/
 
     console.log(this.data);
+  }
+
+  goBack() {
+    this._location.back();
   }
 
   goToView(view) {

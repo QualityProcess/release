@@ -84,14 +84,13 @@ td {
       height: 2em;
     }
   }
-}  
+}
 
+.main-fab-svg-image {
+  width: 35%;
+}
 /*  -------------------        END MATERIAL IO THEME -------------------------------*/
-
-
-
 /*  -------------------        MDC THEME   -------------------------------*/
-
 $mdc-theme-primary: $primary-purple;
 $mdc-theme-secondary: $primary-purple--middle;
 @import "~@angular-mdc/theme/material";

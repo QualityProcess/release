@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 448 512"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="arrow-left.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     id="namedview6"
+     showgrid="false"
+     inkscape:pagecheckerboard="true"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="31.411036"
+     inkscape:cy="476.68772"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     d="M 239.9072,461.00982 235.3,467.3 c -7.85514,10.72458 -24.6,9.4 -33.9,0 L 7,273 c -9.4,-9.4 -9.4,-24.6 0,-33.9 L 207.91976,47.768124 c 9.79965,-9.332011 16.41059,-7.978267 27.24465,-2.796938 1.95295,4.462553 4.05837,8.903919 2.77629,13.491472 -1.04542,3.740745 -4.53282,12.035774 -13.82304,22.027503 L 64.033796,239.58524 418.82254,241.36557 c 4.25717,-1.56476 15.63653,8.24809 15.74409,11.61848 l 0.27627,8.65636 c 0.0954,2.98891 -5.10972,12.7626 -18.43612,12.66467 L 62.182019,271.70224 234.8561,442.24827 c 7.48869,11.85184 4.76203,14.56718 5.0511,18.76155 z"
+     id="path2"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cscccscscccsssccc"
+     style="fill:#ffffff" />
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

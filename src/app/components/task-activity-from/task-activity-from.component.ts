@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { FormGroup, FormControl, FormBuilder, FormArray, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DeleteDialog } from "../dialogs/delete-dialog";
 
 import { catchError } from 'rxjs/operators';
 import { pipe } from 'rxjs/Rx';
@@ -24,11 +26,13 @@ export class TaskActivityFromComponent implements OnInit {
   @Input('taskPhases') taskPhases: TaskPhase[];
   @Input('taskId') taskIdEdit: number;
 
+  deleteActivitySubcribe: any;
+
   @Input() set taskActivity(taskActivity: TaskActivity) {
     if (taskActivity) this._taskActivity = taskActivity;
   }
 
-  constructor(private fb: FormBuilder, public snackBar: MatSnackBar, private service: TaskService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, public snackBar: MatSnackBar,public dialog: MatDialog, private service: TaskService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -90,6 +94,28 @@ export class TaskActivityFromComponent implements OnInit {
       });
 
     })
+  }
+
+  openDeleteTaskActivityDialog(item) {
+    let dialogRef = this.dialog.open(DeleteDialog, {
+      width: '350px',
+      data: {
+        project: item,
+        title: `Delete ${item.name}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteActivity(item);
+      }
+    });
+  }
+
+  deleteActivity(activity: TaskActivity) {
+    this.deleteActivitySubcribe = this.service.deleteTaskActivity(activity.id).subscribe(res => {
+      this.router.navigate(['/tasks', this.taskId]);
+    });
   }
 
 }

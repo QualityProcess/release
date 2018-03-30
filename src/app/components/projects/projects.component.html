@@ -74,7 +74,7 @@
     <mat-list class="list-view mat-elevation-z8">
       <mat-list-item *ngFor="let project of filterData" hoverElevation>
         <img matListAvatar src="{{project.image.url}}" alt="...">
-        <h3 matLine> {{project.name}} </h3>
+        <h3 matLine > {{project.name}} </h3>
         <span matLine>
           <mdc-icon class="icon" (click)="onSelect(project)">remove_red_eye</mdc-icon>
           <mdc-icon class="icon" [routerLink]="['../', 'projects', project.id, 'edit']">edit</mdc-icon>

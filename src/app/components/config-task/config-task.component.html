@@ -6,11 +6,13 @@
     <div class="phase-header">
       <h2 class="ui-g-11">{{phase.category}}</h2>
       <div class="actions">
-        <button class="ui-g-1 add-btn btn"mat-button>Add section</button>
+        <button class="ui-g-1 add-btn btn"mat-button (click)="addActivity(phase.id)">Add section</button>
            
       </div>
     </div>
-    <div *ngFor="let item of phase.task_activities; let task_activityIndex = index" class="activities ui-g-12">
+    <div class="section-bag" [dragula]='"section-bag"' [dragulaModel]='phase.task_activities'> 
+
+    <div *ngFor="let item of phase.task_activities; let task_activityIndex = index"  class="activities ui-g-12" data-draggable="section">
       <p-dataTable class="table" [primeDragula]="[phase.id, item.id]" [dragulaModel]="item.task_activity_items" 
        [dragulaOptions]="{ childContainerSelector: 'tbody', initAfterView: true }"
       #datatable  [paginator]="false" [value]="item.task_activity_items" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)" (onDroped)="onDropItem($event)" (onOver)="ngOnOverItem($event)">
@@ -96,6 +98,10 @@
         </p-footer>-->
       </p-dataTable>
     </div>
+
+    </div>
+
+
   </div>
 </ng-template>
 

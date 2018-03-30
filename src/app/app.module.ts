@@ -20,7 +20,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { BreadcrumbService } from 'ng5-breadcrumb';
 import { Ng5BreadcrumbModule } from 'ng5-breadcrumb';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { DragulaService } from 'ng2-dragula';
+import { DragulaService, DragulaModule } from 'ng2-dragula';
 
 
 // routing 
@@ -118,6 +118,7 @@ import { CircleViewComponent } from './components/circle-view/circle-view.compon
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PercentageComponent } from './components/custom-elements/percentage/percentage.component';
 import { CalculationComponent } from './components/calculation/calculation.component';
+import { ActivityTableComponent } from './components/config-task/activity-table/activity-table.component';
 
 @NgModule({
   declarations: [
@@ -175,6 +176,7 @@ import { CalculationComponent } from './components/calculation/calculation.compo
     ScheduleComponent,
     PercentageComponent,
     CalculationComponent,
+    ActivityTableComponent,
 
   ],
   imports: [
@@ -193,7 +195,8 @@ import { CalculationComponent } from './components/calculation/calculation.compo
     PrimengModule,
     ChartsModule,
     Ng2GoogleChartsModule,
-    NgSelectModule
+    NgSelectModule,
+    DragulaModule
   ],
   providers: [
     AuthGuard,

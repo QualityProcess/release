@@ -5,8 +5,12 @@
     "\\src\\app",
     "\\src\\app\\components",
     "\\src\\app\\components\\config-task",
-    "\\src\\app\\models"
+    "\\src\\app\\components\\config-task\\activity-table",
+    "\\src\\app\\components\\tmp",
+    "\\src\\app\\components\\tmp\\config-task",
+    "\\src\\app\\framework\\material",
+    "\\src\\app\\share"
   ],
-  "SelectedNode": "\\src\\app\\models\\task.ts",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

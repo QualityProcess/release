@@ -70,7 +70,7 @@ export class PrimeDragulaDirective implements OnChanges, OnInit, AfterViewInit {
       this.dragulaService.add(this.primeDragula, this.drake);
     }
 
-    this.dragulaService.over.subscribe((value) => {
+    this.dragulaService.over.subscribe((value, target, source) => {
       this.onOver.emit([value[0], value[1]]);
     });
 

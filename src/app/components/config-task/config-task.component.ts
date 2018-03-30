@@ -67,7 +67,10 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
   }
 
   onDropItem(event) {
-    if (!this.isSendOrderItem) {
+
+    console.log(event);
+    console.log(this.dataSource);
+    /*if (!this.isSendOrderItem && event[1].parentElement) {
 
       event[1].parentElement.lastElementChild.style.display = 'table-row';
 
@@ -85,17 +88,36 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       this.isSendOrderItem = true;
     } else {
       setTimeout(() => { this.isSendOrderItem = false }, 500);
-    }
+    }*/
     
   }
 
   ngOnOverItem(event) {
-    if (!this.isOverOrderItem) {
-      event[1].parentElement.lastElementChild.style.display = 'none';
-      this.isOverOrderItem = true;
-    } else {
-      setTimeout(() => { this.isOverOrderItem = false }, 500);
+
+    // if task_activity_item drag and drop
+    if (event[1].tagName === 'TR') {
+
+      
+      if (!this.isOverOrderItem) {
+        console.log("ITEM SORT");
+        event[1].parentElement.lastElementChild.style.display = 'none';
+        this.isOverOrderItem = true;
+      } else {
+        setTimeout(() => { this.isOverOrderItem = false }, 500);
+      }
     }
+    console.log(event); 
+    if (event[0] === 'section-bag' && event[1].tagName !== 'TR') {
+      if (!this.isOverOrderItem) {
+        console.log("SECTION SORT"); 
+        this.isOverOrderItem = true;
+      } else {
+        setTimeout(() => { this.isOverOrderItem = false }, 500);
+      }
+      
+    }
+   
+
   }
 
   updateData() {

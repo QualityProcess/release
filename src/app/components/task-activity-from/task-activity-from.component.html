@@ -21,6 +21,7 @@
 
   <mdc-form-field [alignEnd]="true">
     <mdc-switch formControlName="is_enabled"></mdc-switch>
-    <label>Is enable</label>
+    <label class="switch-label">Is enable</label>
   </mdc-form-field>
+  <button *ngIf="isEdit" class="btn delete-btn" mat-button type="button" (click)="openDeleteTaskActivityDialog(_taskActivity)">Delete</button>
 </form>

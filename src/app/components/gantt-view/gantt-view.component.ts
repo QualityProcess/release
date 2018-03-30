@@ -3,11 +3,11 @@ import * as google from 'ng2-google-charts';
 import * as d3 from 'd3';
 
 @Component({
-  selector: 'gtantt-view',
-  templateUrl: './gtantt-view.component.html',
-  styleUrls: ['./gtantt-view.component.scss']
+  selector: 'gantt-view',
+  templateUrl: './gantt-view.component.html',
+  styleUrls: ['./gantt-view.component.scss']
 })
-export class GtanttViewComponent implements OnInit {
+export class GanttViewComponent implements OnInit {
   @Input('data') dataSource;
   @ViewChild('canvas') canvas;
   date: Date = new Date(2015, 0, 1);

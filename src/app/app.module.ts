@@ -86,7 +86,7 @@ import { DisciplinesComponent } from './components/disciplines/disciplines.compo
 import { DesignStagesComponent } from './components/design-stages/design-stages.component';
 import { DisciplineComponent } from './components/discipline/discipline.component';
 import { HorizontalHistogramComponent } from './components/horizontal-histogram/horizontal-histogram.component';
-import { GtanttViewComponent } from './components/gtantt-view/gtantt-view.component';
+import { GanttViewComponent } from './components/gantt-view/gantt-view.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SubNavbarComponent } from './components/sub-navbar/sub-navbar.component';
 import { SearchComponent } from './components/custom-elements/search/search.component';
@@ -118,7 +118,7 @@ import { CircleViewComponent } from './components/circle-view/circle-view.compon
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PercentageComponent } from './components/custom-elements/percentage/percentage.component';
 import { CalculationComponent } from './components/calculation/calculation.component';
-///import { ActivityTableComponent } from './components/config-task/activity-table/activity-table.component';
+import { ActivityTableComponent } from './components/config-task/activity-table/activity-table.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +138,7 @@ import { CalculationComponent } from './components/calculation/calculation.compo
     DesignStagesComponent, 
     DisciplineComponent,
     HorizontalHistogramComponent,
-    GtanttViewComponent,
+    GanttViewComponent,
     NavbarComponent,
     DraggableDirective,
     CardViewDirective,
@@ -176,7 +176,7 @@ import { CalculationComponent } from './components/calculation/calculation.compo
     ScheduleComponent,
     PercentageComponent,
     CalculationComponent,
-    //ActivityTableComponent,
+    ActivityTableComponent,
 
   ],
   imports: [

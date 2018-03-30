@@ -15,22 +15,6 @@ export class CircleViewComponent implements OnInit {
   data: any;
   constructor() { }
 
-  dataa: any = {
-    chartType: 'Timeline',
-    dataTable: [
-      ['Name', 'From', 'To'],
-      ['Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)]
-    ],
-    options: {
-      width: 400,
-      height: 40,
-      legend: { position: 'top', maxLines: 5 },
-      bar: { groupWidth: '75%' },
-      isStacked: true,
-      backgroundColor: { fill: 'transparent' }
-    }
-  }
-
   ngOnInit() {
 
     for (let obj of this.dataSource) {

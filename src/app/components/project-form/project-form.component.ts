@@ -48,7 +48,6 @@ export class ProjectFormComponent implements OnInit, OnChanges {
     if ( typeof changes.submit.previousValue === 'undefined') return;
 
     // if loaded page and press save btn - submit form
-
     
     if (!this.addProject.valid) {
       this.snackBar.open('Check your fields', '', {
@@ -58,9 +57,6 @@ export class ProjectFormComponent implements OnInit, OnChanges {
       if (this.isEdit) {
           this.service.updateProject(this.addProject.value, this._project.id)
             .subscribe( project => {
-              /*this.snackBar.open('Project saved!', '', {
-                duration: 2000,
-              });*/
               this.router.navigate(['projects']);
           });
       }else {
@@ -74,7 +70,6 @@ export class ProjectFormComponent implements OnInit, OnChanges {
   }
 
   changed() {
-    console.log('On change work'); 
   }
 
 }

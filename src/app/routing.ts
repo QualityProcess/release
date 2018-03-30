@@ -116,9 +116,6 @@ const appRoutes: Routes = [
       {
         path: 'tasks',
         component: TasksComponent,
-        /*resolve: {
-          //tasksData: TasksResolver
-        } */
       },
       {
         path: 'tasks/create',
@@ -144,14 +141,12 @@ const appRoutes: Routes = [
         path: 'task-activities/:id/edit',
         component: EditTaskActivityComponent,
         resolve: {
-          taskActivityData: TaskActivityResolver,
-          //taskPhasesData: TaskPhasesResolver
+          taskActivityData: TaskActivityResolver
         }
       },
       {
         path: 'task-activity-items/create/:id',
-        component: CreateTaskActivityItemComponent,
-        //resolve: { taskData: TaskResolver } 
+        component: CreateTaskActivityItemComponent
       },
       {
         path: 'task-activity-items/:id/edit',
@@ -163,7 +158,6 @@ const appRoutes: Routes = [
     ]
   },
   
-
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

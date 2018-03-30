@@ -38,6 +38,6 @@
   <schedule *ngIf="schedule" [data]="data.task_phases"></schedule>
   <google-keep-task-view *ngIf="googleKeepView" [data]="data.task_phases"></google-keep-task-view>
   <horizontal-histogram *ngIf="horizontalHistogramView" [data]="data.task_phases"> </horizontal-histogram>
-  <gtantt-view *ngIf="granttView" [data]="data.task_phases"></gtantt-view>
+  <gantt-view *ngIf="granttView" [data]="data.task_phases"></gantt-view>
   <circle-view *ngIf="circleView" [data]="data.task_phases"></circle-view>
 </div>

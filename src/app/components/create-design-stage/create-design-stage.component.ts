@@ -21,5 +21,4 @@ export class CreateDesignStageComponent implements OnInit {
     this.saveDesignStage = !this.saveDesignStage;
     
   }
-
 }

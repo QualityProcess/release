@@ -103,11 +103,6 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
       return tmp;
     });
 
-      
-
-
-
-
     this.data.row_headers.forEach((disciplineName: string) => {
       let name = disciplineName.toLocaleLowerCase().trim();
 
@@ -131,15 +126,11 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
         url: `/projects/${this.project.id}`
       }
     );
-    console.log(this.project);
-    console.log(this.data);
-    console.log(this.icons);
   }
 
 
   ngAfterViewInit() {
     setTimeout(() => { console.log('Loaded!'); this.loaded = true; }, 400);
-    
   }
 
   createTask(projectId, disciplineId, designStageId) {

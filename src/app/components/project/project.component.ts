@@ -21,21 +21,10 @@ export class ProjectComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: ProjectsService
-  ) {
-    /*route.params.subscribe(({ id }) => {
-      service.getProject(+id).subscribe(project => {
-        this.project = project;
-      });
-    });*/
-  }
+  ) {  }
 
   ngOnInit() {
       this.project = this.route.snapshot.data.projectData;
-      /*let id = this.route.snapshot.paramMap.get('id');
-
-      this.service.getProject(+id).subscribe(project => {
-        this.project = project;
-      });*/
   }
 
   gotToMatrix() {

@@ -27,16 +27,8 @@ export class ProjectsService {
   }
 
   getProjects() : Observable<Project[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': 'authkey',
-        'userid': '1'
-      })
-    };
 
-    //return this.http.get<any>('https://qualityprocess-development.herokuapp.com/api/v1/projects', httpOptions);
-    return this.http.get<any>(`${this.apiUrl}/projects`, httpOptions);
+    return this.http.get<any>(`${this.apiUrl}/projects`);
     
   }
 
@@ -45,64 +37,31 @@ export class ProjectsService {
   }
 
   addProject(project: Project): Observable<Project> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': 'authkey',
-        'userid': '1'
-      })
-    };
 
-    return this.http.post<Project>(`${this.apiUrl}/projects`, project, httpOptions)
+    return this.http.post<Project>(`${this.apiUrl}/projects`, project)
       .pipe(
       catchError(this.handleError('addProject', project))
       );
   }
 
   updateProject(project: Project, id: number): Observable<Project> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Origin': 'http://localhost:4200',
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': 'true',
-          'Authorization': 'authkey',
-          'userid': '1',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-          'Method': 'PUT'
-        })
-      };
 
-    return this.http.put<Project>(`${this.apiUrl}/projects/${id}`, JSON.stringify(project), httpOptions)
+    return this.http.put<Project>(`${this.apiUrl}/projects/${id}`, JSON.stringify(project))
         .pipe(
         catchError(this.handleError('editProject', project))
         );
   }
 
   deleteProject(id: number): Observable<{}> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          //'Access-Control-Allow-Origin': 'http://localhost:4200',
-          //'Origin': 'http://localhost:4200', 
-          'Content-Type': 'application/json',
-          //'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Authorization': 'authkey',
-          'userid': '1',
-          //'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT',
-          //'Method': 'PUT' 
-        })
-      };
 
-    return this.http.delete(`${this.apiUrl}/projects/${id}`, httpOptions)
+    return this.http.delete(`${this.apiUrl}/projects/${id}`)
         .pipe(
         catchError(this.handleError('deleteProject', id))
         );
   }
 
   getPhases(): Observable<Phases[]> {
-    return this.http.get<Phases[]>(`https://qualityprocess-development.herokuapp.com/api/v1/project_phases`);
+    return this.http.get<Phases[]>(`${this.apiUrl}/project_phases`);
   }
 
   getProjectMatrix(id:number): Observable<any[]>{

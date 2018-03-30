@@ -1,10 +1,6 @@
 
-
-
-
 <div *ngFor="let phase of dataSource; let i = index" class="ui-g-12 inputs mat-elevation-z8">
   <h2>{{phase.category}}</h2>
-
 
   <div *ngFor="let item of phase.task_activities; let secI = index">
     <div class="activities" *ngIf="currentData[i].data[secI].google.dataTable[1][1] != 0 && currentData[i].data[secI].google.dataTable[2][1] != 0">

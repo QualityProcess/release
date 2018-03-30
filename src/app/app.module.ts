@@ -118,7 +118,7 @@ import { CircleViewComponent } from './components/circle-view/circle-view.compon
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PercentageComponent } from './components/custom-elements/percentage/percentage.component';
 import { CalculationComponent } from './components/calculation/calculation.component';
-import { ActivityTableComponent } from './components/config-task/activity-table/activity-table.component';
+///import { ActivityTableComponent } from './components/config-task/activity-table/activity-table.component';
 
 @NgModule({
   declarations: [
@@ -176,7 +176,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     ScheduleComponent,
     PercentageComponent,
     CalculationComponent,
-    ActivityTableComponent,
+    //ActivityTableComponent,
 
   ],
   imports: [

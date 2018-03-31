@@ -77,7 +77,7 @@ import { LoginComponent } from './components/login/login.component';
 //import { HomeComponent } from './components/home/home.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-/*//import { ProjectsComponent } from './components/projects/projects.component';
+//import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectMatrixComponent } from './components/project-matrix/project-matrix.component';
 import { PhasesComponent } from './components/phases/phases.component';
@@ -121,7 +121,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PercentageComponent } from './components/custom-elements/percentage/percentage.component';
 import { CalculationComponent } from './components/calculation/calculation.component';
 import { ActivityTableComponent } from './components/config-task/activity-table/activity-table.component';
-*/
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,7 +129,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     //HomeComponent,
     ResetPasswordComponent,
     RegistrationComponent,
-    /*//ProjectsComponent,
+    //ProjectsComponent,
     ProjectComponent,
     ProjectMatrixComponent,
     PhasesComponent,
@@ -148,7 +148,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     PersentageDirective,
     PrimeDragulaDirective,
     LoginDialog,
-    DeleteDialog,
+    //DeleteDialog,
     //SubNavbarComponent,
     //SearchComponent,
     CreateProjectComponent,
@@ -178,7 +178,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     ScheduleComponent,
     PercentageComponent,
     CalculationComponent,
-    ActivityTableComponent,*/
+    ActivityTableComponent,
 
   ],
   imports: [

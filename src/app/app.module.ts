@@ -22,6 +22,8 @@ import { Ng5BreadcrumbModule } from 'ng5-breadcrumb';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
 
+// modules
+import { SharedModule } from './share/shared.module';
 
 // routing 
 import { routing } from './routing';
@@ -32,6 +34,7 @@ import { IsSecureGuard } from './guard/https.guard';
 
 // services
 import { AuthService, UserService, ProjectsService } from './services';
+import { TaskService } from './services/task.service';
 
 // Error Handlers
 import { HttpErrorHandler } from './services/http-error-handler.service';
@@ -66,22 +69,20 @@ import { PrimeDragulaDirective } from './share/prime-dragula.directive';
 
 // dialogs
 import { LoginDialog } from './components/login/login-dialog';
-import { DeleteDialog } from './components/dialogs/delete-dialog';
+//import { DeleteDialog } from './components/dialogs/delete-dialog';
 
 // components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { RoutingModule } from './routing.module';
-import { HomeComponent } from './components/home/home.component';
+//import { HomeComponent } from './components/home/home.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { ProjectsComponent } from './components/projects/projects.component';
+/*//import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ProjectMatrixComponent } from './components/project-matrix/project-matrix.component';
 import { PhasesComponent } from './components/phases/phases.component';
 import { TaskComponent } from './components/task/task.component';
 import { GoogleKeepTaskViewComponent } from './components/google-keep-task-view/google-keep-task-view.component';
-import { TaskService } from './services/task.service';
 import { DisciplinesComponent } from './components/disciplines/disciplines.component';
 import { DesignStagesComponent } from './components/design-stages/design-stages.component';
 import { DisciplineComponent } from './components/discipline/discipline.component';
@@ -89,7 +90,8 @@ import { HorizontalHistogramComponent } from './components/horizontal-histogram/
 import { GanttViewComponent } from './components/gantt-view/gantt-view.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SubNavbarComponent } from './components/sub-navbar/sub-navbar.component';
-import { SearchComponent } from './components/custom-elements/search/search.component';
+
+//import { SearchComponent } from './components/custom-elements/search/search.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { FileUploaderComponent } from './components/custom-elements/file-uploader/file-uploader.component';
@@ -119,15 +121,15 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { PercentageComponent } from './components/custom-elements/percentage/percentage.component';
 import { CalculationComponent } from './components/calculation/calculation.component';
 import { ActivityTableComponent } from './components/config-task/activity-table/activity-table.component';
-
+*/
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
+    //HomeComponent,
     ResetPasswordComponent,
     RegistrationComponent,
-    ProjectsComponent,
+    /*//ProjectsComponent,
     ProjectComponent,
     ProjectMatrixComponent,
     PhasesComponent,
@@ -139,7 +141,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     DisciplineComponent,
     HorizontalHistogramComponent,
     GanttViewComponent,
-    NavbarComponent,
+    //NavbarComponent,
     DraggableDirective,
     CardViewDirective,
     ElevationDirective,
@@ -147,8 +149,8 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     PrimeDragulaDirective,
     LoginDialog,
     DeleteDialog,
-    SubNavbarComponent,
-    SearchComponent,
+    //SubNavbarComponent,
+    //SearchComponent,
     CreateProjectComponent,
     ProjectFormComponent,
     FileUploaderComponent,
@@ -176,7 +178,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     ScheduleComponent,
     PercentageComponent,
     CalculationComponent,
-    ActivityTableComponent,
+    ActivityTableComponent,*/
 
   ],
   imports: [
@@ -185,17 +187,17 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-
+    SharedModule,
     //ServerModule,
     //ModuleMapLoaderModule,
 
     routing,
-    MaterialModule,
-    MaterialMDCModule,
-    PrimengModule,
+    //MaterialModule,
+    //MaterialMDCModule,
+    //PrimengModule,
     ChartsModule,
     Ng2GoogleChartsModule,
-    NgSelectModule,
+    //NgSelectModule,
     DragulaModule
   ],
   providers: [
@@ -230,7 +232,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     //MockBackend,
     //BaseRequestOptions 
   ],
-  entryComponents: [DeleteDialog],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

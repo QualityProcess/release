@@ -47,6 +47,37 @@ import { EditTaskActivityItemComponent } from './components/edit-task-activity-i
 import { TaskActivityResolver } from './components/task-activity/task-activity.resolver';
 import { TaskActivityItemsResolver } from './components/edit-task-activity-item/edit-task-activity-items.resolver';
 
+
+
+const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
+  {
+    path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard, IsSecureGuard]
+  },
+
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
+];
+
+export const routing = RouterModule.forRoot(appRoutes, { useHash: true });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
@@ -163,3 +194,4 @@ const appRoutes: Routes = [
 ];
 
 export const routing = RouterModule.forRoot(appRoutes, { useHash: true });
+*/

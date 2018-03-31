@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // resolvers
-import { ProjectResolver } from './project.resolver';
+import { DesignStageResolver } from './design-stage.resolver';
 
 // components
-import { ProjectComponent } from './project.component'
+import { DesignStageComponent } from './design-stage.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProjectComponent,
-    resolve: { projectData: ProjectResolver },
+    component: DesignStageComponent,
+    resolve: { designStageData: DesignStageResolver }
   }
 ];
 
@@ -19,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProjectRoutingModule { }
+export class DesignStageRoutingModule { }

@@ -33,11 +33,13 @@
   </mdc-toolbar-section>
 </sub-navbar>
 
-<div class="layout-wrapper"> 
-  <config-task *ngIf="editTask"></config-task>
+<div class="layout-wrapper">
+  <router-outlet></router-outlet>
+  <!--<config-task *ngIf="editTask"></config-task>
   <schedule *ngIf="schedule" [data]="data.task_phases"></schedule>
   <google-keep-task-view *ngIf="googleKeepView" [data]="data.task_phases"></google-keep-task-view>
   <horizontal-histogram *ngIf="horizontalHistogramView" [data]="data.task_phases"> </horizontal-histogram>
   <gantt-view *ngIf="granttView" [data]="data.task_phases"></gantt-view>
   <circle-view *ngIf="circleView" [data]="data.task_phases"></circle-view>
+      -->
 </div>

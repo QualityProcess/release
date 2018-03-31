@@ -5,11 +5,11 @@ import { GoogleChartComponent } from 'ng2-google-charts';
 import * as d3 from 'd3';
 
 @Component({
-  selector: 'horizontal-histogram',
-  templateUrl: './horizontal-histogram.component.html',
-  styleUrls: ['./horizontal-histogram.component.scss']
+  selector: 'bar-view',
+  templateUrl: './bar-view.component.html',
+  styleUrls: ['./bar-view.component.scss']
 })
-export class HorizontalHistogramComponent implements OnInit {
+export class BarViewComponent implements OnInit {
   @Input('data') dataSource;
   viewData: any;
   @ViewChild('bar') bar: any;

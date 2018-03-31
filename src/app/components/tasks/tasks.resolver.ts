@@ -21,10 +21,7 @@ export class TasksResolver implements Resolve<any> {
         console.error(err); // deal with API error (eg not found)
         this.router.navigate(['/projects']); // could redirect to error page
         return empty<Task[]>();
-    });
-
-    
-    
+    });    
   }
 
   getProjects() {

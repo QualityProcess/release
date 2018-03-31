@@ -12,13 +12,6 @@
 
   <div class="navbar-header">
     <div class="flex-spacer"></div>
-    <!--<div class="control-item">
-      <select name="Sort By" (change)="sortData($event)">
-        <option value="">Sort by</option>
-        <option value="name">Name</option>
-        <option value="id">Id</option>
-      </select>
-    </div>-->
     <div class="control-item">
       <i class="material-icons list-view" [ngClass]="{'on': !gridView}" (click)="toogleView('list')">reorder</i>
       <i class="material-icons grid-view" [ngClass]="{'on': gridView}" (click)="toogleView('grid')">apps</i>

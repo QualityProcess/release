@@ -78,7 +78,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 //import { ProjectsComponent } from './components/projects/projects.component';
-import { ProjectComponent } from './components/project/project.component';
+//import { ProjectComponent } from './components/project/project.component';
 import { ProjectMatrixComponent } from './components/project-matrix/project-matrix.component';
 import { PhasesComponent } from './components/phases/phases.component';
 import { TaskComponent } from './components/task/task.component';
@@ -130,7 +130,7 @@ import { ActivityTableComponent } from './components/config-task/activity-table/
     ResetPasswordComponent,
     RegistrationComponent,
     //ProjectsComponent,
-    ProjectComponent,
+    //ProjectComponent,
     ProjectMatrixComponent,
     PhasesComponent,
     TaskComponent,

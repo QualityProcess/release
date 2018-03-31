@@ -6,7 +6,7 @@
     <span class="action-header">{{ activity.name }}</span>
     <div class="actions">
       <mat-icon class="edit-btn btn" [routerLink]="['/task-activities', activity.id, 'edit', {taskId: phase.task_id}]">edit</mat-icon>
-      <mat-icon class="add-btn btn" (click)="addItem(item)">add</mat-icon>
+      <mat-icon class="add-btn btn" (click)="addItem(activity)">add</mat-icon>
     </div>
   </p-header> 
 

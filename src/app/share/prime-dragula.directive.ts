@@ -22,7 +22,6 @@ export class PrimeDragulaDirective implements OnChanges, OnInit, AfterViewInit {
   public constructor(el: ElementRef, dragulaService: DragulaService) {
     this.el = el;
     this.dragulaService = dragulaService;
-
   }
   ngOnInit() {
     this.options = Object.assign({}, this.dragulaOptions);

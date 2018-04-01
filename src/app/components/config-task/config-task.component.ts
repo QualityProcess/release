@@ -171,10 +171,25 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 *   1 - HTMLElement
 */
   onDrop(event) {
-    console.log(event);
+    const [element, sectionBag, el] = event;
 
-    console.log('Drop Section');
+    const draggableActivityId: number = +element.dataset.activity_id;
+    const dragToPhaseId: number = +sectionBag.dataset.phase_id;
+
+    this.taskActivities.find((activity, index) => {
+
+      if (activity.id === draggableActivityId && activity.task_phase_id !== dragToPhaseId) {
+        activity.task_phase_id = dragToPhaseId;
+        this.service.updateTaskActivity({ task_phase_id: dragToPhaseId } as TaskActivity, activity.id).subscribe();
+      }
+      return activity.id === +element.dataset.activity_id;
+    });
   }
+
+  handleActivity(el, container, handle) {
+    return handle.classList.contains('handle-acivity');
+  }
+
 
   deleteActivity(activity: TaskActivity) {
 

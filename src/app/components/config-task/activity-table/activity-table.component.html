@@ -1,14 +1,20 @@
 <p-dataTable class="table" [primeDragula]="[phase.id, activity.id]" [dragulaModel]="taskActivityItems"
-             [dragulaOptions]="{ childContainerSelector: 'tbody', initAfterView: true }"
+             [dragulaOptions]="{ childContainerSelector: 'tbody', initAfterView: true, moves: handle }"
              #datatable [paginator]="false" [value]="taskActivityItems" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)" (onDroped)="onDropItem($event)" (onOver)="ngOnOverItem($event)">
 
-  <p-header class="table-header">
+  <p-header class="table-header handle-acivity"> 
     <span class="action-header">{{ activity.name }}</span>
     <div class="actions">
       <mat-icon class="edit-btn btn" [routerLink]="['./', 'task-activities', activity.id, 'edit', {taskId: phase.task_id}]">edit</mat-icon>
       <mat-icon class="add-btn btn" (click)="addItem(activity)">add</mat-icon>
     </div>
-  </p-header> 
+  </p-header>
+
+  <p-column field="sort"  header="" [style]="{'overflow':'visible', 'width': '35px', 'border': 'none'}">
+    <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+      <div class="handle">|||</div>
+    </ng-template>
+  </p-column>
 
   <p-column field="is_enabled" header="" [style]="{'overflow':'visible', 'width': '35px', 'border': 'none'}">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">

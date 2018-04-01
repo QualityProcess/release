@@ -47,6 +47,10 @@ export class ActivityTableComponent implements OnInit {
     
   }
 
+  handle(el, container, handle) {
+    return handle.classList.contains('handle');
+  }
+
 /**
 * Add new default activity item
 *

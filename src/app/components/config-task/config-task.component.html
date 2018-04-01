@@ -11,8 +11,8 @@
       </div>
     </div>
 
-    <div class="section-bag" [dragula]='"section-bag"' [dragulaModel]='getTaskActivitiesToPhase(phase.id)'>
-        <div *ngFor="let activity of getTaskActivitiesToPhase(phase.id); let task_activityIndex = index" class="activities ui-g-12" data-phaseId='phase.id'>
+    <div class="section-bag" [dragula]='"section-bag"' [dragulaModel]='getTaskActivitiesToPhase(phase.id)' [dragulaOptions]="{ initAfterView: true, moves: handleActivity }" [attr.data-phase_id]="phase.id">
+        <div *ngFor="let activity of getTaskActivitiesToPhase(phase.id); let task_activityIndex = index" class="activities ui-g-12" [attr.data-activity_id]="activity.id">
 
           <activity-table [phase]="phase" [activity]="activity" [taskActivityItems]="getTaskActivityItemsToActivity(activity.id)" (onUpdateData)="updateData()"></activity-table>
               

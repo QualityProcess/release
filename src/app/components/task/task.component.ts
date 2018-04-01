@@ -14,6 +14,10 @@ import { TaskActivity } from "../../models/task-activity";
 import { TaskActivityItem } from "../../models/task-activity-item";
 import { Location } from '@angular/common';
 
+// breadcrumbs
+import { BreadCrumbsService } from '../../services/breadcrumbs.service';
+import { BreadCrumb } from './../../models/breadcrumb';
+
 
 @Component({
   selector: 'app-task',
@@ -22,12 +26,7 @@ import { Location } from '@angular/common';
 })
 export class TaskComponent implements OnInit {
   loaded: boolean = false;
-  breadcrumbs: Object[] = [
-    {
-      title: 'Projects',
-      url: '/projects'
-    }
-  ];
+  breadcrumbs: BreadCrumb[];
   editTask: boolean = true;
   googleKeepView: boolean = false;
   horizontalHistogramView: boolean = false;
@@ -45,7 +44,8 @@ export class TaskComponent implements OnInit {
     private projectService: ProjectsService,
     private router: Router,
     private route: ActivatedRoute,
-    private _location: Location
+    private _location: Location,
+    private breadCrumbsService: BreadCrumbsService
   ) {
     this.views['googleKeepView'] = true;
     this.views['horizontalHistogramView'] = false;
@@ -61,7 +61,7 @@ export class TaskComponent implements OnInit {
 
     this.data = this.route.snapshot.data.taskData;
    
-
+    /*
     let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
 
     response$.subscribe(result => {
@@ -93,19 +93,9 @@ export class TaskComponent implements OnInit {
 
       })
     });
+    */
 
-    this.projectService.getProject(this.data.project_id).subscribe(project => {
-      this.breadcrumbs.push(
-        {
-          title: project.name,
-          url: `/projects/${project.id}/matrix`
-        },
-        {
-          title: this.data.name,
-          url: `/tasks/${this.data.id}`
-        }
-      )
-    });
+    this.setBreadCrumbs();
 
     this.projectService.getDescipline(this.data.discipline_id).subscribe(discipline => {
       this.discipline = discipline.category;
@@ -119,68 +109,24 @@ export class TaskComponent implements OnInit {
 
   }
 
-  goBack() {
-    this._location.back();
+  setBreadCrumbs() {
+    this.breadCrumbsService.setBreadcrumbs([
+      {
+        label: 'Projects',
+        url: '/projects'
+      },
+      {
+        label: 'Matrix',
+        url: `/projects/${this.data.project_id}/matrix`
+      },
+      {
+        label: this.data.name,
+        url: `/projects/${this.data.project_id}/tasks/${this.data.id}`
+      }
+    ]);
   }
 
-  goToView(view) {
-    console.log(view);
-
-    switch (view) {
-      case 'editTask':
-        this.googleKeepView = false;
-        this.horizontalHistogramView = false;
-        this.granttView = false;
-        this.circleView = false;
-        this.editTask = true;
-        this.schedule = false;
-        break;
-      case 'googleKeep':
-        this.googleKeepView = true;
-        this.horizontalHistogramView = false;
-        this.granttView = false;
-        this.circleView = false;
-        this.editTask = false;
-        this.schedule = false;
-        break;
-      case 'horizontalHistogram':
-        this.googleKeepView = false;
-        this.horizontalHistogramView = true;
-        this.granttView = false;
-        this.circleView = false;
-        this.editTask = false;
-        this.schedule = false;
-        break;
-      case 'grantt':
-        this.googleKeepView = false;
-        this.horizontalHistogramView = false;
-        this.granttView = true;
-        this.circleView = false;
-        this.editTask = false;
-        this.schedule = false;
-        break;
-      case 'circle':
-        this.googleKeepView = false;
-        this.horizontalHistogramView = false;
-        this.granttView = false;
-        this.circleView = true;
-        this.editTask = false;
-        this.schedule = false;
-        break;
-      case 'schedule':
-        this.googleKeepView = false;
-        this.horizontalHistogramView = false;
-        this.granttView = false;
-        this.circleView = false;
-        this.editTask = false;
-        this.schedule = true;
-        break;
-      default:
-        this.googleKeepView = false;
-        this.horizontalHistogramView = false;
-        this.granttView = false;
-        this.editTask = true;
-        this.schedule = false;
-    }
+  goBack() {
+    this._location.back();
   }
 }

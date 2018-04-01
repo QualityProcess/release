@@ -10,6 +10,11 @@ import { ProjectsService } from "../../services";
 import { Project } from "../../models/project";
 import { SelectItem } from 'primeng/api';
 
+
+// breadcrumbs
+import { BreadCrumbsService } from '../../services/breadcrumbs.service';
+import { BreadCrumb } from './../../models/breadcrumb';
+
 @Component({
   selector: 'projects',
   templateUrl: './projects.component.html',
@@ -37,11 +42,22 @@ export class ProjectsComponent implements OnInit {
   loaded = false;
   @ViewChild('cardview') element
 
-  constructor(private service: ProjectsService, private router: Router, public dialog: MatDialog) { }
+  constructor(
+    private service: ProjectsService,
+    private router: Router,
+    public dialog: MatDialog,
+    private breadCrumbsService: BreadCrumbsService,
+  ) { }
 
   ngOnInit() {
     this.getProjects();
     this.getView();
+    this.breadCrumbsService.setBreadcrumbs([
+      {
+        label: 'Project',
+        url: '/projects'
+      }
+    ]);
   }
 
   getProjects() {

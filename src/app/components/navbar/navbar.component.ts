@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { BreadCrumbsService } from '../../services/breadcrumbs.service';
+import { BreadCrumb } from './../../models/breadcrumb';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,12 +11,17 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   username: string = 'Admin';
+  breadcrumbs: BreadCrumb[];
 
-  @Input('breadcrumbs') breadcrumbs: any[];
-
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private breadCrumbsService: BreadCrumbsService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.breadCrumbsService.breadcrumbs.subscribe((val: BreadCrumb[]) => {
+        this.breadcrumbs = val;
+    });
   }
 
   logout() {

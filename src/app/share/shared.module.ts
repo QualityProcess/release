@@ -9,11 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './../framework/material/material.module';
 import { PrimengModule } from './../framework/material/primeng.module';
 import { MaterialMDCModule } from './../framework/material/material-mdc.module';
-import { BreadcrumbService } from 'ng5-breadcrumb';
-import { Ng5BreadcrumbModule } from 'ng5-breadcrumb';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
+// services
+import { BreadCrumbsService } from './../services/breadcrumbs.service';
 
 
 // dialogs
@@ -72,6 +73,7 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
     ElevationDirective,
     PersentageDirective,
     DragulaService,
+    BreadCrumbsService,
   ],
  exports: [
 

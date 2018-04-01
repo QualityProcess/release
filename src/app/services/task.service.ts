@@ -62,10 +62,18 @@ export class TaskService {
     return this.http.delete(`${this.apiUrl}/task_activities/${id}`);
   }
 
+  getTaskActivitiesByPhase(id:number): Observable<TaskActivity[]> {
+    return this.http.get<TaskActivity[]>(`${this.apiUrl}/task_activities/by_phase/${id}`);
+  }
+
   // task activity items
 
   getTaskActivityItems(): Observable<TaskActivityItem[]>{
     return this.http.get<TaskActivityItem[]>(`${this.apiUrl}/task_activity_items`);
+  }
+
+  getTaskActivityItemsByActivity(id: number): Observable<TaskActivityItem[]> {
+    return this.http.get<TaskActivityItem[]>(`${this.apiUrl}/task_activity_items/by_activity/${id}`);
   }
 
   addTaskActivityItem(taskActivityItem: TaskActivityItem): Observable<TaskActivityItem> {

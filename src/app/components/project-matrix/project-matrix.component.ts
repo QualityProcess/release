@@ -5,7 +5,11 @@ import { Project } from '../../models/project';
 import { Task } from '../../models/task';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Directive, EventEmitter, HostListener, ElementRef, Renderer2, Output } from '@angular/core';
+import { Location } from '@angular/common';
 
+// breadcrumbs
+import { BreadCrumbsService } from '../../services/breadcrumbs.service';
+import { BreadCrumb } from './../../models/breadcrumb';
 
 import { BrowserModule } from '@angular/platform-browser'
 import { Observable } from 'rxjs/Observable';
@@ -28,12 +32,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   data: any;
   project: Project;
 
-  breadcrumbs: Object[] = [
-    {
-      title: 'Projects',
-      url: '/projects'
-    }
-  ];
+  breadcrumbs: BreadCrumb[];
 
   projectMatrix: any;
   loaded = false;
@@ -60,7 +59,16 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   curX;
   curY;
 
-  constructor(private service: ProjectsService, private taskService: TaskService, private route: ActivatedRoute, private router: Router, private elementRef: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private service: ProjectsService,
+    private taskService: TaskService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    private _location: Location,
+    private breadCrumbsService: BreadCrumbsService
+  ) {
     route.params.subscribe(({ id }) => {
       /*service.getPhasesMatrix(+id).subscribe(data => {
         this.data = data;
@@ -69,7 +77,10 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   } 
 
   ngOnInit() {
+
     this.project = this.route.snapshot.data.projectData;
+
+    this.setBreadCrumbs();
     
     this.data = this.route.snapshot.data.projectMatrixData;
 
@@ -119,18 +130,24 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
         })
       }
     });
-
-    this.breadcrumbs.push(
-      {
-        title: this.project.name,
-        url: `/projects/${this.project.id}`
-      }
-    );
   }
 
 
   ngAfterViewInit() {
     setTimeout(() => { console.log('Loaded!'); this.loaded = true; }, 400);
+  }
+
+  setBreadCrumbs() {
+    this.breadCrumbsService.setBreadcrumbs([
+      {
+        label: 'Projects',
+        url: '/projects'
+      },
+      {
+        label: this.project.name,
+        url: `/projects/${this.project.id}/matrix`
+      },
+    ]);
   }
 
   createTask(projectId, disciplineId, designStageId) {
@@ -145,6 +162,10 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
 
       this.router.navigate(['/tasks', res.id])
     });
+  }
+
+  goBack() {
+    this._location.back();
   }
 
   createDiscipline(){

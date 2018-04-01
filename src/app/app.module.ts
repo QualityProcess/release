@@ -17,8 +17,6 @@ import { PrimengModule } from './framework/material/primeng.module';
 import { MaterialMDCModule } from './framework/material/material-mdc.module';
 import { ChartsModule } from 'ng2-charts';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-import { BreadcrumbService } from 'ng5-breadcrumb';
-import { Ng5BreadcrumbModule } from 'ng5-breadcrumb';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragulaService, DragulaModule } from 'ng2-dragula'; 
 
@@ -106,7 +104,6 @@ import { RegistrationComponent } from './components/registration/registration.co
     AuthGuard,
     IsSecureGuard,
     AuthService,
-    BreadcrumbService,
     UserService,
     ProjectsService,
     ProjectResolver,

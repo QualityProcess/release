@@ -15,6 +15,7 @@ import 'rxjs/Rx';
 import { DragulaService } from 'ng2-dragula';
 import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { merge } from 'rxjs/observable/merge';
 
 @Component({
   selector: 'config-task', 
@@ -24,8 +25,8 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 export class ConfigTaskComponent implements OnInit, OnDestroy {
 
   phases: TaskPhase[];
-  taskActivities: TaskActivity[];
-  taskActivityItems: TaskActivityItem[];
+  taskActivities: TaskActivity[] = [];
+  taskActivityItems: TaskActivityItem[] = [];
 
   loaded = false;
   subscribe: any;
@@ -53,15 +54,40 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     if (this.subscribe) this.subscribe.unsubscribe();
 
     let data = this.route.snapshot.data.taskData;
-    console.log("DATA: ", data);
+
     // get phases
     this.phases = data.task_phases.sort(function (a, b) {
       return a.sort - b.sort;
     });
 
-    console.log("PHASES: ", this.phases);
+    let phaseIds = this.phases.map(phase => phase.id);
+    
+    let allActivitiesByPhasesSubcribe = this.getAllActivitiesByPhases(phaseIds).subscribe(res => {
+      this.taskActivities = this.taskActivities.concat(...res);
+
+      this.taskActivityItems.sort(function (a, b) {
+        return a.sort - b.sort;
+      });
+
+      let activityIds = this.taskActivities.map(activity => activity.id);
+
+      this.getAllActivityItemsByActivities(activityIds).subscribe(res => {
+        this.taskActivityItems = this.taskActivityItems.concat(...res);
+
+        this.taskActivityItems.sort(function (a, b) {
+          return a.sort - b.sort;
+        });
+
+        // load data completed
+        this.loaded = true;
+      });
+
+    });
+
+   
+
     // request for get activities and items
-    let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
+    /*let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
 
     this.subscribe = response$.subscribe(result => {
 
@@ -77,7 +103,25 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       console.log("taskActivityItems: ", this.taskActivityItems);
       // load data completed
       this.loaded = true;
-    })
+    })*/ 
+  }
+
+  getAllActivitiesByPhases(phaseIds: number[]) {
+    let activitiesObservable: Observable<TaskActivity[]>[] = [];
+    phaseIds.forEach(id => {
+      activitiesObservable.push(this.service.getTaskActivitiesByPhase(+id));
+    });
+
+    return forkJoin(...activitiesObservable);
+  }
+
+  getAllActivityItemsByActivities(activityIds: number[]) {
+    let activityItemsObservable: Observable<TaskActivityItem[]>[] = [];
+    activityIds.forEach(id => {
+      activityItemsObservable.push(this.service.getTaskActivityItemsByActivity(+id));
+    });
+
+    return forkJoin(...activityItemsObservable);
   }
 
 

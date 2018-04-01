@@ -11,14 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser, LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-// framework
-import { MaterialModule } from './framework/material/material.module';
-import { PrimengModule } from './framework/material/primeng.module';
-import { MaterialMDCModule } from './framework/material/material-mdc.module';
-import { ChartsModule } from 'ng2-charts';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { DragulaService, DragulaModule } from 'ng2-dragula'; 
 
 // modules
 import { SharedModule } from './share/shared.module';
@@ -70,14 +62,12 @@ import { LoginDialog } from './components/login/login-dialog';
 
 // components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     ResetPasswordComponent,
     RegistrationComponent,
   ],
@@ -95,10 +85,10 @@ import { RegistrationComponent } from './components/registration/registration.co
     //MaterialModule,
     //MaterialMDCModule,
     //PrimengModule,
-    ChartsModule,
+    //ChartsModule,
     //Ng2GoogleChartsModule,
     //NgSelectModule,
-    DragulaModule
+    //
   ],
   providers: [
     AuthGuard,
@@ -121,7 +111,6 @@ import { RegistrationComponent } from './components/registration/registration.co
     TaskActivitiesResolver,
     TaskActivityResolver,
     TaskActivityItemsResolver,
-    DragulaService,
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     

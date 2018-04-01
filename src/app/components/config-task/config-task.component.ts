@@ -61,13 +61,19 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     });
 
     let phaseIds = this.phases.map(phase => phase.id);
+
+    if (phaseIds.length === 0) this.loaded = true;
     
     let allActivitiesByPhasesSubcribe = this.getAllActivitiesByPhases(phaseIds).subscribe(res => {
       this.taskActivities = this.taskActivities.concat(...res);
 
+      if (this.taskActivities.length === 0) this.loaded = true;
+
       this.taskActivityItems.sort(function (a, b) {
         return a.sort - b.sort;
       });
+
+
 
       let activityIds = this.taskActivities.map(activity => activity.id);
 

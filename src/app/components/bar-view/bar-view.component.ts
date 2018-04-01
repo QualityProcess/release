@@ -2,6 +2,13 @@ import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core
 import { Chart } from 'chart.js';
 import { GoogleChartComponent } from 'ng2-google-charts';
 
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+
+import { TaskService } from "../../services/task.service";
+import { ProjectsService } from "../../services";
+
 import * as d3 from 'd3';
 
 @Component({
@@ -10,22 +17,77 @@ import * as d3 from 'd3';
   styleUrls: ['./bar-view.component.scss']
 })
 export class BarViewComponent implements OnInit {
-  @Input('data') dataSource;
+  data: any;
   viewData: any;
   @ViewChild('bar') bar: any;
   width: number;
   height: number;
   inputData: any;
+  loaded: boolean = false;
   currentData: any[] = [];
   
-  constructor() { }
+  constructor(private service: TaskService,
+    private projectService: ProjectsService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.dataSource);
+    this.getTask();
+  }
+
+  getTask() {
+    this.loaded = true;
+    let id;
+    this.route.parent.parent.params.subscribe(params => {
+      console.log(params);
+      this.service.getTask(+params["task_id"]).subscribe(res => {
+        this.data = res;
+
+        console.log(this.data);
+        let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
+
+        response$.subscribe(result => {
+
+          this.data.task_phases.sort(function (a, b) {
+            return a.sort - b.sort;
+          });
+
+          this.data.task_phases.forEach((taksPhase, index, taskPhases) => {
+
+            taskPhases[index].task_activities = result[0].filter(item => {
+              return item.task_phase_id == taskPhases[index].id;
+            });
+
+            taskPhases[index].task_activities.sort(function (a, b) {
+              return a.sort - b.sort;
+            });
+
+            taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {
+              task_activities[i].task_activity_items = result[1].filter(item => {
+                return item.task_activity_id == task_activities[i].id;
+              });
+
+              task_activities[i].task_activity_items = task_activities[i].task_activity_items.sort(function (a, b) {
+                return a.sort - b.sort;
+              });
+
+            });
+
+          });
+
+          this.data = this.data.task_phases;
+
+          this.initBar();
+        });
+      });
+    });
+  }
+
+  initBar() {
+    console.log(this.data);
     //this.width = this.bar.nativeElement.offsetWidth;
     //this.height = this.bar.nativeElement.offsetWidth;
 
-    for (let obj of this.dataSource) {
+    for (let obj of this.data) {
 
       let inputData = {
         input: obj.id,
@@ -74,7 +136,7 @@ export class BarViewComponent implements OnInit {
             },
             dataTable: [
               ['Genre', 'Estimated hours', 'actual hours', 'hours over', { role: 'style' }, { role: 'annotation' }]
-              
+
             ]
           }
         }
@@ -93,7 +155,7 @@ export class BarViewComponent implements OnInit {
         inputData.data.push(taskActivityItemData);
       });
 
-      this.currentData.push(inputData); 
+      this.currentData.push(inputData);
     }
   }
 }

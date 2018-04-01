@@ -7,15 +7,15 @@
       <h2 class="ui-g-11">{{phase.category}}</h2>
 
       <div class="actions">
-        <button class="ui-g-1 add-btn btn" mat-button>Add section</button>
+        <button class="ui-g-1 add-btn btn" mat-button (click)="addActivity(phase.id)">Add section</button>
       </div>
     </div>
 
     <div class="section-bag" [dragula]='"section-bag"' [dragulaModel]='getTaskActivitiesToPhase(phase.id)'>
         <div *ngFor="let activity of getTaskActivitiesToPhase(phase.id); let task_activityIndex = index" class="activities ui-g-12" data-phaseId='phase.id'>
 
-          <!--<activity-table [phase]="phase" [activity]="activity" [taskActivityItems]="getTaskActivityItemsToActivity(activity.id)" (onUpdateData)="updateData()"></activity-table>
-              -->
+          <activity-table [phase]="phase" [activity]="activity" [taskActivityItems]="getTaskActivityItemsToActivity(activity.id)" (onUpdateData)="updateData()"></activity-table>
+              
         </div>
       </div>
   </div>

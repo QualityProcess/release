@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProjectResolver } from './project.resolver';
 
 // components
-import { ProjectComponent } from './project.component'
+import { ProjectComponent } from './project.component';
 
 const routes: Routes = [
   {
@@ -17,6 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [ProjectResolver]
 })
 export class ProjectRoutingModule { }

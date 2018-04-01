@@ -20,7 +20,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { BreadcrumbService } from 'ng5-breadcrumb';
 import { Ng5BreadcrumbModule } from 'ng5-breadcrumb';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { DragulaService, DragulaModule } from 'ng2-dragula';
+import { DragulaService, DragulaModule } from 'ng2-dragula'; 
 
 // modules
 import { SharedModule } from './share/shared.module';
@@ -98,7 +98,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     //MaterialMDCModule,
     //PrimengModule,
     ChartsModule,
-    Ng2GoogleChartsModule,
+    //Ng2GoogleChartsModule,
     //NgSelectModule,
     DragulaModule
   ],
@@ -109,7 +109,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     BreadcrumbService,
     UserService,
     ProjectsService,
-    //ProjectResolver,
+    ProjectResolver,
     //ProjectsResolver,
     ProjectMatrixResolver,
     DisciplineResolver,

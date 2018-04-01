@@ -13,7 +13,7 @@ export class ProjectResolver implements Resolve<any> {
   constructor(private service: ProjectsService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.service.getProject(+route.paramMap.get('id'))
+    return this.service.getProject(+route.paramMap.get('project_id'))
       .catch(err => {
         console.error(err); // deal with API error (eg not found)
         this.router.navigate(['/projects']); // could redirect to error page

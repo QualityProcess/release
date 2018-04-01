@@ -5,18 +5,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { TaskResolver } from './../task/task.resolver';
 
 // components
-import { ScheduleComponent } from './schedule.component';
+import { ConfigTaskComponent } from './config-task.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ScheduleComponent
+    component: ConfigTaskComponent,
+    resolve: { taskData: TaskResolver },
   }
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ScheduleRoutingModule { }
+export class ConfigTaskRoutingModule { }

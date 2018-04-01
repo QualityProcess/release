@@ -2,15 +2,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // components
-import { GanttViewComponent } from './gantt-view.component';
+import { LoginComponent } from './login.component';
 
-const routes: Routes = [{
-  path: '',
-  component: GanttViewComponent
-}];
+const routes: Routes = [
+  {
+    path: '',
+    component: LoginComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class GanttViewRoutingModule { }
+export class LoginRoutingModule { }

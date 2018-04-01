@@ -50,7 +50,7 @@ import { TaskActivityItemsResolver } from './components/edit-task-activity-item/
 
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', loadChildren: './components/login/login.module#LoginModule' },
   { path: 'registration', component: RegistrationComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {

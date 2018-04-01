@@ -2,44 +2,30 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import * as google from 'ng2-google-charts';
 import * as d3 from 'd3';
 
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+
+import { TaskService } from "../../services/task.service";
+import { ProjectsService } from "../../services";
+
 @Component({
   selector: 'gantt-view',
   templateUrl: './gantt-view.component.html',
   styleUrls: ['./gantt-view.component.scss']
 })
 export class GanttViewComponent implements OnInit {
-  @Input('data') dataSource;
   @ViewChild('canvas') canvas;
-  date: Date = new Date(2015, 0, 1);
-  date1: Date = new Date(2015, 0, 3);
   width: number;
   height: number;
   inputData: any;
   currentData = [];
   data: any;
-  constructor() { }
+  loaded: boolean = false;
 
-  dataa:any = {
-      chartType: 'Gantt',
-      dataTable: [
-        [['string', 'Task Name'], ['string', 'Resource'], ['date', 'Start Date'], ['date', 'End Date'], ['number', 'Duration'], ['number', 'Percent Complete'], ['string', 'Dependencies']],
-        ['Research', 'Find sources',
-          new Date(2015, 0, 1), new Date(2015, 0, 5), null, 100, null],
-        ['Write', 'Write paper',
-          null, new Date(2015, 0, 9), this.daysToMilliseconds(3), 25, null],
-        ['Cite', 'Create bibliography',
-          null, new Date(2015, 0, 7), this.daysToMilliseconds(1), 20, null],
-        ['Complete', 'Hand in paper',
-          null, new Date(2015, 0, 10), this.daysToMilliseconds(1), 0, null],
-        ['Outline', 'Outline paper',
-          null, new Date(2015, 0, 6), this.daysToMilliseconds(1), 100, null]
-      ],
-      options: {
-        grantt: {
-          arrow: null
-        }
-      }
-  }
+  constructor(private service: TaskService,
+    private projectService: ProjectsService,
+    private route: ActivatedRoute) { }
 
   daysToMilliseconds(days) {
       return days * 24 * 60 * 60 * 1000;
@@ -47,19 +33,22 @@ export class GanttViewComponent implements OnInit {
 
   ngAfterContentInit() { }
 
-
   ngOnInit() {
-    console.log(this.dataSource);
-    
+    this.getTask(); 
+  }
+
+  initGantt() {
+    console.log(this.data);
+
     this.width = this.canvas.nativeElement.offsetWidth;
     this.height = this.canvas.nativeElement.offsetWidth;
 
-    for (let obj of this.dataSource) {
+    for (let obj of this.data) {
 
       this.inputData = {
         input: obj.id,
         data: [
-          
+
         ]
       }
       let granttData1 = [];
@@ -76,13 +65,13 @@ export class GanttViewComponent implements OnInit {
               //backgroundColor: { fill: 'transparent' }
             },
             dataTable: [
-              
+
             ]
           }
         }
 
         let granttData = [];
-        
+
         task_activity.task_activity_items.forEach((task_activity_item) => {
           granttData.push([task_activity_item.name, task_activity_item.name, new Date(task_activity_item.estimated_start), new Date(task_activity_item.estimated_completion), this.daysToMilliseconds(10), 100, null]);
           let dateStart = new Date(task_activity_item.estimated_start);
@@ -97,7 +86,7 @@ export class GanttViewComponent implements OnInit {
               dependsOn: []
             });
           }
-          
+
         });
 
         let resultHours = taskActivityData.resultEstimated - taskActivityData.resultActivite;
@@ -114,7 +103,7 @@ export class GanttViewComponent implements OnInit {
       })
 
       let div = document.createElement("div");
-      div.classList.add('phase-section'); 
+      div.classList.add('phase-section');
       div.classList.add('mat-elevation-z8');
       let header = document.createElement("div");
       header.classList.add('chart-header');
@@ -137,7 +126,54 @@ export class GanttViewComponent implements OnInit {
     }
 
     console.log('', this.currentData);
+  }
 
+  getTask() {
+    this.loaded = true;
+    let id;
+    this.route.parent.parent.params.subscribe(params => {
+      console.log(params);
+      this.service.getTask(+params["task_id"]).subscribe(res => {
+        this.data = res;
+
+        console.log(this.data);
+        let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
+
+        response$.subscribe(result => {
+
+          this.data.task_phases.sort(function (a, b) {
+            return a.sort - b.sort;
+          });
+
+          this.data.task_phases.forEach((taksPhase, index, taskPhases) => {
+
+            taskPhases[index].task_activities = result[0].filter(item => {
+              return item.task_phase_id == taskPhases[index].id;
+            });
+
+            taskPhases[index].task_activities.sort(function (a, b) {
+              return a.sort - b.sort;
+            });
+
+            taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {
+              task_activities[i].task_activity_items = result[1].filter(item => {
+                return item.task_activity_id == task_activities[i].id;
+              });
+
+              task_activities[i].task_activity_items = task_activities[i].task_activity_items.sort(function (a, b) {
+                return a.sort - b.sort;
+              });
+
+            });
+
+          });
+
+          this.data = this.data.task_phases;
+
+          this.initGantt();
+        });
+      });
+    });
   }
 
 

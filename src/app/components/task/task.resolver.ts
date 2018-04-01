@@ -13,7 +13,9 @@ export class TaskResolver implements Resolve<any> {
   constructor(private service: TaskService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.service.getTask(+route.paramMap.get('id'))
+    console.log(+route.paramMap.get('task_id'));
+    console.log(route.paramMap); 
+    return this.service.getTask(+route.paramMap.get('task_id'))
       .catch(err => {
         console.error(err); // deal with API error (eg not found)
         this.router.navigate(['/projects']); // could redirect to error page

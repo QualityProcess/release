@@ -5,17 +5,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { catchError } from 'rxjs/operators';
 import { pipe } from 'rxjs/Rx';
-
+import { Location } from '@angular/common';
 import { TaskActivityItem } from '../../models/task-activity-item';
 import { TaskPhase } from '../../models/task-phase';
 import { TaskService } from '../../services/task.service';
 
 @Component({
-  selector: 'form-task-activity-item',
-  templateUrl: './form-task-activity-item.component.html',
-  styleUrls: ['./form-task-activity-item.component.scss']
+  selector: 'task-activity-item-form',
+  templateUrl: './task-activity-item-form.component.html',
+  styleUrls: ['./task-activity-item-form.component.scss']
 })
-export class FormTaskActivityItemComponent implements OnInit {
+export class TaskActivityItemFormComponent implements OnInit {
   addTaskActivityItem: FormGroup;
   _taskActivityItem: TaskActivityItem;
   @Input('submit') submit: boolean;
@@ -27,7 +27,14 @@ export class FormTaskActivityItemComponent implements OnInit {
     if (taskActivityItem) this._taskActivityItem = taskActivityItem;
   }
 
-  constructor(private fb: FormBuilder, public snackBar: MatSnackBar, private service: TaskService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private fb: FormBuilder,
+    public snackBar: MatSnackBar,
+    private service: TaskService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private _location: Location
+  ) { }
 
   ngOnInit() {
     console.log(this._taskActivityItem);
@@ -63,14 +70,14 @@ export class FormTaskActivityItemComponent implements OnInit {
         this.service.updateTaskActivityItem(this.addTaskActivityItem.value, this._taskActivityItem.id)
           .subscribe(item => {
             console.log('Return item: ', item);
-            this.router.navigate(['/tasks', this.taskId]);
+            this._location.back();
           });
       } else {
         console.log('Add task', this.addTaskActivityItem.value);
 
         this.service.addTaskActivityItem(this.addTaskActivityItem.value)
           .subscribe(task => {
-            this.router.navigate(['/tasks', this.taskId]);
+            this._location.back();
           });
       }
     }

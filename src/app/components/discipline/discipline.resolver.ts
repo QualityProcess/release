@@ -13,10 +13,10 @@ export class DisciplineResolver implements Resolve<any> {
   constructor(private service: ProjectsService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.service.getDescipline(+route.paramMap.get('id'))
+    return this.service.getDescipline(+route.paramMap.get('discipline_id'))
       .catch(err => {
         console.error(err); // deal with API error (eg not found)
-        this.router.navigate(['/projects', +route.paramMap.get('id')]); // could redirect to error page
+        this.router.navigate(['/projects', +route.paramMap.get('project_id')]); // could redirect to error page
         return empty<Discipline>();
       });
   }

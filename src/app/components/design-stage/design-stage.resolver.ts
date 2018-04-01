@@ -13,7 +13,7 @@ export class DesignStageResolver implements Resolve<any> {
   constructor(private service: ProjectsService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.service.getDesignStage(+route.paramMap.get('id'))
+    return this.service.getDesignStage(+route.paramMap.get('design_stage_id'))
       .catch(err => {
         console.error(err); // deal with API error (eg not found)
         this.router.navigate(['/discilines', +route.paramMap.get('id')]); // could redirect to error page

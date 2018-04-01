@@ -21,7 +21,7 @@ const routes: Routes = [
         loadChildren: './../create-project/create-project.module#CreateProjectModule'
       },
       {
-        path: 'projects/:id',
+        path: 'projects/:project_id',
         children: [
           {
             path: '',
@@ -40,57 +40,60 @@ const routes: Routes = [
             loadChildren: './../tasks/tasks.module#TasksModule'
           }, 
           {
-            path: 'tasks/:id',
-            loadChildren: './../task/task.module#TaskModule',
+            path: 'tasks/:task_id',
             children: [
               {
-                path: 'task-activities/:id',
+                path: '',
+                loadChildren: './../task/task.module#TaskModule',
+              },
+              {
+                path: 'task-activities/:task_activity_id', 
                 loadChildren: './../task-activity/task-activity.module#TaskActivityModule',
                 children: [
                   {
-                    path: 'task-activity-items/create/:id',
+                    path: 'task-activity-items/create/:task_activity_item_id',
                     loadChildren: './../create-task-activity-item/create-task-activity-item.module#CreateTaskActivityItemModule',
                   },
                   {
-                    path: 'task-activity-items/:id/edit',
+                    path: 'task-activity-items/:task_activity_item_id/edit',
                     loadChildren: './../edit-task-activity-item/edit-task-activity-item.module#EditTaskActivityItemModule',
                   },
                 ]
               },
               {
-                path: 'task-activities/create/:id',
+                path: 'task-activities/create/:task_activity_id',
                 loadChildren: './../create-task-activity/create-task-activity.module#CreateTaskActivityModule',
               },
               {
-                path: 'task-activities/:id/edit',
+                path: 'task-activities/:task_activity_id/edit',
                 loadChildren: './../edit-task-activity/edit-task-activity.module#EditTaskActivityModule',
               },
             ]
           },
           {
-            path: 'tasks/:id/edit',
+            path: 'tasks/:task_id/edit',
             loadChildren: './../edit-task/edit-task.module#EditTaskModule'
           },
         ]
       },
       {
-        path: 'projects/:id/edit',
+        path: 'projects/:project_id/edit',
         loadChildren: './../edit-project/edit-project.module#EditProjectModule'
       },
       {
         path: 'disciplines',
         loadChildren: './../disciplines/disciplines.module#DisciplinesModule'
-      },
+      }, 
       {
         path: 'disciplines/create',
         loadChildren: './../create-discipline/create-discipline.module#CreateDisciplineModule'
       },
       {
-        path: 'disciplines/:id',
+        path: 'disciplines/:discipline_id',
         loadChildren: './../discipline/discipline.module#DisciplineModule'
       },
       {
-        path: 'disciplines/:id/edit',
+        path: 'disciplines/:discipline_id/edit',
         loadChildren: './../edit-discipline/edit-discipline.module#EditDisciplineModule'
       },
       {
@@ -102,11 +105,11 @@ const routes: Routes = [
         loadChildren: './../create-design-stage/create-design-stage.module#CreateDesignStageModule'
       },
       {
-        path: 'design-stages/:id',
+        path: 'design-stages/:design_stage_id',
         loadChildren: './../design-stage/design-stage.module#DesignStageModule'
       },
       {
-        path: 'design-stages/:id/edit',
+        path: 'design-stages/:design_stage_id/edit',
         loadChildren: './../edit-design-stage/edit-design-stage.module#EditDesignStageModule'
       },
     ]

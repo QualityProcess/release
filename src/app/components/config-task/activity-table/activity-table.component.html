@@ -1,11 +1,11 @@
-<!--<p-dataTable class="table" [primeDragula]="[phase.id, activity.id]" [dragulaModel]="taskActivityItems"
+<p-dataTable class="table" [primeDragula]="[phase.id, activity.id]" [dragulaModel]="taskActivityItems"
              [dragulaOptions]="{ childContainerSelector: 'tbody', initAfterView: true }"
              #datatable [paginator]="false" [value]="taskActivityItems" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)" (onDroped)="onDropItem($event)" (onOver)="ngOnOverItem($event)">
 
   <p-header class="table-header">
     <span class="action-header">{{ activity.name }}</span>
     <div class="actions">
-      <mat-icon class="edit-btn btn" [routerLink]="['/task-activities', activity.id, 'edit', {taskId: phase.task_id}]">edit</mat-icon>
+      <mat-icon class="edit-btn btn" [routerLink]="['./', 'task-activities', activity.id, 'edit', {taskId: phase.task_id}]">edit</mat-icon>
       <mat-icon class="add-btn btn" (click)="addItem(activity)">add</mat-icon>
     </div>
   </p-header> 
@@ -76,9 +76,8 @@
   <p-column field="id" id="task_activity_item.id" data-id="task_activity_item.id" header="Actions" [style]="{'overflow':'visible', 'width': '100px'}">
     <ng-template pTemplate="emptymessage" let-col let-task_activity_item="rowData">
       <mat-icon class="action-btn delete-btn" (click)="openDeleteTaskActivityItemDialog(task_activity_item)">delete</mat-icon>
-      <mat-icon class="action-btn edit-btn" [routerLink]="['/task-activity-items', task_activity_item.id, 'edit', {taskId: phase.task_id}]">edit</mat-icon>
+      <mat-icon class="action-btn edit-btn" [routerLink]="['./', 'task-activities', activity.id, 'task-activity-items', task_activity_item.id, 'edit', {taskId: phase.task_id}]">edit</mat-icon>
     </ng-template>
   </p-column>
 
 </p-dataTable>
-    -->

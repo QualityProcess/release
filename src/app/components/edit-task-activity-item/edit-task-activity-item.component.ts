@@ -29,7 +29,7 @@ export class EditTaskActivityItemComponent implements OnInit {
   ngOnInit() {
 
     this.subscribe = this.route.params.subscribe(params => {
-      let id = +params['id'];
+      let id = +params['task_activity_item_id'];
 
       if (params['taskId']) {
         this.taskId = +params['taskId'];

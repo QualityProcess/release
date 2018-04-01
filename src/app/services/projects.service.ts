@@ -46,7 +46,7 @@ export class ProjectsService {
 
   updateProject(project: Project, id: number): Observable<Project> {
 
-    return this.http.put<Project>(`${this.apiUrl}/projects/${id}`, JSON.stringify(project))
+    return this.http.put<Project>(`${this.apiUrl}/projects/${id}`, project)
         .pipe(
         catchError(this.handleError('editProject', project))
         );

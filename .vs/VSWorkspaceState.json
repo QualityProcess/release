@@ -4,9 +4,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\config-task\\activity-table",
-    "\\src\\app\\components\\project"
+    "\\src\\app\\components\\project-matrix",
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

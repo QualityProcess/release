@@ -121,7 +121,16 @@ export class ProjectsComponent implements OnInit {
   }
 
   delete(project: Project) {
-     this.service.deleteProject(project.id).subscribe();
+
+    this.service.deleteProject(project.id).subscribe( res => {
+      this.filterData.find((elem, index) => {
+
+        if (+project.id === +elem.id) {          
+          this.filterData.splice(index, 1);
+        }
+        return project.id === +elem.id;
+      })
+    });
   }
 
   goToMatrix(id) {

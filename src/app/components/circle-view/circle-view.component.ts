@@ -1,5 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import * as google from 'ng2-google-charts';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+
+import { TaskService } from "../../services/task.service";
+import { ProjectsService } from "../../services";
 
 @Component({
   selector: 'circle-view',
@@ -7,17 +14,25 @@ import * as google from 'ng2-google-charts';
   styleUrls: ['./circle-view.component.scss']
 })
 export class CircleViewComponent implements OnInit {
-  @Input('data') dataSource;
   date: Date = new Date(2015, 0, 1);
   date1: Date = new Date(2015, 0, 3);
   inputData: any;
   currentData = [];
   data: any;
-  constructor() { }
+  loaded = false;
+
+
+  constructor(private service: TaskService,
+    private projectService: ProjectsService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getTask(); 
+  }
 
-    for (let obj of this.dataSource) {
+  initCircle() {
+
+    for (let obj of this.data) {
 
       this.inputData = {
         input: obj.id,
@@ -60,6 +75,52 @@ export class CircleViewComponent implements OnInit {
 
       this.currentData.push(this.inputData);
     }
+  }
+
+  getTask() {
+    this.loaded = true;
+    let id;
+    this.route.parent.parent.params.subscribe(params => {
+      console.log(params);
+      this.service.getTask(+params["task_id"]).subscribe(res => {
+        this.data = res.task_phases;
+
+        console.log(this.data);
+        let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
+
+        response$.subscribe(result => {
+
+          this.data.sort(function (a, b) {
+            return a.sort - b.sort;
+          });
+
+          this.data.forEach((taksPhase, index, taskPhases) => {
+
+            taskPhases[index].task_activities = result[0].filter(item => {
+              return item.task_phase_id == taskPhases[index].id;
+            });
+
+            taskPhases[index].task_activities.sort(function (a, b) {
+              return a.sort - b.sort;
+            });
+
+            taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {
+              task_activities[i].task_activity_items = result[1].filter(item => {
+                return item.task_activity_id == task_activities[i].id;
+              });
+
+              task_activities[i].task_activity_items = task_activities[i].task_activity_items.sort(function (a, b) {
+                return a.sort - b.sort;
+              });
+
+            });
+
+          });
+
+          this.initCircle();
+        });
+      });
+    });
   }
 
 }

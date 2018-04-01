@@ -53,12 +53,13 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     if (this.subscribe) this.subscribe.unsubscribe();
 
     let data = this.route.snapshot.data.taskData;
-
+    console.log("DATA: ", data);
     // get phases
     this.phases = data.task_phases.sort(function (a, b) {
       return a.sort - b.sort;
     });
 
+    console.log("PHASES: ", this.phases);
     // request for get activities and items
     let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
 
@@ -72,6 +73,8 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
         return a.sort - b.sort;
       });
 
+      console.log("taskActivities: ", this.taskActivities);
+      console.log("taskActivityItems: ", this.taskActivityItems);
       // load data completed
       this.loaded = true;
     })
@@ -188,8 +191,6 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       this.updateData();
     });*/
   }
-
-
 
   formatDate(date): string {
     let dateObj = new Date(date),

@@ -14,6 +14,10 @@ const routes: Routes = [
     resolve: { taskData: TaskResolver },
     children: [
       {
+        path: '',
+        loadChildren: './../config-task/config-task.module#ConfigTaskModule' 
+      },
+      {
         path: 'schedule',
         loadChildren: './../schedule/schedule.module#ScheduleModule'
       },

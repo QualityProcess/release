@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DeleteDialog } from "../dialogs/delete-dialog";
+import { Location } from '@angular/common';
 
 import { catchError } from 'rxjs/operators';
 import { pipe } from 'rxjs/Rx';
@@ -14,10 +15,10 @@ import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'task-activity-form',
-  templateUrl: './task-activity-from.component.html',
-  styleUrls: ['./task-activity-from.component.scss'] 
+  templateUrl: './task-activity-form.component.html',
+  styleUrls: ['./task-activity-form.component.scss'] 
 })
-export class TaskActivityFromComponent implements OnInit {
+export class TaskActivityFormComponent implements OnInit {
   addTaskActivity: FormGroup;
   _taskActivity: TaskActivity;
   taskId: number;
@@ -32,7 +33,15 @@ export class TaskActivityFromComponent implements OnInit {
     if (taskActivity) this._taskActivity = taskActivity;
   }
 
-  constructor(private fb: FormBuilder, public snackBar: MatSnackBar,public dialog: MatDialog, private service: TaskService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+   private fb: FormBuilder,
+   public snackBar: MatSnackBar,
+   public dialog: MatDialog,
+   private service: TaskService,
+   private router: Router,
+   private route: ActivatedRoute,
+   private _location: Location
+ ) { }
 
   ngOnInit() {
 
@@ -46,7 +55,7 @@ export class TaskActivityFromComponent implements OnInit {
     console.log(this._taskActivity);
     console.log(this.taskId);
     this.addTaskActivity = this.fb.group({
-      name: [typeof this._taskActivity === 'undefined' ? null : this._taskActivity.name, Validators.required],
+      name: [typeof this._taskActivity === 'undefined' ? null : this._taskActivity.name],
       task_phase_id: [typeof this._taskActivity === 'undefined' ? this.taskPhases[0].id || null : this._taskActivity.task_phase_id, Validators.required],
       description: typeof this._taskActivity === 'undefined' ? null : this._taskActivity.description,
       image: [{ value: typeof this._taskActivity === 'undefined' ? null : this._taskActivity.image.url, disabled: false }],
@@ -66,14 +75,14 @@ export class TaskActivityFromComponent implements OnInit {
         this.service.updateTaskActivity(this.addTaskActivity.value, this._taskActivity.id)
           .subscribe(taskActivity => {
             console.log('Return ask activity: ', taskActivity);
-            this.router.navigate(['/tasks', this.taskId]);
+            this._location.back();
           });
       } else {
         console.log('Add task', this.addTaskActivity.value);
 
         this.service.addTaskActivity(this.addTaskActivity.value)
           .subscribe(task => {
-            this.router.navigate(['/tasks', this.taskId]);
+            this._location.back();
          });
       }
     }
@@ -114,7 +123,7 @@ export class TaskActivityFromComponent implements OnInit {
 
   deleteActivity(activity: TaskActivity) {
     this.deleteActivitySubcribe = this.service.deleteTaskActivity(activity.id).subscribe(res => {
-      this.router.navigate(['/tasks', this.taskId]);
+      this._location.back();
     });
   }
 

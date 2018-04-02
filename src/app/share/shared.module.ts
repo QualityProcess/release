@@ -36,6 +36,17 @@ import { PercentageComponent } from './../components/custom-elements/percentage/
 import { ProjectFormComponent } from './../components/project-form/project-form.component';
 import { TaskFormComponent } from './../components/task-form/task-form.component';
 import { TaskActivityFormComponent } from './../components/task-activity-form/task-activity-form.component';
+
+import { TaskActivitiesComponent } from './../components/task-activities/task-activities.component';
+import { CreateTaskActivityComponent } from './../components/create-task-activity/create-task-activity.component';
+import { CalculationComponent } from './../components/calculation/calculation.component';
+import { DesignStageFormComponent } from './../components/design-stage-form/design-stage-form.component';
+import { DisciplineFormComponent } from './../components/discipline-form/discipline-form.component';
+import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-view/google-keep-task-view.component';
+import { PhasesComponent } from './../components/phases/phases.component';
+
+
+
 import { TaskActivityItemFormComponent } from './../components/task-activity-item-form/task-activity-item-form.component';
 
 
@@ -62,6 +73,13 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
     TaskActivityFormComponent,
     TaskActivityItemFormComponent,
     PercentageComponent,
+    TaskActivitiesComponent,
+    CreateTaskActivityComponent,
+    CalculationComponent,
+    DesignStageFormComponent,
+    DisciplineFormComponent,
+    GoogleKeepTaskViewComponent,
+    PhasesComponent,
     DeleteDialog,
     PrimeDragulaDirective,
   ],
@@ -99,6 +117,13 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
    TaskActivityItemFormComponent,
    PercentageComponent,
    PrimeDragulaDirective,
+   TaskActivitiesComponent,
+   CreateTaskActivityComponent,
+   CalculationComponent,
+   DesignStageFormComponent,
+   DisciplineFormComponent,
+   GoogleKeepTaskViewComponent,
+   PhasesComponent,
 
    // dialogs
    DeleteDialog,

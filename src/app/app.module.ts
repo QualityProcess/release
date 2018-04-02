@@ -114,7 +114,13 @@ import { RegistrationComponent } from './components/registration/registration.co
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     
-
+   DraggableDirective,
+    ElevationDirective,
+    PersentageDirective,
+    CardViewDirective,
+    PrimeDragulaDirective,
+    LoginDialog,
+ 
     // providers used to create fake backend
     //fakeBackendProvider,
     //MockBackend,

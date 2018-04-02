@@ -4,9 +4,8 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\project-matrix",
-    "\\src\\app\\services"
+    "\\src\\app\\share"
   ],
-  "SelectedNode": "\\src\\app\\app.module.ts",
+  "SelectedNode": "\\src\\app\\share\\shared.module.ts",
   "PreviewInSolutionExplorer": false
 }

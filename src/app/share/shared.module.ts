@@ -86,10 +86,10 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
   entryComponents: [DeleteDialog],
   providers: [
     // directives
-    DraggableDirective,
-    CardViewDirective,
-    ElevationDirective,
-    PersentageDirective,
+    //DraggableDirective,
+    //CardViewDirective,
+    //ElevationDirective,
+    //PersentageDirective,
     DragulaService,
     BreadCrumbsService,
   ],

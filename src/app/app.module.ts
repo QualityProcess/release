@@ -126,7 +126,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     //MockBackend,
     //BaseRequestOptions 
   ],
-  entryComponents: [],
+  entryComponents: [LoginDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -19,7 +19,7 @@ import { BreadCrumbsService } from './../services/breadcrumbs.service';
 
 // dialogs
 import { DeleteDialog } from './../components/dialogs/delete-dialog';
-import { LoginDialog } from './components/login/login-dialog';
+import { LoginDialog } from './../components/login/login-dialog';
 
 // directives
 import { DraggableDirective } from './../components/project-matrix/project-matrix.component';

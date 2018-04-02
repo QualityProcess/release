@@ -127,6 +127,6 @@ export class TaskComponent implements OnInit {
   }
 
   goBack() {
-    this._location.back();
+    this.router.navigate(['/projects', this.data.project_id, 'matrix']);
   }
 }

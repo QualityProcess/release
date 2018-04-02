@@ -19,6 +19,7 @@ import { BreadCrumbsService } from './../services/breadcrumbs.service';
 
 // dialogs
 import { DeleteDialog } from './../components/dialogs/delete-dialog';
+import { LoginDialog } from './components/login/login-dialog';
 
 // directives
 import { DraggableDirective } from './../components/project-matrix/project-matrix.component';
@@ -81,15 +82,18 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
     GoogleKeepTaskViewComponent,
     PhasesComponent,
     DeleteDialog,
+    LoginDialog,
     PrimeDragulaDirective,
+
+    DraggableDirective,
+    CardViewDirective,
+    ElevationDirective,
+    PersentageDirective,
   ],
-  entryComponents: [DeleteDialog],
+  entryComponents: [DeleteDialog, LoginDialog],
   providers: [
     // directives
-    //DraggableDirective,
-    //CardViewDirective,
-    //ElevationDirective,
-    //PersentageDirective,
+    
     DragulaService,
     BreadCrumbsService,
   ],
@@ -127,6 +131,13 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
 
    // dialogs
    DeleteDialog,
+   LoginDialog,
+
+   // directives
+   DraggableDirective,
+   CardViewDirective,
+   ElevationDirective,
+   PersentageDirective,
 
  ]
 })

@@ -119,14 +119,13 @@ import { RegistrationComponent } from './components/registration/registration.co
     PersentageDirective,
     CardViewDirective,
     PrimeDragulaDirective,
-    LoginDialog,
  
     // providers used to create fake backend
     //fakeBackendProvider,
     //MockBackend,
     //BaseRequestOptions 
   ],
-  entryComponents: [LoginDialog],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

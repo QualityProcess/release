@@ -37,8 +37,8 @@ export class TaskComponent implements OnInit {
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: Task;
   project: Project;
-  discipline: string;
-  design_stage: string;
+  discipline: Discipline;
+  design_stage: DesignStage;
   taskActivities: TaskActivity[];
   taskActivityItems: TaskActivityItem[];
 
@@ -63,51 +63,15 @@ export class TaskComponent implements OnInit {
 
     this.data = this.route.snapshot.data.taskData;
     this.project = this.route.snapshot.data.projectData;
-   
-    /*
-    let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
 
-    response$.subscribe(result => {
+    //this.setBreadCrumbs();
 
-      this.data.task_phases.sort(function (a, b) {
-        return a.sort - b.sort;
-      });
+    let getDisciplineAndDesignStageToTheTask$ = forkJoin(this.projectService.getDescipline(this.data.discipline_id), this.projectService.getDesignStage(this.data.design_stage_id));
 
-      this.data.task_phases.forEach((taksPhase, index, taskPhases) => {
-
-        taskPhases[index].task_activities = result[0].filter(item => {
-          return item.task_phase_id == taskPhases[index].id;
-        });
-
-        taskPhases[index].task_activities.sort(function (a, b) {
-          return a.sort - b.sort;
-        });
-
-        taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {
-          task_activities[i].task_activity_items = result[1].filter(item => {
-            return item.task_activity_id == task_activities[i].id;
-          });
-
-          task_activities[i].task_activity_items = task_activities[i].task_activity_items.sort(function (a, b) {
-            return a.sort - b.sort;
-          });
-
-        });
-
-      })
-    });
-    */
-
-    this.setBreadCrumbs();
-
-    this.projectService.getDescipline(this.data.discipline_id).subscribe(discipline => {
-      this.discipline = discipline.category;
-      console.log(discipline);
-    });
-
-    this.projectService.getDesignStage(this.data.design_stage_id).subscribe(design_stage => {
-      this.design_stage = design_stage.category;
-      console.log(design_stage);
+    getDisciplineAndDesignStageToTheTask$.subscribe(result => {
+      this.discipline = result[0];
+      this.design_stage = result[1];
+      this.setBreadCrumbs(); 
     });
 
   }
@@ -123,7 +87,7 @@ export class TaskComponent implements OnInit {
         url: `/projects/${this.data.project_id}/matrix`
       },
       {
-        label: this.data.name,
+        label: this.discipline ? `${this.discipline.category} ${this.design_stage.category}` : '',
         url: `/projects/${this.data.project_id}/tasks/${this.data.id}`
       }
     ]);

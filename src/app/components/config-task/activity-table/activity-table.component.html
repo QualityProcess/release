@@ -31,6 +31,9 @@
       <percentage [data]="task_activity_item[col.field]" (click)="changePercentage(item, task_activity_item)"></percentage>
     </ng-template>
   </p-column>
+  <p-column field="hours_estimated" header="Est." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
+  <p-column field="hours_actual" header="Act." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
+
   <p-column field="checked_by" header="Cheked By" [editable]="true" [style]=" {'width': '200px' }"></p-column>
   <p-column field="checked_on" header="Checked Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '250px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
@@ -40,8 +43,6 @@
       <p-calendar [(ngModel)]="task_activity_item[checked_on]" [defaultDate]="task_activity_item[checked_on]" appendTo="body" [inputId]="task_activity_item[id]" (onSelect)="onDateChanged($event, task_activity_item)"></p-calendar>
     </ng-template>
   </p-column>
-  <p-column field="hours_estimated" header="Est." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
-  <p-column field="hours_actual" header="Act." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
   <p-column field="is_locked" header="QA" [style]="{'overflow':'visible', 'width': '100px'}">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       <mat-checkbox [checked]="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>

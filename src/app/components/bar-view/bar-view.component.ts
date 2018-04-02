@@ -132,24 +132,46 @@ export class BarViewComponent implements OnInit {
               },
               bar: { groupWidth: '75%' },
               isStacked: true,
-              backgroundColor: { fill: 'transparent' }
+              backgroundColor: { fill: 'transparent' },
+              series: {
+                0: { color: '#efefef' },
+                1: { color: '#66ff38' },
+                2: { color: '#205510' },
+                3: { color: 'blue' },
+                4: { color: 'yellow' }
+              }
             },
             dataTable: [
-              ['Genre', 'Estimated hours', 'actual hours', 'hours over', { role: 'style' }, { role: 'annotation' }]
+              ['Genre', 'Actual hours', 'Estimated hours', 'hours over', { role: 'style' }, { role: 'annotation' }]
 
             ]
           }
         }
 
         task_activity.task_activity_items.forEach((task_activity_item) => {
-          let value = task_activity_item.hours_estimated - task_activity_item.hours_actual;
-          value = value <= 0 ? 0 : value;
+          let calculationValue,
+            estimateHours,
+            actulaHours;
+
+          actulaHours = task_activity_item.hours_actual;
+          estimateHours = task_activity_item.hours_estimated;
+          calculationValue = actulaHours - estimateHours;
+
+          if (calculationValue > 0) {
+            actulaHours = 0;
+          } else if (calculationValue == 0) {
+            estimateHours = 0;
+          } else if (calculationValue < 0) {
+            estimateHours = Math.abs(calculationValue);
+            calculationValue = 0;
+          }
+
+         
 
           taskActivityItemData.google.dataTable.push(
-            [task_activity_item.name, task_activity_item.hours_actual, task_activity_item.hours_estimated, value, "height: 30px", '']
+            [task_activity_item.name, actulaHours, estimateHours, calculationValue, "height: 30px", '']
           )
 
-          //barData.push(taskActivityItemData);
         });
         console.log(taskActivityItemData);
         inputData.data.push(taskActivityItemData);

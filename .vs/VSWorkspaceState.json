@@ -4,8 +4,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\config-task\\activity-table",
-    "\\src\\app\\components\\task"
+    "\\src\\app\\components\\config-task",
+    "\\src\\app\\components\\config-task\\activity-table"
   ],
+  "SelectedNode": "\\src\\app\\components\\config-task\\config-task.component.ts",
   "PreviewInSolutionExplorer": false
 }

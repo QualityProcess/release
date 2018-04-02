@@ -8,6 +8,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TaskService } from "../../services/task.service";
 import { ProjectsService } from "../../services";
 import { Task } from "../../models/task";
+import { Project } from "../../models/project";
 import { Discipline } from "../../models/discipline";
 import { DesignStage } from "../../models/design-stage";
 import { TaskActivity } from "../../models/task-activity";
@@ -35,6 +36,7 @@ export class TaskComponent implements OnInit {
   schedule: boolean = false;
   views: Object = { googleKeepView: true, horizontalHistogramView: false, granttView: false };
   data: Task;
+  project: Project;
   discipline: string;
   design_stage: string;
   taskActivities: TaskActivity[];
@@ -60,6 +62,7 @@ export class TaskComponent implements OnInit {
     this.loaded = true;
 
     this.data = this.route.snapshot.data.taskData;
+    this.project = this.route.snapshot.data.projectData;
    
     /*
     let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
@@ -116,7 +119,7 @@ export class TaskComponent implements OnInit {
         url: '/projects'
       },
       {
-        label: 'Matrix',
+        label: this.project.name,
         url: `/projects/${this.data.project_id}/matrix`
       },
       {

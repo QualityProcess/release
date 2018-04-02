@@ -160,7 +160,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     this.taskService.addTask(defaultTask).subscribe(res => {
       console.log(res);
 
-      this.router.navigate(['/tasks', res.id])
+      this.router.navigate(['projects', this.project.id, 'tasks', res.id])
     });
   }
 

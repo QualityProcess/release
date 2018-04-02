@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // resolvers
 import { TaskResolver } from './task.resolver';
+import { ProjectResolver } from './../project/project.resolver';
 
 // components
 import { TaskComponent } from './task.component';
@@ -11,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     component: TaskComponent,
-    resolve: { taskData: TaskResolver },
+    resolve: { taskData: TaskResolver, projectData: ProjectResolver },
     children: [
       {
         path: '',

@@ -60,11 +60,14 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       return a.sort - b.sort;
     });
 
+    console.log("PHASES:", this.phases);
+
     let phaseIds = this.phases.map(phase => phase.id);
 
     if (phaseIds.length === 0) this.loaded = true;
     
     let allActivitiesByPhasesSubcribe = this.getAllActivitiesByPhases(phaseIds).subscribe(res => {
+      this.taskActivities = [];
       this.taskActivities = this.taskActivities.concat(...res);
 
       if (this.taskActivities.length === 0) this.loaded = true;
@@ -73,12 +76,18 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
         return a.sort - b.sort;
       });
 
-
-
       let activityIds = this.taskActivities.map(activity => activity.id);
 
+      console.log("(this.taskActivities:", this.taskActivities);
+
+      
+
       this.getAllActivityItemsByActivities(activityIds).subscribe(res => {
+        this.taskActivityItems = [];
+        console.log(res);
         this.taskActivityItems = this.taskActivityItems.concat(...res);
+
+        console.log("(this.taskActivity Items:", this.taskActivityItems);
 
         this.taskActivityItems.sort(function (a, b) {
           return a.sort - b.sort;

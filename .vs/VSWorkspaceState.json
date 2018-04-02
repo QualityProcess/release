@@ -4,8 +4,8 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\share"
+    "\\src\\app\\components\\config-task\\activity-table",
+    "\\src\\app\\components\\task"
   ],
-  "SelectedNode": "\\src\\app\\share\\shared.module.ts",
   "PreviewInSolutionExplorer": false
 }

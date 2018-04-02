@@ -1,6 +1,6 @@
 <p-dataTable class="table" [primeDragula]="[phase.id, activity.id]" [dragulaModel]="taskActivityItems"
              [dragulaOptions]="{ childContainerSelector: 'tbody', initAfterView: true, moves: handle }"
-             #datatable [paginator]="false" [value]="taskActivityItems" [rowStyleMap]="table" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)" (onDroped)="onDropItem($event)" (onOver)="ngOnOverItem($event)">
+             #datatable [paginator]="false" [value]="taskActivityItems" [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)" (onDroped)="onDropItem($event)" (onOver)="ngOnOverItem($event)">
 
   <p-header class="table-header handle-acivity"> 
     <span class="action-header">{{ activity.name }}</span>

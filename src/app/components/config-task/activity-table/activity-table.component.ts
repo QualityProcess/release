@@ -65,6 +65,8 @@ export class ActivityTableComponent implements OnInit {
     defaultItem.hours_actual = 0;
     defaultItem.is_enabled = true;
 
+    //this.taskActivityItems.push(defaultItem);
+
     this.service.addTaskActivityItem(defaultItem).subscribe((e) => {
       this.updateData();
     });

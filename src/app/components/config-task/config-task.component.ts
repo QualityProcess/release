@@ -182,6 +182,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     defaultActivity.task_phase_id = phaseId;
     defaultActivity.is_enabled = true;
 
+    this.taskActivities.push(defaultActivity);
     this.service.addTaskActivity(defaultActivity).subscribe(res => {
       this.addItem(res);
     });
@@ -200,7 +201,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     defaultItem.hours_estimated = 0;
     defaultItem.hours_actual = 0;
     defaultItem.is_enabled = true;
-
+    //this.taskActivityItems.push(defaultItem);
     this.service.addTaskActivityItem(defaultItem).subscribe((e) => {
       this.updateData();
     });

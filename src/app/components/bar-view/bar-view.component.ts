@@ -134,8 +134,8 @@ export class BarViewComponent implements OnInit {
               isStacked: true,
               backgroundColor: { fill: 'transparent' },
               series: {
-                0: { color: '#efefef' },
-                1: { color: '#66ff38' },
+                0: { color: '#66ff38' },
+                1: { color: '#efefef' },
                 2: { color: '#205510' },
                 3: { color: 'blue' },
                 4: { color: 'yellow' }
@@ -153,8 +153,8 @@ export class BarViewComponent implements OnInit {
             estimateHours,
             actulaHours;
 
-          actulaHours = task_activity_item.hours_actual;
-          estimateHours = task_activity_item.hours_estimated;
+          actulaHours = +task_activity_item.hours_actual;
+          estimateHours = +task_activity_item.hours_estimated;
           calculationValue = actulaHours - estimateHours;
 
           if (calculationValue > 0) {
@@ -166,14 +166,14 @@ export class BarViewComponent implements OnInit {
             calculationValue = 0;
           }
 
-         
+          if (isNaN)
 
           taskActivityItemData.google.dataTable.push(
             [task_activity_item.name, actulaHours, estimateHours, calculationValue, "height: 30px", '']
           )
 
         });
-        console.log(taskActivityItemData);
+
         inputData.data.push(taskActivityItemData);
       });
 

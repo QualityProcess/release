@@ -5,6 +5,8 @@ export class TaskActivityItem {
         description: string;
         customisation: string;
         checked_on: Date;
+        qa_by: string;
+        qa_date: Date;
         link: string;
         estimated_start: Date;
         estimated_completion: Date;

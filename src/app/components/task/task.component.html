@@ -5,12 +5,11 @@
   <mdc-list-item [routerLink]="['schedule']">
     <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Schedule
   </mdc-list-item>
-
-  <mdc-list-item [routerLink]="['bar']">
-    <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Bar
-  </mdc-list-item>
   <mdc-list-item [routerLink]="['gantt']">
     <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Gantt
+  </mdc-list-item>
+  <mdc-list-item [routerLink]="['bar']">
+    <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Bar
   </mdc-list-item>
   <mdc-list-item [routerLink]="['circle']">
     <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Circle
@@ -24,8 +23,8 @@
   <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section sub-menu">
     <button mat-button [routerLink]="['./']">Edit task</button>
     <button mat-button [routerLink]="['schedule']">Schedule</button>
-    <button mat-button [routerLink]="['bar']">Bar</button>
     <button mat-button [routerLink]="['gantt']">Gantt</button>
+    <button mat-button [routerLink]="['bar']">Bar</button>
     <button mat-button [routerLink]="['circle']">Circle</button>
   </mdc-toolbar-section>
 </sub-navbar>

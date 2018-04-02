@@ -44,11 +44,11 @@ export class TaskActivityItemFormComponent implements OnInit {
       name: [typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.name, Validators.required],
       link: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.link,
       task_activity_id: typeof this._taskActivityItem === 'undefined' ? this.taskActivityId : this._taskActivityItem.task_activity_id,
-      //image: [{ value: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.image.url, disabled: false }],
-      //description: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.description,
       customisation: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.customisation,
       checked_on: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.checked_on,
       checked_by: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.checked_by,
+      qa_date: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.qa_date,
+      qa_by: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.qa_by,
       estimated_start: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.estimated_start,
       estimated_completion: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.estimated_completion,
       hours_estimated: typeof this._taskActivityItem === 'undefined' ? null : this._taskActivityItem.hours_estimated,
@@ -69,11 +69,9 @@ export class TaskActivityItemFormComponent implements OnInit {
         console.log('Edit task', this.addTaskActivityItem.value)
         this.service.updateTaskActivityItem(this.addTaskActivityItem.value, this._taskActivityItem.id)
           .subscribe(item => {
-            console.log('Return item: ', item);
             this._location.back();
           });
       } else {
-        console.log('Add task', this.addTaskActivityItem.value);
 
         this.service.addTaskActivityItem(this.addTaskActivityItem.value)
           .subscribe(task => {
@@ -87,8 +85,6 @@ export class TaskActivityItemFormComponent implements OnInit {
     this.addTaskActivityItem.patchValue({
       image: reader.result
     });
-
-    console.log(this.addTaskActivityItem.value);
   }
 
 }

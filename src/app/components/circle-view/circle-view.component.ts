@@ -85,7 +85,6 @@ export class CircleViewComponent implements OnInit {
       this.service.getTask(+params["task_id"]).subscribe(res => {
         this.data = res.task_phases;
 
-        console.log(this.data);
         let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
 
         response$.subscribe(result => {

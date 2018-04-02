@@ -47,6 +47,7 @@ export class ActivityTableComponent implements OnInit {
     
   }
 
+
   handle(el, container, handle) {
     return handle.classList.contains('handle');
   }
@@ -151,12 +152,11 @@ export class ActivityTableComponent implements OnInit {
 *
 * @param {TaskActivity} activity - PrimeNg p-calendar event object 'onSelect' - https://www.primefaces.org/primeng/#/calendar
 * @param {TaskActivityItem} item - task activity item object
+  @param {string} field - task activity item field which updates
 */
-  onDateChanged(event, item) {
-    item.checked_on = event;
-
-    this.onDateChangedSubscribe = this.service.updateTaskActivityItem(item, +item.id).subscribe(res => {
-    });
+  onDateChanged(event, item, field) {
+    item[field] = event;
+    this.onDateChangedSubscribe = this.service.updateTaskActivityItem({ [field]: event }, +item.id).subscribe(res => { });
   }
 
 /**

@@ -34,6 +34,7 @@ export class ProjectsComponent implements OnInit {
     
   ];
   currentSortItem: string;
+  displayedColumns = ['name', 'status_code', 'id']; 
 
   sortedData: any;
   filterData: any;

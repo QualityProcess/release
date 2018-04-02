@@ -9,9 +9,26 @@
 .search-wrapper.active {
 }
 
+.search-btn {
+  background: $primary-purple--light;
+  border-radius: 50%;
+  width: 30px;
+  text-align: center;
+  height: 30px;
+  cursor: pointer;
+
+  .material-icons {
+    height: 100%;
+    @include flex();
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+  }
+}
+
 .search-wrapper .input-holder {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   overflow: hidden;
   background: rgba(255,255,255,0);
   border-radius: 6px;
@@ -28,7 +45,7 @@
 
 .search-wrapper .input-holder .search-input {
   width: 100%;
-  height: 40px;
+  height: 35px;
   padding: 0px 70px 0 20px;
   opacity: 0;
   position: absolute;

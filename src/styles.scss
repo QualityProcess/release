@@ -89,6 +89,22 @@ td {
 .main-fab-svg-image {
   width: 35%;
 }
+
+.align-rigth {
+  text-align: right;
+}
+
+.mat-table {
+  .mat-header-cell {
+    font-size: 1em;
+  }
+
+  .mat-row {
+    min-height: 45px;
+  }
+}
+
+
 /*  -------------------        END MATERIAL IO THEME -------------------------------*/
 /*  -------------------        MDC THEME   -------------------------------*/
 $mdc-theme-primary: $primary-purple;
@@ -373,7 +389,7 @@ a {
 
         .search {
           position: relative;
-          bottom: 0;
+          bottom: -3px;
           left: 20px;
         }
       }
@@ -604,7 +620,7 @@ input:checked + .slider:before {
   color: $primary-purple--middle;
 }
 .mat-table {
-  background-color: $primary-gray--light;
+  background-color: $white;
   @include mat-elevation-transition;
   @include mat-elevation(0);
 
@@ -625,6 +641,7 @@ input:checked + .slider:before {
 .layout-wrapper {
   max-width: $max-width;
   margin: 0 auto;
+  margin-top: 50px;
 
   .elevation-container {
     border-radius: 6px;
@@ -637,6 +654,7 @@ input:checked + .slider:before {
 
 .mdc-grid-list {
   .mdc-grid-list__tiles {
+    justify-content: center;
 
     .mdc-grid-tile {
       width: 370px;

@@ -13,8 +13,13 @@
   width: 100%;
 }
 
-.list-view {
+
+.list-view-container {
   margin: 0 16px;
+
+  .action {
+    cursor: pointer;
+  }
 
   .icon {
     cursor: pointer;
@@ -26,7 +31,14 @@
   }
 }
 
+
+
+.layout-wrapper {
+  margin-top: 0;
+}
+
 .navbar-header {
+  padding-right: 100px;
 
   @include phone() {
     flex-direction: column;
@@ -42,7 +54,7 @@
     }
 
     &.select {
-      min-width: 200px;
+      min-width: 300px;
     }
 
     .filter {
@@ -70,7 +82,7 @@
       }
     }
 
-    
+
 
     @include phone() {
       margin-right: 0;

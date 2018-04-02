@@ -71,18 +71,40 @@
 
   <ng-template #listView>
 
-    <mat-list class="list-view mat-elevation-z8">
-      <mat-list-item *ngFor="let project of filterData" hoverElevation>
-        <img matListAvatar src="{{project.image.url}}" alt="...">
-        <h3 matLine > {{project.name}} </h3>
-        <span matLine>
-          <mdc-icon class="icon" (click)="onSelect(project)">remove_red_eye</mdc-icon>
-          <mdc-icon class="icon" [routerLink]="['../', 'projects', project.id, 'edit']">edit</mdc-icon>
-          <mdc-icon class="icon" (click)="openDeleteDialog(project)">delete</mdc-icon>
-        </span>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-    </mat-list>
+    <div class="list-view-container mat-elevation-z8">
+      <mat-table #table [dataSource]="filterData">
+
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="action" (click)="goToMatrix(element.id)"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Status code Column -->
+        <ng-container matColumnDef="status_code">
+          <mat-header-cell *matHeaderCellDef> Status code </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.status_code}} </mat-cell>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>
+            
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-rigth">
+            <div class="card-action-icons">
+              <mdc-icon mdcCardAction="icon" class="icon" (click)="onSelect(element)">remove_red_eye</mdc-icon>
+              <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', element.id, 'edit']">edit</mdc-icon>
+              <mdc-icon mdcCardAction="icon" class="icon" (click)="openDeleteDialog(element)">delete</mdc-icon>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
 
   </ng-template>
 

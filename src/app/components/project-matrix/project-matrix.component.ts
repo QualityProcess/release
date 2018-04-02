@@ -156,16 +156,14 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     defaultTask.project_id = projectId;
     defaultTask.discipline_id = disciplineId;
     defaultTask.design_stage_id = designStageId;
-    console.log(defaultTask);
-    this.taskService.addTask(defaultTask).subscribe(res => {
-      console.log(res);
 
+    this.taskService.addTask(defaultTask).subscribe(res => {
       this.router.navigate(['projects', this.project.id, 'tasks', res.id])
     });
   }
 
   goBack() {
-    this._location.back();
+    this.router.navigate(['projects']);
   }
 
   createDiscipline(){

@@ -11,6 +11,7 @@ import { CreateTaskActivityComponent } from './create-task-activity.component';
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     CreateTaskActivityRoutingModule
   ],
   declarations: []

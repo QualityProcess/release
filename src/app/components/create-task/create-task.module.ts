@@ -11,6 +11,7 @@ import { CreateTaskComponent } from './create-task.component';
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     CreateTaskRoutingModule
   ],
   declarations: [CreateTaskComponent]

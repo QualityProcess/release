@@ -1,6 +1,6 @@
 // core
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // models
 import { Project } from "../../models/project";
@@ -30,6 +30,7 @@ export class ProjectUrlsComponent implements OnInit {
     private service: ProjectsService,
     private breadCrumbsService: BreadCrumbsService,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -74,6 +75,10 @@ export class ProjectUrlsComponent implements OnInit {
         url: `/projects/${this.project.id}/urls`
       },
     ]);
+  }
+
+  goBack() {
+    this.router.navigate(['projects']);
   }
 
 }

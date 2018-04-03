@@ -73,7 +73,7 @@ export class ProjectsService {
   }
 
   duplicationProject(id: number, toId: number): Observable<{}> {
-    return this.http.post(`${this.apiUrl}/projects/${id}/duplication`, { dup_to: toId});
+    return this.http.post(`${this.apiUrl}/projects/${id}/duplicate`, { dup_to: toId});
   }
 
   getDisciplines(): Observable<Discipline[]> {

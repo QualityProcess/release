@@ -98,7 +98,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     UserService,
     ProjectsService,
     ProjectResolver,
-    //ProjectsResolver,
+    ProjectsResolver,
     ProjectMatrixResolver,
     ProjectUrlsResolver,
     DisciplineResolver,

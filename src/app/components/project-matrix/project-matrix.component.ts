@@ -6,6 +6,9 @@ import { Task } from '../../models/task';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Directive, EventEmitter, HostListener, ElementRef, Renderer2, Output } from '@angular/core';
 import { Location } from '@angular/common';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ConfirmDialog } from "../dialogs/dialog";
+import { MatSnackBar } from '@angular/material';
 
 // breadcrumbs
 import { BreadCrumbsService } from '../../services/breadcrumbs.service';
@@ -31,8 +34,11 @@ import 'rxjs/add/operator/startWith';
 export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   data: any;
   project: Project;
+  listOfProjects: Project[];
+  selectedDuplicateProject: Project;
 
   breadcrumbs: BreadCrumb[];
+  duplicationSubscribe: any;
 
   projectMatrix: any;
   loaded = false;
@@ -67,19 +73,30 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private _location: Location,
-    private breadCrumbsService: BreadCrumbsService
+    public dialog: MatDialog,
+    private breadCrumbsService: BreadCrumbsService,
+    public snackBar: MatSnackBar
   ) {
     route.params.subscribe(({ id }) => {
       /*service.getPhasesMatrix(+id).subscribe(data => {
         this.data = data;
       });*/
     });
-  } 
+  }
 
   ngOnInit() {
 
     this.project = this.route.snapshot.data.projectData;
+    this.listOfProjects = this.route.snapshot.data.projectsData;
 
+    this.listOfProjects.find((project, index, list) => {
+      if (project.id === this.project.id) {
+        list.splice(index, 1);
+      }
+      return project.id === this.project.id;
+    });
+
+    console.log(this.listOfProjects);
     this.setBreadCrumbs();
     
     this.data = this.route.snapshot.data.projectMatrixData;
@@ -166,9 +183,33 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     this.router.navigate(['projects']);
   }
 
-  createDiscipline(){
-  
-}
+  openDialog(duplicationProject) { 
+    let dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '350px',
+      data: {
+        title: `Duplicate ${this.project.name} to ${duplicationProject.name}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result) {
+        this.duplicate(duplicationProject);
+      }
+    });
+  }
+
+  duplicate(project) {
+    this.duplicationSubscribe = this.service.duplicationProject(this.project.id, project.id).subscribe(res => {
+      let snackBarRef = this.snackBar.open('The project was duplicated', '', {
+        duration: 3000
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.duplicationSubscribe) this.duplicationSubscribe.unsubscribe();
+  }
 }
 
 
@@ -276,7 +317,6 @@ export class DraggableDirective {
 
       const dx = e.clientX + window.scrollX - this.startX,
         dy = e.clientY + window.scrollY - this.startY;
-
 
       this.moveTo(dx, dy);
 

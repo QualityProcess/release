@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<sub-navbar title="{{ project.name }}" classes="matrix-sub-navbar" class="sub-navbar" [breadcrumbs]="breadcrumbs">
+  <button mdc-fab #fab class="main-fab-btn" (click)="goBack()">
+    <img class="main-fab-svg-image" src="/assets/icons/arrow-left.svg" alt="back" title="back" />
+  </button>
+</sub-navbar>
+
+<div class="matrix outer-wrapper">
+  <div class="wrapper">
+    <table class="table mat-elevation-z8">
+      <thead class="table-header">
+        <tr>
+          <th class="cell"></th>
+          <th class="cell discipline-header" *ngFor="let item of disciplineHeaders; let i = index;">{{ item }}</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <tr class="table-body-row" *ngFor="let design_stage of arrayData; let rowIndex = index;">
+          <td class="cell design-stage-header">{{this.designStageHeaders[rowIndex]}}</td>
+          <td class="cell matrix-box" *ngFor="let dataUrls of arrayData[rowIndex][1]; let i = index">
+            <div class="links" *ngIf="dataUrls[1].links" >
+              <div *ngFor="let link of dataUrls[1].links">
+                <a *ngIf="link[1]; else emptyLink" href="{{link[1]}}" target="_blank">
+                  <img *ngIf="link[0] != ''; else emptyTooltip" src="/assets/icons/link.svg" alt="link to {{link[0]}}" title="{{link[0]}}" matTooltip ="{{link[0]}}" class="action"/>
+                  <ng-template #emptyTooltip>
+                    <img src="/assets/icons/link.svg" alt="link to {{link[0]}}" title="{{link[0]}}" class="action"/>
+                  </ng-template>
+                </a>
+                <ng-template #emptyLink>
+                  <img *ngIf="link[0] != ''; else emptyTooltip" src="/assets/icons/link.svg" alt="link to {{link[0]}}" title="{{link[0]}}" matTooltip="{{link[0]}}" />
+                  <ng-template #emptyTooltip>
+                    <!--<mat-icon style="color: blue" matTooltip="{{link[0]}}">link</mat-icon>-->
+                    <img src="/assets/icons/link.svg" alt="link to {{link[0]}}" title="{{link[0]}}"/>
+                  </ng-template>
+                </ng-template>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

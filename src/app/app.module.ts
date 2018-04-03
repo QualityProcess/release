@@ -34,6 +34,7 @@ import { MessageService } from './services/message.service';
 import { ProjectResolver } from './components/project/project.resolver';
 import { ProjectsResolver } from './components/projects/projects.resolver';
 import { ProjectMatrixResolver } from './components/project-matrix/project-matrix.resolver';
+import { ProjectUrlsResolver } from './components/project-urls/project-urls.resolver';
 import { DisciplineResolver } from './components/discipline/discipline.resolver';
 import { DisciplinesResolver } from './components/disciplines/disciplines.resolver';
 import { DesignStageResolver } from './components/design-stage/design-stage.resolver';
@@ -99,6 +100,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     ProjectResolver,
     //ProjectsResolver,
     ProjectMatrixResolver,
+    ProjectUrlsResolver,
     DisciplineResolver,
     DesignStageResolver,
     TaskResolver,

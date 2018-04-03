@@ -68,6 +68,14 @@ export class ProjectsService {
     return this.http.get<any>(`${this.apiUrl}/projects/${id}/matrix`);
   }
 
+  getProjectUrls(id: number): Observable<{}> {
+    return this.http.get(`${this.apiUrl}/projects/${id}/urls`);
+  }
+
+  duplicationProject(id: number, toId: number): Observable<{}> {
+    return this.http.post(`${this.apiUrl}/projects/${id}/duplication`, { dup_to: toId});
+  }
+
   getDisciplines(): Observable<Discipline[]> {
     return this.http.get<Discipline[]>(`${this.apiUrl}/disciplines`);
   }
@@ -98,4 +106,6 @@ export class ProjectsService {
     }
 
   }
+
+
 }

@@ -32,6 +32,10 @@ const routes: Routes = [
             loadChildren: './../project-matrix/project-matrix.module#ProjectMatrixModule'
           },
           {
+            path: 'urls',
+            loadChildren: './../project-urls/project-urls.module#ProjectUrlsModule'
+          },
+          {
             path: 'tasks',
             loadChildren: './../tasks/tasks.module#TasksModule'
           },

@@ -1,0 +1,14 @@
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
+.links {
+  @include flex();
+  flex-flow: row wrap;
+  justify-content: center;
+  min-height: 30px;
+
+  img {
+    width: 15px;
+    height: auto;
+  }
+}

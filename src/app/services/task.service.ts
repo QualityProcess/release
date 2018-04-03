@@ -88,8 +88,6 @@ export class TaskService {
     return this.http.patch<any>(`${this.apiUrl}/task_activity_items/sort`, order);
   }
 
-
-
   deleteTaskActivityItem(id: number): Observable<{}> {
     return this.http.delete(`${this.apiUrl}/task_activity_items/${id}`); 
   }

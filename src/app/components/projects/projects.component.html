@@ -58,6 +58,7 @@
                 <h2 class="project-card__title" mdc-typography-title>{{ project.name }}</h2>
               </div>
               <mdc-card-action-icons class="card-action-icons">
+                <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', project.id, 'urls']">link</mdc-icon>
                 <mdc-icon mdcCardAction="icon" class="icon" (click)="onSelect(project)">remove_red_eye</mdc-icon>
                 <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', project.id, 'edit']">edit</mdc-icon>
                 <mdc-icon mdcCardAction="icon" class="icon" (click)="openDeleteDialog(project)">delete</mdc-icon>
@@ -94,6 +95,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let element" class="align-rigth">
             <div class="card-action-icons">
+              <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', element.id, 'urls']">link</mdc-icon>
               <mdc-icon mdcCardAction="icon" class="icon" (click)="onSelect(element)">remove_red_eye</mdc-icon>
               <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', element.id, 'edit']">edit</mdc-icon>
               <mdc-icon mdcCardAction="icon" class="icon" (click)="openDeleteDialog(element)">delete</mdc-icon>

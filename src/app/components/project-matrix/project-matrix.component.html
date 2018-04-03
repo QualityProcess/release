@@ -4,7 +4,7 @@
 
   <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section sub-menu">
       <button mat-button (click)="duplicationMenu.open()">Duplicate project</button>
-      <mdc-menu #duplicationMenu [anchorCorner]="bottom-start">
+      <mdc-menu #duplicationMenu [anchorCorner]="'bottom-start'">
         <mdc-menu-item *ngFor="let project of listOfProjects" id="project.id" (click)="openDialog(project)">
           {{project.name}}
         </mdc-menu-item>

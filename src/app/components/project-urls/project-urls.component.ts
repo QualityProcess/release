@@ -25,6 +25,8 @@ export class ProjectUrlsComponent implements OnInit {
   disciplineHeaders: string[] = [];
   designStageHeaders: string[] = [];
 
+  breadcrumbs: BreadCrumb[];
+
 
   constructor(
     private service: ProjectsService,

@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
       navigateToLoginRequestUrl: false,
     });
 
+    console.log("AppComponent redirect");
+
     this.adalService.handleWindowCallback();
 
     

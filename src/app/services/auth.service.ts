@@ -1,21 +1,42 @@
 import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map'
 
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
+import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+
 @Injectable()
 export class AuthService {
   public token: string;
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, @Inject('localStorage') private localStorage: any) {
+  constructor(private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject('localStorage') private localStorage: any,
+    private adal5HttpService: Adal5HTTPService,
+    private adal5Service: Adal5Service
+
+  ) {
     if (isPlatformBrowser(this.platformId)) {
       console.log('AuthService constr');
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this.token = currentUser && currentUser.token;
     }
     
+  }
+
+  public get(url: string): Observable<any> {
+    const options = this.prepareOptions();
+    return this.adal5HttpService.get(url, options)
+  }
+
+  private prepareOptions(): any {
+    let headers = new HttpHeaders();
+    headers = headers
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${this.adal5Service.userInfo.token}`);
+    return { headers };
   }
 
   login(email: string, password: string):boolean {
@@ -38,7 +59,7 @@ export class AuthService {
         return false;
       }
 
-    }
+    } 
 
     if (isPlatformServer(this.platformId)) {
       console.log('AuthService login server');

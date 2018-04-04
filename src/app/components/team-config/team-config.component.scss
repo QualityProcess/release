@@ -1,0 +1,11 @@
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
+.wrapper {
+  text-align: center;
+  @include flex();
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 100px;
+  align-items: center;
+}

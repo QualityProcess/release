@@ -4,6 +4,8 @@ import { BreadCrumbsService } from '../../services/breadcrumbs.service';
 import { BreadCrumb } from './../../models/breadcrumb';
 import { Router } from '@angular/router';
 
+import { Adal5Service } from 'adal-angular5';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,16 +18,22 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private breadCrumbsService: BreadCrumbsService,
-    private router: Router) { }
+    private router: Router,
+    private adalService: Adal5Service
+  ) { }
 
   ngOnInit() {
     this.breadCrumbsService.breadcrumbs.subscribe((val: BreadCrumb[]) => {
         this.breadcrumbs = val;
     });
+
+    this.username = this.adalService.userInfo.username;
   }
 
   logout() {
-    this.authService.logout();
+    this.adalService.logOut();
+
+    //this.authService.logout();
     this.router.navigate(['/login']);
   }
 

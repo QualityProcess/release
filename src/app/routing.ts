@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 //guard
 import { AuthGuard } from './guard/auth.guard';
 import { IsSecureGuard } from './guard/https.guard';
+import { AdalGuard } from './guard/adal.guard';
+//import {LoggedInGuard} from "./services/ngAdal/logged-in.guard";
 
 // components
 import { LoginComponent } from './components/login';
@@ -47,18 +49,20 @@ import { EditTaskActivityItemComponent } from './components/edit-task-activity-i
 import { TaskActivityResolver } from './components/task-activity/task-activity.resolver';
 import { TaskActivityItemsResolver } from './components/edit-task-activity-item/edit-task-activity-items.resolver';
 
-
+import { TeamConfigComponent } from './components/team-config/team-config.component';
 
 const appRoutes: Routes = [
   { path: 'login', loadChildren: './components/login/login.module#LoginModule' },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'tabconfig', component: TeamConfigComponent }, 
   { path: 'resetpassword', component: ResetPasswordComponent },
   {
     path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard, IsSecureGuard]
+    //path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AdalGuard]
   },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' } 
 ];
 
 export const routing = RouterModule.forRoot(appRoutes, { useHash: true });

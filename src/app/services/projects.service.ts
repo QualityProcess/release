@@ -13,17 +13,30 @@ import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
 import { catchError } from 'rxjs/operators';
 
+//import { AdalService } from './adal/adal.service';
+//import { BaseEndpoint } from './adal/app.constants'
+
 @Injectable()
 export class ProjectsService {
   private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
 
   private handleError: HandleError;
+  headers: any;
+
 
   constructor(private http: HttpClient,
     httpErrorHandler: HttpErrorHandler,
     @Inject('localStorage') private localStorage: any,
-    @Inject(PLATFORM_ID) private platformId: Object) {
+    @Inject(PLATFORM_ID) private platformId: Object,
+
+   // @Inject(BaseEndpoint) private baseApiEndpoint, private adalService: AdalService
+  ) {
     this.handleError = httpErrorHandler.createHandleError('ProjectsService');
+
+    /*this.headers = new Headers({ 'Content-Type': 'application/json' });
+    let jwt = this.adalService.accessToken;
+    this.headers.append('Authorization', 'Bearer ' + jwt);
+    console.log(jwt);*/
   }
 
   getProjects() : Observable<Project[]> {

@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser, LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -20,7 +20,8 @@ import { routing } from './routing';
 
 // guard
 import { AuthGuard } from './guard/auth.guard';
-import { IsSecureGuard } from './guard/https.guard'; 
+import { IsSecureGuard } from './guard/https.guard';
+import { AdalGuard } from './guard/adal.guard';
 
 // services
 import { AuthService, UserService, ProjectsService } from './services';
@@ -65,12 +66,19 @@ import { LoginDialog } from './components/login/login-dialog';
 import { AppComponent } from './app.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { TeamConfigComponent } from './components/team-config/team-config.component';
+
+import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ResetPasswordComponent,
     RegistrationComponent,
+    TeamConfigComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -79,21 +87,12 @@ import { RegistrationComponent } from './components/registration/registration.co
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    //ServerModule,
-    //ModuleMapLoaderModule,
-
     routing,
-    //MaterialModule,
-    //MaterialMDCModule,
-    //PrimengModule,
-    //ChartsModule,
-    //Ng2GoogleChartsModule,
-    //NgSelectModule,
-    //
   ],
   providers: [
     AuthGuard,
     IsSecureGuard,
+    AdalGuard,
     AuthService,
     UserService,
     ProjectsService,
@@ -113,19 +112,17 @@ import { RegistrationComponent } from './components/registration/registration.co
     TaskActivitiesResolver,
     TaskActivityResolver,
     TaskActivityItemsResolver,
-    { provide: 'localStorage', useFactory: getLocalStorage },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
-    
-   DraggableDirective,
+    DraggableDirective,
     ElevationDirective,
     PersentageDirective,
     CardViewDirective,
     PrimeDragulaDirective,
- 
-    // providers used to create fake backend
-    //fakeBackendProvider,
-    //MockBackend,
-    //BaseRequestOptions 
+    Adal5Service,
+
+    { provide: 'localStorage', useFactory: getLocalStorage },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: Adal5HTTPService, useFactory: Adal5HTTPService.factory, deps: [HttpClient, Adal5Service] },
+
   ],
   entryComponents: [],
   bootstrap: [AppComponent]

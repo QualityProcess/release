@@ -10,7 +10,6 @@ import { ProjectsService } from "../../services";
 import { Project } from "../../models/project";
 import { SelectItem } from 'primeng/api';
 
-
 // breadcrumbs
 import { BreadCrumbsService } from '../../services/breadcrumbs.service';
 import { BreadCrumb } from './../../models/breadcrumb';
@@ -48,7 +47,9 @@ export class ProjectsComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private breadCrumbsService: BreadCrumbsService,
-  ) { }
+  ) {
+
+}
 
   ngOnInit() {
     this.getProjects();

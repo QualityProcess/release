@@ -1,15 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\node_modules\\@angular",
+    "\\node_modules\\@angular\\cli",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\config-task",
-    "\\src\\app\\components\\config-task\\activity-table",
+    "\\src\\app\\components\\home",
+    "\\src\\app\\components\\login",
     "\\src\\app\\services",
-    "\\src\\assets",
-    "\\src\\assets\\styles"
+    "\\src\\app\\services\\ngAdal"
   ],
-  "SelectedNode": "\\src\\app\\components\\config-task\\activity-table\\activity-table.component.html",
+  "SelectedNode": "\\src\\app\\services\\ngAdal\\auth.service.ts",
   "PreviewInSolutionExplorer": false
 }

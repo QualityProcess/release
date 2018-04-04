@@ -1,4 +1,5 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var microsoftTeams: any;
 
@@ -12,7 +13,8 @@ export class TeamConfigComponent implements OnInit {
   selected = '';
 
   constructor(
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
 ) { }
 
   ngOnInit() {
@@ -57,7 +59,10 @@ export class TeamConfigComponent implements OnInit {
       }
     }
 
-    
+    microsoftTeams.settings.registerOnSaveHandler( (saveEvent) => {
+      console.log('registerOnSaveHandler: ', saveEvent);
+      this.router.navigate(['projects']);
+    })
      
   }
 

@@ -63,6 +63,9 @@ export class TeamConfigComponent implements OnInit {
       console.log('registerOnSaveHandler: ', saveEvent);
       this.router.navigate(['projects']);
     })
+
+    
+
      
   }
 

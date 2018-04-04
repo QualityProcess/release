@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,6 +28,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+
+
+
+
     this.loaded = true;
     console.log('app loaded');    
   }

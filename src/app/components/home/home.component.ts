@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    if (this.router.url === '/') this.router.navigate(['tabconfig']);
+    if (this.router.url === '/') this.router.navigate(['projects']);
     
   }
 

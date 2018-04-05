@@ -90,7 +90,7 @@ export class TabAuthComponent implements OnInit {
         showProfileInformation(token);
       } else {
         // No token, or token is expired
-        this.authContext._renewIdToken(function (err, idToken) {
+        this.authContext._renewIdToken( (err, idToken) => {
           if (err) {
             console.log("Renewal failed: " + err);
             // Failed to get the token silently; show the login button
@@ -98,6 +98,8 @@ export class TabAuthComponent implements OnInit {
             // You could attempt to launch the login popup here, but in browsers this could be blocked by
             // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
           } else {
+            console.log(context.upn);
+            this.authService.username = context.upn;
             showProfileInformation(idToken);
           }
         });
@@ -116,8 +118,9 @@ export class TabAuthComponent implements OnInit {
         console.log("LogetL ", token);
 
         this.authService.setAccessToken(token);
-        this.authService.username = context.upn;
+        console.log("Set access token");
         this.router.navigate(['projects']);
+        console.log("after redirect");
       }
 
       function showLoginButton() {

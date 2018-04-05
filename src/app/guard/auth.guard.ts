@@ -5,6 +5,8 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { Observable } from 'rxjs/Observable';
 import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
+import { AuthService } from './../services/auth.service';
+
 @Injectable()
 export class AuthGuard implements CanActivate {
 
@@ -12,10 +14,22 @@ export class AuthGuard implements CanActivate {
    private router: Router,
    @Inject(PLATFORM_ID) private platformId: Object,
    @Inject('localStorage') private localStorage: any,
-   private adalService: Adal5Service
+   private adalService: Adal5Service,
+   private authService: AuthService,
 ) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
+
+    let accessToken = this.authService.getToken();
+    if (accessToken){
+      return true;
+    }
+
+    this.router.navigate(['/tab-auth']);
+    return false;
+
+
+    /*
     if (isPlatformBrowser(this.platformId)) {
       if (localStorage.getItem('currentUser') || this.adalService.userInfo.authenticated) {
         // logged in so return true
@@ -23,12 +37,12 @@ export class AuthGuard implements CanActivate {
       }
 
       // not logged in so redirect to login page
-      this.router.navigate(['/login']);
+      this.router.navigate(['/tab-auth']);
       return false;
     }
 
     if (isPlatformServer(this.platformId)) {
       return true;
-    }
+    }*/
   }
 }

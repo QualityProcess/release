@@ -145,11 +145,11 @@ export class TeamConfigComponent implements OnInit {
       }
     }
 
-    microsoftTeams.settings.registerOnSaveHandler( (saveEvent) => {
+    /*microsoftTeams.settings.registerOnSaveHandler( (saveEvent) => {
       console.log('registerOnSaveHandler: ', saveEvent);
      // this.authMicrosoftTeams();
       this.router.navigate(['tab-auth']);
-    })
+    })*/
 
     microsoftTeams.settings.setValidityState(true);
      

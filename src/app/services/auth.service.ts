@@ -11,7 +11,9 @@ import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
 @Injectable()
 export class AuthService {
-  public token: string;
+  private token: string;
+  private _username: string;
+
   public accessToken: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(private http: HttpClient,
@@ -30,7 +32,19 @@ export class AuthService {
   }
 
   setAccessToken(value: string) {
-    this.accessToken.next(value);
+    this.token = value;
+  }
+
+  getToken() {
+    return this.token;
+  }
+
+  get username(): string {
+    return this._username;
+  }
+
+  set username(name: string) {
+    this._username = name;
   }
 
   public get(url: string): Observable<any> {

@@ -27,7 +27,10 @@ export class NavbarComponent implements OnInit {
         this.breadcrumbs = val;
     });
 
-    this.username = this.adalService.userInfo.username;
+    if (this.authService.username) {
+      this.username = this.authService.username;
+    }
+    
   }
 
   logout() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+import { Router } from '@angular/router';
 
 declare var microsoftTeams: any; 
 declare var AuthenticationContext: any;
@@ -20,6 +21,7 @@ export class TabAuthComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private adalService5: Adal5Service,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -112,6 +114,10 @@ export class TabAuthComponent implements OnInit {
 
       function showProfileInformation(token) {
         console.log("LogetL ", token);
+
+        this.authService.setAccessToken(token);
+        this.authService.username = context.upn;
+        this.router.navigate(['projects']);
       }
 
       function showLoginButton() {

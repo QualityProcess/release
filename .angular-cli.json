@@ -29,7 +29,8 @@
         "../node_modules/fullcalendar/dist/fullcalendar.min.css"
       ],
       "scripts": [
-        "../node_modules/chart.js/dist/Chart.min.js"
+        "../node_modules/chart.js/dist/Chart.min.js",
+        "./assets/mteam/microsoftTeams.min.js" 
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

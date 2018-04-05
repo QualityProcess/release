@@ -168,42 +168,13 @@ export class TeamConfigComponent implements OnInit {
   openAuthDialog() {
 
     microsoftTeams.authentication.authenticate({
-      url: window.location.origin + "/tab-auth/simple-start",
+      url: window.location.origin + "/#/tab-auth",
       width: 600,
       height: 535,
       successCallback: function (result) {
         //getUserProfile(result.accessToken);
 
         console.log("result.accessToken: ", result.accessToken);
-
-
-        microsoftTeams.getContext(function (context) {
-          // Generate random state string and store it, so we can verify it in the callback
-          let state = _guid(); // _guid() is a helper function in the sample
-          localStorage.setItem("simple.state", state);
-          localStorage.removeItem("simple.error");
-          // Go to the Azure AD authorization endpoint
-          let queryParams = {
-            client_id: "33ba2f87-fb33-467b-94a6-0e6b68611d94",
-            response_type: result.accessToken,
-            response_mode: "fragment",
-            resource: "https://graph.microsoft.com/User.Read openid",
-            redirect_uri: window.location.origin + "/tab-auth/simple-end",
-            nonce: _guid(),
-            state: state,
-            // The context object is populated by Teams; the upn attribute
-            // is used as hinting information
-            login_hint: context.upn,
-          };
-          let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + toQueryString(queryParams);
-          window.location.assign(authorizeEndpoint);
-
-          function _guid(): string {
-            return "random_string";
-          }
-        });
-
-
       },
       failureCallback: function (reason) {
         //handleAuthError(reason);

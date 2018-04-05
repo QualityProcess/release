@@ -1,7 +1,9 @@
 import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
@@ -10,6 +12,7 @@ import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 @Injectable()
 export class AuthService {
   public token: string;
+  public accessToken: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -24,6 +27,10 @@ export class AuthService {
       this.token = currentUser && currentUser.token;
     }
     
+  }
+
+  setAccessToken(value: string) {
+    this.accessToken.next(value);
   }
 
   public get(url: string): Observable<any> {

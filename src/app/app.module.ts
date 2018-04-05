@@ -69,6 +69,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { TeamConfigComponent } from './components/team-config/team-config.component';
 
 import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
 
 
 
@@ -78,6 +79,7 @@ import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
     ResetPasswordComponent,
     RegistrationComponent,
     TeamConfigComponent,
+    TabAuthComponent,
 
   ],
   imports: [

@@ -29,7 +29,7 @@ export class AuthDialog {
     console.log("init auth dialog");
 
     microsoftTeams.authentication.authenticate({
-      url: window.location.origin + "/tab-auth/simple-start",
+      url: window.location.origin + "/#/tab-auth",
       width: 600,
       height: 535,
       successCallback: function (result) {

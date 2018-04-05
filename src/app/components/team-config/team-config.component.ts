@@ -1,6 +1,9 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AuthDialog } from "../dialogs/auth-dialog";
+
 declare var microsoftTeams: any;
 declare var AuthenticationContext: any;
 
@@ -15,7 +18,8 @@ export class TeamConfigComponent implements OnInit {
 
   constructor(
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
   ) {
     
   }
@@ -159,6 +163,69 @@ export class TeamConfigComponent implements OnInit {
   changed(){
     console.log(this.selected);
     microsoftTeams.settings.setValidityState(this.selected === 'first' || this.selected === 'second');
+  }
+
+  openAuthDialog() {
+
+    microsoftTeams.authentication.authenticate({
+      url: window.location.origin + "/tab-auth/simple-start",
+      width: 600,
+      height: 535,
+      successCallback: function (result) {
+        //getUserProfile(result.accessToken);
+
+        console.log("result.accessToken: ", result.accessToken);
+
+
+        microsoftTeams.getContext(function (context) {
+          // Generate random state string and store it, so we can verify it in the callback
+          let state = _guid(); // _guid() is a helper function in the sample
+          localStorage.setItem("simple.state", state);
+          localStorage.removeItem("simple.error");
+          // Go to the Azure AD authorization endpoint
+          let queryParams = {
+            client_id: "33ba2f87-fb33-467b-94a6-0e6b68611d94",
+            response_type: result.accessToken,
+            response_mode: "fragment",
+            resource: "https://graph.microsoft.com/User.Read openid",
+            redirect_uri: window.location.origin + "/tab-auth/simple-end",
+            nonce: _guid(),
+            state: state,
+            // The context object is populated by Teams; the upn attribute
+            // is used as hinting information
+            login_hint: context.upn,
+          };
+          let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + toQueryString(queryParams);
+          window.location.assign(authorizeEndpoint);
+
+          function _guid(): string {
+            return "random_string";
+          }
+        });
+
+
+      },
+      failureCallback: function (reason) {
+        //handleAuthError(reason);
+        console.log(reason);
+      }
+    });
+
+
+    /*
+    let dialogRef = this.dialog.open(AuthDialog, {
+      width: '350px',
+      data: {
+        title: `Authentication`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result) {
+        
+      }
+    });*/
   }
 
 }

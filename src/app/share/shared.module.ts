@@ -20,6 +20,7 @@ import { BreadCrumbsService } from './../services/breadcrumbs.service';
 // dialogs
 import { ConfirmDialog } from './../components/dialogs/dialog';
 import { DeleteDialog } from './../components/dialogs/delete-dialog';
+import { AuthDialog } from './../components/dialogs/auth-dialog';
 import { LoginDialog } from './../components/login/login-dialog';
 
 // directives
@@ -84,6 +85,7 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
     PhasesComponent,
     ConfirmDialog,
     DeleteDialog,
+    AuthDialog,
     LoginDialog,
     PrimeDragulaDirective,
 
@@ -92,7 +94,7 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
     ElevationDirective,
     PersentageDirective,
   ],
-  entryComponents: [ConfirmDialog, DeleteDialog, LoginDialog],
+  entryComponents: [ConfirmDialog, DeleteDialog, AuthDialog, LoginDialog],
   providers: [
     // directives
     
@@ -134,6 +136,7 @@ import { TaskActivityItemFormComponent } from './../components/task-activity-ite
    // dialogs
    ConfirmDialog,
    DeleteDialog,
+   AuthDialog,
    LoginDialog,
 
    // directives

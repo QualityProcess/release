@@ -168,7 +168,7 @@ export class TeamConfigComponent implements OnInit {
   openAuthDialog() {
 
     microsoftTeams.authentication.authenticate({
-      url: window.location.origin + "/#/tab-auth",
+      url: window.location.origin + "/tab-auth",
       width: 600,
       height: 535,
       successCallback: function (result) {

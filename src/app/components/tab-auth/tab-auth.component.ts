@@ -47,7 +47,7 @@ export class TabAuthComponent implements OnInit {
         response_type: aceessToken,
         response_mode: "fragment",
         resource: "https://graph.microsoft.com/User.Read openid",
-        redirect_uri: window.location.origin + "/#/tab-auth",
+        redirect_uri: window.location.origin + "/tab-auth",
         nonce: _guid(),
         state: state,
         // The context object is populated by Teams; the upn attribute

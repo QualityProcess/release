@@ -69,10 +69,11 @@ export class TabAuthComponent implements OnInit {
       let user = this.authContext.getCachedUser();
 
 
-      console.log("user.userName: ", user.userName);
+      
       console.log("context.upn: ", context.upn);
 
       if (user) {
+        console.log("user.userName: ", user.userName);
         if (user.userName !== context.upn) {
           // User doesn't match, clear the cache
           this.authContext.clearCache();

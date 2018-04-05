@@ -146,6 +146,8 @@ export class TeamConfigComponent implements OnInit {
      // this.authMicrosoftTeams();
       this.router.navigate(['projects']);
     })*/
+
+    microsoftTeams.settings.setValidityState(true);
      
   }
 

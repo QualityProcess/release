@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
-declare var microsoftTeams: any;
+declare var microsoftTeams: any; 
+declare var AuthenticationContext: any;
 
 @Component({
   selector: 'app-tab-auth',
@@ -14,6 +16,7 @@ export class TabAuthComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private adalService5: Adal5Service,
   ) { }
 
   ngOnInit() {
@@ -33,6 +36,9 @@ export class TabAuthComponent implements OnInit {
 
   getTeamContext(aceessToken) {
 
+    //this.adalService5.userInfo.authenticated;
+    console.log("ADAL info: ", this.adalService5.userInfo);
+
     microsoftTeams.getContext(function (context) {
       // Generate random state string and store it, so we can verify it in the callback
       let state = _guid(); // _guid() is a helper function in the sample
@@ -41,8 +47,71 @@ export class TabAuthComponent implements OnInit {
 
       console.log(context);
 
+      let config = {
+        tenant: 'atomiconium.onmicrosoft.com',
+        clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
+        redirectUri: window.location.origin + "/tab-auth",
+        cacheLocation: "localStorage",
+        navigateToLoginRequestUrl: false,
+        extraQueryParameters: ""
+      }
+
+      if (context.upn) {
+        config.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
+      } else {
+        config.extraQueryParameters = "scope=openid+profile";
+      }
+
+
+      let authContext = new AuthenticationContext(config); // from the ADAL.js library
+      // See if there's a cached user and it matches the expected user
+      let user = authContext.getCachedUser();
+      if (user) {
+        if (user.userName !== context.upn) {
+          // User doesn't match, clear the cache
+          authContext.clearCache();
+        }
+      }
+
+      // Get the id token (which is the access token for resource = clientId)
+      let token = authContext.getCachedToken(config.clientId);
+      if (token) {
+        showProfileInformation(token);
+      } else {
+        // No token, or token is expired
+        authContext._renewIdToken(function (err, idToken) {
+          if (err) {
+            console.log("Renewal failed: " + err);
+            // Failed to get the token silently; show the login button
+            showLoginButton();
+            // You could attempt to launch the login popup here, but in browsers this could be blocked by
+            // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
+          } else {
+            showProfileInformation(idToken);
+          }
+        });
+      }
+
+      if (this.adalService.isCallback(window.location.hash)) {
+        this.adalService.handleWindowCallback(window.location.hash);
+        if (this.adalService.getCachedUser()) {
+          microsoftTeams.authentication.notifySuccess();
+        } else {
+          microsoftTeams.authentication.notifyFailure(this.adalService.getLoginError());
+        }
+      }
+
+      function showProfileInformation(token) {
+        console.log("LogetL ", token);
+      }
+
+      function showLoginButton() {
+        console.log("Go to Login page");
+      }
+
+
       // Go to the Azure AD authorization endpoint
-      let queryParams = {
+      /*let queryParams = {
         client_id: "33ba2f87-fb33-467b-94a6-0e6b68611d94",
         response_type: aceessToken,
         response_mode: "fragment",
@@ -56,7 +125,7 @@ export class TabAuthComponent implements OnInit {
       };
       let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + toQueryString(queryParams, null);
       window.location.assign(authorizeEndpoint);
-
+      */
       function _guid(): string {
         return "random_string";
       }

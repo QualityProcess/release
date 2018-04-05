@@ -15,14 +15,14 @@ export class AppComponent implements OnInit {
     /*adalService.init({
       tenant: 'atomiconium.onmicrosoft.com', 
       clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
-      redirectUri: window.location.origin + "/#/tabconfig",
+      redirectUri: window.location.origin + "/tab-auth",
       cacheLocation: "localStorage",
       navigateToLoginRequestUrl: false,
-    });
+    });*/
 
     console.log("AppComponent redirect");
 
-    this.adalService.handleWindowCallback();*/
+    /*this.adalService.handleWindowCallback();*/
 
     
   }

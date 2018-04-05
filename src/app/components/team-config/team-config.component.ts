@@ -16,18 +16,40 @@ export class TeamConfigComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private router: Router
-) { }
+  ) {
+    
+  }
 
   ngOnInit() {
+    this.authMicrosoftTeams();
     this.initMicrosoftTeams();
+  }
+
+  authMicrosoftTeams() {
+    microsoftTeams.authentication.authenticate({
+      url: window.location.origin + '/#/login',
+      width: 600,
+      height: 535,
+      successCallback: function (result) {
+        console.log("My ", result.accessToken);
+        this.getContextMicrosoftTeams();
+        //if (this.router.url === '/') this.router.navigate(['projects']);
+      },
+      failureCallback: function (reason) {
+        console.error("My ", reason);
+      }
+    });
+  }
+
+  getContextMicrosoftTeams() {
 
     let config = {
-        clientId: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
-        // redirectUri must be in the list of redirect URLs for the AAD app
-        redirectUri: window.location.origin + this.selected,
-        cacheLocation: "localStorage",
-        navigateToLoginRequestUrl: false,
-        extraQueryParameters: ''
+      clientId: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
+      // redirectUri must be in the list of redirect URLs for the AAD app
+      redirectUri: window.location.origin + this.selected,
+      cacheLocation: "localStorage",
+      navigateToLoginRequestUrl: false,
+      extraQueryParameters: ''
     };
 
     microsoftTeams.getContext((context: any) => {
@@ -79,7 +101,6 @@ export class TeamConfigComponent implements OnInit {
         }
       }
     });
-
   }
 
  initMicrosoftTeams() {

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./assets/mteam",
+    "target": "es2015",
+    "module": "commonjs",
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*spec.ts"
+  ],
+  "files": [ "./assets/mteam/microsoftTeams.min.js" ]
+
+}

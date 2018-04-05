@@ -19,19 +19,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     //console.log("Home redirect");
 
-    /*microsoftTeams.authentication.authenticate({
-        url: window.location.origin + '/#/login',
-        width: 600,
-        height: 535,
-        successCallback: function (result) {
-            console.log(result.accessToken);
-            if (this.router.url === '/') this.router.navigate(['projects']);
-        },
-        failureCallback: function (reason) {
-            console.error(reason);
-        }
-    });*/
     
+    
+  }
+
+  ngAfterViewInit() {
+
   }
 
 }

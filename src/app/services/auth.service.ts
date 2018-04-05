@@ -9,6 +9,7 @@ import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
 import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
+
 @Injectable()
 export class AuthService {
   private token: string;
@@ -23,11 +24,11 @@ export class AuthService {
     private adal5Service: Adal5Service
 
   ) {
-    if (isPlatformBrowser(this.platformId)) {
+    /*if (isPlatformBrowser(this.platformId)) {
       console.log('AuthService constr');
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this.token = currentUser && currentUser.token;
-    }
+    }*/
     
   }
 
@@ -60,8 +61,10 @@ export class AuthService {
     return { headers };
   }
 
-  login(email: string, password: string):boolean {
-    if (isPlatformBrowser(this.platformId)) {
+  login(email: string, password: string): boolean {
+
+    return false;
+    /*if (isPlatformBrowser(this.platformId)) {
 
       if (email == "test@test" && password == "test") {
 
@@ -81,11 +84,11 @@ export class AuthService {
       }
 
     } 
-
+  
     if (isPlatformServer(this.platformId)) {
       console.log('AuthService login server');
       return true;
-    }
+    }*/
 
     /*return this.http.post<any>('/api/login', JSON.stringify({ email: email, password: password }))
       .map((response: any) => {
@@ -116,11 +119,15 @@ export class AuthService {
   }
 
   logout(): void {
-    if (isPlatformBrowser(this.platformId)) {
+
+    this.token = null;
+
+
+    /*if (isPlatformBrowser(this.platformId)) {
       // clear token remove user from local storage to log user out
       this.token = null;
       localStorage.removeItem('currentUser');
-    }
+    }*/
   }
 
 }

@@ -13,6 +13,9 @@ declare var AuthenticationContext: any;
 export class TabAuthComponent implements OnInit {
 
   interval: any;
+  authContext: any;
+  showLoginButton: boolean = false;
+
 
   constructor(
     private authService: AuthService,
@@ -20,22 +23,17 @@ export class TabAuthComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.accessToken.subscribe((accessToken: string) => {
+    microsoftTeams.initialize();
 
-      microsoftTeams.initialize();
-
-      this.getTeamContext(accessToken);
-
-     
-    });
+    this.getTeamContext();
   }
 
   checkInitializedLibrary(): boolean {
     return typeof microsoftTeams.getContext === 'function';
   }
 
-  getTeamContext(aceessToken) {
-
+  getTeamContext() {
+    this.showLoginButton = false;
     //this.adalService5.userInfo.authenticated;
     console.log("ADAL info: ", this.adalService5.userInfo);
 
@@ -63,23 +61,36 @@ export class TabAuthComponent implements OnInit {
       }
 
 
-      let authContext = new AuthenticationContext(config); // from the ADAL.js library
+      this.authContext = new AuthenticationContext(config); // from the ADAL.js library
+
+
+
+      var isCallback = this.authContext.isCallback(window.location.hash);
+      this.authContext.handleWindowCallback();
+
       // See if there's a cached user and it matches the expected user
-      let user = authContext.getCachedUser();
+      let user = this.authContext.getCachedUser();
+
+
+      console.log("user.userName: ", user.userName);
+      console.log("context.upn: ", context.upn);
+
       if (user) {
         if (user.userName !== context.upn) {
           // User doesn't match, clear the cache
-          authContext.clearCache();
+          this.authContext.clearCache();
         }
       }
 
       // Get the id token (which is the access token for resource = clientId)
-      let token = authContext.getCachedToken(config.clientId);
+      let token = this.authContext.getCachedToken(config.clientId);
+
+      console.log(token);
       if (token) {
         showProfileInformation(token);
       } else {
         // No token, or token is expired
-        authContext._renewIdToken(function (err, idToken) {
+        this.authContext._renewIdToken(function (err, idToken) {
           if (err) {
             console.log("Renewal failed: " + err);
             // Failed to get the token silently; show the login button
@@ -93,11 +104,11 @@ export class TabAuthComponent implements OnInit {
       }
 
       if (this.adalService.isCallback(window.location.hash)) {
-        this.adalService.handleWindowCallback(window.location.hash);
-        if (this.adalService.getCachedUser()) {
+        this.authContext.handleWindowCallback(window.location.hash);
+        if (this.authContext.getCachedUser()) {
           microsoftTeams.authentication.notifySuccess();
         } else {
-          microsoftTeams.authentication.notifyFailure(this.adalService.getLoginError());
+          microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
         }
       }
 
@@ -107,6 +118,7 @@ export class TabAuthComponent implements OnInit {
 
       function showLoginButton() {
         console.log("Go to Login page");
+        this.showLoginButton = true;
       }
 
 
@@ -145,6 +157,15 @@ export class TabAuthComponent implements OnInit {
       }
       return str.join("&");
     }
+  }
+
+
+  login() {
+    this.authContext.login();
+
+    microsoftTeams.initialize();
+
+    this.getTeamContext();
   }
 
 }

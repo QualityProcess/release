@@ -145,11 +145,11 @@ export class TeamConfigComponent implements OnInit {
       }
     }
 
-    /*microsoftTeams.settings.registerOnSaveHandler( (saveEvent) => {
+    microsoftTeams.settings.registerOnSaveHandler( (saveEvent) => {
       console.log('registerOnSaveHandler: ', saveEvent);
      // this.authMicrosoftTeams();
-      this.router.navigate(['projects']);
-    })*/
+      this.router.navigate(['tab-auth']);
+    })
 
     microsoftTeams.settings.setValidityState(true);
      
@@ -167,7 +167,9 @@ export class TeamConfigComponent implements OnInit {
 
   openAuthDialog() {
 
-    microsoftTeams.authentication.authenticate({
+    this.router.navigate(['tab-auth']);
+
+    /*microsoftTeams.authentication.authenticate({
       url: window.location.origin + "/tab-auth",
       width: 600,
       height: 535,
@@ -180,7 +182,7 @@ export class TeamConfigComponent implements OnInit {
         //handleAuthError(reason);
         console.log(reason);
       }
-    });
+    });*/
 
 
     /*

@@ -87,20 +87,20 @@ export class TabAuthComponent implements OnInit {
 
       console.log(token);
       if (token) {
-        showProfileInformation(token);
+        this.showProfileInformation(token);
       } else {
         // No token, or token is expired
         this.authContext._renewIdToken( (err, idToken) => {
           if (err) {
             console.log("Renewal failed: " + err);
             // Failed to get the token silently; show the login button
-            showLoginButton();
+            this.onShowLoginButton();
             // You could attempt to launch the login popup here, but in browsers this could be blocked by
             // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
           } else {
             console.log(context.upn);
             this.authService.username = context.upn;
-            showProfileInformation(idToken);
+            this.showProfileInformation(idToken);
           }
         });
       }
@@ -113,21 +113,6 @@ export class TabAuthComponent implements OnInit {
           microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
         }
       }
-
-      function showProfileInformation(token) {
-        console.log("LogetL ", token);
-
-        this.authService.setAccessToken(token);
-        console.log("Set access token");
-        this.router.navigate(['projects']);
-        console.log("after redirect");
-      }
-
-      function showLoginButton() {
-        console.log("Go to Login page");
-        this.showLoginButton = true;
-      }
-
 
       // Go to the Azure AD authorization endpoint
       /*let queryParams = {
@@ -164,6 +149,20 @@ export class TabAuthComponent implements OnInit {
       }
       return str.join("&");
     }
+  }
+
+  showProfileInformation(token) {
+    console.log("LogetL ", token);
+
+    this.authService.setAccessToken(token);
+    console.log("Set access token");
+    this.router.navigate(['projects']);
+    console.log("after redirect");
+  }
+
+  onShowLoginButton() {
+    console.log("Go to Login page");
+    this.showLoginButton = true;
   }
 
 

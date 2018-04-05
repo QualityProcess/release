@@ -37,7 +37,7 @@ export class TabAuthComponent implements OnInit {
     //this.adalService5.userInfo.authenticated;
     console.log("ADAL info: ", this.adalService5.userInfo);
 
-    microsoftTeams.getContext(function (context) {
+    microsoftTeams.getContext( (context) => {
       // Generate random state string and store it, so we can verify it in the callback
       let state = _guid(); // _guid() is a helper function in the sample
       localStorage.setItem("simple.state", state);
@@ -60,13 +60,10 @@ export class TabAuthComponent implements OnInit {
         config.extraQueryParameters = "scope=openid+profile";
       }
 
-
+      console.log("before console.log(this.authContext);");
       this.authContext = new AuthenticationContext(config); // from the ADAL.js library
 
-
-
-      var isCallback = this.authContext.isCallback(window.location.hash);
-      this.authContext.handleWindowCallback();
+      console.log(this.authContext);
 
       // See if there's a cached user and it matches the expected user
       let user = this.authContext.getCachedUser();
@@ -103,7 +100,7 @@ export class TabAuthComponent implements OnInit {
         });
       }
 
-      if (this.adalService.isCallback(window.location.hash)) {
+      if (this.authContext.isCallback(window.location.hash)) {
         this.authContext.handleWindowCallback(window.location.hash);
         if (this.authContext.getCachedUser()) {
           microsoftTeams.authentication.notifySuccess();

@@ -1,16 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\node_modules\\@angular",
-    "\\node_modules\\@angular\\cli",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\home",
-    "\\src\\app\\components\\login",
-    "\\src\\app\\services",
-    "\\src\\app\\services\\ngAdal"
+    "\\src\\app\\components\\team-config",
+    "\\src\\assets\\mteam"
   ],
-  "SelectedNode": "\\src\\app\\services\\ngAdal\\auth.service.ts",
+  "SelectedNode": "\\src\\app\\components\\team-config\\team-config.component.ts",
   "PreviewInSolutionExplorer": false
 }

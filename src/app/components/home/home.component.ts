@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     //console.log("Home redirect");
 
-    microsoftTeams.authentication.authenticate({
+    /*microsoftTeams.authentication.authenticate({
         url: window.location.origin + '/#/login',
         width: 600,
         height: 535,
@@ -30,11 +30,7 @@ export class HomeComponent implements OnInit {
         failureCallback: function (reason) {
             console.error(reason);
         }
-    });
-
-
-
-
+    });*/
     
   }
 

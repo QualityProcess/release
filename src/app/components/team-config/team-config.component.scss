@@ -6,6 +6,22 @@
   @include flex();
   flex-direction: column;
   justify-content: center;
-  margin-top: 100px;
   align-items: center;
+  background: $primary-purple--light;
+  width: 100vw;
+  overflow: hidden;
+  height: 100vh;
+  color: $white;
+
+  h2 {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
+  }
 }

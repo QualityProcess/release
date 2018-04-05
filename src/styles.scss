@@ -104,6 +104,35 @@ td {
   }
 }
 
+.tabconfig {
+
+  .md-select, .mat-select-placeholder, .mat-select-trigger, {
+    color: $white;
+  }
+
+  .mat-form-field-underline {
+    background: $white;
+  }
+
+  .mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-arrow,
+  .mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-trigger {
+    color: $white;
+  }
+
+  .mat-select-arrow, .mat-select-disabled .mat-select-value, .mat-select-value-text, .mat-select-trigger {
+    color: $white !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: $white;
+  }
+
+
+  .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-empty.mat-form-field-label {
+    color: $white;
+  }
+}
+
 
 /*  -------------------        END MATERIAL IO THEME -------------------------------*/
 /*  -------------------        MDC THEME   -------------------------------*/
@@ -750,6 +779,8 @@ input:checked + .slider:before {
     margin: 0 auto;
   }
 }
+
+
 
 
 .mdc-grid-list {

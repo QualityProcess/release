@@ -13,6 +13,9 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
+        path: '', loadChildren: './../projects/projects.module#ProjectsModule',
+      },
+      {
         path: 'projects',
         loadChildren: './../projects/projects.module#ProjectsModule',
       },

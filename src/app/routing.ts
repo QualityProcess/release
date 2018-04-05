@@ -62,7 +62,7 @@ const appRoutes: Routes = [
   },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '' } 
+  { path: '**', redirectTo: 'projects' } 
 ];
 
 export const routing = RouterModule.forRoot(appRoutes, { useHash: true });

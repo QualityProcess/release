@@ -9,7 +9,7 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { isPlatformBrowser, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { isPlatformBrowser, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 
 
 // modules
@@ -122,7 +122,7 @@ import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
     Adal5Service,
 
     { provide: 'localStorage', useFactory: getLocalStorage },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: Adal5HTTPService, useFactory: Adal5HTTPService.factory, deps: [HttpClient, Adal5Service] },
 
   ],

@@ -21,7 +21,7 @@ export class TeamConfigComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authMicrosoftTeams();
+    
     this.initMicrosoftTeams();
   }
 
@@ -143,7 +143,8 @@ export class TeamConfigComponent implements OnInit {
 
     microsoftTeams.settings.registerOnSaveHandler( (saveEvent) => {
       console.log('registerOnSaveHandler: ', saveEvent);
-      this.router.navigate(['projects']);
+     // this.authMicrosoftTeams();
+      //this.router.navigate(['projects']);
     })
      
   }

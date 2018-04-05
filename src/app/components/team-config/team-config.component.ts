@@ -25,7 +25,7 @@ export class TeamConfigComponent implements OnInit {
     this.initMicrosoftTeams();
   }
 
-  authMicrosoftTeams() {
+  /*authMicrosoftTeams() {
     microsoftTeams.authentication.authenticate({
       url: window.location.origin + '/#/login',
       width: 600,
@@ -39,12 +39,12 @@ export class TeamConfigComponent implements OnInit {
         console.error("My ", reason);
       }
     });
-  }
+  }*/
 
   getContextMicrosoftTeams() {
 
-    let config = {
-      clientId: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
+    /*let config = {
+      clientId: "a5f3ffb0-fce9-47a7-b1c9-79bcadd3b46d",
       // redirectUri must be in the list of redirect URLs for the AAD app
       redirectUri: window.location.origin + this.selected,
       cacheLocation: "localStorage",
@@ -100,7 +100,7 @@ export class TeamConfigComponent implements OnInit {
           microsoftTeams.authentication.notifyFailure(authContext.getLoginError());
         }
       }
-    });
+    });*/
   }
 
  initMicrosoftTeams() {
@@ -144,7 +144,7 @@ export class TeamConfigComponent implements OnInit {
     microsoftTeams.settings.registerOnSaveHandler( (saveEvent) => {
       console.log('registerOnSaveHandler: ', saveEvent);
      // this.authMicrosoftTeams();
-      //this.router.navigate(['projects']);
+      this.router.navigate(['projects']);
     })
      
   }

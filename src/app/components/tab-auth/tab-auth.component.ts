@@ -34,10 +34,10 @@ export class TabAuthComponent implements OnInit {
 
     console.log(microsoftTeams.authentication.getUser(e => { console.log("getUser: ",e) }));
 
-    console.log(microsoftTeams.authentication.getTabInstances(e => { console.log("getTabInstances: ",e) }));
-    console.log(microsoftTeams.authentication.getMruTabInstances(e => { console.log("getMruTabInstances: ", e) }));
+    console.log(microsoftTeams.authentication.getTabInstances());
+    console.log(microsoftTeams.authentication.getMruTabInstances());
 
-    console.log(microsoftTeams.authentication.authenticate(e => { console.log("authenticate: ", e) }));
+    console.log(microsoftTeams.authentication.authenticate());
 
     console.log(microsoftTeams.getContext);
     microsoftTeams.getContext( (context) => {

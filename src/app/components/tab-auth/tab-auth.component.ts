@@ -30,9 +30,9 @@ export class TabAuthComponent implements OnInit {
     this.showLoginButton = false;
 
     console.log(microsoftTeams);
-    console.log(microsoftTeams.authentication.getAuthToken(e => { console.log("getAuthToken: ", e) }));
+    console.log(microsoftTeams.authentication.getAuthToken());
 
-    console.log(microsoftTeams.authentication.getUser(e => { console.log("getUser: ",e) }));
+    console.log(microsoftTeams.authentication.getUser());
 
     console.log(microsoftTeams.authentication.getTabInstances());
     console.log(microsoftTeams.authentication.getMruTabInstances());

@@ -31,7 +31,7 @@ export class TabAuthComponent implements OnInit {
 
     console.log(microsoftTeams);
 
-    console.log(microsoftTeams.getContext);
+    console.log(microsoftTeams.getContext());
 
     console.log("Start");
     microsoftTeams.getContext((context) => {

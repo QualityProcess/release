@@ -4,9 +4,11 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\team-config",
-    "\\src\\assets\\mteam"
+    "\\src\\app\\components\\navbar",
+    "\\src\\app\\components\\tab-auth",
+    "\\src\\app\\guard",
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\components\\team-config\\team-config.component.ts",
+  "SelectedNode": "\\src\\app\\guard\\auth.guard.ts",
   "PreviewInSolutionExplorer": false
 }

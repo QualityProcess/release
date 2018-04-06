@@ -3,12 +3,10 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
+
+// core
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
-
-import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
-
 
 @Injectable()
 export class AuthService {
@@ -20,8 +18,6 @@ export class AuthService {
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject('localStorage') private localStorage: any,
-    private adal5HttpService: Adal5HTTPService,
-    private adal5Service: Adal5Service
 
   ) {
     /*if (isPlatformBrowser(this.platformId)) {
@@ -46,19 +42,6 @@ export class AuthService {
 
   set username(name: string) {
     this._username = name;
-  }
-
-  public get(url: string): Observable<any> {
-    const options = this.prepareOptions();
-    return this.adal5HttpService.get(url, options)
-  }
-
-  private prepareOptions(): any {
-    let headers = new HttpHeaders();
-    headers = headers
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${this.adal5Service.userInfo.token}`);
-    return { headers };
   }
 
   login(email: string, password: string): boolean {
@@ -121,7 +104,6 @@ export class AuthService {
   logout(): void {
 
     this.token = null;
-
 
     /*if (isPlatformBrowser(this.platformId)) {
       // clear token remove user from local storage to log user out

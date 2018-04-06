@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 import { Router } from '@angular/router';
 
 declare var microsoftTeams: any; 
@@ -13,39 +12,35 @@ declare var AuthenticationContext: any;
 })
 export class TabAuthComponent implements OnInit {
 
-  interval: any;
   authContext: any;
   showLoginButton: boolean = false;
 
 
   constructor(
     private authService: AuthService,
-    private adalService5: Adal5Service,
-    private router: Router,
+    private router: Router
   ) { }
 
   ngOnInit() {
     microsoftTeams.initialize();
-
     this.getTeamContext();
-  }
-
-  checkInitializedLibrary(): boolean {
-    return typeof microsoftTeams.getContext === 'function';
   }
 
   getTeamContext() {
     this.showLoginButton = false;
-    //this.adalService5.userInfo.authenticated;
-    console.log("ADAL info: ", this.adalService5.userInfo);
 
+    console.log(microsoftTeams);
+    console.log(microsoftTeams.getTabInstances());
+    console.log(microsoftTeams.getContext);
     microsoftTeams.getContext( (context) => {
+      console.log(context);
+
       // Generate random state string and store it, so we can verify it in the callback
       let state = _guid(); // _guid() is a helper function in the sample
       localStorage.setItem("simple.state", state);
       localStorage.removeItem("simple.error");
 
-      console.log(context);
+      
 
       let config = {
         tenant: 'atomiconium.onmicrosoft.com',
@@ -62,16 +57,13 @@ export class TabAuthComponent implements OnInit {
         config.extraQueryParameters = "scope=openid+profile";
       }
 
-      console.log("before console.log(this.authContext);");
-      this.authContext = new AuthenticationContext(config); // from the ADAL.js library
+      this.authContext = new AuthenticationContext(config); 
 
       console.log(this.authContext);
 
       // See if there's a cached user and it matches the expected user
       let user = this.authContext.getCachedUser();
 
-
-      
       console.log("context.upn: ", context.upn);
 
       if (user) {
@@ -114,41 +106,16 @@ export class TabAuthComponent implements OnInit {
         }
       }
 
-      // Go to the Azure AD authorization endpoint
-      /*let queryParams = {
-        client_id: "33ba2f87-fb33-467b-94a6-0e6b68611d94",
-        response_type: aceessToken,
-        response_mode: "fragment",
-        resource: "https://graph.microsoft.com/User.Read openid",
-        redirect_uri: window.location.origin + "/tab-auth",
-        nonce: _guid(),
-        state: state,
-        // The context object is populated by Teams; the upn attribute
-        // is used as hinting information
-        login_hint: context.upn,
-      };
-      let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + toQueryString(queryParams, null);
-      window.location.assign(authorizeEndpoint);
-      */
       function _guid(): string {
-        return "random_string";
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 5; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
       }
     });
-
-    function toQueryString(obj, prefix) {
-      var str = [],
-        p;
-      for (p in obj) {
-        if (obj.hasOwnProperty(p)) {
-          var k = prefix ? prefix + "[" + p + "]" : p,
-            v = obj[p];
-          str.push((v !== null && typeof v === "object") ?
-            toQueryString(v, k) :
-            encodeURIComponent(k) + "=" + encodeURIComponent(v));
-        }
-      }
-      return str.join("&");
-    }
   }
 
   showProfileInformation(token) {
@@ -157,7 +124,6 @@ export class TabAuthComponent implements OnInit {
     this.authService.setAccessToken(token);
     console.log("Set access token");
     this.router.navigate(['projects']);
-    console.log("after redirect");
   }
 
   onShowLoginButton() {

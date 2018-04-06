@@ -30,17 +30,12 @@ export class TabAuthComponent implements OnInit {
     this.showLoginButton = false;
 
     console.log(microsoftTeams);
-    console.log(microsoftTeams.authentication.getAuthToken());
-
-    console.log(microsoftTeams.authentication.getUser());
-
-    console.log(microsoftTeams.authentication.getTabInstances());
-    console.log(microsoftTeams.authentication.getMruTabInstances());
-
-    console.log(microsoftTeams.authentication.authenticate());
 
     console.log(microsoftTeams.getContext);
-    microsoftTeams.getContext( (context) => {
+
+    console.log("Start");
+    microsoftTeams.getContext((context) => {
+      console.log("Start 1");
       console.log(context);
 
       // Generate random state string and store it, so we can verify it in the callback
@@ -124,6 +119,9 @@ export class TabAuthComponent implements OnInit {
         return text;
       }
     });
+
+
+    console.log("End");
   }
 
   showProfileInformation(token) {

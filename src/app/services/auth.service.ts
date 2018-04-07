@@ -12,6 +12,7 @@ import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private token: string;
   private _username: string;
+  private _isMSTab: boolean = false;
 
   public accessToken: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
@@ -44,6 +45,14 @@ export class AuthService {
 
   set username(name: string) {
     this._username = name;
+  }
+
+  get isMSTab(): boolean {
+    return this._isMSTab;
+  }
+
+  set isMSTab(isTab: boolean) {
+    this._isMSTab = isTab;
   }
 
   login(email: string, password: string): boolean {

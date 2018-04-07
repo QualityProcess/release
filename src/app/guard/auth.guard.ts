@@ -31,7 +31,13 @@ export class AuthGuard implements CanActivate {
       }
 
       // not logged in so redirect to login page
-      this.router.navigate(['/login']);
+      
+      if (this.authService.isMSTab) {
+        this.router.navigate(['/tab-auth']); 
+      } else {
+        this.router.navigate(['/login']);
+      }
+      
       return false;
     }
 

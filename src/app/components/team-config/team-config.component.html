@@ -5,7 +5,7 @@
   <h2>Tab configuration</h2>
 
   <mat-form-field style="color: white">
-    <mat-select [(value)]="selected" placeholder="Select a project" (selectionChange)="changed()">
+    <mat-select [panelClass]="'tabconfig-mat-select-panel'"  [(value)]="selected" placeholder="Select a project" (selectionChange)="changed()">
       <mat-option>All projects</mat-option>
       <mat-option *ngFor="let project of projects" [value]="project.id">
         {{ project.name }}

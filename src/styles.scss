@@ -104,11 +104,11 @@ td {
   }
 }
 
-.tabconfig {
+.tabconfig-mat-select-panel {
+  max-height: 150px!important;
+}
 
-  .mat-select-panel {
-    max-height: 150px;
-  }
+.tabconfig {
 
   .md-select, .mat-select-placeholder, .mat-select-trigger, {
     color: $white;

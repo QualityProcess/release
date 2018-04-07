@@ -9,6 +9,9 @@ import { AuthDialog } from "../dialogs/auth-dialog";
 // models
 import { Project } from '../../models/project';
 
+// services
+import { AuthService } from '../../services/auth.service';
+
 // global veribles
 declare var microsoftTeams: any;
 declare var AuthenticationContext: any;
@@ -27,7 +30,8 @@ export class TeamConfigComponent implements OnInit {
     private renderer: Renderer2,
     private router: Router,
     public dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private service: AuthService
   ) {
     
   }
@@ -43,7 +47,9 @@ export class TeamConfigComponent implements OnInit {
     microsoftTeams.initialize();
 
     // Check the initial theme user chose and respect it
-    microsoftTeams.getContext(function (context) {
+    microsoftTeams.getContext( (context) => {
+      this.service.isMSTab = true;
+
       if (context && context.theme) {
         setTheme(context.theme);
       }

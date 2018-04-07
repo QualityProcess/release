@@ -8,7 +8,7 @@ import { ProjectsResolver } from './../projects/projects.resolver';
 import { TeamConfigComponent } from './team-config.component';
 
 
-const routes: Routes = [{ path: '', component: TeamConfigComponent, resolve: { projectsData: ProjectsResolver }];
+const routes: Routes = [{ path: '', component: TeamConfigComponent, resolve: { projectsData: ProjectsResolver } }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

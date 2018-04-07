@@ -1,25 +1,22 @@
 // core
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
 
 // modules
 import { SharedModule } from './../../share/shared.module';
 import { CreateTaskActivityRoutingModule } from './create-task-activity-routing.module';
+import { TaskActivityFormModule } from './../task-activity-form/task-activity-form.module';
 
 // components
 import { CreateTaskActivityComponent } from './create-task-activity.component';
-import { TaskActivityFormComponent } from './../task-activity-form/task-activity-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule,
-    FormsModule,
+    TaskActivityFormModule,
     CreateTaskActivityRoutingModule
   ],
-  declarations: [CreateTaskActivityComponent, TaskActivityFormComponent]
+  declarations: [CreateTaskActivityComponent]
 })
 export class CreateTaskActivityModule { }

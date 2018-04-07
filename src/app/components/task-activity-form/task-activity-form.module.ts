@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
+// modules
+import { SharedModule } from './../../share/shared.module';
+
 // components
 import { TaskActivityFormComponent } from './task-activity-form.component';
 
@@ -10,6 +13,7 @@ import { TaskActivityFormComponent } from './task-activity-form.component';
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     FormsModule
   ],

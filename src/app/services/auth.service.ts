@@ -21,8 +21,6 @@ export class AuthService {
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     extraQueryParameters: "",
-    popUp: false,
-    nonce: this._guid()
   }
 
   authContext: any;
@@ -87,7 +85,9 @@ export class AuthService {
         }
       }
 
-      if (this.accessToken) {
+      let token = this.authContext.getCachedToken(this.config.clientId);
+
+      if (token) {
         console.log("succsess: ", this.accessToken);
         this.router.navigate(['projects']);
       } else {

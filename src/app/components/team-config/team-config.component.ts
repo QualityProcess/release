@@ -48,7 +48,7 @@ export class TeamConfigComponent implements OnInit {
 
     // Check the initial theme user chose and respect it
     microsoftTeams.getContext( (context) => {
-      this.service.isMSTab = true;
+      
 
       if (context && context.theme) {
         setTheme(context.theme);
@@ -58,6 +58,9 @@ export class TeamConfigComponent implements OnInit {
     microsoftTeams.registerOnThemeChangeHandler(function (theme) {
       setTheme(theme);
     });
+     
+    console.log("isMSTab: sdfds");
+    this.service.isMSTab = true;
 
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler( saveEvent => {

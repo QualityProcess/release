@@ -20,11 +20,19 @@ export class AuthGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
 
-    let accessToken = this.authService.getToken();
+    if (this.authService.userInfo) {
+      console.log("guard this.authService.userInfo:", this.authService.userInfo);
+      return true;
+    } else {
+      console.log("guard false");
+      this.router.navigate(['/tab-auth']);
+      return false;
+    }
 
-    console.log("guard this.authService.userInfo:", this.authService.userInfo);
+    
+   
 
-    if (isPlatformBrowser(this.platformId)) {
+    /*if (isPlatformBrowser(this.platformId)) {
       if (localStorage.getItem('currentUser') || this.authService.userInfo) {
         // logged in so return true
         return true;
@@ -33,7 +41,7 @@ export class AuthGuard implements CanActivate {
       // not logged in so redirect to login page
       
       if (this.authService.isMSTab) {
-        this.router.navigate(['/tab-auth']); 
+        
       } else {
         this.router.navigate(['/login']);
       }
@@ -43,6 +51,6 @@ export class AuthGuard implements CanActivate {
 
     if (isPlatformServer(this.platformId)) {
       return true;
-    }
+    }*/
   }
 }

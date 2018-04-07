@@ -118,11 +118,11 @@ export class AuthService {
   }
 
   public get accessToken() {
-    return this.authContext.getCachedToken(this.config.clientId);
+    return this.authContext ? this.authContext.getCachedToken(this.config.clientId) : null;
   }
 
   public get userInfo() {
-    return this.authContext.getCachedUser();
+    return this.authContext ? this.authContext.getCachedUser() : null;
   } 
 
   public get isAuthenticated() {

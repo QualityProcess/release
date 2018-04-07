@@ -15,6 +15,9 @@ import { DesignStageFormComponent } from './design-stage-form.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [DesignStageFormComponent]
+  declarations: [DesignStageFormComponent],
+  exports: [
+    DesignStageFormComponent
+  ]
 })
 export class DesignStageFormModule { }

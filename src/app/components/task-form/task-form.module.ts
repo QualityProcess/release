@@ -17,6 +17,9 @@ import { TaskFormComponent } from './task-form.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [TaskFormComponent]
+  declarations: [TaskFormComponent],
+  exports: [
+    TaskFormComponent
+  ]
 })
 export class TaskFormModule { }

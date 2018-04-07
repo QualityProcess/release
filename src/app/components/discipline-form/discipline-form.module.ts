@@ -16,6 +16,9 @@ import { DisciplineFormComponent } from './discipline-form.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [DisciplineFormComponent]
+  declarations: [DisciplineFormComponent],
+  exports: [
+    DisciplineFormComponent
+  ]
 })
 export class DisciplineFormModule { }

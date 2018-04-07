@@ -17,6 +17,9 @@ import { TaskActivityItemFormComponent } from './task-activity-item-form.compone
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [TaskActivityItemFormComponent]
+  declarations: [TaskActivityItemFormComponent],
+  exports: [
+    TaskActivityItemFormComponent
+  ]
 })
 export class TaskActivityItemFormModule { }

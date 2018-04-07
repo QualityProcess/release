@@ -7,6 +7,7 @@ import { CreateTaskRoutingModule } from './create-task-routing.module';
 
 // components
 import { CreateTaskComponent } from './create-task.component';
+import { TaskFormComponent } from './../task-form/task-form.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { CreateTaskComponent } from './create-task.component';
     SharedModule,
     CreateTaskRoutingModule
   ],
-  declarations: [CreateTaskComponent]
+  declarations: [CreateTaskComponent, TaskFormComponent]
 })
 export class CreateTaskModule { }

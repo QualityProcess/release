@@ -1,9 +1,9 @@
 
-
-@import url('https://fonts.googleapis.com/css?family=Roboto:100');
-//@import url(http://uk.allfont.net/allfont.css?fonts=roboto-thin);
-
-
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/styles/roboto/roboto.thin.ttf') format('ttf'),
+       url('/assets/styles/roboto/roboto.woff2') format('woff2')
+}
 
 
 /**

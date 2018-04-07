@@ -4,11 +4,8 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\navbar",
-    "\\src\\app\\components\\tab-auth",
-    "\\src\\app\\guard",
     "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\guard\\auth.guard.ts",
+  "SelectedNode": "\\src\\app\\services\\projects.service.ts",
   "PreviewInSolutionExplorer": false
 }

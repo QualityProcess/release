@@ -20,11 +20,13 @@ export class AuthService {
     @Inject('localStorage') private localStorage: any,
 
   ) {
-    /*if (isPlatformBrowser(this.platformId)) {
-      console.log('AuthService constr');
+
+    //get token from local storage
+    if (isPlatformBrowser(this.platformId)) {
+
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this.token = currentUser && currentUser.token;
-    }*/
+    }
     
   }
 
@@ -46,8 +48,7 @@ export class AuthService {
 
   login(email: string, password: string): boolean {
 
-    return false;
-    /*if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId)) {
 
       if (email == "test@test" && password == "test") {
 
@@ -71,7 +72,7 @@ export class AuthService {
     if (isPlatformServer(this.platformId)) {
       console.log('AuthService login server');
       return true;
-    }*/
+    }
 
     /*return this.http.post<any>('/api/login', JSON.stringify({ email: email, password: password }))
       .map((response: any) => {
@@ -105,11 +106,11 @@ export class AuthService {
 
     this.token = null;
 
-    /*if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId)) {
       // clear token remove user from local storage to log user out
       this.token = null;
       localStorage.removeItem('currentUser');
-    }*/
+    }
   }
 
 }

@@ -1,11 +1,11 @@
-
+@import '../../../../node_modules/fullcalendar/dist/fullcalendar.min.css';
 
 .shedule-wrapper {
   padding: 20px 20px 10px 20px;
   max-width: 100%;
   margin: 0 auto;
 
-  .schedule-actions {
+  .schedule-actions { 
     text-align: right;
     margin-bottom: 15px;
   }

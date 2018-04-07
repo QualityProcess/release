@@ -1,5 +1,8 @@
+// core
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 // modules
 import { SharedModule } from './../../share/shared.module';
@@ -12,6 +15,8 @@ import { CreateTaskActivityItemComponent } from './create-task-activity-item.com
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
     CreateTaskActivityItemRoutingModule
   ],
   declarations: [CreateTaskActivityItemComponent]

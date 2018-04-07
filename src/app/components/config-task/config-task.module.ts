@@ -18,6 +18,7 @@ import { ActivityTableComponent } from './activity-table/activity-table.componen
   imports: [
     CommonModule,
     SharedModule,
+    DragulaModule,
     ConfigTaskRoutingModule
   ],
   declarations: [ConfigTaskComponent, ActivityTableComponent],

@@ -49,13 +49,13 @@ import { EditTaskActivityItemComponent } from './components/edit-task-activity-i
 import { TaskActivityResolver } from './components/task-activity/task-activity.resolver';
 import { TaskActivityItemsResolver } from './components/edit-task-activity-item/edit-task-activity-items.resolver';
 
-import { TeamConfigComponent } from './components/team-config/team-config.component';
+//import { TeamConfigComponent } from './components/team-config/team-config.component';
 import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
 
 const appRoutes: Routes = [
   { path: 'login', loadChildren: './components/login/login.module#LoginModule' },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'tabconfig', component: TeamConfigComponent },
+  { path: 'tabconfig', loadChildren: './components/team-config/team-config.module#TeamConfigModule' },
   { path: 'tab-auth', component: TabAuthComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {

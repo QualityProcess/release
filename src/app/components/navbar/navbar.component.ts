@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
     });
 
     if (this.authService.username) {
-      this.username = this.authService.username;
+      //this.username = this.authService.username;
     }
     
   }

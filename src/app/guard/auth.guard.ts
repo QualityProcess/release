@@ -24,28 +24,19 @@ export class AuthGuard implements CanActivate {
 
     console.log("access token:", accessToken);
 
-    if (accessToken){
-      return true;
-    }
-
-    this.router.navigate(['/tab-auth']);
-    return false;
-
-
-    /*
     if (isPlatformBrowser(this.platformId)) {
-      if (localStorage.getItem('currentUser') || this.adalService.userInfo.authenticated) {
+      if (localStorage.getItem('currentUser') || accessToken) {
         // logged in so return true
         return true;
       }
 
       // not logged in so redirect to login page
-      this.router.navigate(['/tab-auth']);
+      this.router.navigate(['/login']);
       return false;
     }
 
     if (isPlatformServer(this.platformId)) {
       return true;
-    }*/
+    }
   }
 }

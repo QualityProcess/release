@@ -5,15 +5,12 @@
   <h2>Configure app</h2>
 
   <!--<mat-form-field style="color: white">
-    <mat-select [(value)]="selected" placeholder="Select a tab" (selectionChange)="changed()">
-      <mat-option>None</mat-option>
-      <mat-option value="first">first</mat-option>
-      <mat-option value="second">second</mat-option>
+    <mat-select placeholder="Select a tab">
+      <mat-option *ngFor="let project of projects" [value]="project.id">
+        {{ project.name }}
+      </mat-option>
     </mat-select>
-  </mat-form-field>
-
-  <a [routerLink]="['projects']">Projects</a>
-  <a (click)="openAuthDialog()">LogIn</a>-->
+  </mat-form-field>-->
 
 </div>
 

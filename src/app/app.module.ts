@@ -66,7 +66,7 @@ import { LoginDialog } from './components/login/login-dialog';
 import { AppComponent } from './app.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { TeamConfigComponent } from './components/team-config/team-config.component';
+//import { TeamConfigComponent } from './components/team-config/team-config.component';
 
 import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
@@ -78,7 +78,7 @@ import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
     AppComponent,
     ResetPasswordComponent,
     RegistrationComponent,
-    TeamConfigComponent,
+    //TeamConfigComponent,
     TabAuthComponent,
 
   ],
@@ -88,7 +88,7 @@ import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule,
+    //SharedModule,
     routing,
   ],
   providers: [

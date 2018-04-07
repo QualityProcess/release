@@ -81,7 +81,7 @@ export class TeamConfigComponent implements OnInit {
   }
 
   createTabUrl() {
-    return this.selected ? `${window.location.protocol}//${window.location.host}/projects/${this.selected}/matrix` : `${window.location.protocol}//${window.location.host}/projects`;
+    return typeof this.selected !== 'undefined' ? `${window.location.protocol}//${window.location.host}/projects/${this.selected}/matrix` : `${window.location.protocol}//${window.location.host}/projects`;
   }
 
   getProjectName(): string {
@@ -89,7 +89,7 @@ export class TeamConfigComponent implements OnInit {
       return project.id === +this.selected;
     });
 
-    return project.name ? project.name : 'Projects';
+    return typeof this.selected !== 'undefined' ? project.name : 'Projects';
   }
 
   changed(){

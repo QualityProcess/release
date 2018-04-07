@@ -106,6 +106,10 @@ td {
 
 .tabconfig {
 
+  .mat-select-panel {
+    max-height: 150px;
+  }
+
   .md-select, .mat-select-placeholder, .mat-select-trigger, {
     color: $white;
   }

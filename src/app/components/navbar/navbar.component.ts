@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   username: string = 'Admin';
+  isTab: boolean = false;
   breadcrumbs: BreadCrumb[];
 
   constructor(
@@ -25,7 +26,8 @@ export class NavbarComponent implements OnInit {
     });
 
     if (this.authService.username) {
-      //this.username = this.authService.username;
+      this.isTab = true;
+      this.username = this.authService.username;
     }
     
   }

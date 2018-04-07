@@ -27,7 +27,10 @@
     <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false"  class="toolbar-row__section">
       <ul class="secondary-nav">
         <li class="top-list-item">
-          <a class="top-link dropdown-menu" (click)="menu.open()" >{{username}}</a>
+          <a *ngIf="!isTab;else msTab" class="top-link dropdown-menu" (click)="menu.open()" >{{username}}</a>
+          <ng-template #msTab>
+            {{username}}
+          </ng-template>
         </li>
       </ul>
       <mdc-menu #menu>

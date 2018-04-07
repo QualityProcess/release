@@ -2,11 +2,11 @@
 
 <div class="layout wrapper tabconfig">
 
-  <h2>Configure app</h2>
+  <h2>App configuration</h2>
 
   <mat-form-field style="color: white">
     <mat-select [(value)]="selected" placeholder="Select a project" (selectionChange)="changed()">
-      <mat-option [value]="''">All projects</mat-option>
+      <mat-option>All projects</mat-option>
       <mat-option *ngFor="let project of projects" [value]="project.id">
         {{ project.name }}
       </mat-option>

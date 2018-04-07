@@ -21,6 +21,7 @@ export class AuthService {
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     extraQueryParameters: "",
+    popUp: false,
     nonce: this._guid()
   }
 
@@ -66,10 +67,11 @@ export class AuthService {
         this.config.extraQueryParameters = "scope=openid+profile";
       }
 
+      
+
       this.authContext = new AuthenticationContext(this.config);
 
       console.log(this.authContext);
-
       //this.authContext.login();
 
       // See if there's a cached user and it matches the expected user
@@ -103,6 +105,7 @@ export class AuthService {
         } else {
           console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
           microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
+          this.refreshToken();
         }
       }
 

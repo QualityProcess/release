@@ -20,7 +20,8 @@ export class AuthService {
     redirectUri: window.location.origin + "/tab-auth",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
-    extraQueryParameters: ""
+    extraQueryParameters: "",
+    nonce: this._guid()
   }
 
   authContext: any;
@@ -55,7 +56,7 @@ export class AuthService {
       this.msContext = context;
 
       // Generate random state string and store it, so we can verify it in the callback
-      let state = _guid(); // _guid() is a helper function in the sample
+      let state = this._guid(); // _guid() is a helper function in the sample
       localStorage.setItem("simple.state", state);
       localStorage.removeItem("simple.error");
 
@@ -105,15 +106,6 @@ export class AuthService {
         }
       }
 
-      function _guid(): string {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for (var i = 0; i < 5; i++)
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        return text;
-      }
     });
   }
 
@@ -129,7 +121,15 @@ export class AuthService {
     return this.userInfo && this.accessToken;
   }
 
-  
+  _guid(): string {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  }
 
   refreshToken() {
     this.authContext._renewIdToken((err, idToken) => {

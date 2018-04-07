@@ -56,6 +56,10 @@ export class TeamConfigComponent implements OnInit {
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler( saveEvent => {
 
+      console.log(this.createTabUrl());
+      console.log(this.getProjectName());
+
+
       microsoftTeams.settings.setSettings({
         contentUrl: this.createTabUrl(),
         entityId: this.createTabUrl(),
@@ -72,7 +76,7 @@ export class TeamConfigComponent implements OnInit {
       }
     }
 
-    microsoftTeams.settings.setValidityState(true);
+    
      
   }
 
@@ -90,6 +94,7 @@ export class TeamConfigComponent implements OnInit {
 
   changed(){
     console.log(this.selected);
+    microsoftTeams.settings.setValidityState(true);
     //microsoftTeams.settings.setValidityState(this.selected === 'first' || this.selected === 'second');
   }
 

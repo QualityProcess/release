@@ -37,7 +37,7 @@ export class TabAuthComponent implements OnInit {
   }
 
   login() {
-    this.authService.loginWithMSTeams();
+    this.loginWithMSTeams();
   }
 
   loginWithMSTeams() {

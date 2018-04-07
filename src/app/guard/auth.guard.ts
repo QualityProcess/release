@@ -22,10 +22,10 @@ export class AuthGuard implements CanActivate {
 
     let accessToken = this.authService.getToken();
 
-    console.log("access token:", accessToken);
+    console.log("guard this.authService.userInfo:", this.authService.userInfo);
 
     if (isPlatformBrowser(this.platformId)) {
-      if (localStorage.getItem('currentUser') || accessToken) {
+      if (localStorage.getItem('currentUser') || this.authService.userInfo) {
         // logged in so return true
         return true;
       }

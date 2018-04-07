@@ -104,7 +104,9 @@ export class AuthService {
           microsoftTeams.authentication.notifySuccess();
         } else {
           console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
-          microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
+          let err = this.authContext.getLoginError();
+          microsoftTeams.authentication.notifyFailure(err);
+          console.log("sdf");
           this.refreshToken();
         }
       }

@@ -69,7 +69,7 @@ export class AuthService {
 
       console.log(this.authContext);
 
-      this.authContext.login();
+      //this.authContext.login();
 
       // See if there's a cached user and it matches the expected user
       let user = this.authContext.getCachedUser();

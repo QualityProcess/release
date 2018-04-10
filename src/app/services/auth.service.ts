@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 // core
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { isPlatformServer, isPlatformBrowser } from '@angular/common';
+import { isPlatformServer, isPlatformBrowser, Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 declare var microsoftTeams: any; 
@@ -32,7 +32,8 @@ export class AuthService {
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject('localStorage') private localStorage: any,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     //get token from local storage
     if (isPlatformBrowser(this.platformId)) {
@@ -89,7 +90,9 @@ export class AuthService {
 
       if (token) {
         console.log("succsess: ", this.accessToken);
-        window.location.href = context.entityId;
+        console.log("auth redirect: ", context.entityId);
+        console.log(this.location.prepareExternalUrl(context.entityId));
+        this.router.navigate([this.location.prepareExternalUrl(context.entityId)]);
       } else {
         // No token, or token is expired
         console.log("fail: No token, or token is expired");

@@ -21,10 +21,10 @@ export class AuthGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
 
     if (this.authService.userInfo) {
-      console.log("guard this.authService.userInfo:", this.authService.userInfo);
+      console.log("guard success:", this.authService.userInfo);
       return true;
     } else {
-      console.log("guard false");
+      console.log("guard faild");
       this.router.navigate(['/tab-auth']);
       return false;
     }

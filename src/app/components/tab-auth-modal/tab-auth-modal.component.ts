@@ -36,21 +36,13 @@ export class TabAuthModalComponent implements OnInit {
         login_hint: context.upn,
       };
 
-      console.log("toQueryStringas: ", this.toQueryString(queryParams, null));
       let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + this.toQueryString(queryParams, null);
 
       window.location.assign(authorizeEndpoint);
-      console.log("AFTER assign authorizeEndpoint ");
     });
   }
 
   getHashParameters() {
-    var hash = window.location.hash.substring(1);
-    var params = {}
-    hash.split('&').map(hk => {
-      let temp = hk.split('=');
-      params[temp[0]] = temp[1]
-    });
     return window.location.hash;
   }
 

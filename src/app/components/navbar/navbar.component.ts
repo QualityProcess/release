@@ -25,9 +25,9 @@ export class NavbarComponent implements OnInit {
         this.breadcrumbs = val;
     });
 
-    if (this.authService.username) {
+    if (this.authService.userInfo) {
       this.isTab = true;
-      this.username = this.authService.username;
+      this.username = this.authService.userInfo.userName;
     }
     
   }

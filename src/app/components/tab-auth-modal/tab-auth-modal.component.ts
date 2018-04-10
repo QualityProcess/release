@@ -44,7 +44,7 @@ export class TabAuthModalComponent implements OnInit {
 
     for (var i = 0; i < 5; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
-
+    
     return text;
   }
 
@@ -60,6 +60,8 @@ export class TabAuthModalComponent implements OnInit {
           encodeURIComponent(k) + "=" + encodeURIComponent(v));
       }
     }
+
+    console.log("toQueryString: ", str.join("&"));
     return str.join("&");
   }
 }

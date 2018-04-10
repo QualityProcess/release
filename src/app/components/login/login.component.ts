@@ -75,10 +75,10 @@ export class LoginComponent implements OnInit {
       width: 600,
       height: 535,
       successCallback: function (result) {
-        this.getUserProfile(result.accessToken);
+        console.log("Login success: ", result);
       },
       failureCallback: function (reason) {
-        this.handleAuthError(reason);
+        console.log("Handle error: ", reason);
       }
     });
   }

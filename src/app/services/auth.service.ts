@@ -17,7 +17,7 @@ export class AuthService {
   config = {
     //tenant: 'atomiconium.onmicrosoft.com',
     clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
-    redirectUri: window.location.origin + "/tab-auth",
+    redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     extraQueryParameters: "",

@@ -27,7 +27,7 @@ export class TabAuthModalComponent implements OnInit {
         response_type: "code",
         response_mode: "fragment",
         //resource: "https://graph.microsoft.com/User.Read",
-        resource: "33ba2f87-fb33-467b-94a6-0e6b68611d94",
+        resource: "https://graph.microsoft.com/User.Read openid",
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),
         state: state,

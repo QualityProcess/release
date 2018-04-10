@@ -58,7 +58,7 @@ const appRoutes: Routes = [
   { path: 'tabconfig', loadChildren: './components/team-config/team-config.module#TeamConfigModule' },
   { path: 'tab-auth', component: TabAuthComponent },
   { path: 'tab-auth-modal', loadChildren: './components/tab-auth-modal/tab-auth-modal.module#TabAuthModalModule' },
-  { path: 'tab-auth-end', loadChildren: './components/tab-auth-end/tab-auth-end.moudle#TabAuthEndModule' },
+  { path: 'tab-auth-end', loadChildren: './components/tab-auth-end/tab-auth-end.module#TabAuthEndModule' },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {
     path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard, IsSecureGuard]

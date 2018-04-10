@@ -13,7 +13,9 @@ export class TabAuthEndComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    microsoftTeams.initialize();
+
+    console.log("TAB_AUTH_END");
+    //microsoftTeams.initialize();
 
     // Split the key-value pairs passed from Azure AD
     // getHashParameters is a helper function that parses the arguments sent
@@ -41,7 +43,7 @@ export class TabAuthEndComponent implements OnInit {
       }
     } else {
       // Unexpected condition: hash does not contain error or access_token parameter
-      microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+      microsoftTeams.authentication.notifyFailure("UnexpectedFailure tab auth end");
     }
   }
 

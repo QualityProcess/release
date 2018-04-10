@@ -91,8 +91,8 @@ export class AuthService {
       if (token) {
         console.log("succsess: ", this.accessToken);
         console.log("auth redirect: ", context.entityId);
-        console.log(this.location.prepareExternalUrl(context.entityId));
-        this.router.navigate([this.location.prepareExternalUrl(context.entityId)]);
+        console.log(this.parseUrl(context.entityId, "pathname"));
+        this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
         // No token, or token is expired
         console.log("fail: No token, or token is expired");
@@ -126,6 +126,14 @@ export class AuthService {
 
   public get isAuthenticated() {
     return this.userInfo && this.accessToken;
+  }
+
+  parseUrl(string, prop) {
+    const a = document.createElement('a');
+    a.setAttribute('href', string);
+    const { host, hostname, pathname, port, protocol, search, hash } = a;
+    const origin = `${protocol}//${hostname}${port.length ? `:${port}` : ''}`;
+    return prop ? eval(prop) : { origin, host, hostname, pathname, port, protocol, search, hash }
   }
 
   _guid(): string {

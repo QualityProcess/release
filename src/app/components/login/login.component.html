@@ -38,6 +38,7 @@
 
         <div class="col-xs-12">
           <button class="submit active" type="submit" [disabled]="!loginForm.valid">Sign In</button>
+          <button class="submit active" type="button" (click)="loginMSTeams()">Sign In with MS teams</button>
         </div>
         <!--<div class="login-registration">Don't have an account? <a [routerLink]="['/registration']">Sign Up</a></div>-->
       </form>

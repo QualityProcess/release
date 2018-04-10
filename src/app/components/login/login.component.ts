@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 
-
+declare var microsoftTeams: any;
+declare var AuthenticationContext: any;
 
 @Component({
   selector: 'login',
@@ -64,6 +65,30 @@ export class LoginComponent implements OnInit {
         setTimeout(() => { this.error = '' }, 4000);
       }
 
+  }
+
+  loginMSTeams() {
+    microsoftTeams.initialize();
+
+    microsoftTeams.authentication.authenticate({
+      url: window.location.origin + "/tab-auth-modal",
+      width: 600,
+      height: 535,
+      successCallback: function (result) {
+        this.getUserProfile(result.accessToken);
+      },
+      failureCallback: function (reason) {
+        this.handleAuthError(reason);
+      }
+    });
+  }
+
+  getUserProfile(accessToken) {
+    console.log("Login success: ", accessToken);
+  }
+
+  handleAuthError(reason) {
+    console.log("Handle error: ", reason);
   }
 
 }

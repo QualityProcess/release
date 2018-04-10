@@ -1,5 +1,4 @@
-<p *ngIf="!showLoginButton">
-  Authentication...
-</p>
 
+<h1 *ngIf="!showLoginButton" data-text="Authentication...">Authentication</h1>
+ 
 <button *ngIf="showLoginButton" (click)="login()">Login</button>

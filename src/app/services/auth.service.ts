@@ -89,7 +89,7 @@ export class AuthService {
 
       if (token) {
         console.log("succsess: ", this.accessToken);
-        this.router.navigate(['projects']);
+        this.router.navigate([context.entityId]);
       } else {
         // No token, or token is expired
         console.log("fail: No token, or token is expired");

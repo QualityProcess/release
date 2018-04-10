@@ -89,8 +89,7 @@ export class AuthService {
 
       if (token) {
         console.log("succsess: ", this.accessToken);
-        console.log("auth redirect: ", context.entityId);
-        this.router.navigate([context.entityId]);
+        window.location.href = context.entityId;
       } else {
         // No token, or token is expired
         console.log("fail: No token, or token is expired");

@@ -23,8 +23,8 @@ export class TabAuthModalComponent implements OnInit {
       // Go to the Azure AD authorization endpoint
       let queryParams = {
         client_id: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
-        //response_type: "code",
-        //response_mode: "fragment",
+        response_type: "code",
+        response_mode: "fragment",
         resource: "https://graph.microsoft.com/User.Read openid",
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),
@@ -49,7 +49,7 @@ export class TabAuthModalComponent implements OnInit {
       let temp = hk.split('=');
       params[temp[0]] = temp[1]
     });
-    return params;
+    return window.location.hash;
   }
 
   _guid(): string {

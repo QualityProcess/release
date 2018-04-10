@@ -67,13 +67,13 @@ export class AuthService {
 
       
 
-      let authContext = new AuthenticationContext(this.config);
+      this.authContext = new AuthenticationContext(this.config);
 
-      console.log(authContext);
+      console.log(this.authContext);
       //this.authContext.login();
 
       // See if there's a cached user and it matches the expected user
-      let user = authContext.getCachedUser();
+      let user = this.authContext.getCachedUser();
 
       console.log("context.upn: ", context.upn);
 
@@ -81,37 +81,34 @@ export class AuthService {
         console.log("user.userName: ", user.userName);
         if (user.userName !== context.upn) {
           // User doesn't match, clear the cache
-          authContext.clearCache();
+          this.authContext.clearCache();
         }
       }
 
-      let token = authContext.getCachedToken(this.config.clientId);
-
-      this.authContext = authContext;
+      let token = this.authContext.getCachedToken(this.config.clientId);
 
       if (token) {
         console.log("succsess: ", this.accessToken);
         this.router.navigate(['projects']);
       } else {
         // No token, or token is expired
-        console.log("fail: No token, or token is expired", this.accessToken);
-        this.refreshToken(authContext);
+        console.log("fail: No token, or token is expired");
+        this.refreshToken();
       }
 
-      if (authContext.isCallback(window.location.hash)) {
+      /*if (this.authContext.isCallback(window.location.hash)) {
         console.log("window.location.hash: ", window.location.hash);
-        authContext.handleWindowCallback(window.location.hash);
-        if (authContext.getCachedUser()) {
+        this.authContext.handleWindowCallback(window.location.hash);
+        if (this.authContext.getCachedUser()) {
           console.log(" microsoftTeams.authentication.notifySuccess");
           microsoftTeams.authentication.notifySuccess();
         } else {
-          console.log("this.authContext.getLoginError()", authContext.getLoginError());
-          let err = authContext.getLoginError();
+          console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
+          let err = this.authContext.getLoginError();
           microsoftTeams.authentication.notifyFailure(err);
           console.log("sdf");
-          this.refreshToken(authContext);
         }
-      }
+      }*/
 
     });
   }
@@ -138,8 +135,8 @@ export class AuthService {
     return text;
   }
 
-  refreshToken(authContext) {
-    authContext._renewIdToken((err, idToken) => {
+  refreshToken() {
+    this.authContext._renewIdToken((err, idToken) => {
       if (err) {
         console.log("Renewal failed: " + err);
         // Failed to get the token silently; show the login button

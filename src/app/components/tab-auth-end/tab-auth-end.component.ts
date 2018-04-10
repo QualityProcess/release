@@ -10,11 +10,21 @@ declare var AuthenticationContext: any;
 })
 export class TabAuthEndComponent implements OnInit {
 
+  config = {
+    //tenant: 'atomiconium.onmicrosoft.com',
+    clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
+    redirectUri: window.location.origin + "/tab-auth-end",
+    cacheLocation: "localStorage",
+    navigateToLoginRequestUrl: false,
+    extraQueryParameters: "",
+  }
+
+
   constructor() { }
 
   ngOnInit() {
-
-    console.log("TAB_AUTH_END");
+    this.adalInit();
+    /*console.log("TAB_AUTH_END");
     microsoftTeams.initialize();
 
     // Split the key-value pairs passed from Azure AD
@@ -40,7 +50,7 @@ export class TabAuthEndComponent implements OnInit {
       } else {
         // Unexpected condition: hash does not contain error or access_token parameter
         microsoftTeams.authentication.notifyFailure("UnexpectedFailure tab auth end");
-      }
+      }*/
 
 
 
@@ -71,6 +81,32 @@ export class TabAuthEndComponent implements OnInit {
 
     }, 4000);*/
     
+  }
+
+  adalInit() {
+
+
+    // Setup authcontext
+    var authContext = new AuthenticationContext(this.config);
+    if (authContext.isCallback(window.location.hash))
+      authContext.handleWindowCallback(window.location.hash);
+    else {
+      // Check if user is cached
+      var user = authContext.getCachedUser();
+      if (!user)
+        authContext.login(); // No cached user...force login
+      else {
+        authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
+          if (error || !token) {
+            // TODO: this could cause infinite loop
+            // Should use microsoftTeams.authentication.notifyFailure after one try
+            authContext.login();
+          }
+          else
+            microsoftTeams.authentication.notifySuccess(token);
+        });
+      }
+    }
   }
 
   getHashParameters() {

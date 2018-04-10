@@ -15,7 +15,7 @@ declare var AuthenticationContext: any;
 export class AuthService {
 
   config = {
-    tenant: 'atomiconium.onmicrosoft.com',
+    //tenant: 'atomiconium.onmicrosoft.com',
     clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
     redirectUri: window.location.origin + "/tab-auth",
     cacheLocation: "localStorage",
@@ -67,13 +67,13 @@ export class AuthService {
 
       
 
-      this.authContext = new AuthenticationContext(this.config);
+      let authContext = new AuthenticationContext(this.config);
 
-      console.log(this.authContext);
+      console.log(authContext);
       //this.authContext.login();
 
       // See if there's a cached user and it matches the expected user
-      let user = this.authContext.getCachedUser();
+      let user = authContext.getCachedUser();
 
       console.log("context.upn: ", context.upn);
 
@@ -81,11 +81,13 @@ export class AuthService {
         console.log("user.userName: ", user.userName);
         if (user.userName !== context.upn) {
           // User doesn't match, clear the cache
-          this.authContext.clearCache();
+          authContext.clearCache();
         }
       }
 
-      let token = this.authContext.getCachedToken(this.config.clientId);
+      let token = authContext.getCachedToken(this.config.clientId);
+
+      this.authContext = authContext;
 
       if (token) {
         console.log("succsess: ", this.accessToken);
@@ -93,21 +95,21 @@ export class AuthService {
       } else {
         // No token, or token is expired
         console.log("fail: No token, or token is expired", this.accessToken);
-        this.refreshToken();
+        this.refreshToken(authContext);
       }
 
-      if (this.authContext.isCallback(window.location.hash)) {
+      if (authContext.isCallback(window.location.hash)) {
         console.log("window.location.hash: ", window.location.hash);
-        this.authContext.handleWindowCallback(window.location.hash);
-        if (this.authContext.getCachedUser()) {
+        authContext.handleWindowCallback(window.location.hash);
+        if (authContext.getCachedUser()) {
           console.log(" microsoftTeams.authentication.notifySuccess");
           microsoftTeams.authentication.notifySuccess();
         } else {
-          console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
-          let err = this.authContext.getLoginError();
+          console.log("this.authContext.getLoginError()", authContext.getLoginError());
+          let err = authContext.getLoginError();
           microsoftTeams.authentication.notifyFailure(err);
           console.log("sdf");
-          this.refreshToken();
+          this.refreshToken(authContext);
         }
       }
 
@@ -136,8 +138,8 @@ export class AuthService {
     return text;
   }
 
-  refreshToken() {
-    this.authContext._renewIdToken((err, idToken) => {
+  refreshToken(authContext) {
+    authContext._renewIdToken((err, idToken) => {
       if (err) {
         console.log("Renewal failed: " + err);
         // Failed to get the token silently; show the login button

@@ -4,8 +4,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
+    "\\src\\app\\components\\design-stage-form",
     "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\services\\projects.service.ts",
+  "SelectedNode": "\\src\\app\\components\\navbar",
   "PreviewInSolutionExplorer": false
 }

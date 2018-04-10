@@ -33,10 +33,12 @@ export class TabAuthModalComponent implements OnInit {
         // is used as hinting information
         login_hint: context.upn,
       };
+
+      console.log("toQueryStringas: ", this.toQueryString(queryParams, null));
       let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + this.toQueryString(queryParams, null);
 
       let hashParams = this.getHashParameters();
-      console.log(hashParams);
+      console.log("hashParams: ", hashParams);
       if (hashParams["error"]) {
         // Authentication/authorization failed
         microsoftTeams.authentication.notifyFailure(hashParams["error"]);
@@ -58,7 +60,7 @@ export class TabAuthModalComponent implements OnInit {
         }
       } else {
         // Unexpected condition: hash does not contain error or access_token parameter
-        microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+        microsoftTeams.authentication.notifyFailure("UnexpectedFailure DDD");
       }
 
       window.location.assign(authorizeEndpoint);

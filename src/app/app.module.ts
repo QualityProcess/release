@@ -57,6 +57,7 @@ import { AppComponent } from './app.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
+import { TaskActivitiesComponent } from './components/task-activities/task-activities.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
     ResetPasswordComponent,
     RegistrationComponent,
     TabAuthComponent,
+    TaskActivitiesComponent,
   ],
   imports: [
     BrowserModule,

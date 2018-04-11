@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { Options } from 'fullcalendar';
 
@@ -18,10 +18,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: [
-    './../../../../node_modules/fullcalendar/dist/fullcalendar.min.css',
-    './schedule.component.scss'
-  ]
+  styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit {
   events: any[];

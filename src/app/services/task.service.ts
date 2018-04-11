@@ -10,7 +10,12 @@ import { TaskPhase } from "../models/task-phase";
 
 @Injectable()
 export class TaskService {
-  private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
+  // was testing https://afternoon-bastion-71141.herokuapp.com/api/v1
+  // dev - https://qualityprocess-development.herokuapp.com/api/v1
+  // staging - https://qualityprocess-staging.herokuapp.com/api/v1
+  // production - https://qualityprocess.herokuapp.com/api/v1
+
+  private apiUrl: string = 'https://qualityprocess-staging.herokuapp.com/api/v1';  // API URL
 
   constructor(private http: HttpClient) { }
 

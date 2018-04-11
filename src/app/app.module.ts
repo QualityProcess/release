@@ -66,8 +66,8 @@ import { PhasesComponent } from './components/phases/phases.component';
     ResetPasswordComponent,
     RegistrationComponent,
     TabAuthComponent,
-    TaskActivitiesComponent,
-    PhasesComponent
+    //TaskActivitiesComponent,
+    //PhasesComponent
   ],
   imports: [
     BrowserModule,

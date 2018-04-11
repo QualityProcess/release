@@ -10,6 +10,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmDialog } from "../dialogs/dialog";
 import { MatSnackBar } from '@angular/material';
 
+
 // breadcrumbs
 import { BreadCrumbsService } from '../../services/breadcrumbs.service';
 import { BreadCrumb } from './../../models/breadcrumb';
@@ -269,12 +270,19 @@ export class DraggableDirective {
 
   handleTouch() {
 
-    // inititial dtagging values
+    // inititial dragging values
     this.touchStart$.subscribe((e: TouchEvent) => {
       if (!e) return;
 
-      this.startX = e.changedTouches[0].clientX;
-      this.startY = e.changedTouches[0].clientY;
+      let transform = this.element.nativeElement.parentNode.children[0].style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
+
+      let dx = transform[1];
+      let dy = transform[2];
+
+      this.startX = e.changedTouches[0].clientX + parseInt(dx);
+      this.startY = e.changedTouches[0].clientY + parseInt(dy);
+
+      console.log("startX: ", this.startX);
     });
 
     this.touchEnd$.subscribe((e: TouchEvent) => {
@@ -302,12 +310,23 @@ export class DraggableDirective {
     const moveUntilMouseUp$ = this.mouseMove$.takeUntil(this.mouseUp$);
     const drag$ = this.mouseDown$.switchMapTo(moveUntilMouseUp$.startWith(null));
 
+    this.mouseUp$.subscribe((e: MouseEvent) => {
+      this.element.nativeElement.classList.remove("active");
+    })
+
     // inititial dtagging values
     this.mouseDown$.subscribe((e: MouseEvent) => {
       if (!e) return;
 
-      this.startX = e.clientX + window.scrollX;
-      this.startY = e.clientY + window.scrollY;
+      this.element.nativeElement.classList.add("active");
+
+      let transform = this.element.nativeElement.parentNode.children[0].style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
+
+      let dx = transform[1];
+      let dy = transform[2];
+
+      this.startX = e.clientX + window.scrollX - parseInt(dx);
+      this.startY = e.clientY + window.scrollY - parseInt(dy);
 
     });
 
@@ -325,27 +344,38 @@ export class DraggableDirective {
 
   moveTo(dx: number, dy: number) {
 
+    console.log("start: ", dy);
+
     const transform = this.element.nativeElement.style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
-    console.log('before: ', dy);
-    if (transform[2] > 0 && dy > 0 || dy < 0 && this.element.nativeElement.parentElement.offsetHeight >= dy + this.element.nativeElement.offsetHeight) {
-      dy = this.prevY || 0;
+
+    console.log("dy: ", transform[2]);
+
+    //dx = dx + parseInt(transform[1]);
+    //dy = dy + parseInt(transform[2]);
+
+
+    if (transform[2] > 0 && dy > 0 || dy < 0 && this.element.nativeElement.parentElement.offsetHeight >= dy + this.element.nativeElement.offsetHeight + 48) {
+      dy = this.prevY || parseInt(transform[2]);
     } else {
       this.prevY = dy;
     }
 
     if (transform[1] > 0 && dx > 0 || dx < 0 && this.element.nativeElement.parentElement.offsetWidth >= dx + this.element.nativeElement.offsetWidth) {
-      dx = this.prevX || 0;
+      dx = this.prevX || parseInt(transform[1]);
     } else {
       this.prevX = dx;
     }
 
-    if (dx > 0) dx = 0;
-    if (dy > 0) dy = 0;
+
+
+    if (dx + parseInt(transform[1]) > 0) dx = parseInt(transform[1]);
+    if (dy + parseInt(transform[2]) > 0) dy = parseInt(transform[2]);
+
+    
 
     dx = +dx.toFixed(2);
     dy = +dy.toFixed(2);
-
-    console.log('after: ', dy);
+    console.log("final: ", dy);
     this.element.nativeElement.style.transform = `translate(${dx}px, ${dy}px)`;
     //this.element.nativeElement.setAttribute("style", this.CSS.translate(dx, dy));
   }

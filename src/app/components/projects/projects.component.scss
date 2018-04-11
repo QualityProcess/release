@@ -31,6 +31,14 @@
   }
 }
 
+.no-results {
+  text-align: center;
+
+  img {
+    max-width: 100%;
+  }
+}
+
 
 
 .layout-wrapper {
@@ -73,12 +81,12 @@
 
     .list-view, .grid-view {
       color: $primary-icon;
-      font-size: 30px;
+      font-size: 34px;
       padding: 6px 0;
       cursor: pointer;
 
       &.on {
-        color: $primary-icon--hover;
+        color: $primary-purple;
       }
     }
 

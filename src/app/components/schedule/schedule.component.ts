@@ -21,8 +21,7 @@ import { Location } from '@angular/common';
   styleUrls: [
     './../../../../node_modules/fullcalendar/dist/fullcalendar.min.css',
     './schedule.component.scss'
-  ],
-  encapsulation: ViewEncapsulation.None
+  ]
 })
 export class ScheduleComponent implements OnInit {
   events: any[];

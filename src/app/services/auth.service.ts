@@ -1,13 +1,15 @@
+// core
 import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
-
-// core
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isPlatformServer, isPlatformBrowser, Location } from '@angular/common';
 import { Router } from '@angular/router';
 
+// rxjs
+import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
+
+// global variables
 declare var microsoftTeams: any; 
 declare var AuthenticationContext: any;
 
@@ -25,7 +27,7 @@ export class AuthService {
 
   authContext: any;
   private msContext: any;
-  private token: string;
+  private _token: string;
   private _username: string;
   private _isMSTab: boolean = false;
 
@@ -39,7 +41,7 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
 
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.token = currentUser && currentUser.token;
+      this._token = currentUser && currentUser.token;
     }
     
   }
@@ -164,11 +166,11 @@ export class AuthService {
 
 
   setAccessToken(value: string) {
-    this.token = value;
+    this._token = value;
   }
 
   getToken() {
-    return this.token;
+    return this._token;
   }
 
   get username(): string {
@@ -187,6 +189,10 @@ export class AuthService {
     this._isMSTab = isTab;
   }
 
+  get token(): string {
+    return this._token;
+  }
+
   login(email: string, password: string): boolean {
 
     if (isPlatformBrowser(this.platformId)) {
@@ -194,7 +200,7 @@ export class AuthService {
       if (email == "test@test" && password == "test") {
 
         let token = 'fake-token';
-        this.token = token;
+        this._token = token;
 
 
 
@@ -245,11 +251,11 @@ export class AuthService {
 
   logout(): void {
 
-    this.token = null;
+    this._token = null;
 
     if (isPlatformBrowser(this.platformId)) {
       // clear token remove user from local storage to log user out
-      this.token = null;
+      this._token = null;
       localStorage.removeItem('currentUser');
     }
   }

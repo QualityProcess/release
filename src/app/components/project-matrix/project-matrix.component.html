@@ -19,7 +19,7 @@
 
 <ng-template #matrix>
   <div class="matrix outer-wrapper">
-    <div class="wrapper">
+    <div class="wrapper" [draggable]>
       <table class="table mat-elevation-z8">
         <thead class="table-header">
           <tr>
@@ -43,8 +43,10 @@
             </td>
           </tr> 
         </tbody>
-      </table> 
+      </table>
+      
     </div>
+    <!--<div class="move-left" moveLeft></div>-->
   </div>
 </ng-template>
 

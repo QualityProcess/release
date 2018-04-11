@@ -32,7 +32,7 @@ export class ProjectsComponent implements OnInit {
     { sort: 'date-revers', name: 'Date of creation (from late to early)' }
     
   ];
-  currentSortItem: string;
+
   displayedColumns = ['name', 'status_code', 'id']; 
 
   sortedData: any;
@@ -173,11 +173,42 @@ export class CardViewDirective implements OnInit {
   constructor(private element: ElementRef, private renderer: Renderer2) {
   }
 
-  ngOnInit() {
-   
-  }
+  ngOnInit(){}
 
   ngAfterContentInit() {
+    console.log("start: ", this.element.nativeElement.children[0]);
+    if (!this.element.nativeElement.children[0]) return;
+
+    let cardWidthValue = window.getComputedStyle(this.element.nativeElement.children[0], null).width;
+    let cardMarginValue = window.getComputedStyle(this.element.nativeElement.children[0], null).marginRight;
+    let cardPaddingValue = window.getComputedStyle(this.element.nativeElement.children[0], null).paddingRight;
+    let wrapperWidthVvalue = window.getComputedStyle(this.element.nativeElement.parentElement, null).width;
+
+    console.log(cardWidthValue);
+    console.log(cardMarginValue);
+    console.log(cardPaddingValue);
+    console.log(wrapperWidthVvalue);
+
+    if (!/px/i.test(cardWidthValue) || !/px/.test(wrapperWidthVvalue) || !/px/.test(cardMarginValue) || !/px/.test(cardPaddingValue)) return;
+
+    let cardWidth = parseInt(cardWidthValue.replace(/px/, ''));
+    let cardMargin = parseInt(cardMarginValue.replace(/px/, ''));
+    let cardPadding = parseInt(cardPaddingValue.replace(/px/, ''));
+    let wrapperWidth = parseInt(wrapperWidthVvalue.replace(/px/, ''));
+
+    let allCardWidth = cardWidth + cardMargin * 2 + cardPadding * 2;
+
+
+    let columnCount = Math.floor(wrapperWidth / allCardWidth);
+    let margin = (wrapperWidth - allCardWidth * columnCount) / 2
+
+    console.log(margin);
+    console.log(wrapperWidth - margin * 2);
+
+    if (isNaN(margin) || wrapperWidth - margin * 2 < allCardWidth) return;
+
+    this.renderer.setAttribute(this.element.nativeElement, "style", `width: ${wrapperWidth - margin * 2}px`);
+
   }
 
   @HostListener('window:resize', ['$event'])

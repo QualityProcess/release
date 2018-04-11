@@ -1,0 +1,7 @@
+
+<div id="dd" class="wrapper-dropdown" tabindex="1" (click)="toggleActive()" [ngClass]="{'active mdc-elevation--z6': active}">
+  <span class="label">{{currentLabel}}</span>
+  <ul class="dropdown mdc-elevation--z6">
+    <li *ngFor="let item of items" (click)="onChanged(item)"><span class="item">{{item[bindLabel]}}</span></li>
+  </ul>
+</div>

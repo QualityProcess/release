@@ -1,12 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
-    "\\src\\app",
-    "\\src\\app\\components",
-    "\\src\\app\\components\\design-stage-form",
-    "\\src\\app\\services"
+    "\\node_modules\\fullcalendar",
+    "\\src"
   ],
-  "SelectedNode": "\\src\\app\\components\\navbar",
+  "SelectedNode": "\\src\\app",
   "PreviewInSolutionExplorer": false
 }

@@ -10,7 +10,7 @@
 }
 
 .search-btn {
-  background: $primary-purple--light;
+  background: transparent;
   border-radius: 50%;
   width: 30px;
   text-align: center;
@@ -38,7 +38,7 @@
 
 .search-wrapper.active .input-holder {
   width: 300px;
-  border-radius: 50px;
+  border-radius: 0;
   background: $primary-gray;
   transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
 }
@@ -49,8 +49,8 @@
   padding: 0px 70px 0 20px;
   opacity: 0;
   position: absolute;
-  top: -10px;
-  left: 30px;
+  top: -13px;
+  left: 17px;
   background: transparent;
   box-sizing: border-box;
   border: none;

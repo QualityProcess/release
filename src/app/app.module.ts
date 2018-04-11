@@ -2,15 +2,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ServerModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
-
 
 // modules
 import { SharedModule } from './share/shared.module';
@@ -21,7 +18,6 @@ import { routing } from './routing';
 // guard
 import { AuthGuard } from './guard/auth.guard';
 import { IsSecureGuard } from './guard/https.guard';
-import { AdalGuard } from './guard/adal.guard';
 
 // services
 import { AuthService, UserService, ProjectsService } from './services';
@@ -46,12 +42,6 @@ import { TaskActivitiesResolver } from './components/task-activities/task-activi
 import { TaskActivityResolver } from './components/task-activity/task-activity.resolver';
 import { TaskActivityItemsResolver } from './components/edit-task-activity-item/edit-task-activity-items.resolver';
 
-
-// used to create fake backend
-import { fakeBackendProvider } from './helpers/fake-backend';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
-
 // directives
 import { DraggableDirective } from './components/project-matrix/project-matrix.component';
 import { CardViewDirective } from './components/projects/projects.component';
@@ -66,21 +56,14 @@ import { LoginDialog } from './components/login/login-dialog';
 import { AppComponent } from './app.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-//import { TeamConfigComponent } from './components/team-config/team-config.component';
-
-import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
     ResetPasswordComponent,
     RegistrationComponent,
-    //TeamConfigComponent,
     TabAuthComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -88,16 +71,25 @@ import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    //SharedModule,
     routing,
   ],
   providers: [
-    AuthGuard,
-    IsSecureGuard,
-    AdalGuard,
+
+    // services
+    MessageService,
     AuthService,
     UserService,
     ProjectsService,
+    TaskService,
+
+    // guards
+    AuthGuard,
+    IsSecureGuard,
+
+    // handler
+    HttpErrorHandler,
+
+    // resolvers
     ProjectResolver,
     ProjectsResolver,
     ProjectMatrixResolver,
@@ -107,24 +99,20 @@ import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
     TaskResolver,
     DisciplinesResolver,
     DesignStagesResolver,
-    TaskService,
-    HttpErrorHandler,
-    MessageService,
     TasksResolver,
     TaskActivitiesResolver,
     TaskActivityResolver,
     TaskActivityItemsResolver,
+
+    // directives
     DraggableDirective,
     ElevationDirective,
     PersentageDirective,
     CardViewDirective,
     PrimeDragulaDirective,
-    Adal5Service,
 
     { provide: 'localStorage', useFactory: getLocalStorage },
     { provide: LocationStrategy, useClass: PathLocationStrategy },
-    { provide: Adal5HTTPService, useFactory: Adal5HTTPService.factory, deps: [HttpClient, Adal5Service] },
-
   ],
   entryComponents: [],
   bootstrap: [AppComponent]

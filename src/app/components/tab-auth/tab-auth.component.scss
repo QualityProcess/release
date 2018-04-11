@@ -1,4 +1,7 @@
 
+@import "../../../assets/styles/mixins.scss";
+@import "../../../assets/styles/variables.scss";
+
 h1 {
   position: relative;
   color: rgba(0, 0, 0, .3);
@@ -10,9 +13,9 @@ h1:before {
   content: attr(data-text);
   position: absolute;
   overflow: hidden;
-  max-width: 2em;
+  max-width: 8em;
   white-space: nowrap;
-  color: #fff;
+  color: $primary-purple;
   animation: loading 4s linear;
 }
 

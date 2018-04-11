@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TaskActivitiesComponent } from './task-activities.component';
+import { TaskActivitiesComponent } from './task-activities.component'; 
 
 const routes: Routes = [{
   path: '',

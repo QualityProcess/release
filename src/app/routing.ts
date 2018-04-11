@@ -10,6 +10,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { RegistrationComponent } from './components/registration/registration.component';
 import { TabAuthComponent } from './components/tab-auth/tab-auth.component';
 
+//
 const appRoutes: Routes = [
   { path: 'login', loadChildren: './components/login/login.module#LoginModule' },
   { path: 'registration', component: RegistrationComponent },

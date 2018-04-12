@@ -108,6 +108,14 @@ export class ActivityTableComponent implements OnInit {
   onQAValueChanged(e: any, item: TaskActivityItem) {
 
     if (this.authService.userInfo) {
+      this.taskActivityItems.find((item, index, array) => {
+        if (item.id === +item.id) {
+          array[index].qa_by = this.authService.userInfo.userName
+        }
+
+        return item.id === +item.id
+      });
+
       this.service.updateTaskActivityItem({ qa_by: this.authService.userInfo.userName }, +item.id).subscribe(res => { });
     }
 
@@ -125,6 +133,14 @@ export class ActivityTableComponent implements OnInit {
   onEnableValueChanged(e, item) {
 
     if (this.authService.userInfo) {
+      this.taskActivityItems.find((item, index, array) => {
+        if (item.id === +item.id) {
+          array[index].checked_by = this.authService.userInfo.userName
+        }
+
+        return item.id === +item.id
+      });
+
       this.service.updateTaskActivityItem({ checked_by: this.authService.userInfo.userName }, +item.id).subscribe(res => { });
     }
 

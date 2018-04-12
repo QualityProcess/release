@@ -107,17 +107,31 @@ export class ActivityTableComponent implements OnInit {
 */
   onQAValueChanged(e: any, item: TaskActivityItem) {
 
+
+    
     if (this.authService.userInfo) {
+      let name = this.authService.userInfo.userName;
+      let date = new Date();
+
       this.taskActivityItems.find((item, index, array) => {
         if (item.id === +item.id) {
-          array[index].qa_by = this.authService.userInfo.userName;
-          array[index].qa_date = new Date();
+
+          if (e.checked) {
+            array[index].qa_by = name;
+            array[index].qa_date = date;
+          } else {
+            array[index].qa_by = '';
+            array[index].qa_date = null;
+            name = '';
+            date = null;
+          }
+          
         }
 
         return item.id === +item.id
       });
 
-      this.service.updateTaskActivityItem({ qa_by: this.authService.userInfo.userName, qa_date: new Date() }, +item.id).subscribe(res => { });
+      this.service.updateTaskActivityItem({ qa_by: name, qa_date: date }, +item.id).subscribe(res => { });
     }
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
@@ -134,16 +148,28 @@ export class ActivityTableComponent implements OnInit {
   onEnableValueChanged(e, item) {
 
     if (this.authService.userInfo) {
+      let name = this.authService.userInfo.userName;
+      let date = new Date();
+
       this.taskActivityItems.find((item, index, array) => {
         if (item.id === +item.id) {
-          array[index].checked_by = this.authService.userInfo.userName;
-          array[index].checked_on = new Date();
+          
+          if (e.checked){
+            array[index].checked_by = name;
+            array[index].checked_on = date;
+          } else {
+            array[index].checked_by = '';
+            array[index].checked_on = null;
+            name = '';
+            date = null;
+          }
+          
         }
 
         return item.id === +item.id
       });
 
-      this.service.updateTaskActivityItem({ checked_by: this.authService.userInfo.userName, checked_on: new Date() }, +item.id).subscribe(res => { });
+      this.service.updateTaskActivityItem({ checked_by: name, checked_on: date }, +item.id).subscribe(res => { });
     }
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();

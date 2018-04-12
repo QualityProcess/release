@@ -23,7 +23,7 @@ export class ProjectsService {
   // staging - https://qualityprocess-staging.herokuapp.com/api/v1
   // production - https://qualityprocess.herokuapp.com/api/v1
 
-  private apiUrl: string = 'https://qualityprocess.herokuapp.com/api/v1';  // API URL
+  private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
 
   private handleError: HandleError;
   headers: any;

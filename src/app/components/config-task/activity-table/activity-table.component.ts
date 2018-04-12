@@ -19,6 +19,7 @@ import { TaskActivityItem } from "../../../models/task-activity-item";
 
 // services
 import { TaskService } from "../../../services/task.service";
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'activity-table',
@@ -32,6 +33,8 @@ export class ActivityTableComponent implements OnInit {
 
   @Output() onUpdateData = new EventEmitter();
 
+  isEditable: boolean = true;
+
   onValueChangedSubscribe: any;
   onDateChangedSubscribe: any;
   deleteItemSubcribe: any;
@@ -41,10 +44,12 @@ export class ActivityTableComponent implements OnInit {
   isSendOrderItem: boolean = false;
   isOverOrderItem: boolean = false;
 
-  constructor(private service: TaskService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
+  constructor(private service: TaskService, private authService: AuthService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    
+    if (this.authService.userInfo) {
+      this.isEditable = false;
+    }
   }
 
 
@@ -102,6 +107,10 @@ export class ActivityTableComponent implements OnInit {
 */
   onQAValueChanged(e: any, item: TaskActivityItem) {
 
+    if (this.authService.userInfo) {
+      this.service.updateTaskActivityItem({ qa_by: this.authService.userInfo.userName }, +item.id).subscribe(res => { });
+    }
+
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
 
     this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ is_locked: e.checked }, +item.id).subscribe(res => { });
@@ -114,6 +123,10 @@ export class ActivityTableComponent implements OnInit {
 * @param {TaskActivityItem} item - task activity item
 */
   onEnableValueChanged(e, item) {
+
+    if (this.authService.userInfo) {
+      this.service.updateTaskActivityItem({ checked_by: this.authService.userInfo.userName }, +item.id).subscribe(res => { });
+    }
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
 

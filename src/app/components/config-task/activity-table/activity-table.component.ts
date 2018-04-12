@@ -48,7 +48,7 @@ export class ActivityTableComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.userInfo) {
-      this.isEditable = false;
+      this.isEditable = true;
     }
   }
 

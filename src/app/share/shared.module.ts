@@ -77,7 +77,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     PersentageDirective,
     MoveLeftDirective,
   ],
-  entryComponents: [ConfirmDialog, DeleteDialog, AuthDialog, LoginDialog],
+  entryComponents: [ConfirmDialog, DeleteDialog, AuthDialog, LoginDialog, NotificationDialog],
   providers: [
 
     // directives

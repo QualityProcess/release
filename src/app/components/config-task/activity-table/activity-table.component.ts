@@ -113,6 +113,7 @@ export class ActivityTableComponent implements OnInit {
     if (this.authService.userInfo) {
       let name = this.authService.userInfo.userName;
       let date = new Date();
+      let hasAccess = true;
 
       this.taskActivityItems.find((item2, index, array) => {
         if (item2.id === +item.id) {
@@ -122,6 +123,7 @@ export class ActivityTableComponent implements OnInit {
 
           if (array[index].checked_by == name) {
             this.showNotification("You can not checked QA");
+            hasAccess = false;
           } else {
             if (e.checked) {
               array[index].qa_by = name;
@@ -138,7 +140,8 @@ export class ActivityTableComponent implements OnInit {
         return item2.id === +item.id
       });
 
-      this.service.updateTaskActivityItem({ qa_by: name, qa_date: date }, +item.id).subscribe(res => { });
+      if (hasAccess)
+        this.service.updateTaskActivityItem({ qa_by: name, qa_date: date }, +item.id).subscribe(res => { });
     }
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();

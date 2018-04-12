@@ -110,13 +110,14 @@ export class ActivityTableComponent implements OnInit {
     if (this.authService.userInfo) {
       this.taskActivityItems.find((item, index, array) => {
         if (item.id === +item.id) {
-          array[index].qa_by = this.authService.userInfo.userName
+          array[index].qa_by = this.authService.userInfo.userName;
+          array[index].qa_date = new Date();
         }
 
         return item.id === +item.id
       });
 
-      this.service.updateTaskActivityItem({ qa_by: this.authService.userInfo.userName }, +item.id).subscribe(res => { });
+      this.service.updateTaskActivityItem({ qa_by: this.authService.userInfo.userName, qa_date: new Date() }, +item.id).subscribe(res => { });
     }
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
@@ -135,13 +136,14 @@ export class ActivityTableComponent implements OnInit {
     if (this.authService.userInfo) {
       this.taskActivityItems.find((item, index, array) => {
         if (item.id === +item.id) {
-          array[index].checked_by = this.authService.userInfo.userName
+          array[index].checked_by = this.authService.userInfo.userName;
+          array[index].checked_on = new Date();
         }
 
         return item.id === +item.id
       });
 
-      this.service.updateTaskActivityItem({ checked_by: this.authService.userInfo.userName }, +item.id).subscribe(res => { });
+      this.service.updateTaskActivityItem({ checked_by: this.authService.userInfo.userName, checked_on: new Date() }, +item.id).subscribe(res => { });
     }
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();

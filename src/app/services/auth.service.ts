@@ -25,6 +25,8 @@ export class AuthService {
     extraQueryParameters: "",
   }
 
+  private graphApi = "https://graph.microsoft.com/v1.0";
+
   authContext: any;
   private msContext: any;
   private _token: string;
@@ -116,6 +118,18 @@ export class AuthService {
       }*/
 
     });
+  }
+
+  getUserDisplayedName(): Observable<{}> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.accessToken
+      })
+    };
+
+    return this.http.get(`${this.graphApi}/users/${this.userInfo.userName}`, httpOptions);
   }
 
   public get accessToken() {

@@ -22,6 +22,14 @@ export class AuthGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
 
     if (this.authService.userInfo || localStorage.getItem('currentUser')) {
+      console.log("pre USER: ");
+      if (this.authService.userInfo) {
+        this.authService.getUserDisplayedName().subscribe((user) => {
+          console.log("USER: ", user);
+        });
+      }
+      
+
       return true;
     } else {
       this.router.navigate(['/tab-auth']);

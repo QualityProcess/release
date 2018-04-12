@@ -18,6 +18,7 @@ import { ConfirmDialog } from './../components/dialogs/dialog';
 import { DeleteDialog } from './../components/dialogs/delete-dialog';
 import { AuthDialog } from './../components/dialogs/auth-dialog';
 import { LoginDialog } from './../components/login/login-dialog';
+import { NotificationDialog } from './../components/dialogs/notification-dialog';
 
 // directives
 import { DraggableDirective } from './../components/project-matrix/project-matrix.component';
@@ -66,6 +67,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     DeleteDialog,
     AuthDialog,
     LoginDialog,
+    NotificationDialog,
 
     // directives
     PrimeDragulaDirective,
@@ -108,6 +110,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
    DeleteDialog,
    AuthDialog,
    LoginDialog,
+   NotificationDialog,
 
    // directives
    DraggableDirective,

@@ -113,8 +113,8 @@ export class ActivityTableComponent implements OnInit {
       let name = this.authService.userInfo.userName;
       let date = new Date();
 
-      this.taskActivityItems.find((item, index, array) => {
-        if (item.id === +item.id) {
+      this.taskActivityItems.find((item2, index, array) => {
+        if (item2.id === +item.id) {
 
           if (e.checked) {
             array[index].qa_by = name;
@@ -128,7 +128,7 @@ export class ActivityTableComponent implements OnInit {
           
         }
 
-        return item.id === +item.id
+        return item2.id === +item.id
       });
 
       this.service.updateTaskActivityItem({ qa_by: name, qa_date: date }, +item.id).subscribe(res => { });
@@ -151,8 +151,8 @@ export class ActivityTableComponent implements OnInit {
       let name = this.authService.userInfo.userName;
       let date = new Date();
 
-      this.taskActivityItems.find((item, index, array) => {
-        if (item.id === +item.id) {
+      this.taskActivityItems.find((item2, index, array) => {
+        if (item2.id === +item.id) {
           
           if (e.checked){
             array[index].checked_by = name;
@@ -166,7 +166,7 @@ export class ActivityTableComponent implements OnInit {
           
         }
 
-        return item.id === +item.id
+        return item2.id === +item.id
       });
 
       this.service.updateTaskActivityItem({ checked_by: name, checked_on: date }, +item.id).subscribe(res => { });

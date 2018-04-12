@@ -6,6 +6,7 @@ export class TaskActivityItem {
         customisation: string;
         checked_on: Date;
         qa_by: string;
+        can_checked_qa: boolean = true;
         qa_date: Date;
         link: string;
         estimated_start: Date;

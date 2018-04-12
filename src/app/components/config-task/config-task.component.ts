@@ -8,6 +8,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatTableDataSource } from '@angular/material';
 import { DeleteDialog } from "../dialogs/delete-dialog";
 
+// services
+import { UserService } from './../../services/user.service'; 
+
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -33,7 +36,13 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
   orderSubscribe: any;
   deleteActivitySubcribe: any
 
-  constructor(private service: TaskService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute, private dragulaService: DragulaService) {
+  constructor(
+ private service: TaskService,
+ private userService: UserService,
+ public dialog: MatDialog,
+ private router: Router,
+ private route: ActivatedRoute,
+ private dragulaService: DragulaService) {
     dragulaService.drop.subscribe((value) => {
       console.log(`drop: ${value[0]}`);
       this.onDrop(value.slice(1));
@@ -80,18 +89,28 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
       console.log("(this.taskActivities:", this.taskActivities);
 
-      
-
       this.getAllActivityItemsByActivities(activityIds).subscribe(res => {
         this.taskActivityItems = [];
         console.log(res);
         this.taskActivityItems = this.taskActivityItems.concat(...res);
 
-        console.log("(this.taskActivity Items:", this.taskActivityItems);
-
         this.taskActivityItems.sort(function (a, b) {
           return a.sort - b.sort;
         });
+
+        this.taskActivityItems.forEach((item, index, array) => {
+
+          if (array[index].is_locked) {
+            array[index].can_checked_qa = true;
+          } else if (this.userService.userInfo && array[index].checked_by === this.userService.userInfo.userName) {
+            array[index].can_checked_qa = false;
+          } else {
+            array[index].can_checked_qa = item.is_enabled;
+          }
+          
+        });
+
+        console.log("(this.taskActivity Items:", this.taskActivityItems);
 
         // load data completed
         this.loaded = true;

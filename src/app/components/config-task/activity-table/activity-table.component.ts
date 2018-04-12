@@ -35,6 +35,7 @@ export class ActivityTableComponent implements OnInit {
   @Output() onUpdateData = new EventEmitter();
 
   isEditable: boolean = true;
+  hasAccessToCheckQA = true;
 
   onValueChangedSubscribe: any;
   onDateChangedSubscribe: any;
@@ -108,8 +109,6 @@ export class ActivityTableComponent implements OnInit {
 */
   onQAValueChanged(e: any, item: TaskActivityItem) {
 
-
-    
     if (this.authService.userInfo) {
       let name = this.authService.userInfo.userName;
       let date = new Date();

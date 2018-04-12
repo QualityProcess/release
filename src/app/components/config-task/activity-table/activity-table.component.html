@@ -80,10 +80,10 @@
   <!-- QA field -->
   <p-column field="is_locked" header="QA" [style]="{'overflow':'visible', 'width': '50px'}">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
-      <mat-checkbox [checked]="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
+      <mat-checkbox [checked]="task_activity_item.is_locked" [disabled]="!task_activity_item.can_checked_qa" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
     </ng-template>
     <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
-      <mat-checkbox [(ngModel)]="task_activity_item[is_locked]" [checked]="task_activity_item.is_locked" value="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
+      <mat-checkbox [(ngModel)]="task_activity_item[is_locked]" [disabled]="task_activity_item.can_checked_qa" [checked]="task_activity_item.is_locked" value="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
     </ng-template>
   </p-column>
 

@@ -9,9 +9,26 @@ import { User } from '../models/index';
 @Injectable()
 export class UserService {
 
-  constructor(
-    private http: Http,
-    private authenticationService: AuthService) {
+  private _username: string;
+  private _userInfo: any;
+
+  constructor() {
+  }
+
+  get username(): string {
+    return this._username;
+  }
+
+  set username(name: string) {
+    this._username = name;
+  }
+
+  get userInfo(): any {
+    return this._userInfo;
+  }
+
+  set userInfo(userInfo: any) {
+    this._userInfo = userInfo;
   }
 
   /*getUsers(): Observable<User[]> {

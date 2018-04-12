@@ -12,6 +12,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 // services
 import { BreadCrumbsService } from './../services/breadcrumbs.service';
+import { UserService } from './../services/user.service';
 
 // dialogs
 import { ConfirmDialog } from './../components/dialogs/dialog';
@@ -82,7 +83,10 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
 
     // directives
     DragulaService,
+
+    // services
     BreadCrumbsService,
+    UserService,
   ],
  exports: [
 

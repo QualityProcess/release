@@ -1,9 +1,18 @@
 {
   "ExpandedNodes": [
     "",
-    "\\node_modules\\fullcalendar",
-    "\\src"
+    "\\.git\\hooks",
+    "\\.git\\refs\\remotes\\bitbucket",
+    "\\.git\\refs\\remotes\\origin",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\config-task",
+    "\\src\\app\\components\\config-task\\activity-table",
+    "\\src\\app\\components\\navbar",
+    "\\src\\app\\guard",
+    "\\src\\app\\services\\ngAdal"
   ],
-  "SelectedNode": "\\src\\app",
+  "SelectedNode": "\\src\\app\\components\\navbar\\navbar.component.ts",
   "PreviewInSolutionExplorer": false
 }

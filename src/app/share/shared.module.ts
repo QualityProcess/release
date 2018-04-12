@@ -1,18 +1,18 @@
 // core
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // libraries
 import { MaterialModule } from './../framework/material/material.module';
 import { PrimengModule } from './../framework/material/primeng.module';
 import { MaterialMDCModule } from './../framework/material/material-mdc.module';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';  
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { Adal5Service, Adal5HTTPService } from 'adal-angular5'; 
 
 // services
 import { BreadCrumbsService } from './../services/breadcrumbs.service';
-import { UserService } from './../services/user.service';
 
 // dialogs
 import { ConfirmDialog } from './../components/dialogs/dialog';
@@ -86,7 +86,10 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
 
     // services
     BreadCrumbsService,
-    UserService,
+
+    // adal service
+    Adal5Service,
+    { provide: Adal5HTTPService, useFactory: Adal5HTTPService.factory, deps: [HttpClient, Adal5Service] },
   ],
  exports: [
 

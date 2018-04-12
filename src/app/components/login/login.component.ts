@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 
+// adal
+import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+
 declare var microsoftTeams: any;
 declare var AuthenticationContext: any;
 
@@ -21,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
  private authService: AuthService,
  private router: Router,
- public snackBar: MatSnackBar
+ public snackBar: MatSnackBar,
+ private adal5Service: Adal5Service
 ) {
     this.loginForm = this.fb.group({
       email: [null, Validators.compose([Validators.required, Validators.email])],
@@ -68,7 +72,11 @@ export class LoginComponent implements OnInit {
   }
 
   loginMSTeams() {
-    microsoftTeams.initialize();
+
+    this.authService.loginWithAdal();
+
+
+    /*microsoftTeams.initialize();
 
     microsoftTeams.authentication.authenticate({
       url: window.location.origin + "/tab-auth-modal",
@@ -80,7 +88,7 @@ export class LoginComponent implements OnInit {
       failureCallback: function (reason) {
         console.log("Handle error: ", reason);
       }
-    });
+    });*/
   }
 
   getUserProfile(accessToken) {

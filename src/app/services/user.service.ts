@@ -20,6 +20,7 @@ export class UserService {
   }
 
   set username(name: string) {
+    console.log(name);
     this._username = name;
   }
 

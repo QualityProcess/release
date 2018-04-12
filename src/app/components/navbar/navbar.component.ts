@@ -11,6 +11,7 @@ import { DeleteDialog } from "../dialogs/delete-dialog";
 
 // services
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service'; 
 import { TaskService } from '../../services/task.service';
 
 // models
@@ -29,6 +30,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private taskService: TaskService,
     private breadCrumbsService: BreadCrumbsService,
     private router: Router,
@@ -40,9 +42,10 @@ export class NavbarComponent implements OnInit {
         this.breadcrumbs = val;
     });
 
-    if (this.authService.userInfo) {
+    console.log(this.userService.username);
+    if (this.userService.username) {
       this.isTab = true;
-      this.username = this.authService.userInfo.userName;
+      this.username = this.userService.username;
     }
     
   }

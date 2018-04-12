@@ -2,12 +2,18 @@
 import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { isPlatformServer, isPlatformBrowser, Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // rxjs
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
+
+// adal
+import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+
+// services
+import { UserService } from './user.service';
 
 // global variables
 declare var microsoftTeams: any; 
@@ -31,13 +37,17 @@ export class AuthService {
   private msContext: any;
   private _token: string;
   private _username: string;
+  private _userInfo: any;
   private _isMSTab: boolean = false;
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject('localStorage') private localStorage: any,
+    private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private adal5Service: Adal5Service,
+    private userService: UserService
   ) {
     //get token from local storage
     if (isPlatformBrowser(this.platformId)) {
@@ -47,6 +57,27 @@ export class AuthService {
     }
     
   }
+
+  loginWithAdal() {
+     
+    if (this.adal5Service.userInfo.authenticated) {
+      console.log(this.adal5Service);
+      this.userService.userInfo = this.adal5Service.userInfo;
+      this.userService.username = this.adal5Service.userInfo.username;
+      this.router.navigate(['projects']);
+    } else {
+      this.adal5Service.login();
+    }
+
+  }
+
+  get authenticated(): boolean {
+    return this.adal5Service.userInfo.authenticated;
+  }
+
+  public get userInfoAdal() {
+    return this.adal5Service.userInfo;
+  } 
 
   loginWithMSTeams() {
     
@@ -94,7 +125,8 @@ export class AuthService {
 
       if (token) {
         console.log("succsess: ", this.accessToken);
-
+        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
+        this.userService.username = this._userInfo.userName;
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
         // No token, or token is expired
@@ -135,9 +167,9 @@ export class AuthService {
     return this.authContext ? this.authContext.getCachedToken(this.config.clientId) : null;
   }
 
-  public get userInfo() {
-    return this.authContext ? this.authContext.getCachedUser() : null;
-  } 
+  public get userInfo(): any {
+    return this._userInfo;
+  }
 
   public get isAuthenticated() {
     return this.userInfo && this.accessToken;

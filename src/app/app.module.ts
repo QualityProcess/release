@@ -74,6 +74,7 @@ import { PhasesComponent } from './components/phases/phases.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SharedModule,
     FormsModule,
     routing,
   ],

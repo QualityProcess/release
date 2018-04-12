@@ -20,7 +20,7 @@ import { TaskActivityItem } from "../../../models/task-activity-item";
 
 // services
 import { TaskService } from "../../../services/task.service";
-import { AuthService } from '../../../services/auth.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'activity-table',
@@ -46,10 +46,10 @@ export class ActivityTableComponent implements OnInit {
   isSendOrderItem: boolean = false;
   isOverOrderItem: boolean = false;
 
-  constructor(private service: TaskService, private authService: AuthService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
+  constructor(private service: TaskService, private userService: UserService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    if (this.authService.userInfo) {
+    if (this.userService.userInfo) {
       this.isEditable = true;
     }
   }
@@ -109,8 +109,8 @@ export class ActivityTableComponent implements OnInit {
 */
   onQAValueChanged(e: any, item: TaskActivityItem) {
 
-    if (this.authService.userInfo) {
-      let name = this.authService.userInfo.userName;
+    if (this.userService.username) {
+      let name = this.userService.username;
       let date = new Date();
       let hasAccess = true;
 
@@ -169,8 +169,8 @@ export class ActivityTableComponent implements OnInit {
 */
   onEnableValueChanged(e, item) {
 
-    if (this.authService.userInfo) {
-      let name = this.authService.userInfo.userName;
+    if (this.userService.username) {
+      let name = this.userService.username;
       let date = new Date();
 
       this.taskActivityItems.find((item2, index, array) => {

@@ -26,6 +26,9 @@
 
     <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false"  class="toolbar-row__section">
       <ul class="secondary-nav">
+        <li *ngIf="task" class="top-list-item">
+          <mat-icon class="action" (click)="openDeleteDialog()">delete</mat-icon>
+        </li>
         <li class="top-list-item">
           <a *ngIf="!isTab;else msTab" class="top-link dropdown-menu" (click)="menu.open()" >{{username}}</a>
           <ng-template #msTab>

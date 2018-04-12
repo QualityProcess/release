@@ -199,7 +199,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     let defaultActivity = new TaskActivity();
     defaultActivity.name = 'New Section';
     defaultActivity.task_phase_id = phaseId;
-    defaultActivity.is_enabled = true;
+    defaultActivity.is_enabled = false; 
 
     this.taskActivities.push(defaultActivity);
     this.service.addTaskActivity(defaultActivity).subscribe(res => {

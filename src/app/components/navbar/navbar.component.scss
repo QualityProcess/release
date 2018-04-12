@@ -67,6 +67,8 @@
 
       .secondary-nav {
         font-size: 12px;
+        @include flex();
+        align-items: center;
 
         .top-list-item {
           float: left;

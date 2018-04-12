@@ -121,7 +121,9 @@ export class ActivityTableComponent implements OnInit {
           console.log("Want to qa by", name);
 
           if (array[index].checked_by == name) {
+            //array[index].is_locked = false;
             this.showNotification("You can not checked QA");
+            
             hasAccess = false;
           } else {
             if (e.checked) {
@@ -179,9 +181,11 @@ export class ActivityTableComponent implements OnInit {
           if (e.checked){
             array[index].checked_by = name;
             array[index].checked_on = date;
+            array[index].can_checked_qa = false;
           } else {
             array[index].checked_by = '';
             array[index].checked_on = null;
+            array[index].can_checked_qa = false;
             name = '';
             date = null;
           }

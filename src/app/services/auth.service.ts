@@ -71,6 +71,13 @@ export class AuthService {
       }
     );
 
+    
+
+    this.adalLogin();
+
+  }
+
+  adalLogin() {
     this.adal5Service.handleWindowCallback();
     console.log("App this.adal5Service.userInfo: ", this.adal5Service.userInfo);
     if (this.adal5Service.userInfo) {
@@ -85,8 +92,8 @@ export class AuthService {
       this.router.navigate(['projects']);
     } else {
       this.adal5Service.login();
+      this.adalLogin();
     }
-
   }
 
   get authenticated(): boolean {
@@ -144,7 +151,7 @@ export class AuthService {
       if (token) {
         console.log("succsess: ", this.accessToken);
         this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
-        this.userService.username = this._userInfo.userName;
+        this.userService.username = context.upn;
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
         // No token, or token is expired

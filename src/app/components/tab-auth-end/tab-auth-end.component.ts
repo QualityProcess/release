@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from './../../../environments/environment';
+
 declare var microsoftTeams: any;
 declare var AuthenticationContext: any;
 
@@ -12,7 +14,7 @@ export class TabAuthEndComponent implements OnInit {
 
   config = {
     tenant: 'common',
-    clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
+    clientId: environment.adal5Config,
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,

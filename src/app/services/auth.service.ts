@@ -130,7 +130,11 @@ export class AuthService {
 
       if (token) {
         console.log("succsess: ", this.accessToken);
-        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
+        if (this.authContext) {
+          console.log(this.authContext.getCachedUser());
+        }
+        
+        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : context.upn;
         this.userService.username = context.upn;
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {

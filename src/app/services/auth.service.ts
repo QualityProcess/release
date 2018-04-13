@@ -9,6 +9,9 @@ import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
+// environment
+import { environment } from './../../environments/environment';
+
 // adal
 import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
@@ -21,15 +24,6 @@ declare var AuthenticationContext: any;
 
 @Injectable()
 export class AuthService {
-
-  config = {
-    //tenant: 'atomiconium.onmicrosoft.com',
-    clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
-    redirectUri: window.location.origin + "/tab-auth-end",
-    cacheLocation: "localStorage",
-    navigateToLoginRequestUrl: false,
-    extraQueryParameters: "",
-  }
 
   private graphApi = "https://graph.microsoft.com/v1.0";
 
@@ -62,16 +56,7 @@ export class AuthService {
 
   loginWithAdal() {
 
-    this.adal5Service.init(
-      {
-        tenant: 'atomiconium.onmicrosoft.com',
-        clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
-        //redirectUri: window.location.origin + '/',
-        postLogoutRedirectUri: window.location.origin + '/logout'
-      }
-    );
-
-    
+    this.adal5Service.init(environment.adal5Config);
 
     this.adalLogin();
 
@@ -121,14 +106,12 @@ export class AuthService {
       localStorage.removeItem("simple.error");
 
       if (context.upn) {
-        this.config.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
+        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
       } else {
-        this.config.extraQueryParameters = "scope=openid+profile";
+        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile";
       }
 
-      
-
-      this.authContext = new AuthenticationContext(this.config);
+      this.authContext = new AuthenticationContext(environment.msTeamsConfig);
 
       console.log(this.authContext);
       //this.authContext.login();
@@ -146,7 +129,7 @@ export class AuthService {
         }
       }
 
-      let token = this.authContext.getCachedToken(this.config.clientId);
+      let token = this.authContext.getCachedToken(environment.msTeamsConfig.clientId);
 
       if (token) {
         console.log("succsess: ", this.accessToken);
@@ -189,7 +172,7 @@ export class AuthService {
   }
 
   public get accessToken() {
-    return this.authContext ? this.authContext.getCachedToken(this.config.clientId) : null;
+    return this.authContext ? this.authContext.getCachedToken(environment.msTeamsConfig.clientId) : null;
   }
 
   public get userInfo(): any {

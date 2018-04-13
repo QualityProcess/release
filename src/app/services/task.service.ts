@@ -1,8 +1,15 @@
+// core
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+// rxjs
 import { Observable } from "rxjs/Observable";
 import { forkJoin } from "rxjs/observable/forkJoin";
 
+// environments
+import { environment } from './../../environments/environment';
+
+// models
 import { Task } from "../models/task";
 import { TaskActivity } from "../models/task-activity";
 import { TaskActivityItem } from "../models/task-activity-item";
@@ -11,16 +18,7 @@ import { TaskPhase } from "../models/task-phase";
 @Injectable()
 export class TaskService {
 
-  // was testing https://afternoon-bastion-71141.herokuapp.com/api/v1
-  // dev - https://qualityprocess-development.herokuapp.com/api/v1
-  // staging - https://qualityprocess-staging.herokuapp.com/api/v1
-  // production - https://qualityprocess.herokuapp.com/api/v1
-
-<<<<<<< HEAD
-  private apiUrl: string = 'https://qualityprocess-development.herokuapp.com/api/v1';  // API URL
-=======
-  private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
->>>>>>> master
+  private apiUrl: string = environment.apiURL; 
 
   constructor(private http: HttpClient) { }
 

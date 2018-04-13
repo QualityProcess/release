@@ -1,49 +1,36 @@
+// core
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
+// environments
+import { environment } from './../../environments/environment';
 
+// models
 import { Project } from "../models/project";
 import { Phases } from "../models/phases";
 import { Discipline } from "../models/discipline";
 import { DesignStage } from "../models/design-stage";
 
+// error handler
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
+// rxjs
+import { Observable } from "rxjs/Observable";
 import { catchError } from 'rxjs/operators';
-
-//import { AdalService } from './adal/adal.service';
-//import { BaseEndpoint } from './adal/app.constants'
 
 @Injectable()
 export class ProjectsService {
-<<<<<<< HEAD
 
-  // was testing https://afternoon-bastion-71141.herokuapp.com/api/v1
-=======
-   // was testing https://afternoon-bastion-71141.herokuapp.com/api/v1
->>>>>>> master
-  // dev - https://qualityprocess-development.herokuapp.com/api/v1
-  // staging - https://qualityprocess-staging.herokuapp.com/api/v1
-  // production - https://qualityprocess.herokuapp.com/api/v1
-
-<<<<<<< HEAD
-  private apiUrl: string = 'https://qualityprocess-development.herokuapp.com/api/v1';  // API URL
-=======
-  private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
->>>>>>> master
+  private apiUrl: string = environment.apiURL; 
 
   private handleError: HandleError;
-  headers: any;
-
+  private headers: any;
 
   constructor(private http: HttpClient,
     httpErrorHandler: HttpErrorHandler,
     @Inject('localStorage') private localStorage: any,
     @Inject(PLATFORM_ID) private platformId: Object,
-
-   // @Inject(BaseEndpoint) private baseApiEndpoint, private adalService: AdalService
   ) {
     this.handleError = httpErrorHandler.createHandleError('ProjectsService');
 
@@ -133,6 +120,4 @@ export class ProjectsService {
     }
 
   }
-
-
 }

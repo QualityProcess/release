@@ -8,12 +8,12 @@ export const environment = {
   apiURL: "https://qualityprocess-development.herokuapp.com/api/v1",
   adal5Config: {
     tenant: 'common',
-    clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
+    clientId: 'dad407b2-83d0-4e52-9b43-ba1940b9d9e9',
     postLogoutRedirectUri: window.location.origin + '/logout'
   },
   msTeamsConfig: {
     tenant: 'common',
-    clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
+    clientId: 'dad407b2-83d0-4e52-9b43-ba1940b9d9e9',
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,

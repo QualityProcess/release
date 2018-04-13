@@ -16,6 +16,7 @@ export const environment = {
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
+    prompt: 'admin_consent',
     extraQueryParameters: "",
   }
 };

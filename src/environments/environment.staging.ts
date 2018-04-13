@@ -12,5 +12,6 @@ export const environment = {
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     extraQueryParameters: "",
+    prompt: 'admin_consent'
   }
 };

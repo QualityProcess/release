@@ -22,7 +22,7 @@ export class TabAuthComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.loginWithAdal();
+    this.authService.loginWithMSTeams();
   }
 
   login() {

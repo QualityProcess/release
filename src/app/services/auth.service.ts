@@ -55,11 +55,29 @@ export class AuthService {
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._token = currentUser && currentUser.token;
     }
+
+    
     
   }
 
   loginWithAdal() {
-     
+
+    this.adal5Service.init(
+      {
+        tenant: 'atomiconium.onmicrosoft.com',
+        clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
+        //redirectUri: window.location.origin + '/',
+        postLogoutRedirectUri: window.location.origin + '/logout'
+      }
+    );
+
+    this.adal5Service.handleWindowCallback();
+    console.log("App this.adal5Service.userInfo: ", this.adal5Service.userInfo);
+    if (this.adal5Service.userInfo) {
+      this.userService.userInfo = this.adal5Service.userInfo;
+      this.userService.username = this.adal5Service.userInfo.username;
+    }
+
     if (this.adal5Service.userInfo.authenticated) {
       console.log(this.adal5Service);
       this.userService.userInfo = this.adal5Service.userInfo;

@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       console.log("pre USER: ", this.authService.userInfoAdal);
-      this.router.navigate(['/login']);
+      this.router.navigate(['/tab-auth']);
       return false;
     }
   }

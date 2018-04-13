@@ -78,6 +78,10 @@ export class AuthService {
     }
   }
 
+  get userInfo(): any {
+    return this.authContext ? this.authContext.getCachedUser() : null;;
+  }
+
   get authenticated(): boolean {
     return this.adal5Service.userInfo.authenticated;
   }
@@ -176,9 +180,9 @@ export class AuthService {
     return this.authContext ? this.authContext.getCachedToken(environment.msTeamsConfig.clientId) : null;
   }
 
-  public get userInfo(): any {
+  /*public get userInfo(): any {
     return this._userInfo;
-  }
+  }*/
 
   public get isAuthenticated() {
     return this.userInfo && this.accessToken;

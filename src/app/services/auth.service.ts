@@ -49,9 +49,6 @@ export class AuthService {
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._token = currentUser && currentUser.token;
     }
-
-    
-    
   }
 
   loginWithAdal() {

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   loaded: boolean = false;
 
   constructor(
-    private adal5Service: Adal5Service,
+    //private adal5Service: Adal5Service,
     private userService: UserService
   ) {
     

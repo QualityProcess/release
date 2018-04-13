@@ -107,9 +107,9 @@ export class AuthService {
       localStorage.removeItem("simple.error");
 
       if (context.upn) {
-        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
+        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile&prompt=admin_consent&login_hint=" + encodeURIComponent(context.upn);
       } else {
-        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile";
+        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
       }
 
       this.authContext = new AuthenticationContext(environment.msTeamsConfig);

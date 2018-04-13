@@ -24,7 +24,7 @@ export class TabAuthModalComponent implements OnInit {
       localStorage.removeItem("simple.error");
       // Go to the Azure AD authorization endpoint
       let queryParams = {
-        tenant: "indoeng.com",
+        tenant: "common",
         client_id: environment.adalAppId,
         response_type: "code",
         response_mode: "fragment",

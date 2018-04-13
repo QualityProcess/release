@@ -28,7 +28,7 @@ export class TabAuthModalComponent implements OnInit {
         client_id: environment.adalAppId,
         response_type: "code",
         response_mode: "fragment",
-        resource: "https://graph.microsoft.com/User.Read",
+        resource: "https://graph.microsoft.com",
         //resourceId: "a5f3ffb0-fce9-47a7-b1c9-79bcadd3b46d",
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),

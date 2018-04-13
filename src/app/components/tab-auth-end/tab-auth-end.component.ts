@@ -13,7 +13,7 @@ declare var AuthenticationContext: any;
 export class TabAuthEndComponent implements OnInit {
 
   config = {
-    tenant: 'common',
+    //tenant: 'common',
     clientId: environment.adal5Config,
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",

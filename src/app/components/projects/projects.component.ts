@@ -56,7 +56,7 @@ export class ProjectsComponent implements OnInit {
     this.getView();
     this.breadCrumbsService.setBreadcrumbs([
       {
-        label: 'Project',
+        label: 'Projects',
         url: '/projects'
       }
     ]);

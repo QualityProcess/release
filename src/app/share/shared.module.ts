@@ -1,14 +1,15 @@
 // core
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // libraries
 import { MaterialModule } from './../framework/material/material.module';
 import { PrimengModule } from './../framework/material/primeng.module';
 import { MaterialMDCModule } from './../framework/material/material-mdc.module';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';  
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { Adal5Service, Adal5HTTPService } from 'adal-angular5'; 
 
 // services
 import { BreadCrumbsService } from './../services/breadcrumbs.service';
@@ -18,6 +19,7 @@ import { ConfirmDialog } from './../components/dialogs/dialog';
 import { DeleteDialog } from './../components/dialogs/delete-dialog';
 import { AuthDialog } from './../components/dialogs/auth-dialog';
 import { LoginDialog } from './../components/login/login-dialog';
+import { NotificationDialog } from './../components/dialogs/notification-dialog';
 
 // directives
 import { DraggableDirective } from './../components/project-matrix/project-matrix.component';
@@ -66,6 +68,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     DeleteDialog,
     AuthDialog,
     LoginDialog,
+    NotificationDialog,
 
     // directives
     PrimeDragulaDirective,
@@ -75,12 +78,18 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     PersentageDirective,
     MoveLeftDirective,
   ],
-  entryComponents: [ConfirmDialog, DeleteDialog, AuthDialog, LoginDialog],
+  entryComponents: [ConfirmDialog, DeleteDialog, AuthDialog, LoginDialog, NotificationDialog],
   providers: [
 
     // directives
     DragulaService,
+
+    // services
     BreadCrumbsService,
+
+    // adal service
+    Adal5Service,
+    { provide: Adal5HTTPService, useFactory: Adal5HTTPService.factory, deps: [HttpClient, Adal5Service] },
   ],
  exports: [
 
@@ -108,6 +117,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
    DeleteDialog,
    AuthDialog,
    LoginDialog,
+   NotificationDialog,
 
    // directives
    DraggableDirective,

@@ -11,6 +11,7 @@ import 'rxjs/Rx';
 
 // dialogs
 import { DeleteDialog } from "../../dialogs/delete-dialog";
+import { NotificationDialog } from "../../dialogs/notification-dialog";
 
 // models
 import { TaskPhase } from "../../../models/task-phase";
@@ -19,6 +20,7 @@ import { TaskActivityItem } from "../../../models/task-activity-item";
 
 // services
 import { TaskService } from "../../../services/task.service";
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'activity-table',
@@ -32,6 +34,9 @@ export class ActivityTableComponent implements OnInit {
 
   @Output() onUpdateData = new EventEmitter();
 
+  isEditable: boolean = true;
+  hasAccessToCheckQA = true;
+
   onValueChangedSubscribe: any;
   onDateChangedSubscribe: any;
   deleteItemSubcribe: any;
@@ -41,10 +46,12 @@ export class ActivityTableComponent implements OnInit {
   isSendOrderItem: boolean = false;
   isOverOrderItem: boolean = false;
 
-  constructor(private service: TaskService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
+  constructor(private service: TaskService, private userService: UserService, public dialog: MatDialog, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    
+    if (this.userService.userInfo) {
+      this.isEditable = true;
+    }
   }
 
 
@@ -64,7 +71,7 @@ export class ActivityTableComponent implements OnInit {
     defaultItem.task_activity_id = activity.id;
     defaultItem.hours_estimated = 0;
     defaultItem.hours_actual = 0;
-    defaultItem.is_enabled = true;
+    defaultItem.is_enabled = false;
 
     //this.taskActivityItems.push(defaultItem);
 
@@ -102,9 +109,58 @@ export class ActivityTableComponent implements OnInit {
 */
   onQAValueChanged(e: any, item: TaskActivityItem) {
 
+    if (this.userService.username) {
+      let name = this.userService.username;
+      let date = new Date();
+      let hasAccess = true;
+
+      this.taskActivityItems.find((item2, index, array) => {
+        if (item2.id === +item.id) {
+
+          console.log("Cheked by", array[index].checked_by);
+          console.log("Want to qa by", name);
+
+          if (array[index].checked_by == name) {
+            //array[index].is_locked = false;
+            this.showNotification("You can not checked QA");
+            
+            hasAccess = false;
+          } else {
+            if (e.checked) {
+              array[index].qa_by = name;
+              array[index].qa_date = date;
+            } else {
+              array[index].qa_by = '';
+              array[index].qa_date = null;
+              name = '';
+              date = null;
+            }
+          }
+        }
+
+        return item2.id === +item.id
+      });
+
+      if (hasAccess)
+        this.service.updateTaskActivityItem({ qa_by: name, qa_date: date }, +item.id).subscribe(res => { });
+    }
+
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
 
     this.onValueChangedSubscribe = this.service.updateTaskActivityItem({ is_locked: e.checked }, +item.id).subscribe(res => { });
+  }
+
+  showNotification(message) {
+    let dialogRef = this.dialog.open(NotificationDialog, {
+      width: '350px',
+      data: {
+        title: `You can not checked QA`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
   }
 
 /**
@@ -114,6 +170,33 @@ export class ActivityTableComponent implements OnInit {
 * @param {TaskActivityItem} item - task activity item
 */
   onEnableValueChanged(e, item) {
+
+    if (this.userService.username) {
+      let name = this.userService.username;
+      let date = new Date();
+
+      this.taskActivityItems.find((item2, index, array) => {
+        if (item2.id === +item.id) {
+          
+          if (e.checked){
+            array[index].checked_by = name;
+            array[index].checked_on = date;
+            array[index].can_checked_qa = false;
+          } else {
+            array[index].checked_by = '';
+            array[index].checked_on = null;
+            array[index].can_checked_qa = false;
+            name = '';
+            date = null;
+          }
+          
+        }
+
+        return item2.id === +item.id
+      });
+
+      this.service.updateTaskActivityItem({ checked_by: name, checked_on: date }, +item.id).subscribe(res => { });
+    }
 
     if (this.onValueChangedSubscribe) this.onValueChangedSubscribe.unsubscribe();
 

@@ -44,11 +44,31 @@
   <!-- Actual hours field -->
   <p-column field="hours_actual" header="Act." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
 
+  <!-- Start date field -->
+  <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '150px' }">
+    <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+      {{task_activity_item[col.field]|date }}
+    </ng-template>
+    <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
+      <p-calendar [(ngModel)]="task_activity_item[estimated_start]" [defaultDate]="task_activity_item[estimated_start]" appendTo="body" [inputId]="task_activity_item[id]" (onSelect)="onDateChanged($event, task_activity_item, 'estimated_start')"></p-calendar>
+    </ng-template>
+  </p-column>
+
+  <!-- End date field -->
+  <p-column field="estimated_completion" header="End Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '150px' }">
+    <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
+      {{task_activity_item[col.field]|date }}
+    </ng-template>
+    <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
+      <p-calendar [(ngModel)]="task_activity_item[estimated_completion]" [defaultDate]="task_activity_item[estimated_completion]" appendTo="body" [inputId]="task_activity_item[id]" (onSelect)="onDateChanged($event, task_activity_item, 'estimated_completion')"></p-calendar>
+    </ng-template>
+  </p-column>
+
   <!-- Cheked by field -->
-  <p-column field="checked_by" header="Cheked By" [editable]="true" [style]=" {'width': '150px' }"></p-column>
+  <p-column field="checked_by" header="Checked By" [editable]="isEditable" [style]=" {'width': '200px' }"></p-column>
 
   <!-- Cheked date field -->
-  <p-column field="checked_on" header="Checked Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '150px' }">
+  <p-column field="checked_on" header="Checked Date" [editable]="isEditable" [style]=" {'overflow':'visible', 'width': '150px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       {{task_activity_item[col.field]|date }}
     </ng-template>
@@ -60,18 +80,18 @@
   <!-- QA field -->
   <p-column field="is_locked" header="QA" [style]="{'overflow':'visible', 'width': '50px'}">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
-      <mat-checkbox [checked]="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
+      <mat-checkbox [checked]="task_activity_item.is_locked" [disabled]="!task_activity_item.can_checked_qa" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
     </ng-template>
     <ng-template let-col let-task_activity_item="rowData" pTemplate="editor">
-      <mat-checkbox [(ngModel)]="task_activity_item[is_locked]" [checked]="task_activity_item.is_locked" value="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
+      <mat-checkbox [(ngModel)]="task_activity_item[is_locked]" [disabled]="task_activity_item.can_checked_qa" [checked]="task_activity_item.is_locked" value="task_activity_item.is_locked" (change)="onQAValueChanged($event, task_activity_item)"></mat-checkbox>
     </ng-template>
   </p-column>
 
   <!-- QA by field -->
-  <p-column field="qa_by" header="QA By" [editable]="true" [style]=" {'width': '150px' }"></p-column>
+  <p-column field="qa_by" header="QA By" [editable]="isEditable" [style]=" {'width': '200px' }"></p-column>
 
   <!-- QA date field -->
-  <p-column field="qa_date" header="QA Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '150px' }">
+  <p-column field="qa_date" header="QA Date" [editable]="isEditable" [style]=" {'overflow':'visible', 'width': '150px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       {{task_activity_item[col.field]|date }}
     </ng-template>

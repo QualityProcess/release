@@ -55,8 +55,12 @@ const routes: Routes = [
               },
               {
                 path: 'task-activities/:task_activity_id', 
-                loadChildren: './../task-activity/task-activity.module#TaskActivityModule',
+                
                 children: [
+                  {
+                    path: '',
+                    loadChildren: './../task-activity/task-activity.module#TaskActivityModule',
+                  },
                   {
                     path: 'task-activity-items/create/:task_activity_item_id',
                     loadChildren: './../create-task-activity-item/create-task-activity-item.module#CreateTaskActivityItemModule',
@@ -64,7 +68,7 @@ const routes: Routes = [
                   {
                     path: 'task-activity-items/:task_activity_item_id/edit',
                     loadChildren: './../edit-task-activity-item/edit-task-activity-item.module#EditTaskActivityItemModule',
-                  },
+                  }
                 ]
               },
               {

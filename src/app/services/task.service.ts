@@ -16,7 +16,11 @@ export class TaskService {
   // staging - https://qualityprocess-staging.herokuapp.com/api/v1
   // production - https://qualityprocess.herokuapp.com/api/v1
 
+<<<<<<< HEAD
   private apiUrl: string = 'https://qualityprocess-development.herokuapp.com/api/v1';  // API URL
+=======
+  private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
+>>>>>>> master
 
   constructor(private http: HttpClient) { }
 

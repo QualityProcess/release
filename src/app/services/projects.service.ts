@@ -18,13 +18,21 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectsService {
+<<<<<<< HEAD
 
   // was testing https://afternoon-bastion-71141.herokuapp.com/api/v1
+=======
+   // was testing https://afternoon-bastion-71141.herokuapp.com/api/v1
+>>>>>>> master
   // dev - https://qualityprocess-development.herokuapp.com/api/v1
   // staging - https://qualityprocess-staging.herokuapp.com/api/v1
   // production - https://qualityprocess.herokuapp.com/api/v1
 
+<<<<<<< HEAD
   private apiUrl: string = 'https://qualityprocess-development.herokuapp.com/api/v1';  // API URL
+=======
+  private apiUrl: string = 'https://afternoon-bastion-71141.herokuapp.com/api/v1';  // API URL
+>>>>>>> master
 
   private handleError: HandleError;
   headers: any;

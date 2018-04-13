@@ -2,12 +2,18 @@
 import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { isPlatformServer, isPlatformBrowser, Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // rxjs
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
+
+// adal
+import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+
+// services
+import { UserService } from './user.service';
 
 // global variables
 declare var microsoftTeams: any; 
@@ -25,17 +31,23 @@ export class AuthService {
     extraQueryParameters: "",
   }
 
+  private graphApi = "https://graph.microsoft.com/v1.0";
+
   authContext: any;
   private msContext: any;
   private _token: string;
   private _username: string;
+  private _userInfo: any;
   private _isMSTab: boolean = false;
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject('localStorage') private localStorage: any,
+    private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private adal5Service: Adal5Service,
+    private userService: UserService
   ) {
     //get token from local storage
     if (isPlatformBrowser(this.platformId)) {
@@ -43,8 +55,54 @@ export class AuthService {
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._token = currentUser && currentUser.token;
     }
+
+    
     
   }
+
+  loginWithAdal() {
+
+    this.adal5Service.init(
+      {
+        tenant: 'atomiconium.onmicrosoft.com',
+        clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
+        //redirectUri: window.location.origin + '/',
+        postLogoutRedirectUri: window.location.origin + '/logout'
+      }
+    );
+
+    
+
+    this.adalLogin();
+
+  }
+
+  adalLogin() {
+    this.adal5Service.handleWindowCallback();
+    console.log("App this.adal5Service.userInfo: ", this.adal5Service.userInfo);
+    if (this.adal5Service.userInfo) {
+      this.userService.userInfo = this.adal5Service.userInfo;
+      this.userService.username = this.adal5Service.userInfo.username;
+    }
+
+    if (this.adal5Service.userInfo.authenticated) {
+      console.log(this.adal5Service);
+      this.userService.userInfo = this.adal5Service.userInfo;
+      this.userService.username = this.adal5Service.userInfo.username;
+      this.router.navigate(['projects']);
+    } else {
+      this.adal5Service.login();
+      this.adalLogin();
+    }
+  }
+
+  get authenticated(): boolean {
+    return this.adal5Service.userInfo.authenticated;
+  }
+
+  public get userInfoAdal() {
+    return this.adal5Service.userInfo;
+  } 
 
   loginWithMSTeams() {
     
@@ -92,8 +150,8 @@ export class AuthService {
 
       if (token) {
         console.log("succsess: ", this.accessToken);
-        console.log("auth redirect: ", context.entityId);
-        console.log(this.parseUrl(context.entityId, "pathname"));
+        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
+        this.userService.username = context.upn;
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
         // No token, or token is expired
@@ -118,13 +176,25 @@ export class AuthService {
     });
   }
 
+  getUserDisplayedName(): Observable<{}> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.accessToken
+      })
+    };
+
+    return this.http.get(`${this.graphApi}/users/${this.userInfo.userName}`, httpOptions);
+  }
+
   public get accessToken() {
     return this.authContext ? this.authContext.getCachedToken(this.config.clientId) : null;
   }
 
-  public get userInfo() {
-    return this.authContext ? this.authContext.getCachedUser() : null;
-  } 
+  public get userInfo(): any {
+    return this._userInfo;
+  }
 
   public get isAuthenticated() {
     return this.userInfo && this.accessToken;

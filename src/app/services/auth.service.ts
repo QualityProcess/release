@@ -60,7 +60,25 @@ export class AuthService {
   }
 
   adalLogin() {
-    this.adal5Service.handleWindowCallback();
+
+    microsoftTeams.authentication.authenticate({
+      url: window.location.origin + "/tab-auth-modal",
+      width: 600,
+      height: 535,
+      successCallback: function (result) {
+        console.log("Success: ",result.accessToken);
+      },
+      failureCallback: function (reason) {
+        console.log("Fail: ", reason);
+      }
+    });
+
+
+
+
+
+
+    /*this.adal5Service.handleWindowCallback();
     console.log("App this.adal5Service.userInfo: ", this.adal5Service.userInfo);
     if (this.adal5Service.userInfo) {
       this.userService.userInfo = this.adal5Service.userInfo;
@@ -75,7 +93,7 @@ export class AuthService {
     } else {
       this.adal5Service.login();
       this.adalLogin();
-    }
+    }*/
   }
 
   get userInfo(): any {

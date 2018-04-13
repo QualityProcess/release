@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   apiURL: "https://qualityprocess-development.herokuapp.com/api/v1",
+  adalAppId: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
   adal5Config: {
     tenant: 'common',
     clientId: 'dad407b2-83d0-4e52-9b43-ba1940b9d9e9',

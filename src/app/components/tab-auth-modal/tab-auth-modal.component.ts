@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from './../../../environments/environment';
+
 declare var microsoftTeams: any;
 declare var AuthenticationContext: any;
 
@@ -23,7 +25,7 @@ export class TabAuthModalComponent implements OnInit {
       // Go to the Azure AD authorization endpoint
       let queryParams = {
         tenant: "common",
-        client_id: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
+        client_id: environment.adalAppId,
         response_type: "code",
         response_mode: "fragment",
         //resource: "https://graph.microsoft.com/User.Read openid",
@@ -31,6 +33,7 @@ export class TabAuthModalComponent implements OnInit {
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),
         state: state,
+        prompt: "admin_consent",
         // The context object is populated by Teams; the upn attribute
         // is used as hinting information
         login_hint: context.upn,

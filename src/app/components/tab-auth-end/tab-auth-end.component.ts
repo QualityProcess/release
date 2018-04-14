@@ -14,7 +14,7 @@ export class TabAuthEndComponent implements OnInit {
 
   config = {
     //tenant: 'common',
-    clientId: environment.adal5Config,
+    clientId: environment.adalAppId,
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
@@ -33,6 +33,8 @@ export class TabAuthEndComponent implements OnInit {
     console.log("Tab end");
 
     let hashParams = window.location.hash;
+
+    console.log("hashParams:", hashParams);
     if (hashParams["error"]) {
       // Authentication/authorization failed
       microsoftTeams.authentication.notifyFailure(hashParams["error"]);

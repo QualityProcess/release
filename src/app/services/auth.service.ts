@@ -143,8 +143,6 @@ export class AuthService {
 
       console.log("config: ", environment.msTeamsConfig);
 
-      
-
       this.authContext = new AuthenticationContext(this.conf);
 
       console.log(this.authContext);

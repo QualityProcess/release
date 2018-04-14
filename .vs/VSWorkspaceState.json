@@ -1,18 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\.git\\hooks",
-    "\\.git\\refs\\remotes\\bitbucket",
-    "\\.git\\refs\\remotes\\origin",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\config-task",
-    "\\src\\app\\components\\config-task\\activity-table",
-    "\\src\\app\\components\\navbar",
+    "\\src\\app\\components\\tab-auth-end",
     "\\src\\app\\guard",
-    "\\src\\app\\services\\ngAdal"
+    "\\src\\environments"
   ],
-  "SelectedNode": "\\src\\app\\components\\navbar\\navbar.component.ts",
+  "SelectedNode": "\\src\\app\\components\\tab-auth-end\\tab-auth-end.component.ts",
   "PreviewInSolutionExplorer": false
 }

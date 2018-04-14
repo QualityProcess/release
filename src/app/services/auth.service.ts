@@ -43,6 +43,7 @@ export class AuthService {
     private adal5Service: Adal5Service,
     private userService: UserService
   ) {
+
     //get token from local storage
     if (isPlatformBrowser(this.platformId)) {
 

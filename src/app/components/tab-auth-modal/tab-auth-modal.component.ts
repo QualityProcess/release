@@ -18,24 +18,23 @@ export class TabAuthModalComponent implements OnInit {
     microsoftTeams.initialize();
 
     microsoftTeams.getContext((context) => {
-      // Generate random state string and store it, so we can verify it in the callback
-      let state = this._guid(); // _guid() is a helper function in the sample
+
+      let state = this._guid(); 
       localStorage.setItem("simple.state", state);
       localStorage.removeItem("simple.error");
+
       // Go to the Azure AD authorization endpoint
       let queryParams = {
         tenant: "common",
         client_id: environment.adalAppId,
         response_type: "code",
         response_mode: "fragment",
-        //resource: "https://graph.microsoft.com",
-        resourceId: "a5f3ffb0-fce9-47a7-b1c9-79bcadd3b46d",
+        resource: "https://graph.microsoft.com",
+        //resourceId: "a5f3ffb0-fce9-47a7-b1c9-79bcadd3b46d",
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),
         state: state,
         prompt: "admin_consent",
-        // The context object is populated by Teams; the upn attribute
-        // is used as hinting information
         login_hint: context.upn,
       };
 

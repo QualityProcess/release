@@ -28,6 +28,16 @@ export class AuthService {
   private graphApi = "https://graph.microsoft.com/v1.0";
 
   authContext: any;
+  private conf = {
+    tenant: "common",
+    clientId: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
+    redirectUri: window.location.origin + "/tab-auth-end",
+    cacheLocation: "localStorage",
+    navigateToLoginRequestUrl: false,
+    prompt: "admin_consent",
+    extraQueryParameters: "",
+  };
+
   private msContext: any;
   private _token: string;
   private _username: string;
@@ -126,12 +136,16 @@ export class AuthService {
       localStorage.removeItem("simple.error");
 
       if (context.upn) {
-        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile&prompt=admin_consent&login_hint=" + encodeURIComponent(context.upn);
+        this.conf.extraQueryParameters = "scope=openid+profile&prompt=admin_consent&login_hint=" + encodeURIComponent(context.upn);
       } else {
-        environment.msTeamsConfig.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
+        this.conf.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
       }
 
-      this.authContext = new AuthenticationContext(environment.msTeamsConfig);
+      console.log("config: ", environment.msTeamsConfig);
+
+      
+
+      this.authContext = new AuthenticationContext(this.conf);
 
       console.log(this.authContext);
       //this.authContext.login();
@@ -149,7 +163,7 @@ export class AuthService {
         }
       }
 
-      let token = this.authContext.getCachedToken(environment.msTeamsConfig.clientId);
+      let token = this.authContext.getCachedToken(this.conf.clientId);
 
       if (token) {
         console.log("succsess: ", this.accessToken);
@@ -196,7 +210,7 @@ export class AuthService {
   }
 
   public get accessToken() {
-    return this.authContext ? this.authContext.getCachedToken(environment.msTeamsConfig.clientId) : null;
+    return this.authContext ? this.authContext.getCachedToken(this.conf.clientId) : null;
   }
 
   /*public get userInfo(): any {

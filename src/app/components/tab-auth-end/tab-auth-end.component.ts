@@ -66,8 +66,9 @@ export class TabAuthEndComponent implements OnInit {
       console.log("calback", window.location.hash);
       console.log("authContext", authContext);
       console.log("getCachedUser", authContext.getCachedUser());
-      authContext.handleWindowCallback(window.location.hash);
       this.router.navigate(['projects']);
+      authContext.handleWindowCallback(window.location.hash);
+      
     }  
     else {
 

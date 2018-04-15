@@ -58,6 +58,7 @@ export class TabAuthEndComponent implements OnInit {
       } else {
         // Success: return token information to the tab
         microsoftTeams.authentication.notifySuccess();
+        this.router.navigate(['projects']);
       }
     } else {
       console.log("SSO");

@@ -99,18 +99,14 @@ export class AuthService {
 
         microsoftTeams.getContext((context) => {
           console.log("MS tab context: ", context);
-          if (context.entityId) {
-            this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
-          } else {
-            this.router.navigate(["projects"]);
-          }
+          this.goToTabPage(context);
           
         });
 
       },
       failureCallback: (reason) => {
         console.log("Fail: ", reason);
-        this.router.navigate(["login"]);
+        this.goToLoginPage();
       }
     });
 
@@ -133,6 +129,19 @@ export class AuthService {
       this.adalLogin();
     }*/
 
+  }
+
+  goToTabPage(context) {
+    console.log(this.router);
+    if (context.entityId) {
+      this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+    } else {
+      this.router.navigate(["projects"]);
+    }
+  }
+
+  goToLoginPage() {
+    this.router.navigate(["login"]);
   }
 
   get userInfo(): any {

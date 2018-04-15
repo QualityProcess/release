@@ -17,35 +17,6 @@ export class TabAuthModalComponent implements OnInit {
   ngOnInit() {
     microsoftTeams.initialize();
 
-    var authContext = new AuthenticationContext(environment.azureConfiguration);
-    if (authContext.isCallback(window.location.hash)) {
-      console.log("calback");
-      authContext.handleWindowCallback(window.location.hash);
-    }
-    else {
-
-      // Check if user is cached
-      var user = authContext.getCachedUser();
-      console.log("getCachedUser", user);
-      if (!user)
-        authContext.login(); // No cached user...force login
-      else {
-        authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
-          if (error || !token) {
-            // TODO: this could cause infinite loop
-            // Should use microsoftTeams.authentication.notifyFailure after one try
-            authContext.login();
-          }
-          else {
-            console.log("Graph token: ", token);
-
-            microsoftTeams.authentication.notifySuccess(token);
-          }
-
-        });
-      }
-    }
-
     microsoftTeams.getContext((context) => {
 
       let state = this._guid(); 

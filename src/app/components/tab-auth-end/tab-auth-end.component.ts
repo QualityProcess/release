@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { environment } from './../../../environments/environment';
 
@@ -22,7 +23,7 @@ export class TabAuthEndComponent implements OnInit {
   }
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.adalInit();
@@ -62,8 +63,11 @@ export class TabAuthEndComponent implements OnInit {
     // Setup authcontext
     var authContext = new AuthenticationContext(environment.azureConfiguration);
     if (authContext.isCallback(window.location.hash)) {
-      console.log("calback");
+      console.log("calback", window.location.hash);
+      console.log("authContext", authContext);
+      console.log("getCachedUser", authContext.getCachedUser());
       authContext.handleWindowCallback(window.location.hash);
+      this.router.navigate(['projects']);
     }  
     else {
 

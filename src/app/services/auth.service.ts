@@ -164,7 +164,10 @@ export class AuthService {
       let token = this.authContext.getCachedToken(this.conf.clientId);
 
       if (token) {
-        console.log("succsess: ", this.accessToken);
+        this.getUserDisplayedName(this.accessToken).subscribe((user) => {
+          console.log("USER: ", user);
+        });
+        console.log("succsess: ", );
         if (this.authContext) {
           console.log(this.authContext.getCachedUser());
         }
@@ -195,16 +198,16 @@ export class AuthService {
     });
   }
 
-  getUserDisplayedName(): Observable<{}> {
+  getUserDisplayedName(token): Observable<{}> {
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.accessToken
+        'Authorization': 'Bearer ' + token
       })
     };
 
-    return this.http.get(`${this.graphApi}/users/${this.userInfo.userName}`, httpOptions);
+    return this.http.get(`${this.graphApi}/users/me`, httpOptions);
   }
 
   public get accessToken() {

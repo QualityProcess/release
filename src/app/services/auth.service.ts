@@ -26,6 +26,7 @@ declare var AuthenticationContext: any;
 export class AuthService {
 
   private graphApi = "https://graph.microsoft.com/v1.0";
+  private AADGraphApi = "https://graph.windows.net/me?api-version=1.6";
 
   authContext: any;
   private conf = {
@@ -170,6 +171,10 @@ export class AuthService {
         this.getUserDisplayedName(this.accessToken).subscribe((user) => {
           console.log("USER: ", user);
         });
+
+        this.getGrapth(this.accessToken).subscribe((user) => {
+          console.log("USER Graph: ", user);
+        });
         console.log("succsess: ", );
         if (this.authContext) {
           console.log(this.authContext.getCachedUser());
@@ -203,6 +208,17 @@ export class AuthService {
 
   getUserDisplayedName(token): Observable<{}> {
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+
+    return this.http.get(`${this.AADGraphApi}`, httpOptions);
+  }
+
+  getGrapth(token) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

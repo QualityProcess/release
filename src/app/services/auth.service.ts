@@ -59,6 +59,7 @@ export class AuthService {
     this.authContext = new AuthenticationContext(environment.azureConfiguration);
     if (this.authContext.isCallback(window.location.hash)) {
       console.log("calback");
+      this.router.navigate(['projects']);
       this.authContext.handleWindowCallback(window.location.hash);
     }
     else {

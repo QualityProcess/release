@@ -22,11 +22,9 @@ export class TabAuthComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.loginWithMSTeams();
-  }
 
-  login() {
-    this.authService.loginWithMSTeams();
+    // start Silent authentication AAD
+    this.authService.silentAuthentication();
   }
 
 }

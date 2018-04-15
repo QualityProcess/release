@@ -14,7 +14,7 @@ export class TabAuthEndComponent implements OnInit {
 
   config = {
     //tenant: 'common',
-    clientId: environment.adalAppId,
+    clientId: environment.azureConfiguration.clientId,
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
@@ -29,8 +29,6 @@ export class TabAuthEndComponent implements OnInit {
   }
 
   adalInit() {
-
-    console.log("Tab end");
 
     let hashParams = window.location.hash;
 
@@ -78,6 +76,8 @@ export class TabAuthEndComponent implements OnInit {
             authContext.login();
           }
           else {
+            console.log("Graph token: ", token);
+
             microsoftTeams.authentication.notifySuccess(token);
           }
             

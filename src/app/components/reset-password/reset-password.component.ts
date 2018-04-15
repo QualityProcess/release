@@ -29,11 +29,11 @@ export class ResetPasswordComponent implements OnInit {
     const val = this.resetPasswordForm.value;
     this.loading = true;
 
-    this.message = this.authService.resetPassword(val.email);
+    /*this.message = this.authService.resetPassword(val.email);
 
     this.snackBar.open(this.message, '', {
       duration: 5000,
-    });
+    });*/
     this.loading = false;
 
   }

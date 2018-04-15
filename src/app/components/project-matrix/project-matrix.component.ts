@@ -97,7 +97,6 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
       return project.id === this.project.id;
     });
 
-    console.log(this.listOfProjects);
     this.setBreadCrumbs();
     
     this.data = this.route.snapshot.data.projectMatrixData;
@@ -193,7 +192,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+
       if (result) {
         this.duplicate(duplicationProject);
       }
@@ -263,8 +262,7 @@ export class DraggableDirective {
   }
 
   is_touch_device() {
-    console.log(window.ontouchstart);
-    console.log(navigator.maxTouchPoints);
+
     return 'ontouchstart' in window || navigator.maxTouchPoints;      
   };
 
@@ -281,8 +279,6 @@ export class DraggableDirective {
 
       this.startX = e.changedTouches[0].clientX + parseInt(dx);
       this.startY = e.changedTouches[0].clientY + parseInt(dy);
-
-      console.log("startX: ", this.startX);
     });
 
     this.touchEnd$.subscribe((e: TouchEvent) => {
@@ -344,11 +340,7 @@ export class DraggableDirective {
 
   moveTo(dx: number, dy: number) {
 
-    console.log("start: ", dy);
-
     const transform = this.element.nativeElement.style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
-
-    console.log("dy: ", transform[2]);
 
     //dx = dx + parseInt(transform[1]);
     //dy = dy + parseInt(transform[2]);
@@ -366,8 +358,6 @@ export class DraggableDirective {
       this.prevX = dx;
     }
 
-
-
     if (dx + parseInt(transform[1]) > 0) dx = parseInt(transform[1]);
     if (dy + parseInt(transform[2]) > 0) dy = parseInt(transform[2]);
 
@@ -375,7 +365,7 @@ export class DraggableDirective {
 
     dx = +dx.toFixed(2);
     dy = +dy.toFixed(2);
-    console.log("final: ", dy);
+
     this.element.nativeElement.style.transform = `translate(${dx}px, ${dy}px)`;
     //this.element.nativeElement.setAttribute("style", this.CSS.translate(dx, dy));
   }

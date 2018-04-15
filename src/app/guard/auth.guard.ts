@@ -23,16 +23,20 @@ export class AuthGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
 
+    console.log("this.authService.isAuthenticated: ", this.authService.isAuthenticated)
     if (this.authService.userInfo) {
 
       if (this.authService.userInfo) {
+
+        // set user data
         this.userService.userInfo = this.authService.userInfo;
-        console.log("Guard userService: ", this.authService.userInfo);
+        console.log("User logged in: ", this.authService.userInfo);
       }
       
-
       return true;
     } else {
+
+      // go to Silent authentication AAD
       this.router.navigate(['/tab-auth']);
       return false;
     }

@@ -52,11 +52,8 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    if (this.authService.isMSTab) {
-      this.router.navigate(['/tab-auth']);
-    } else {
-      this.router.navigate(['/login']);
-    }
+ 
+    this.router.navigate(['/login']);
   }
 
   openDeleteDialog() {

@@ -68,7 +68,6 @@ export class ProjectsComponent implements OnInit {
       this.projects = projects;
       this.filterData = projects;
       this.sortData('name');
-      console.log(this.filterData);
     });
   }
 
@@ -101,7 +100,6 @@ export class ProjectsComponent implements OnInit {
   sortData(name) {
     const data = this.filterData.slice();
     
-    console.log('Name:', name);
     this.filterData = data.sort((a, b) => {
       let isAsc = 'asc';
       switch (name) {
@@ -131,7 +129,7 @@ export class ProjectsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed' ,result);
+
       if (result) {
         this.delete(project);
       }
@@ -156,7 +154,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   toggleProject(event, id) {
-    console.log(event.srcElement.checked);
   }
 
 }
@@ -176,18 +173,13 @@ export class CardViewDirective implements OnInit {
   ngOnInit(){}
 
   ngAfterContentInit() {
-    console.log("start: ", this.element.nativeElement.children[0]);
+
     if (!this.element.nativeElement.children[0]) return;
 
     let cardWidthValue = window.getComputedStyle(this.element.nativeElement.children[0], null).width;
     let cardMarginValue = window.getComputedStyle(this.element.nativeElement.children[0], null).marginRight;
     let cardPaddingValue = window.getComputedStyle(this.element.nativeElement.children[0], null).paddingRight;
     let wrapperWidthVvalue = window.getComputedStyle(this.element.nativeElement.parentElement, null).width;
-
-    console.log(cardWidthValue);
-    console.log(cardMarginValue);
-    console.log(cardPaddingValue);
-    console.log(wrapperWidthVvalue);
 
     if (!/px/i.test(cardWidthValue) || !/px/.test(wrapperWidthVvalue) || !/px/.test(cardMarginValue) || !/px/.test(cardPaddingValue)) return;
 
@@ -201,9 +193,6 @@ export class CardViewDirective implements OnInit {
 
     let columnCount = Math.floor(wrapperWidth / allCardWidth);
     let margin = (wrapperWidth - allCardWidth * columnCount) / 2
-
-    console.log(margin);
-    console.log(wrapperWidth - margin * 2);
 
     if (isNaN(margin) || wrapperWidth - margin * 2 < allCardWidth) return;
 

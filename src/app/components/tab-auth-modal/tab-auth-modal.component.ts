@@ -26,10 +26,9 @@ export class TabAuthModalComponent implements OnInit {
       // Go to the Azure AD authorization endpoint
       let queryParams = {
         tenant: "common",
-        client_id: environment.adalAppId,
+        client_id: environment.azureConfiguration.clientId,
         response_type: "code",
         response_mode: "fragment",
-        //resource: "https://graph.microsoft.com",
         resourceId: "a5f3ffb0-fce9-47a7-b1c9-79bcadd3b46d",
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),
@@ -71,7 +70,6 @@ export class TabAuthModalComponent implements OnInit {
       }
     }
 
-    console.log("toQueryString: ", str.join("&"));
     return str.join("&");
   }
 }

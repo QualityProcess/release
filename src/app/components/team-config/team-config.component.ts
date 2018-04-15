@@ -60,7 +60,6 @@ export class TeamConfigComponent implements OnInit {
     });
      
     console.log("isMSTab: sdfds");
-    this.service.isMSTab = true;
 
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler( saveEvent => {

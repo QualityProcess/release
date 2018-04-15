@@ -34,7 +34,7 @@ export class TabAuthModalComponent implements OnInit {
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),
         state: state,
-        prompt: "admin_consent",
+        //prompt: "admin_consent",
         login_hint: context.upn,
       };
 

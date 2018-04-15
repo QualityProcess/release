@@ -54,36 +54,7 @@ export class AuthService {
   // AAD tab authentication - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-tab-aad
   tabAuthentication() {
 
-    var authContext = new AuthenticationContext(environment.azureConfiguration);
-    if (authContext.isCallback(window.location.hash)) {
-      console.log("calback");
-      authContext.handleWindowCallback(window.location.hash);
-    }
-    else {
-
-      // Check if user is cached
-      var user = authContext.getCachedUser();
-      console.log("getCachedUser", user);
-      if (!user)
-        authContext.login(); // No cached user...force login
-      else {
-        authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
-          if (error || !token) {
-            // TODO: this could cause infinite loop
-            // Should use microsoftTeams.authentication.notifyFailure after one try
-            authContext.login();
-          }
-          else {
-            console.log("Graph token: ", token);
-
-            microsoftTeams.authentication.notifySuccess(token);
-          }
-
-        });
-      }
-    }
-
-    /*microsoftTeams.initialize();
+    microsoftTeams.initialize();
 
     microsoftTeams.authentication.authenticate({
       url: window.location.origin + "/tab-auth-modal",
@@ -96,7 +67,7 @@ export class AuthService {
         console.log("Fail: ", reason);
       }
     });
-    */
+
     //this.adal5Service.init(environment.adal5Config);
 
     /*this.adal5Service.handleWindowCallback();

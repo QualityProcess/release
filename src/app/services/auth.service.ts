@@ -222,18 +222,31 @@ export class AuthService {
         'Content-Type': 'application/x-www-form-urlencoded'
       }),
 
-      params: params
     };
 
     let data = {
-      client_id: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
-      scope: "user.read",
+
+      authority: 'https://login.microsoftonline.com/',
+      client_id: 'dad407b2-83d0-4e52-9b43-ba1940b9d9e9',
+      response_type: 'id_token',
+      post_logout_redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/`,
+      filterProtocolClaims: true,
+      loadUserInfo: true,
+      metadata: {
+        issuer: 'https://sts.windows.net/396d56da-a9f2-4a3a-8320-7e307ed56f8c/',
+        jwks_uri: 'https://login.microsoftonline.com/396d56da-a9f2-4a3a-8320-7e307ed56f8c/discovery/keys',
+        end_session_endpoint: 'https://login.microsoftonline.com/396d56da-a9f2-4a3a-8320-7e307ed56f8c/oauth2/logout',
+        authorization_endpoint: 'https://login.microsoftonline.com/396d56da-a9f2-4a3a-8320-7e307ed56f8c/oauth2/authorize'
+      },
+      signingKeys: ["18cYNwWKQOk/9FAHWkZCs8YoRcvagAkUxn/ALvz+BCw="],
+      grant_type: 'client_credentials',
+      scope: 'https://graph.microsoft.com/.default',
       redirect_uri: "https://graph.microsoft.com/",
       client_secret: "18cYNwWKQOk/9FAHWkZCs8YoRcvagAkUxn/ALvz+BCw="
 
     }
 
-    return this.http.post(`https://login.microsoftonline.com`, data, httpOptions);
+    return this.http.post(`https://login.microsoftonline.com/common/oauth2/v2.0/token`, data, httpOptions);
   }
 
   getUserDisplayedName(token1){

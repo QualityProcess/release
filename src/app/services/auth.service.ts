@@ -56,24 +56,24 @@ export class AuthService {
 
     microsoftTeams.initialize();
 
-    var authContext = new AuthenticationContext(environment.azureConfiguration);
-    if (authContext.isCallback(window.location.hash)) {
+    this.authContext = new AuthenticationContext(environment.azureConfiguration);
+    if (this.authContext.isCallback(window.location.hash)) {
       console.log("calback");
-      authContext.handleWindowCallback(window.location.hash);
+      this.authContext.handleWindowCallback(window.location.hash);
     }
     else {
 
       // Check if user is cached
-      var user = authContext.getCachedUser();
+      var user = this.authContext.getCachedUser();
       console.log("getCachedUser", user);
       if (!user)
-        authContext.login(); // No cached user...force login
+        this.authContext.login(); // No cached user...force login
       else {
-        authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
+        this.authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
           if (error || !token) {
             // TODO: this could cause infinite loop
             // Should use microsoftTeams.authentication.notifyFailure after one try
-            authContext.login();
+            this.authContext.login();
           }
           else {
             console.log("Graph token: ", token);

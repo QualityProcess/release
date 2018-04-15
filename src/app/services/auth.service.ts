@@ -169,10 +169,8 @@ export class AuthService {
 
       if (token) {
         this.getUserDisplayedName(this.accessToken);
+        this.getGraph(this.accessToken);
 
-        this.getGrapth(this.accessToken).subscribe((user) => {
-          console.log("USER Graph: ", user);
-        });
         console.log("succsess: ", );
         if (this.authContext) {
           console.log(this.authContext.getCachedUser());
@@ -231,6 +229,22 @@ export class AuthService {
     return this.http.get(`${this.AADGraphApi}`, httpOptions);
   }
 
+  getGraph(token) {
+    this.authContext.acquireToken(this.AADGraphApi, function (error, token) {
+      if (error || !token) {
+        console.log("ADAL error occurred: " + error);
+        //debugger;
+        throw new Error("Something went badly wrong!");
+      }
+      else {
+        console.log(token);
+        this.getGrapth(token).subscribe((user) => {
+          console.log("USER: ", user);
+        });
+      }
+    });
+  }
+
   getGrapth(token) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -239,7 +253,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get(`${this.graphApi}/me`, httpOptions);
+    return this.http.get(`${this.AADGraphApi}/me`, httpOptions);
   }
 
   public get accessToken() {

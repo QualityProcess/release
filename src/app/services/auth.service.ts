@@ -65,7 +65,9 @@ export class AuthService {
 
       // Check if user is cached
       var user = this.authContext.getCachedUser();
-      console.log("getCachedUser", user);
+      console.log("getCachedToken", this.authContext.getCachedToken(environment.azureConfiguration));
+      console.log("user", user);
+
       if (!user)
         this.authContext.login(); // No cached user...force login
       else {
@@ -217,7 +219,7 @@ export class AuthService {
   }
 
   public get accessToken() {
-    return this.authContext ? this.authContext.getCachedToken(environment.azureConfiguration.clientId) : null;
+    return this.authContext ? this.authContext.getCachedUser() : null;
   }
 
   public get isAuthenticated() {

@@ -54,6 +54,8 @@ export class AuthService {
   // AAD tab authentication - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-tab-aad
   tabAuthentication() {
 
+    microsoftTeams.initialize();
+
     microsoftTeams.authentication.authenticate({
       url: window.location.origin + "/tab-auth-modal",
       width: 600,
@@ -162,8 +164,8 @@ export class AuthService {
     this.authContext.acquireToken(environment.graphApi, function (error, token) {
       if (error || !token) {
         console.log("ADAL error occurred: " + error);
-        //debugger;
-        throw new Error("Something went badly wrong!");
+        
+        //throw new Error("Get graph token fail!");
       }
       else {
         console.log("Graph token: ", token);

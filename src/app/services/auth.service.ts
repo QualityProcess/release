@@ -26,7 +26,7 @@ declare var AuthenticationContext: any;
 export class AuthService {
 
   private graphApi = "https://graph.microsoft.com/v1.0";
-  private AADGraphApi = "https://graph.windows.net/me?api-version=1.6";
+  private AADGraphApi = "https://graph.windows.net/396d56da-a9f2-4a3a-8320-7e307ed56f8c/me?api-version=1.6";
 
   authContext: any;
   private conf = {

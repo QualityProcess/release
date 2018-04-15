@@ -38,8 +38,9 @@ export class TabAuthEndComponent implements OnInit {
   adalInit() {
 
     let hash = window.location.hash;
-
-    console.log("hashParams:", hash);
+    console.log("microsoftTeams:", microsoftTeams);
+    microsoftTeams.initialize();
+    console.log("microsoftTeams:", microsoftTeams);
     if (this.getHashParameterByName("error", hash)) {
       // Authentication/authorization failed
       console.log("error", this.getHashParameterByName("error", hash));
@@ -49,6 +50,8 @@ export class TabAuthEndComponent implements OnInit {
       // Get the stored state parameter and compare with incoming state
       // This validates that the data is coming from Azure AD
       let expectedState = localStorage.getItem("simple.state");
+      
+
       if (!this.getHashParameterByName("state", hash)) {
         // State does not match, report error
         microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");

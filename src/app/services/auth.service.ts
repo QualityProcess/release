@@ -37,9 +37,9 @@ export class AuthService {
     navigateToLoginRequestUrl: false,
     prompt: "admin_consent",
     extraQueryParameters: "",
-    scope: "https://graph.microsoft.com/.default",
-    resource: "33ba2f87-fb33-467b-94a6-0e6b68611d94",
-    resourceId: "33ba2f87-fb33-467b-94a6-0e6b68611d94"
+    //scope: "https://graph.microsoft.com/.default",
+    resource: "https://graph.windows.net/",
+    //resourceId: "33ba2f87-fb33-467b-94a6-0e6b68611d94"
   };
 
   private msContext: any;

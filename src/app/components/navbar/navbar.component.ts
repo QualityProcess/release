@@ -42,10 +42,10 @@ export class NavbarComponent implements OnInit {
         this.breadcrumbs = val;
     });
 
-    console.log(this.userService.username);
-    if (this.userService.username) {
+    console.log(this.userService.userInfo.userName);
+    if (this.userService.userInfo.userName) {
       this.isTab = true;
-      this.username = this.userService.username;
+      this.username = this.userService.userInfo.userName;
     }
     
   }

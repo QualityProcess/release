@@ -5,8 +5,7 @@
     "\\src\\app",
     "\\src\\app\\components",
     "\\src\\app\\components\\tab-auth-end",
-    "\\src\\app\\guard",
-    "\\src\\environments"
+    "\\src\\assets"
   ],
   "SelectedNode": "\\src\\app\\components\\tab-auth-end\\tab-auth-end.component.ts",
   "PreviewInSolutionExplorer": false

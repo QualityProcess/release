@@ -31,9 +31,9 @@ export class AuthGuard implements CanActivate {
         this.userService.userInfo = this.authService.userInfo;
         console.log("userService: ", this.authService.userInfo);
 
-        this.authService.getUserDisplayedName().subscribe((user) => {
+        /*this.authService.getUserDisplayedName().subscribe((user) => {
           console.log("USER: ", user);
-        });
+        });*/
       }
       
 

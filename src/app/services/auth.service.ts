@@ -108,7 +108,7 @@ export class AuthService {
   }
 
   get userInfo(): any {
-    return this.authContext ? this.authContext.getCachedUser() : null;;
+    return this.authContext ? this.authContext.getCachedUser() : null;
   }
 
   get authenticated(): boolean {
@@ -248,6 +248,8 @@ export class AuthService {
       } else {
         console.log("refreshToken: ", this.msContext.upn);
         this.username = this.msContext.upn;
+
+        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
         this.router.navigate(['projects']);
       }
     });

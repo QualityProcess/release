@@ -60,12 +60,16 @@ export class TabAuthEndComponent implements OnInit {
     console.log("SSO");
 
     // Setup authcontext
-    var authContext = new AuthenticationContext(this.config);
-    if (authContext.isCallback(window.location.hash))
+    var authContext = new AuthenticationContext(environment.azureConfiguration);
+    if (authContext.isCallback(window.location.hash)) {
+      console.log("calback");
       authContext.handleWindowCallback(window.location.hash);
+    }  
     else {
+
       // Check if user is cached
       var user = authContext.getCachedUser();
+      console.log("getCachedUser", user);
       if (!user)
         authContext.login(); // No cached user...force login
       else {

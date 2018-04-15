@@ -67,7 +67,30 @@ export class TabAuthEndComponent implements OnInit {
       console.log("authContext", authContext);
       console.log("getCachedUser", authContext.getCachedUser());
       this.router.navigate(['projects']);
-      authContext.handleWindowCallback(window.location.hash);
+
+
+      let user = authContext.getCachedUser();
+      console.log("getCachedUser", user);
+      if (!user)
+        authContext.login(); // No cached user...force login
+      else {
+        authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
+          if (error || !token) {
+            // TODO: this could cause infinite loop
+            // Should use microsoftTeams.authentication.notifyFailure after one try
+            authContext.login();
+          }
+          else {
+            console.log("Graph token: ", token);
+            microsoftTeams.authentication.notifySuccess(token);
+            this.router.navigate(['projects']);
+
+          }
+
+        });
+      }
+
+      //authContext.handleWindowCallback(window.location.hash);
       
     }  
     else {

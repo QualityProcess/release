@@ -25,7 +25,6 @@ export class TabAuthEndComponent implements OnInit {
     extraQueryParameters: "",
   }
 
-
   constructor(
     private router: Router,
     private authSerive: AuthService
@@ -38,7 +37,6 @@ export class TabAuthEndComponent implements OnInit {
   adalInit() {
 
     let hash = window.location.hash;
-    console.log("microsoftTeams:", microsoftTeams);
     microsoftTeams.initialize();
     console.log("microsoftTeams:", microsoftTeams);
     if (this.getHashParameterByName("error", hash)) {

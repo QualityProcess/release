@@ -56,7 +56,7 @@ export class AuthService {
 
     microsoftTeams.initialize();
 
-    this.authContext = new AuthenticationContext(environment.azureConfiguration);
+    /*this.authContext = new AuthenticationContext(environment.azureConfiguration);
     if (this.authContext.isCallback(window.location.hash)) {
       console.log("calback");
       this.router.navigate(['projects']);
@@ -88,9 +88,9 @@ export class AuthService {
 
         });
       }
-    }
+    }*/
 
-    /*microsoftTeams.authentication.authenticate({
+    microsoftTeams.authentication.authenticate({
       url: window.location.origin + "/tab-auth-modal",
       width: 600,
       height: 535,
@@ -100,7 +100,7 @@ export class AuthService {
       failureCallback: function (reason) {
         console.log("Fail: ", reason);
       }
-    });*/
+    });
 
     //this.adal5Service.init(environment.adal5Config);
 

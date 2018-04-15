@@ -94,17 +94,23 @@ export class AuthService {
       url: window.location.origin + "/tab-auth-modal",
       width: 600,
       height: 535,
-      successCallback: function (result) {
+      successCallback: (result) => {
         console.log("Success: ");
 
         microsoftTeams.getContext((context) => {
           console.log("MS tab context: ", context);
-          this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+          if (context.entityId) {
+            this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+          } else {
+            this.router.navigate(["projects"]);
+          }
+          
         });
 
       },
-      failureCallback: function (reason) {
+      failureCallback: (reason) => {
         console.log("Fail: ", reason);
+        this.router.navigate(["login"]);
       }
     });
 

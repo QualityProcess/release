@@ -95,7 +95,13 @@ export class AuthService {
       width: 600,
       height: 535,
       successCallback: function (result) {
-        console.log("Success: ", );
+        console.log("Success: ");
+
+        microsoftTeams.getContext((context) => {
+          console.log("MS tab context: ", context);
+          this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+        });
+
       },
       failureCallback: function (reason) {
         console.log("Fail: ", reason);

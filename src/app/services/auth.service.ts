@@ -36,7 +36,8 @@ export class AuthService {
     navigateToLoginRequestUrl: false,
     prompt: "admin_consent",
     extraQueryParameters: "",
-    resource: "https://graph.microsoft.com"
+    resource: "https://graph.microsoft.com/.default",
+    resourceId: "33ba2f87-fb33-467b-94a6-0e6b68611d94"
   };
 
   private msContext: any;

@@ -95,7 +95,7 @@ export class AuthService {
       width: 600,
       height: 535,
       successCallback: function (result) {
-        console.log("Success: ", result.accessToken);
+        console.log("Success: ", );
       },
       failureCallback: function (reason) {
         console.log("Fail: ", reason);

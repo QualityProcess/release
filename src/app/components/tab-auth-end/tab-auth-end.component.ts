@@ -54,6 +54,8 @@ export class TabAuthEndComponent implements OnInit {
         // State does not match, report error
         microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");
       } else {
+        console.log("state: ", this.authSerive.isAuthenticated);
+
         // Success: return token information to the tab
         microsoftTeams.authentication.notifySuccess();
         this.router.navigate(['projects']);

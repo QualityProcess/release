@@ -81,6 +81,7 @@ export class AuthService {
             console.log("Graph token: ", token);
 
             microsoftTeams.authentication.notifySuccess(token);
+            this.router.navigate(['projects']);
           }
 
         });

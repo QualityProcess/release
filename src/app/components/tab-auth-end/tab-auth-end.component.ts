@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+// services
+import { AuthService } from './../../services/auth.service';
+
 import { environment } from './../../../environments/environment';
 
 declare var microsoftTeams: any;
@@ -23,7 +26,10 @@ export class TabAuthEndComponent implements OnInit {
   }
 
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authSerive: AuthService
+  ) { }
 
   ngOnInit() {
     this.adalInit();
@@ -36,8 +42,10 @@ export class TabAuthEndComponent implements OnInit {
     console.log("hashParams:", hashParams);
     if (hashParams["error"]) {
       // Authentication/authorization failed
+      console.log("error", hashParams["error"]);
       microsoftTeams.authentication.notifyFailure(hashParams["error"]);
-    } else if (hashParams["access_token"]) {
+    } else if (hashParams["state"]) {
+      console.log("state");
       // Get the stored state parameter and compare with incoming state
       // This validates that the data is coming from Azure AD
       let expectedState = localStorage.getItem("simple.state");
@@ -46,22 +54,20 @@ export class TabAuthEndComponent implements OnInit {
         microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");
       } else {
         // Success: return token information to the tab
-        microsoftTeams.authentication.notifySuccess({
-          idToken: hashParams["id_token"],
-          accessToken: hashParams["access_token"],
-          tokenType: hashParams["token_type"],
-          expiresIn: hashParams["expires_in"]
-        })
+        microsoftTeams.authentication.notifySuccess();
       }
-    }/* else {
+    } else {
+      console.log("SSO");
+      this.authSerive.tabAuthentication();
+      //microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+    }
 
-      microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
-    }*/
+    
 
-    console.log("SSO");
+    
 
     // Setup authcontext
-    var authContext = new AuthenticationContext(environment.azureConfiguration);
+    /*var authContext = new AuthenticationContext(environment.azureConfiguration);
     if (authContext.isCallback(window.location.hash)) {
       console.log("calback", window.location.hash);
       console.log("authContext", authContext);
@@ -115,7 +121,7 @@ export class TabAuthEndComponent implements OnInit {
             
         });
       }
-    }
+    }*/
   }
 
   getHashParameters() {

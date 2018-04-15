@@ -1,6 +1,6 @@
 // core
 import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { isPlatformServer, isPlatformBrowser, Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -168,11 +168,16 @@ export class AuthService {
       let token = this.authContext.getCachedToken(this.conf.clientId);
 
       if (token) {
-        //this.getUserDisplayedName(this.accessToken);
-        //this.getGraph(this.accessToken);
-
         this.authContext.login();
-        this.getGraphToken();
+
+        this.getUserDisplayedName(this.accessToken);
+        this.getGraph(this.accessToken);
+
+        
+        this.getGraphToken().subscribe((token) => {
+          console.log(token);
+          this.getUserDisplayedNameSbc(token).subscribe(res => { console.log(res)});
+        });
         console.log("succsess: ", );
         if (this.authContext) {
           console.log(this.authContext.getCachedUser());
@@ -204,20 +209,32 @@ export class AuthService {
     });
   }
 
-  getGraphToken() {
+  getGraphToken(): Observable<any> {
+    
+
+    let params = new HttpParams();
+    params = params.append('client_id', "dad407b2-83d0-4e52-9b43-ba1940b9d9e9");
+    params = params.append('scope', "user.read");
+    params = params.append('redirect_uri', "https://graph.microsoft.com/");
+    params = params.append('client_secret', "18cYNwWKQOk/9FAHWkZCs8YoRcvagAkUxn/ALvz+BCw=");
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
-      })
+      }),
+
+      params: params
     };
 
     let data = {
       client_id: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
       scope: "user.read",
+      redirect_uri: "https://graph.microsoft.com/",
+      client_secret: "18cYNwWKQOk/9FAHWkZCs8YoRcvagAkUxn/ALvz+BCw="
 
     }
 
-    return this.http.post(`https://login.microsoftonline.com`, httpOptions);
+    return this.http.post(`https://login.microsoftonline.com`, data, httpOptions);
   }
 
   getUserDisplayedName(token1){
@@ -229,7 +246,7 @@ export class AuthService {
       }
       else {
         console.log(token);
-        this.getUserDisplayedNameSbc().subscribe((user) => {
+        this.getUserDisplayedNameSbc(token).subscribe((user) => {
           console.log("USER: ", user);
         });
       }

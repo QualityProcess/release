@@ -168,9 +168,7 @@ export class AuthService {
       let token = this.authContext.getCachedToken(this.conf.clientId);
 
       if (token) {
-        this.getUserDisplayedName(this.accessToken).subscribe((user) => {
-          console.log("USER: ", user);
-        });
+        this.getUserDisplayedName(this.accessToken);
 
         this.getGrapth(this.accessToken).subscribe((user) => {
           console.log("USER Graph: ", user);
@@ -206,8 +204,23 @@ export class AuthService {
     });
   }
 
-  getUserDisplayedName(token): Observable<{}> {
+  getUserDisplayedName(token1){
+    this.authContext.acquireToken(this.graphApi, function (error, token) {
+      if (error || !token) {
+        console.log("ADAL error occurred: " + error);
+        //debugger;
+        throw new Error("Something went badly wrong!");
+      }
+      else {
+        console.log(token);
+        this.getUserDisplayedNameSbc().subscribe((user) => {
+          console.log("USER: ", user);
+        });
+      }
+    });
+  }
 
+  getUserDisplayedNameSbc(token): Observable<{}>  {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

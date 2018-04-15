@@ -207,7 +207,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get(`${this.graphApi}/users/me`, httpOptions);
+    return this.http.get(`${this.graphApi}/me`, httpOptions);
   }
 
   public get accessToken() {

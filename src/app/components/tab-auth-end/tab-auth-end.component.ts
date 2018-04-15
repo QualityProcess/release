@@ -37,19 +37,19 @@ export class TabAuthEndComponent implements OnInit {
 
   adalInit() {
 
-    let hashParams = window.location.hash;
+    let hash = window.location.hash;
 
-    console.log("hashParams:", hashParams);
-    if (hashParams["error"]) {
+    console.log("hashParams:", hash);
+    if (this.getHashParameterByName("error", hash)) {
       // Authentication/authorization failed
-      console.log("error", hashParams["error"]);
-      microsoftTeams.authentication.notifyFailure(hashParams["error"]);
-    } else if (hashParams["state"]) {
+      console.log("error", this.getHashParameterByName("error", hash));
+      microsoftTeams.authentication.notifyFailure(this.getHashParameterByName("error", hash));
+    } else if (this.getHashParameterByName("state", hash)) {
       console.log("state");
       // Get the stored state parameter and compare with incoming state
       // This validates that the data is coming from Azure AD
       let expectedState = localStorage.getItem("simple.state");
-      if (expectedState !== hashParams["state"]) {
+      if (this.getHashParameterByName("state", hash)) {
         // State does not match, report error
         microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");
       } else {
@@ -124,8 +124,14 @@ export class TabAuthEndComponent implements OnInit {
     }*/
   }
 
-  getHashParameters() {
-    return window.location.hash;
+  getHashParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
 }

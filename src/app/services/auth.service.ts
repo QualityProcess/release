@@ -75,6 +75,7 @@ export class AuthService {
           if (error || !token) {
             // TODO: this could cause infinite loop
             // Should use microsoftTeams.authentication.notifyFailure after one try
+            console.log(error);
             this.authContext.login();
           }
           else {

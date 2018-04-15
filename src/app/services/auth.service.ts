@@ -30,7 +30,7 @@ export class AuthService {
 
   authContext: any;
   private conf = {
-    tenant: "common",
+    tenant: "indoeng.com",
     clientId: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",

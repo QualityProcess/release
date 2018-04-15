@@ -30,7 +30,7 @@ export class AuthService {
 
   authContext: any;
   private conf = {
-    tenant: "indoeng.com",
+    tenant: "common",
     clientId: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
@@ -168,9 +168,11 @@ export class AuthService {
       let token = this.authContext.getCachedToken(this.conf.clientId);
 
       if (token) {
-        this.getUserDisplayedName(this.accessToken);
-        this.getGraph(this.accessToken);
+        //this.getUserDisplayedName(this.accessToken);
+        //this.getGraph(this.accessToken);
 
+        this.authContext.login();
+        this.getGraphToken();
         console.log("succsess: ", );
         if (this.authContext) {
           console.log(this.authContext.getCachedUser());
@@ -200,6 +202,22 @@ export class AuthService {
       }*/
 
     });
+  }
+
+  getGraphToken() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+
+    let data = {
+      client_id: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
+      scope: "user.read",
+
+    }
+
+    return this.http.post(`https://login.microsoftonline.com`, httpOptions);
   }
 
   getUserDisplayedName(token1){

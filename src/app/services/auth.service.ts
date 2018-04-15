@@ -168,7 +168,6 @@ export class AuthService {
       let token = this.authContext.getCachedToken(this.conf.clientId);
 
       if (token) {
-        this.authContext.login();
 
         this.getUserDisplayedName(this.accessToken);
         this.getGraph(this.accessToken);

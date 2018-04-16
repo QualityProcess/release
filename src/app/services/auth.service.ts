@@ -56,40 +56,6 @@ export class AuthService {
 
     microsoftTeams.initialize();
 
-    /*this.authContext = new AuthenticationContext(environment.azureConfiguration);
-    if (this.authContext.isCallback(window.location.hash)) {
-      console.log("calback");
-      this.router.navigate(['projects']);
-      this.authContext.handleWindowCallback(window.location.hash);
-    }
-    else {
-
-      // Check if user is cached
-      var user = this.authContext.getCachedUser();
-      console.log("getCachedToken", this.authContext.getCachedToken(environment.azureConfiguration));
-      console.log("user", user);
-
-      if (!user)
-        this.authContext.login(); // No cached user...force login
-      else {
-        this.authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
-          if (error || !token) {
-            // TODO: this could cause infinite loop
-            // Should use microsoftTeams.authentication.notifyFailure after one try
-            console.log(error);
-            this.authContext.login();
-          }
-          else {
-            console.log("Graph token: ", token);
-
-            microsoftTeams.authentication.notifySuccess(token);
-            this.router.navigate(['projects']);
-          }
-
-        });
-      }
-    }*/
-
     microsoftTeams.authentication.authenticate({
       url: window.location.origin + "/tab-auth-modal",
       width: 600,
@@ -109,25 +75,6 @@ export class AuthService {
         this.goToLoginPage();
       }
     });
-
-    //this.adal5Service.init(environment.adal5Config);
-
-    /*this.adal5Service.handleWindowCallback();
-    console.log("App this.adal5Service.userInfo: ", this.adal5Service.userInfo);
-    if (this.adal5Service.userInfo) {
-      this.userService.userInfo = this.adal5Service.userInfo;
-      this.userService.username = this.adal5Service.userInfo.username;
-    }
-
-    if (this.adal5Service.userInfo.authenticated) {
-      console.log(this.adal5Service);
-      this.userService.userInfo = this.adal5Service.userInfo;
-      this.userService.username = this.adal5Service.userInfo.username;
-      this.router.navigate(['projects']);
-    } else {
-      this.adal5Service.login();
-      this.adalLogin();
-    }*/
 
   }
 

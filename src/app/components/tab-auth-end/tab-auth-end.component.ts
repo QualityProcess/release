@@ -50,7 +50,7 @@ export class TabAuthEndComponent implements OnInit {
       let expectedState = localStorage.getItem("simple.state");
       
 
-      if (!this.getHashParameterByName("state", hash)) {
+      if (expectedState !== this.getHashParameterByName("state", hash)) {
         // State does not match, report error
         microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");
       } else {
@@ -61,9 +61,8 @@ export class TabAuthEndComponent implements OnInit {
         this.router.navigate(['projects']);
       }
     } else {
-      console.log("SSO");
-      this.authSerive.tabAuthentication();
-      //microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+
+      microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
     }
 
     

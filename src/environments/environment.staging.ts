@@ -4,12 +4,12 @@ export const environment = {
 
   adal5Config: {
     tenant: "common",
-    clientId: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
+    clientId: "aeb7cef4-f72f-4a7d-80e8-08611e0efcd2",
     postLogoutRedirectUri: window.location.origin + "/logout"
   },
   azureConfiguration: {
     tenant: "common",
-    clientId: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
+    clientId: "aeb7cef4-f72f-4a7d-80e8-08611e0efcd2",
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,

@@ -57,7 +57,7 @@ export class AuthService {
   // AAD tab authentication - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-tab-aad
   tabAuthentication() {
 
-    this.isSilentAuthentication = false;
+    this._isSilentAuthentication = false;
 
     microsoftTeams.initialize();
 
@@ -116,17 +116,22 @@ export class AuthService {
   }
 
   get isSilentAuthentication(): boolean {
+    console.log("get: ", this._isSilentAuthentication);
     return this._isSilentAuthentication;
   }
 
   set isSilentAuthentication(value: boolean) {
     this._isSilentAuthentication = value;
+
+    console.log("value: ", value);
+    console.log("set: ", this._isSilentAuthentication);
+    
   }
 
   //  Silent authentication AAD - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-silent-AAD
   silentAuthentication() {
 
-    this.isSilentAuthentication = true;
+    this._isSilentAuthentication = true;
     
     microsoftTeams.initialize();
 

@@ -133,7 +133,7 @@ export class AuthService {
         environment.azureConfiguration.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
       }
 
-      this.authContext = new AuthenticationContext(environment.azureConfiguration);
+      this.authContext = new AuthenticationContext(environment.adal5Config);
 
       console.log("Azure ad object:", this.authContext);
 
@@ -258,6 +258,17 @@ export class AuthService {
         this.router.navigate(['projects']);
       }
     });
+  }
+
+  handleWindowCallback() {
+    if (this.authContext.isCallback(window.location.hash)) {
+      this.authContext.handleWindowCallback(window.location.hash);
+      if (this.authContext.getCachedUser()) {
+        microsoftTeams.authentication.notifySuccess();
+      } else {
+        microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
+      }
+    }
   }
 
 

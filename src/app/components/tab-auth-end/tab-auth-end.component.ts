@@ -67,6 +67,8 @@ export class TabAuthEndComponent implements OnInit {
       //this.authSerive.tabAuthentication();
       microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
     }
+
+    this.authSerive.handleWindowCallback();
     
     
 

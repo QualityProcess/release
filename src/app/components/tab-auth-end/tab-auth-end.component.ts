@@ -37,7 +37,9 @@ export class TabAuthEndComponent implements OnInit {
   adalInit() {
 
     let hash = window.location.hash;
-    microsoftTeams.initialize();/*
+    microsoftTeams.initialize();
+
+
     console.log("microsoftTeams:", microsoftTeams);
     if (this.getHashParameterByName("error", hash)) {
       // Authentication/authorization failed
@@ -58,14 +60,14 @@ export class TabAuthEndComponent implements OnInit {
 
         // Success: return token information to the tab
         microsoftTeams.authentication.notifySuccess();
-        this.router.navigate(['projects']);
+        //this.router.navigate(['projects']);
       }
     } else {
-      console.log("SSO");
-      this.authSerive.tabAuthentication();
-      //microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+      //console.log("SSO");
+      //this.authSerive.tabAuthentication();
+      microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
     }
-    */
+    
     
 
     
@@ -86,9 +88,14 @@ export class TabAuthEndComponent implements OnInit {
       this.authSerive.isTabAuthenticated = true;
       let user = authContext.getCachedUser();
 
+      this.router.navigate(['projects']);
+
       console.log("getCachedUser", user);
-      if (!user)
-        authContext.login(); // No cached user...force login
+      if (!user) {
+        microsoftTeams.authentication.notifyFailure();
+         //authContext.login(); // No cached user...force login
+      }
+       
       else {
         authContext.acquireToken("https://graph.microsoft.com", function (error, token) {
           if (error || !token) {
@@ -105,7 +112,7 @@ export class TabAuthEndComponent implements OnInit {
 
         });
 
-        this.router.navigate(['projects']);
+        
       }
 
       //authContext.handleWindowCallback(window.location.hash);

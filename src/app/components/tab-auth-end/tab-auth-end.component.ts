@@ -37,7 +37,7 @@ export class TabAuthEndComponent implements OnInit {
   adalInit() {
 
     let hash = window.location.hash;
-    microsoftTeams.initialize();
+    microsoftTeams.initialize();/*
     console.log("microsoftTeams:", microsoftTeams);
     if (this.getHashParameterByName("error", hash)) {
       // Authentication/authorization failed
@@ -61,16 +61,17 @@ export class TabAuthEndComponent implements OnInit {
         this.router.navigate(['projects']);
       }
     } else {
-
-      microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+      console.log("SSO");
+      this.authSerive.tabAuthentication();
+      //microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
     }
-
+    */
     
 
     
 
     // Setup authcontext
-    /*var authContext = new AuthenticationContext(environment.azureConfiguration);
+    var authContext = new AuthenticationContext(environment.azureConfiguration);
     if (authContext.isCallback(window.location.hash)) {
       console.log("calback", window.location.hash);
       console.log("authContext", authContext);
@@ -124,7 +125,7 @@ export class TabAuthEndComponent implements OnInit {
             
         });
       }
-    }*/
+    }
   }
 
   getHashParameterByName(name, url) {

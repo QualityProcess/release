@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
     } else {
 
       // go to Silent authentication AAD
-      this.router.navigate(['/tab-auth']);
+      this.router.navigate(['/login']);
       return false;
     }
   }

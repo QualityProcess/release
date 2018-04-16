@@ -73,7 +73,7 @@ export class TabAuthEndComponent implements OnInit {
     
 
     // Setup authcontext
-    var authContext = new AuthenticationContext(environment.azureConfiguration);
+    /*var authContext = new AuthenticationContext(environment.azureConfiguration);
     if (authContext.isCallback(window.location.hash)) {
       console.log("calback", window.location.hash);
       console.log("authContext", authContext);
@@ -140,7 +140,7 @@ export class TabAuthEndComponent implements OnInit {
             
         });
       }
-    }
+    }*/
   }
 
   getHashParameterByName(name, url) {

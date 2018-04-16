@@ -50,7 +50,7 @@ export class TabAuthEndComponent implements OnInit {
       let expectedState = localStorage.getItem("simple.state");
       
 
-      if (expectedState !== this.getHashParameterByName("state", hash)) {
+      if (!this.getHashParameterByName("state", hash)) {
         // State does not match, report error
         microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");
       } else {

@@ -76,9 +76,14 @@ export class TabAuthEndComponent implements OnInit {
       console.log("calback", window.location.hash);
       console.log("authContext", authContext);
       console.log("getCachedUser", authContext.getCachedUser());
-      this.router.navigate(['projects']);
+      //this.router.navigate(['projects']);
 
+      let str = window.location.hash.replace('\#', '?');
+      console.log(str);
 
+      microsoftTeams.authentication.notifySuccess(this.getHashParameterByName("id_token", str));
+
+      this.authSerive.isTabAuthenticated = true;
       let user = authContext.getCachedUser();
       console.log("getCachedUser", user);
       if (!user)

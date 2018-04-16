@@ -33,6 +33,7 @@ export class AuthService {
   private _username: string;
   private _userInfo: any;
   private _isMSTab: boolean = false;
+  public isTabAuthenticated: boolean = false;
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,

@@ -72,6 +72,14 @@ export class AuthService {
 
           this.userService.userInfo = userInfo;
           this.tabAuthenticated = true;
+
+          console.log("userInfo: ", this.userService.userInfo);
+          console.log("this.router: ", this.router);
+          console.log("parseUrl: ", this.parseUrl(context.entityId, "pathname")]);
+
+          if (this.router)
+            this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+
           this.goToTabPage(context);
           
         });

@@ -165,6 +165,68 @@ export class AuthService {
         console.log("fail: No token, or token is expired");
         this.refreshToken();
       }
+<<<<<<< HEAD
+=======
+
+      /*if (this.authContext.isCallback(window.location.hash)) {
+        console.log("window.location.hash: ", window.location.hash);
+        this.authContext.handleWindowCallback(window.location.hash);
+        if (this.authContext.getCachedUser()) {
+          console.log(" microsoftTeams.authentication.notifySuccess");
+          microsoftTeams.authentication.notifySuccess();
+        } else {
+          console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
+          let err = this.authContext.getLoginError();
+          microsoftTeams.authentication.notifyFailure(err);
+          console.log("sdf");
+        }
+      }*/
+
+    });
+  }
+
+  getGraphToken(): Observable<any> {
+    
+
+    let params = new HttpParams();
+    params = params.append('client_id', "dad407b2-83d0-4e52-9b43-ba1940b9d9e9");
+    params = params.append('scope', "user.read");
+    params = params.append('redirect_uri', "https://graph.microsoft.com/");
+    params = params.append('client_secret', "18cYNwWKQOk/9FAHWkZCs8YoRcvagAkUxn/ALvz+BCw=");
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }),
+
+      params: params
+    };
+
+    let data = {
+      client_id: "dad407b2-83d0-4e52-9b43-ba1940b9d9e9",
+      scope: "user.read",
+      redirect_uri: "https://graph.microsoft.com/",
+      client_secret: "18cYNwWKQOk/9FAHWkZCs8YoRcvagAkUxn/ALvz+BCw="
+
+    }
+
+    return this.http.post(`https://login.microsoftonline.com`, data, httpOptions);
+  }
+
+  getUserDisplayedName(token1){
+    this.authContext.acquireToken(this.graphApi, function (error, token) {
+      if (error || !token) {
+        console.log("ADAL error occurred: " + error);
+        //debugger;
+        throw new Error("Something went badly wrong!");
+      }
+      else {
+        console.log(token);
+        this.getUserDisplayedNameSbc(token).subscribe((user) => {
+          console.log("USER: ", user);
+        });
+      }
+>>>>>>> parent of 06d7334... --amend
     });
   }
 

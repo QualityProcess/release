@@ -85,6 +85,7 @@ export class TabAuthEndComponent implements OnInit {
 
       this.authSerive.isTabAuthenticated = true;
       let user = authContext.getCachedUser();
+
       console.log("getCachedUser", user);
       if (!user)
         authContext.login(); // No cached user...force login
@@ -103,6 +104,8 @@ export class TabAuthEndComponent implements OnInit {
           }
 
         });
+
+        this.router.navigate(['projects']);
       }
 
       //authContext.handleWindowCallback(window.location.hash);

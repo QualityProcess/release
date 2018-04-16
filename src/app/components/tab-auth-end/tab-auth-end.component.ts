@@ -25,6 +25,8 @@ export class TabAuthEndComponent implements OnInit {
     extraQueryParameters: "",
   }
 
+  private authContext: any;
+
   constructor(
     private router: Router,
     private authSerive: AuthService
@@ -39,17 +41,22 @@ export class TabAuthEndComponent implements OnInit {
     
     microsoftTeams.initialize();
 
-    console.log("Authentication: ", this.authSerive.isSilentAuthentication ? "Silent" : "Tab");
+    console.log("Authentication: ", this.authSerive.isSilentAuthentication);
 
     if (this.authSerive.isSilentAuthentication) {
-      let authContext = new AuthenticationContext(environment.adal5Config);
+      this.authContext = new AuthenticationContext(environment.adal5Config);
 
-      if (authContext.isCallback(window.location.hash)) {
-        authContext.handleWindowCallback(window.location.hash);
-        if (authContext.getCachedUser()) {
+      console.log(window.location.hash);
+
+      if (this.authContext.isCallback(window.location.hash)) {
+        this.authContext.handleWindowCallback(window.location.hash);
+        if (this.authContext.getCachedUser()) {
+
+          console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
           microsoftTeams.authentication.notifySuccess();
         } else {
-          microsoftTeams.authentication.notifyFailure(authContext.getLoginError());
+          console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
+          microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
         }
       }
     } else {
@@ -82,6 +89,8 @@ export class TabAuthEndComponent implements OnInit {
         microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
       }
     }
+
+
     
 
     // Setup authcontext
@@ -153,6 +162,22 @@ export class TabAuthEndComponent implements OnInit {
         });
       }
     }*/
+  }
+
+  getGraphToken() {
+    this.authContext.acquireToken(environment.graphApi, function (error, token) {
+      if (error || !token) {
+        console.log("ADAL error occurred: " + error);
+
+        //throw new Error("Get graph token fail!");
+      }
+      else {
+        console.log("Graph token: ", token);
+        this.authService.getGraphData(token).subscribe((data) => {
+          console.log("Graph data: ", data);
+        });
+      }
+    });
   }
 
   getHashParameterByName(name, url) {

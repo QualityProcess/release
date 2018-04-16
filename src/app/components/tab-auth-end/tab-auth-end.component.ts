@@ -36,49 +36,52 @@ export class TabAuthEndComponent implements OnInit {
 
   adalInit() {
 
-    let hash = window.location.hash;
+    
     microsoftTeams.initialize();
 
+    console.log("Authentication: ", this.authSerive.isSilentAuthentication ? "Silent" : "Tab");
 
-    console.log("microsoftTeams:", microsoftTeams);
-    if (this.getHashParameterByName("error", hash)) {
-      // Authentication/authorization failed
-      console.log("error", this.getHashParameterByName("error", hash));
-      microsoftTeams.authentication.notifyFailure(this.getHashParameterByName("error", hash));
-    } else if (this.getHashParameterByName("state", hash)) {
-      console.log("state");
-      // Get the stored state parameter and compare with incoming state
-      // This validates that the data is coming from Azure AD
-      let expectedState = localStorage.getItem("simple.state");
-      
+    if (this.authSerive.isSilentAuthentication) {
+      let authContext = new AuthenticationContext(environment.adal5Config);
 
-      if (!this.getHashParameterByName("state", hash)) {
-        // State does not match, report error
-        microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");
-      } else {
-        console.log("state: ", this.authSerive.isAuthenticated);
-
-        // Success: return token information to the tab
-        microsoftTeams.authentication.notifySuccess();
-        //this.router.navigate(['projects']);
-      }
-    } else {
-      //console.log("SSO");
-      //this.authSerive.tabAuthentication();
-      microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
-    }
-
-    let authContext = new AuthenticationContext(environment.adal5Config);
-
-    if (authContext.isCallback(window.location.hash)) {
+      if (authContext.isCallback(window.location.hash)) {
         authContext.handleWindowCallback(window.location.hash);
         if (authContext.getCachedUser()) {
           microsoftTeams.authentication.notifySuccess();
         } else {
           microsoftTeams.authentication.notifyFailure(authContext.getLoginError());
         }
+      }
+    } else {
+      let hash = window.location.hash;
+
+      if (this.getHashParameterByName("error", hash)) {
+        // Authentication/authorization failed
+        console.log("error", this.getHashParameterByName("error", hash));
+        microsoftTeams.authentication.notifyFailure(this.getHashParameterByName("error", hash));
+      } else if (this.getHashParameterByName("state", hash)) {
+        console.log("state");
+        // Get the stored state parameter and compare with incoming state
+        // This validates that the data is coming from Azure AD
+        let expectedState = localStorage.getItem("simple.state");
+
+
+        if (!this.getHashParameterByName("state", hash)) {
+          // State does not match, report error
+          microsoftTeams.authentication.notifyFailure("StateDoesNotMatch");
+        } else {
+          console.log("state: ", this.authSerive.isAuthenticated);
+
+          // Success: return token information to the tab
+          microsoftTeams.authentication.notifySuccess();
+          //this.router.navigate(['projects']);
+        }
+      } else {
+        //console.log("SSO");
+        //this.authSerive.tabAuthentication();
+        microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+      }
     }
-   
     
 
     // Setup authcontext

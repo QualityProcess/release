@@ -28,6 +28,7 @@ export class AuthService {
   authContext: any;
 
   private tabAuthenticated: boolean = false;
+  private _isSilentAuthentication: boolean = false;
   private msContext: any;
   private _token: string;
   private _username: string;
@@ -55,6 +56,8 @@ export class AuthService {
 
   // AAD tab authentication - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-tab-aad
   tabAuthentication() {
+
+    this.isSilentAuthentication = false;
 
     microsoftTeams.initialize();
 
@@ -112,8 +115,18 @@ export class AuthService {
     return this.adal5Service.userInfo.authenticated;
   }
 
+  get isSilentAuthentication(): boolean {
+    return this._isSilentAuthentication;
+  }
+
+  set isSilentAuthentication(value: boolean) {
+    this._isSilentAuthentication = value;
+  }
+
   //  Silent authentication AAD - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-silent-AAD
   silentAuthentication() {
+
+    this.isSilentAuthentication = true;
     
     microsoftTeams.initialize();
 

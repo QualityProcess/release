@@ -135,7 +135,7 @@ export class AuthService {
 
       this.authContext = new AuthenticationContext(environment.adal5Config);
 
-      console.log("Azure ad object:", this.authContext);
+      console.log("Azure getCachedUser object:", this.authContext.getCachedUser());
 
       // See if there's a cached user and it matches the expected user
       let user = this.authContext.getCachedUser();

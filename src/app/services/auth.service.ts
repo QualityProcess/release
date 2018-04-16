@@ -78,7 +78,7 @@ export class AuthService {
           console.log("parseUrl: ", this.parseUrl(context.entityId, "pathname"));
 
           if (this.router)
-            this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+            this.router.navigate(["projects"]);
 
           this.goToTabPage(context);
           
@@ -94,12 +94,14 @@ export class AuthService {
   }
 
   goToTabPage(context) {
-    console.log(this.router);
+
+    this.router.navigate(["projects"]);
+    /*console.log(this.router);
     if (context.entityId) {
       this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
     } else {
       this.router.navigate(["projects"]);
-    }
+    }*/
   }
 
   goToLoginPage() {

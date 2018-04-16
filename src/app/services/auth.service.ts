@@ -27,6 +27,7 @@ export class AuthService {
 
   authContext: any;
 
+  private tabAuthenticated: boolean = false;
   private msContext: any;
   private _token: string;
   private _username: string;
@@ -61,10 +62,15 @@ export class AuthService {
       width: 600,
       height: 535,
       successCallback: (result) => {
-        console.log("Success: ");
+        console.log("Success: ", result);
 
         microsoftTeams.getContext((context) => {
           console.log("MS tab context: ", context);
+
+          let userInfo = { userName: context.upn };
+
+          this.userService.userInfo = userInfo;
+          this.tabAuthenticated = true;
           this.goToTabPage(context);
           
         });
@@ -194,7 +200,7 @@ export class AuthService {
   }
 
   public get isAuthenticated() {
-    return this.accessToken;
+    return this.tabAuthenticated || this.accessToken;
   }
 
   parseUrl(string, prop) {

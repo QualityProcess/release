@@ -68,10 +68,17 @@ export class TabAuthEndComponent implements OnInit {
       microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
     }
 
-    this.authSerive.handleWindowCallback();
-    
-    
+    let authContext = new AuthenticationContext(environment.adal5Config);
 
+    if (authContext.isCallback(window.location.hash)) {
+        authContext.handleWindowCallback(window.location.hash);
+        if (authContext.getCachedUser()) {
+          microsoftTeams.authentication.notifySuccess();
+        } else {
+          microsoftTeams.authentication.notifyFailure(authContext.getLoginError());
+        }
+    }
+   
     
 
     // Setup authcontext

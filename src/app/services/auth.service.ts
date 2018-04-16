@@ -260,18 +260,6 @@ export class AuthService {
     });
   }
 
-  handleWindowCallback() {
-    if (this.authContext.isCallback(window.location.hash)) {
-      this.authContext.handleWindowCallback(window.location.hash);
-      if (this.authContext.getCachedUser()) {
-        microsoftTeams.authentication.notifySuccess();
-      } else {
-        microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
-      }
-    }
-  }
-
-
   setAccessToken(value: string) {
     this._token = value;
   }

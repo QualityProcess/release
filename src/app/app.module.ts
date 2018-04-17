@@ -17,6 +17,7 @@ import { routing } from './routing';
 
 // guard
 import { AuthGuard } from './guard/auth.guard';
+import { AdminGuard } from './guard/admin.guard';
 import { IsSecureGuard } from './guard/https.guard';
 
 // services
@@ -87,6 +88,7 @@ import { PhasesComponent } from './components/phases/phases.component';
 
     // guards
     AuthGuard,
+    AdminGuard,
     IsSecureGuard,
 
     // handler

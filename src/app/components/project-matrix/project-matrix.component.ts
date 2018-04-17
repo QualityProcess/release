@@ -1,21 +1,31 @@
+// core
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ProjectsService } from "../../services";
-import { TaskService } from "../../services/task.service";
-import { Project } from '../../models/project';
-import { Task } from '../../models/task';
+import { BrowserModule } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Directive, EventEmitter, HostListener, ElementRef, Renderer2, Output } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ConfirmDialog } from "../dialogs/dialog";
 import { MatSnackBar } from '@angular/material';
 
+
+// models
+import { Project } from '../../models/project';
+import { Task } from '../../models/task';
+
+// dialogs
+import { ConfirmDialog } from "../dialogs/dialog";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+
+// services
+import { UserService } from './../../services/user.service'; 
+import { ProjectsService } from "../../services";
+import { TaskService } from "../../services/task.service";
 
 // breadcrumbs
 import { BreadCrumbsService } from '../../services/breadcrumbs.service';
 import { BreadCrumb } from './../../models/breadcrumb';
 
-import { BrowserModule } from '@angular/platform-browser'
+// rxjs
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/from';
@@ -69,6 +79,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   constructor(
     private service: ProjectsService,
     private taskService: TaskService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private elementRef: ElementRef,
@@ -155,16 +166,27 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   }
 
   setBreadCrumbs() {
-    this.breadCrumbsService.setBreadcrumbs([
-      {
-        label: 'Projects',
-        url: '/projects'
-      },
-      {
-        label: this.project.name,
-        url: `/projects/${this.project.id}/matrix`
-      },
-    ]);
+
+    if (this.userService.isAdmin) {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: 'Projects',
+          url: '/projects'
+        },
+        {
+          label: this.project.name,
+          url: `/projects/${this.project.id}/matrix`
+        },
+      ]);
+    } else {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: this.project.name,
+          url: `/projects/${this.project.id}/matrix`
+        },
+      ]);
+    }
+  
   }
 
   createTask(projectId, disciplineId, designStageId) {

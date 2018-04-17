@@ -10,7 +10,7 @@
         </mdc-menu-item>
       </mdc-menu>
   </mdc-toolbar-section>
-    <button mdc-fab #fab class="main-fab-btn" (click)="goBack()">
+    <button *ngIf="this.userService.isAdmin" mdc-fab #fab class="main-fab-btn" (click)="goBack()">
       <img class="main-fab-svg-image" src="/assets/icons/arrow-left.svg" alt="back" title="back" />
     </button>
 </sub-navbar>

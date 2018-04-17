@@ -22,6 +22,7 @@ import { TaskActivityItem } from '../../models/task-activity-item';
 // services
 import { ProjectsService } from '../../services/projects.service';
 import { TaskService } from '../../services/task.service';
+import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'app-edit-task-activity-item',
@@ -45,6 +46,7 @@ export class EditTaskActivityItemComponent implements OnInit {
     private router: Router,
     private service: TaskService,
     private projectService: ProjectsService,
+    private userService: UserService,
     private breadCrumbsService: BreadCrumbsService
   ) { }
 
@@ -79,24 +81,42 @@ export class EditTaskActivityItemComponent implements OnInit {
   }
 
   setBreadCrumbs() {
-    this.breadCrumbsService.setBreadcrumbs([
-      {
-        label: 'Projects',
-        url: '/projects'
-      },
-      {
-        label: this.project.name,
-        url: `/projects/${this.project.id}/matrix`
-      },
-      {
-        label: this.discipline ? `${this.discipline.category} ${this.design_stage.category}` : '',
-        url: `/projects/${this.project.id}/tasks/${this.task.id}`
-      },
-      {
-        label: this.task.name,
-        url: `task-activity-items/${this.taskActivityItem.id}/edit`
-      }
-    ]);
+    if (this.userService.isAdmin) {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: 'Projects',
+          url: '/projects'
+        },
+        {
+          label: this.project.name,
+          url: `/projects/${this.project.id}/matrix`
+        },
+        {
+          label: this.discipline ? `${this.discipline.category} ${this.design_stage.category}` : '',
+          url: `/projects/${this.project.id}/tasks/${this.task.id}`
+        },
+        {
+          label: this.task.name,
+          url: `task-activity-items/${this.taskActivityItem.id}/edit`
+        }
+      ]);
+    } else {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: this.project.name,
+          url: `/projects/${this.project.id}/matrix`
+        },
+        {
+          label: this.discipline ? `${this.discipline.category} ${this.design_stage.category}` : '',
+          url: `/projects/${this.project.id}/tasks/${this.task.id}`
+        },
+        {
+          label: this.task.name,
+          url: `task-activity-items/${this.taskActivityItem.id}/edit`
+        }
+      ]);
+    }
+    
   }
 
 }

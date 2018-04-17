@@ -97,7 +97,8 @@ export class TeamConfigComponent implements OnInit {
       return project.id === +this.selected;
     });
 
-    return typeof this.selected !== 'undefined' ? project.name : 'Projects';
+    //return typeof this.selected !== 'undefined' ? project.name : 'Projects';
+    return 'QP';
   }
 
   changed(){

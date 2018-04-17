@@ -47,6 +47,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   project: Project;
   listOfProjects: Project[];
   selectedDuplicateProject: Project;
+  isAdmin: boolean;
 
   breadcrumbs: BreadCrumb[];
   duplicationSubscribe: any;
@@ -100,6 +101,8 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
 
     this.project = this.route.snapshot.data.projectData;
     this.listOfProjects = this.route.snapshot.data.projectsData;
+
+    this.isAdmin = this.userService.isAdmin;
 
     this.listOfProjects.find((project, index, list) => {
       if (project.id === this.project.id) {

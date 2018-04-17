@@ -3,14 +3,14 @@
 <sub-navbar title="{{ project.name }}" classes="matrix-sub-navbar" class="sub-navbar" [breadcrumbs]="breadcrumbs">
 
   <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section sub-menu">
-      <button mat-button (click)="duplicationMenu.open()">Duplicate project</button>
+      <!--<button mat-button (click)="duplicationMenu.open()">Duplicate project</button>-->
       <mdc-menu #duplicationMenu >
         <mdc-menu-item *ngFor="let project of listOfProjects" id="project.id" (click)="openDialog(project)">
           {{project.name}}
         </mdc-menu-item>
       </mdc-menu>
   </mdc-toolbar-section>
-    <button *ngIf="this.userService.isAdmin" mdc-fab #fab class="main-fab-btn" (click)="goBack()">
+    <button *ngIf="isAdmin" mdc-fab #fab class="main-fab-btn" (click)="goBack()">
       <img class="main-fab-svg-image" src="/assets/icons/arrow-left.svg" alt="back" title="back" />
     </button>
 </sub-navbar>

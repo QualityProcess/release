@@ -169,14 +169,14 @@ export class AuthService {
         //this.authContext.login();
       }
 
-      let token = this.authContext.getCachedToken(environment.azureConfiguration.clientId);
+      let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
 
       if (token) {
 
         console.log("SSO succsess with token: ", token);
 
         // get Graph token
-        this.getGraphToken();
+        //this.getGraphToken();
 
         if (this.authContext) {
           console.log(this.authContext.getCachedUser());
@@ -192,7 +192,22 @@ export class AuthService {
 
         // No token, or token is expired
         console.log("fail: No token, or token is expired");
-        this.refreshToken();
+
+        this.authContext._renewIdToken((err, idToken) => {
+          if (err) {
+            console.log("Renewal failed: " + err);
+            // Failed to get the token silently; show the login button
+            this.router.navigate(['login']);
+            // You could attempt to launch the login popup here, but in browsers this could be blocked by
+            // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
+          } else {
+            console.log("refreshToken: ", this.msContext.upn);
+
+            this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
+            this.router.navigate(['projects']);
+          }
+        });
+
       }
 
       /*if (this.authContext.isCallback(window.location.hash)) {

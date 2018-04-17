@@ -9,7 +9,6 @@ export const environment = {
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     extraQueryParameters: "",
-    resource: "https://graph.windows.net/"
   },
 
   azureConfiguration: {

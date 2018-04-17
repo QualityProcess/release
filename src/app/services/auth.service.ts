@@ -147,9 +147,9 @@ export class AuthService {
       localStorage.removeItem("simple.error");
 
       if (context.upn) {
-        environment.adal5Config.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
+        environment.adal5Config.extraQueryParameters = "scope=openid+profile&prompt=none&login_hint=" + encodeURIComponent(context.upn);
       }else{
-        environment.adal5Config.extraQueryParameters = "scope=openid+profile";
+        environment.adal5Config.extraQueryParameters = "scope=openid+profile&prompt=none";
       }
 
       this.authContext = new AuthenticationContext(environment.adal5Config);

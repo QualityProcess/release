@@ -53,6 +53,7 @@ export class TabAuthEndComponent implements OnInit {
         if (this.authContext.getCachedUser()) {
 
           console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
+          this.getGraphToken();
           microsoftTeams.authentication.notifySuccess();
         } else {
           console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));

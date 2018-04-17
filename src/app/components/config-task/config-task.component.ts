@@ -102,7 +102,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
           if (array[index].is_locked) {
             array[index].can_checked_qa = true;
-          } else if (this.userService.username && array[index].checked_by === this.userService.username) {
+          } else if (this.userService.userInfo.userName && array[index].checked_by === this.userService.userInfo.userName) {
             array[index].can_checked_qa = false;
           } else {
             array[index].can_checked_qa = item.is_enabled;

@@ -2,9 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\login"
+    "\\src\\app\\components\\tab-auth",
+    "\\src\\app\\guard",
+    "\\src\\environments"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\src\\environments\\environment.prod.ts",
   "PreviewInSolutionExplorer": false
 }

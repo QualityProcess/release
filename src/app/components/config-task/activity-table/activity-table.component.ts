@@ -109,8 +109,8 @@ export class ActivityTableComponent implements OnInit {
 */
   onQAValueChanged(e: any, item: TaskActivityItem) {
 
-    if (this.userService.username) {
-      let name = this.userService.username;
+    if (this.userService.userInfo && this.userService.userInfo.userName) {
+      let name = this.userService.userInfo.userName;
       let date = new Date();
       let hasAccess = true;
 
@@ -171,8 +171,8 @@ export class ActivityTableComponent implements OnInit {
 */
   onEnableValueChanged(e, item) {
 
-    if (this.userService.username) {
-      let name = this.userService.username;
+    if (this.userService.userInfo && this.userService.userInfo.userName) {
+      let name = this.userService.userInfo.userName;
       let date = new Date();
 
       this.taskActivityItems.find((item2, index, array) => {

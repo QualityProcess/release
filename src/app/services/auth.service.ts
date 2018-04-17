@@ -155,13 +155,13 @@ export class AuthService {
 
       //this.authContext = new AuthenticationContext(environment.adal5Config);
       this.adal5Service.init(environment.adal5Config);
-
-      if (this.adal5Service.userInfo) {
+      this.adal5Service.login();
+      /*if (this.adal5Service.userInfo) {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.router.navigate([returnUrl]);
       } else {
         this.adal5Service.login();
-      }
+      }*/
 
       //console.log("Azure getCachedUser object:", this.authContext.getCachedUser());
 

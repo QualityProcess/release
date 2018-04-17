@@ -43,7 +43,7 @@ export class TabAuthEndComponent implements OnInit {
 
     console.log("Authentication: ", this.authSerive.isSilentAuthentication);
 
-    if ( 1 == 1 ) {
+    if (this.authSerive.isSilentAuthentication ) {
       this.authContext = new AuthenticationContext(environment.adal5Config);
 
       console.log(window.location.hash);

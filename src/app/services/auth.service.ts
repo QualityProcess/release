@@ -153,7 +153,7 @@ export class AuthService {
 
 
 
-      //this.authContext = new AuthenticationContext(environment.adal5Config);adal5Service
+      //this.authContext = new AuthenticationContext(environment.adal5Config);
       this.adal5Service.init(environment.adal5Config);
 
       if (this.adal5Service.userInfo) {
@@ -163,7 +163,7 @@ export class AuthService {
         this.adal5Service.login();
       }
 
-      console.log("Azure getCachedUser object:", this.authContext.getCachedUser());
+      //console.log("Azure getCachedUser object:", this.authContext.getCachedUser());
 
       // See if there's a cached user and it matches the expected user
       //let user = this.authContext.getCachedUser();
@@ -175,7 +175,7 @@ export class AuthService {
       if (user) {
         if (user.username !== context.upn) {
           // User doesn't match, clear the cache
-          this.authContext.clearCache();
+          //this.authContext.clearCache();
         }
       } else {
         //this.authContext.login();
@@ -193,11 +193,12 @@ export class AuthService {
         // get Graph token
         //this.getGraphToken();
 
-        if (this.authContext) {
+        /*if (this.authContext) {
           console.log(this.authContext.getCachedUser());
-        }
+        }*/
         
         this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : context.upn;
+        this.userService.userInfo = this.adal5Service.userInfo
         this.userService.username = context.upn;
 
         // redirect to MS tab 
@@ -206,8 +207,9 @@ export class AuthService {
 
         // No token, or token is expired
         console.log("fail: No token, or token is expired");
-
-        this.authContext._renewIdToken((err, idToken) => {
+        this.adal5Service.acquireToken(environment.graphApi);
+        console.log(this.adal5Service.userInfo);
+        /*this.authContext._renewIdToken((err, idToken) => {
           if (err) {
             console.log("Renewal failed: " + err);
             // Failed to get the token silently; show the login button
@@ -220,7 +222,7 @@ export class AuthService {
             this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
             this.router.navigate(['projects']);
           }
-        });
+        });*/
 
       }
 

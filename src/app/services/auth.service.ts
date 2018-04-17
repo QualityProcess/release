@@ -194,10 +194,6 @@ export class AuthService {
         console.log("fail: No token, or token is expired");
         this.refreshToken();
 
-        this.authContext = new AuthenticationContext(environment.adal5Config);
-
-        console.log(window.location.hash);
-
         if (this.authContext.isCallback(window.location.hash)) {
           this.authContext.handleWindowCallback(window.location.hash);
           if (this.authContext.getCachedUser()) {

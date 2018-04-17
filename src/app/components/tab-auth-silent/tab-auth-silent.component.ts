@@ -32,7 +32,6 @@ export class TabAuthSilentComponent implements OnInit {
 
     microsoftTeams.getContext((context) => {
       // redirect to MS tab 
-      
 
       console.log("Silent: ", this.authSerive.isSilentAuthentication);
 
@@ -52,8 +51,6 @@ export class TabAuthSilentComponent implements OnInit {
           microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
         }
       }
-    }
-
-    
+    });
   }
 }

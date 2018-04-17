@@ -147,9 +147,9 @@ export class AuthService {
       localStorage.removeItem("simple.error");
 
       if (context.upn) {
-        environment.azureConfiguration.extraQueryParameters = "scope=openid+profile&prompt=admin_consent&login_hint=" + encodeURIComponent(context.upn);
-      } else {
-        environment.azureConfiguration.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
+        environment.adal5Config.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
+      }else{
+        environment.adal5Config.extraQueryParameters = "scope=openid+profile";
       }
 
       this.authContext = new AuthenticationContext(environment.adal5Config);

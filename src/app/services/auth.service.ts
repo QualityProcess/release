@@ -151,17 +151,29 @@ export class AuthService {
         environment.azureConfiguration.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
       }
 
-      this.authContext = new AuthenticationContext(environment.adal5Config);
+
+
+      //this.authContext = new AuthenticationContext(environment.adal5Config);adal5Service
+      this.adal5Service.init(environment.adal5Config);
+
+      if (this.adal5Service.userInfo) {
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.router.navigate([returnUrl]);
+      } else {
+        this.adal5Service.login();
+      }
 
       console.log("Azure getCachedUser object:", this.authContext.getCachedUser());
 
       // See if there's a cached user and it matches the expected user
-      let user = this.authContext.getCachedUser();
+      //let user = this.authContext.getCachedUser();
+
+      let user = this.adal5Service.userInfo;
 
       console.log("context.upn: ", context.upn);
 
       if (user) {
-        if (user.userName !== context.upn) {
+        if (user.username !== context.upn) {
           // User doesn't match, clear the cache
           this.authContext.clearCache();
         }
@@ -169,7 +181,10 @@ export class AuthService {
         //this.authContext.login();
       }
 
-      let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
+      console.log(user);
+
+      //let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
+      let token = this.adal5Service.getCachedToken(environment.adal5Config.clientId);
 
       if (token) {
 
@@ -188,7 +203,6 @@ export class AuthService {
         // redirect to MS tab 
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
-        
 
         // No token, or token is expired
         console.log("fail: No token, or token is expired");

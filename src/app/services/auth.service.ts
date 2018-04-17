@@ -186,6 +186,8 @@ export class AuthService {
         // redirect to MS tab 
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
+        this.authContext.login();
+
         // No token, or token is expired
         console.log("fail: No token, or token is expired");
         this.refreshToken();

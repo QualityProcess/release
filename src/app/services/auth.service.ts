@@ -186,11 +186,28 @@ export class AuthService {
         // redirect to MS tab 
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
-        this.authContext.login();
+        
 
         // No token, or token is expired
         console.log("fail: No token, or token is expired");
         this.refreshToken();
+
+        this.authContext = new AuthenticationContext(environment.adal5Config);
+
+        console.log(window.location.hash);
+
+        if (this.authContext.isCallback(window.location.hash)) {
+          this.authContext.handleWindowCallback(window.location.hash);
+          if (this.authContext.getCachedUser()) {
+
+            console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
+            this.getGraphToken();
+            microsoftTeams.authentication.notifySuccess();
+          } else {
+            console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
+            microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
+          }
+        }
       }
 
       /*if (this.authContext.isCallback(window.location.hash)) {

@@ -151,40 +151,25 @@ export class AuthService {
         environment.azureConfiguration.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
       }
 
+      this.authContext = new AuthenticationContext(environment.adal5Config);
 
-
-      //this.authContext = new AuthenticationContext(environment.adal5Config);
-      this.adal5Service.init(environment.adal5Config);
-      this.adal5Service.login();
-      /*if (this.adal5Service.userInfo) {
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.router.navigate([returnUrl]);
-      } else {
-        this.adal5Service.login();
-      }*/
-
-      //console.log("Azure getCachedUser object:", this.authContext.getCachedUser());
+      console.log("Azure getCachedUser object:", this.authContext.getCachedUser());
 
       // See if there's a cached user and it matches the expected user
-      //let user = this.authContext.getCachedUser();
-
-      let user = this.adal5Service.userInfo;
+      let user = this.authContext.getCachedUser();
 
       console.log("context.upn: ", context.upn);
 
       if (user) {
-        if (user.username !== context.upn) {
+        if (user.userName !== context.upn) {
           // User doesn't match, clear the cache
-          //this.authContext.clearCache();
+          this.authContext.clearCache();
         }
       } else {
         //this.authContext.login();
       }
 
-      console.log(user);
-
-      //let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
-      let token = this.adal5Service.getCachedToken(environment.adal5Config.clientId);
+      let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
 
       if (token) {
 
@@ -193,36 +178,35 @@ export class AuthService {
         // get Graph token
         //this.getGraphToken();
 
-        /*if (this.authContext) {
+        if (this.authContext) {
           console.log(this.authContext.getCachedUser());
-        }*/
+        }
         
         this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : context.upn;
-        this.userService.userInfo = this.adal5Service.userInfo
         this.userService.username = context.upn;
 
         // redirect to MS tab 
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
+        
 
         // No token, or token is expired
         console.log("fail: No token, or token is expired");
-        this.adal5Service.acquireToken(environment.graphApi);
-        console.log(this.adal5Service.userInfo);
-        /*this.authContext._renewIdToken((err, idToken) => {
-          if (err) {
-            console.log("Renewal failed: " + err);
-            // Failed to get the token silently; show the login button
-            this.router.navigate(['login']);
-            // You could attempt to launch the login popup here, but in browsers this could be blocked by
-            // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
-          } else {
-            console.log("refreshToken: ", this.msContext.upn);
 
-            this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
-            this.router.navigate(['projects']);
-          }
-        });*/
+        this.authContext._renewIdToken((err, idToken) => {
+      if (err) {
+        console.log("Renewal failed: " + err);
+        // Failed to get the token silently; show the login button
+        this.router.navigate(['login']);
+        // You could attempt to launch the login popup here, but in browsers this could be blocked by
+        // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
+      } else {
+        console.log("refreshToken: ", this.msContext.upn);
+
+        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
+        this.router.navigate(['projects']);
+      }
+    });
 
       }
 

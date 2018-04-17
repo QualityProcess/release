@@ -30,7 +30,7 @@ export class TabAuthSilentComponent implements OnInit {
   adalInit() {
     microsoftTeams.initialize();
 
-    console.log("Authentication: ", this.authSerive.isSilentAuthentication);
+    console.log("Silent: ", this.authSerive.isSilentAuthentication);
 
       this.authContext = new AuthenticationContext(environment.adal5Config);
 

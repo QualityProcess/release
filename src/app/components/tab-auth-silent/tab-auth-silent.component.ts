@@ -28,9 +28,13 @@ export class TabAuthSilentComponent implements OnInit {
   }
 
   adalInit() {
-    //microsoftTeams.initialize();
+    microsoftTeams.initialize();
 
-    console.log("Silent: ", this.authSerive.isSilentAuthentication);
+    microsoftTeams.getContext((context) => {
+      // redirect to MS tab 
+      
+
+      console.log("Silent: ", this.authSerive.isSilentAuthentication);
 
       this.authContext = new AuthenticationContext(environment.adal5Config);
 
@@ -42,10 +46,14 @@ export class TabAuthSilentComponent implements OnInit {
 
           console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
           microsoftTeams.authentication.notifySuccess();
+          this.router.navigate([this.authSerive.parseUrl(context.entityId, "pathname")]);
         } else {
           console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
           microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
         }
       }
+    }
+
+    
   }
 }

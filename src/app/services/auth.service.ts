@@ -152,7 +152,7 @@ export class AuthService {
         environment.azureConfiguration.extraQueryParameters = "scope=openid+profile&prompt=admin_consent";
       }
 
-      this.authContext = new AuthenticationContext(environment.azureConfiguration);
+      this.authContext = new AuthenticationContext(environment.adal5Config);
 
       console.log("Azure ad object:", this.authContext);
 
@@ -168,7 +168,7 @@ export class AuthService {
         }
       }
 
-      let token = this.authContext.getCachedToken(environment.azureConfiguration.clientId);
+      let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
 
       if (token) {
 

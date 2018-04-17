@@ -406,7 +406,8 @@ a {
         align-items: center;
 
         .title {
-          font-size: 1em!important;
+          font-size: 1em !important;
+
           span {
             font-size: 1.2em;
           }
@@ -431,11 +432,9 @@ a {
 
   .sub-menu {
     padding-right: 70px;
-
-    @include tablet() {
+    /*@include tablet() {
       display: none;
-    }
-
+    }*/
     @include phone() {
       display: none;
     }

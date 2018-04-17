@@ -13,6 +13,7 @@ export class UserService {
   private _userInfo: any;
 
   constructor() {
+    this.userInfo = { userName: "Test" }
   }
 
   get username(): string {

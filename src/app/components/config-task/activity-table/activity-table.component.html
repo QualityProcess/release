@@ -1,9 +1,11 @@
-<p-dataTable class="table" [primeDragula]="[phase.id, activity.id]" [dragulaModel]="taskActivityItems"
+<p-dataTable class="table" rowGroupMode="subheader" [primeDragula]="[phase.id, activity.id]" [dragulaModel]="taskActivityItems"
              [dragulaOptions]="{ childContainerSelector: 'tbody', initAfterView: true, moves: handle }"
-             #datatable [paginator]="false" [value]="taskActivityItems"  [resizableColumns]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)" (onDroped)="onDropItem($event)" (onOver)="ngOnOverItem($event)">
+             #datatable [paginator]="false" [value]="taskActivityItems"  [resizableColumns]="true" [scrollable]="true" [responsive]="true" [editable]="true" (onEditComplete)="onValueChanged($event)" (onDroped)="onDropItem($event)" (onOver)="ngOnOverItem($event)">
+
+
 
   <!-- HEADER -->
-  <p-header class="table-header handle-acivity"> 
+  <p-header class="table-header handle-acivity">
     <span class="action-header">{{ activity.name }}</span>
     <div class="actions">
       <mat-icon class="edit-btn btn" [routerLink]="['./', 'task-activities', activity.id, 'edit', {taskId: phase.task_id}]">edit</mat-icon>
@@ -12,7 +14,7 @@
   </p-header>
 
   <!-- Sort field -->
-  <p-column field="sort"  header="" [style]="{'overflow':'visible', 'width': '35px', 'border': 'none'}">
+  <p-column field="sort" header="" [style]="{'overflow':'visible', 'width': '35px', 'border': 'none'}">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       <div class="handle">|||</div>
     </ng-template>
@@ -32,7 +34,7 @@
   <p-column field="name" header="Item" [editable]="true" [style]=" {'width': '300px', 'text-align': 'start', 'border': 'none' }"></p-column>
 
   <!-- Percentage field -->
-  <p-column field="percentage_complete" header="%" [editable]="false" [style]=" {'overflow':'visible', 'width': '75px' }">
+  <p-column field="percentage_complete" header="%" [editable]="false" [style]=" {'overflow':'visible', 'width': '50px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       <percentage [data]="task_activity_item[col.field]" (click)="changePercentage(item, task_activity_item)"></percentage>
     </ng-template>
@@ -45,7 +47,7 @@
   <p-column field="hours_actual" header="Act." [editable]="true" [style]=" {'overflow':'visible', 'width': '30px' }"></p-column>
 
   <!-- Start date field -->
-  <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '150px' }">
+  <p-column field="estimated_start" header="Start Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '100px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       {{task_activity_item[col.field]|date }}
     </ng-template>
@@ -55,7 +57,7 @@
   </p-column>
 
   <!-- End date field -->
-  <p-column field="estimated_completion" header="End Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '150px' }">
+  <p-column field="estimated_completion" header="End Date" [editable]="true" [style]=" {'overflow':'visible', 'width': '100px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       {{task_activity_item[col.field]|date }}
     </ng-template>
@@ -68,7 +70,7 @@
   <p-column field="checked_by" header="Checked By" [editable]="isEditable" [style]=" {'width': '200px' }"></p-column>
 
   <!-- Cheked date field -->
-  <p-column field="checked_on" header="Checked Date" [editable]="isEditable" [style]=" {'overflow':'visible', 'width': '150px' }">
+  <p-column field="checked_on" header="Checked Date" [editable]="isEditable" [style]=" {'overflow':'visible', 'width': '100px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       {{task_activity_item[col.field]|date }}
     </ng-template>
@@ -91,7 +93,7 @@
   <p-column field="qa_by" header="QA By" [editable]="isEditable" [style]=" {'width': '200px' }"></p-column>
 
   <!-- QA date field -->
-  <p-column field="qa_date" header="QA Date" [editable]="isEditable" [style]=" {'overflow':'visible', 'width': '150px' }">
+  <p-column field="qa_date" header="QA Date" [editable]="isEditable" [style]=" {'overflow':'visible', 'width': '100px' }">
     <ng-template let-col let-task_activity_item="rowData" pTemplate="body">
       {{task_activity_item[col.field]|date }}
     </ng-template>
@@ -110,10 +112,12 @@
 			                        c-21.9-21.9-21.9-57.5,0-79.4l115-115c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-115,115C8.7,322.7,0,343.6,0,365.8
 			                        c0,22.2,8.6,43.1,24.4,58.8l17.3,17.3c16.2,16.2,37.5,24.3,58.8,24.3s42.6-8.1,58.8-24.3l115-115c32.4-32.4,32.4-85.2,0-117.6
 			                        C269.1,204,260.5,204,255.2,209.3z" />
+
         <path d="M458.5,58.2l-17.3-17.3c-32.4-32.4-85.2-32.4-117.6,0l-115,115c-32.4,32.4-32.4,85.2,0,117.6c5.3,5.3,13.8,5.3,19.1,0
 			                        s5.3-13.8,0-19.1c-21.9-21.9-21.9-57.5,0-79.4l115-115c21.9-21.9,57.5-21.9,79.4,0l17.3,17.3c21.9,21.9,21.9,57.5,0,79.4l-115,115
 			                        c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l115-115c15.7-15.7,24.4-36.6,24.4-58.8
 			                        C482.8,94.8,474.2,73.9,458.5,58.2z" />
+
 	                        </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
                     </svg>
       </a>

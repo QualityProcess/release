@@ -38,29 +38,9 @@ export class TabAuthEndComponent implements OnInit {
 
   adalInit() {
 
-    
     microsoftTeams.initialize();
+    console.log("Tab");
 
-    console.log("Authentication: ", this.authSerive.isSilentAuthentication);
-
-    if (this.authSerive.isSilentAuthentication ) {
-      this.authContext = new AuthenticationContext(environment.adal5Config);
-
-      console.log(window.location.hash);
-
-      if (this.authContext.isCallback(window.location.hash)) {
-        this.authContext.handleWindowCallback(window.location.hash);
-        if (this.authContext.getCachedUser()) {
-
-          console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
-          this.getGraphToken();
-          microsoftTeams.authentication.notifySuccess();
-        } else {
-          console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
-          microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
-        }
-      }
-    } else {
       let hash = window.location.hash;
 
       if (this.getHashParameterByName("error", hash)) {
@@ -89,8 +69,6 @@ export class TabAuthEndComponent implements OnInit {
         //this.authSerive.tabAuthentication();
         microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
       }
-    }
-
 
     
 

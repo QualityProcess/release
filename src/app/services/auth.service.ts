@@ -165,6 +165,8 @@ export class AuthService {
           // User doesn't match, clear the cache
           this.authContext.clearCache();
         }
+      } else {
+        this.authContext.login();
       }
 
       let token = this.authContext.getCachedToken(environment.azureConfiguration.clientId);

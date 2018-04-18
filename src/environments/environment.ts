@@ -13,7 +13,8 @@ export const environment = {
     redirectUri: window.location.origin + "/tab-auth-silent",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
-    extraQueryParameters: ""
+    extraQueryParameters: "",
+    resource: "https://graph.microsoft.com/"
   },
   azureConfiguration: {
     tenant: "common",
@@ -23,8 +24,8 @@ export const environment = {
     navigateToLoginRequestUrl: false,
     prompt: "admin_consent",
     extraQueryParameters: "",
-    resource: "https://graph.windows.net/"
+    resource: "https://graph.microsoft.com/"
   },
 
-  graphApi: "https://graph.microsoft.com/v1.0"
+  graphApi: "https://graph.microsoft.com"
 };

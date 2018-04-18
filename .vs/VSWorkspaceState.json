@@ -5,9 +5,13 @@
     "\\src\\app",
     "\\src\\app\\components",
     "\\src\\app\\components\\tab-auth",
-    "\\src\\app\\guard",
+    "\\src\\app\\components\\tab-auth-silent",
+    "\\src\\app\\framework\\material",
+    "\\src\\app\\services",
+    "\\src\\assets",
+    "\\src\\assets\\images",
     "\\src\\environments"
   ],
-  "SelectedNode": "\\src\\environments\\environment.prod.ts",
+  "SelectedNode": "\\src\\app\\components\\tab-auth\\tab-auth.component.scss",
   "PreviewInSolutionExplorer": false
 }

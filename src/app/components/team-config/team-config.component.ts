@@ -67,7 +67,6 @@ export class TeamConfigComponent implements OnInit {
       console.log(this.createTabUrl());
       console.log(this.getProjectName());
 
-
       microsoftTeams.settings.setSettings({
         contentUrl: this.createTabUrl(),
         entityId: this.createTabUrl(),
@@ -83,13 +82,11 @@ export class TeamConfigComponent implements OnInit {
         this.renderer.addClass(document.body, 'theme-' + (theme === 'default' ? 'light' : theme));
       }
     }
-
-    
      
   }
 
   createTabUrl() {
-    return typeof this.selected !== 'undefined' ? `${window.location.protocol}//${window.location.host}/projects/${this.selected}/matrix` : `${window.location.protocol}//${window.location.host}/projects`;
+    return `${window.location.protocol}//${window.location.host}/projects/${this.selected}/matrix`;
   }
 
   getProjectName(): string {

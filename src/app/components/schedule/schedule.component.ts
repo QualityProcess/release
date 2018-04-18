@@ -61,10 +61,10 @@ export class ScheduleComponent implements OnInit {
         task_activity.task_activity_items.forEach((task_activity_item) => {
 
           const dateObj = new Date(task_activity_item.estimated_start);
-          const yearMonthDay = dateObj.getUTCFullYear() + '-' + pad(dateObj.getUTCMonth() + 1) + '-' + pad(dateObj.getUTCDate());
+          const yearMonthDay = dateObj.getFullYear() + '-' + pad(dateObj.getMonth() + 1) + '-' + pad(dateObj.getDate());
 
           const dateObjEnd = new Date(task_activity_item.estimated_completion);
-          const yearMonthDayEnd = dateObjEnd.getUTCFullYear() + '-' + pad(dateObjEnd.getUTCMonth() + 1) + '-' + pad(dateObjEnd.getUTCDate());
+          const yearMonthDayEnd = dateObjEnd.getFullYear() + '-' + pad(dateObjEnd.getMonth() + 1) + '-' + pad(dateObjEnd.getDate());
           console.log('date:', yearMonthDay);
 
           this.currentData.push({
@@ -85,8 +85,8 @@ export class ScheduleComponent implements OnInit {
       eventLimit: false,
       contentHeight: window.innerHeight - 310,
       height: window.innerHeight - 310,
-      eventBackgroundColor: '#00796b',
-      eventBorderColor: '#00796b',
+      eventBackgroundColor: '#48a999',
+      eventBorderColor: '#48a999',
       header: {
         left: '',
         center: 'title',

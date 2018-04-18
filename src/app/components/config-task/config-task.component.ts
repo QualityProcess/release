@@ -81,7 +81,7 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
       if (this.taskActivities.length === 0) this.loaded = true;
 
-      this.taskActivityItems.sort(function (a, b) {
+      this.taskActivities.sort(function (a, b) {
         return a.sort - b.sort;
       });
 

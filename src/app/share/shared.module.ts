@@ -2,6 +2,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 // libraries
 import { MaterialModule } from './../framework/material/material.module';
@@ -17,6 +19,7 @@ import { BreadCrumbsService } from './../services/breadcrumbs.service';
 // dialogs
 import { ConfirmDialog } from './../components/dialogs/dialog';
 import { DeleteDialog } from './../components/dialogs/delete-dialog';
+import { EnterFieldDialog } from './../components/dialogs/enter-field-dialog';
 import { AuthDialog } from './../components/dialogs/auth-dialog';
 import { LoginDialog } from './../components/login/login-dialog';
 import { NotificationDialog } from './../components/dialogs/notification-dialog';
@@ -50,6 +53,8 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     PrimengModule,
     DragulaModule,
     Ng2GoogleChartsModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
 
@@ -66,6 +71,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     // dialogs
     ConfirmDialog,
     DeleteDialog,
+    EnterFieldDialog,
     AuthDialog,
     LoginDialog,
     NotificationDialog,
@@ -78,7 +84,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     PersentageDirective,
     MoveLeftDirective,
   ],
-  entryComponents: [ConfirmDialog, DeleteDialog, AuthDialog, LoginDialog, NotificationDialog],
+  entryComponents: [ConfirmDialog, DeleteDialog, EnterFieldDialog, AuthDialog, LoginDialog, NotificationDialog],
   providers: [
 
     // directives
@@ -115,6 +121,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
    // dialogs
    ConfirmDialog,
    DeleteDialog,
+   EnterFieldDialog,
    AuthDialog,
    LoginDialog,
    NotificationDialog,

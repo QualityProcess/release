@@ -1,4 +1,21 @@
 
+
+
+<!--
+<div class="phase bar mat-elevation-z8" *ngFor="let phase of data; let phaseIndex = index">
+  <div class="phase-header">
+    <h2>{{phase.category}}</h2>
+  </div>
+  <div class="activities ui-g-12">
+    <div class="bar" *ngFor="let activity of phase.task_activities; let i = index" #bar>
+      <h4>{{activity.name}}</h4>
+      <google-chart *ngIf="activity.task_activity_items.length > 0 && currentData[phaseIndex].data[i].google.dataTable" [data]="currentData[phaseIndex].data[i].google"></google-chart>
+    </div>
+
+  </div>
+</div>
+-->
+
 <div id="container" #canvas>
 </div>
 

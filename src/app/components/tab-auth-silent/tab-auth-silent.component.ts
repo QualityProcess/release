@@ -44,11 +44,12 @@ export class TabAuthSilentComponent implements OnInit {
         if (this.authContext.getCachedUser()) {
 
           console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
-          microsoftTeams.authentication.notifySuccess(this.authContext.getCachedToken(environment.adal5Config.clientId));
+          //microsoftTeams.authentication.notifySuccess(this.authContext.getCachedToken(environment.adal5Config.clientId));
           this.router.navigate([this.authSerive.parseUrl(context.entityId, "pathname")]);
         } else {
           console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
-          microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
+          //microsoftTeams.authentication.notifyFailure(this.authContext.getLoginError());
+          this.router.navigate(['login']);
         }
       }
     });

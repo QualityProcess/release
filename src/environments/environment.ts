@@ -14,10 +14,10 @@ export const environment = {
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     extraQueryParameters: "",
-    resource: "https://graph.microsoft.com/"
+    resource: "https://graph.windows.net/"
   },
   azureConfiguration: {
-    tenant: "common",
+    tenant: "indoeng.com",
     clientId: "3e601a4c-6044-484c-a4cc-6009313d76ae",
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
@@ -27,5 +27,5 @@ export const environment = {
     resource: "https://graph.microsoft.com/"
   },
 
-  graphApi: "https://graph.microsoft.com"
+  graphApi: "https://graph.windows.net/"
 };

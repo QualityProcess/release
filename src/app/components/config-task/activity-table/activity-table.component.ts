@@ -11,6 +11,7 @@ import 'rxjs/Rx';
 
 // dialogs
 import { DeleteDialog } from "../../dialogs/delete-dialog";
+import { EnterFieldDialog } from "../../dialogs/enter-field-dialog";
 import { NotificationDialog } from "../../dialogs/notification-dialog";
 
 // models
@@ -316,6 +317,56 @@ export class ActivityTableComponent implements OnInit {
     if (event[1].tagName === 'TR') {
         event[1].parentElement.lastElementChild.style.display = 'none';
     }
+  }
+
+  openCreateFieldDialog(item, property) {
+    let dialogRef = this.dialog.open(EnterFieldDialog, {
+      width: '350px',
+      data: {
+        title: `Enter new link`,
+        type: 'input',
+        field: item[property]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if ( !result || result === item[property]) return;
+
+      this.taskActivityItems.find( (taskActivityItem, index, array) => {
+        if (taskActivityItem.id === item.id) {
+          array[index][property] = result;
+          console.log(array[index][property]);
+        }
+        return taskActivityItem.id === item.id;
+      });
+
+      this.service.updateTaskActivityItem({ [property]: result }, item.id).subscribe();
+    });
+  }
+
+  openCreateAreaDialog(item, property) {
+    let dialogRef = this.dialog.open(EnterFieldDialog, {
+      width: '350px',
+      data: {
+        title: `Enter note`,
+        type: 'textarea',
+        field: item[property]
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (!result || result === item[property]) return;
+
+      this.taskActivityItems.find((taskActivityItem, index, array) => {
+        if (taskActivityItem.id === item.id) {
+          array[index][property] = result;
+        }
+        return taskActivityItem.id === item.id;
+      });
+
+      this.service.updateTaskActivityItem({ [property]: result }, item.id).subscribe();
+    });
   }
 
 }

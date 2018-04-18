@@ -9,20 +9,20 @@ export const environment = {
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     extraQueryParameters: "",
-    resource: "https://graph.windows.net/"
+    resource: "https://graph.microsoft.com/"
   },
 
   azureConfiguration: {
-    tenant: "indoeng.com",
+    tenant: "common",
     clientId: "3e601a4c-6044-484c-a4cc-6009313d76ae",
     redirectUri: window.location.origin + "/tab-auth-end",
     cacheLocation: "localStorage",
     navigateToLoginRequestUrl: false,
     prompt: "admin_consent",
     extraQueryParameters: "",
-    resource: "https://graph.windows.net/"
+    resource: "https://graph.microsoft.com/"
   },
 
-  graphApi: "https://graph.windows.net/"
+  graphApi: "https://graph.microsoft.com/"
 
 };

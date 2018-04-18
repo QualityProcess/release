@@ -166,6 +166,9 @@ export class AuthService {
           // User doesn't match, clear the cache
           this.authContext.clearCache();
         }
+
+        // get Graph token
+        this.getGraphToken();
       }
 
       let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
@@ -174,8 +177,7 @@ export class AuthService {
 
         console.log("SSO succsess with token: ", token);
 
-        // get Graph token
-        this.getGraphToken();
+        
 
         if (this.authContext) {
           console.log(this.authContext.getCachedUser());

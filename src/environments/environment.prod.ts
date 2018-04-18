@@ -22,6 +22,6 @@ export const environment = {
     resource: "https://graph.windows.net/"
   },
 
-  graphApi: "https://graph.microsoft.com/v1.0"
+  graphApi: "https://graph.microsoft.com"
 
 };

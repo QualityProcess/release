@@ -330,7 +330,7 @@ export class ActivityTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if ( !result || result === item[property]) return;
+      if (typeof result == "undefined" || result === item[property]) return;
 
       this.taskActivityItems.find( (taskActivityItem, index, array) => {
         if (taskActivityItem.id === item.id) {
@@ -356,7 +356,7 @@ export class ActivityTableComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if (!result || result === item[property]) return;
+      if (typeof result == "undefined" || result === item[property]) return;
 
       this.taskActivityItems.find((taskActivityItem, index, array) => {
         if (taskActivityItem.id === item.id) {

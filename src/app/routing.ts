@@ -23,7 +23,6 @@ const appRoutes: Routes = [
   {
     path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard, IsSecureGuard]
   },
-
   { path: '**', redirectTo: 'projects' } 
 ];
 

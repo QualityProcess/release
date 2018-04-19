@@ -71,7 +71,6 @@ export class AuthService {
         console.log("Success: ", result);
 
         microsoftTeams.getContext((context) => {
-          console.log("MS tab context: ", context);
 
           let userInfo = { userName: context.upn };
 
@@ -79,11 +78,6 @@ export class AuthService {
           this.tabAuthenticated = true;
           
           if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
-          console.log("this.breadcrumbsService.currentProjectUrl: ", this.breadcrumbsService.currentProjectUrl);
-
-          console.log("userInfo: ", this.userService.userInfo);
-          console.log("this.router: ", this.router);
-          console.log("parseUrl: ", this.parseUrl(context.entityId, "pathname"));
 
           this.goToTabPage(context);
           
@@ -121,16 +115,11 @@ export class AuthService {
   }
 
   get isSilentAuthentication(): boolean {
-    console.log("get: ", this._isSilentAuthentication);
     return this._isSilentAuthentication;
   }
 
   set isSilentAuthentication(value: boolean) {
-    this._isSilentAuthentication = value;
-
-    console.log("value: ", value);
-    console.log("set: ", this._isSilentAuthentication);
-    
+    this._isSilentAuthentication = value;   
   }
 
   //  Silent authentication AAD - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-silent-AAD
@@ -142,8 +131,6 @@ export class AuthService {
 
     microsoftTeams.getContext((context) => {
      
-      console.log("MS tab context: ", context);
-
       this.msContext = context;
 
       // Generate random state string and store it, we can verify it in the callback
@@ -199,20 +186,6 @@ export class AuthService {
         console.log("fail: No token, or token is expired");
         this.refreshToken();
       }
-
-      /*if (this.authContext.isCallback(window.location.hash)) {
-        console.log("window.location.hash: ", window.location.hash);
-        this.authContext.handleWindowCallback(window.location.hash);
-        if (this.authContext.getCachedUser()) {
-          console.log(" microsoftTeams.authentication.notifySuccess");
-          microsoftTeams.authentication.notifySuccess();
-        } else {
-          console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
-          let err = this.authContext.getLoginError();
-          microsoftTeams.authentication.notifyFailure(err);
-          console.log("sdf");
-        }
-      }*/
 
     });
   }

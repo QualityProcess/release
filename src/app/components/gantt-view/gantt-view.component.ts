@@ -638,7 +638,7 @@ function ganttTickFunc(t0, t1, step) {
     endTime = new Date(t1), times = [];
   endTime.setDate(endTime.getDate());
   while (startTime < endTime) {
-    startTime.setDate(startTime.getDate() + 1);
+    startTime.setDate(startTime.getDate());
     times.push(new Date(startTime));
   }
   return times;

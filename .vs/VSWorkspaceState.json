@@ -4,14 +4,9 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\tab-auth",
-    "\\src\\app\\components\\tab-auth-silent",
-    "\\src\\app\\framework\\material",
-    "\\src\\app\\services",
-    "\\src\\assets",
-    "\\src\\assets\\images",
-    "\\src\\environments"
+    "\\src\\app\\components\\team-config",
+    "\\src\\app\\guard"
   ],
-  "SelectedNode": "\\src\\app\\components\\tab-auth\\tab-auth.component.scss",
+  "SelectedNode": "\\src\\app\\guard\\admin.guard.ts",
   "PreviewInSolutionExplorer": false
 }

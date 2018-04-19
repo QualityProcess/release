@@ -38,7 +38,7 @@ export class AdminGuard implements CanActivate {
       console.log("Guard false");
 
       if (this.breadcrumbsService.currentProjectUrl) {
-        this.router.navigate([this.breadcrumbsService.currentProjectUrl]);
+        this.router.navigate([`${this.breadcrumbsService.currentProjectUrl}/matrix`]);
       } else {
         this.router.navigate(['/access-fail']);
       }

@@ -12,6 +12,7 @@
   .toolbar-row {
     max-width: $max-width;
     margin: 0 auto;
+    min-height: 45px !important;
 
     .toolbar__mobile {
       display: none;
@@ -25,6 +26,7 @@
     .toolbar-row__section {
       padding: 0 15px;
       height: 30px;
+      line-height: 0px;
 
       .main-nav {
         font-size: 12px;
@@ -37,6 +39,12 @@
             a {
               padding-left: 0 !important;
             }
+          }
+        }
+
+        &.version {
+          .top-list-item {
+            color: $primary-purple--middle;
           }
         }
 

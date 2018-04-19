@@ -24,3 +24,27 @@
     }
   }
 }
+
+.list {
+  background: #fff;
+  width: 230px !important;
+}
+
+.listitem {
+  cursor: pointer;
+}
+
+.active {
+  background: #eee;
+}
+
+qp-select {
+  color: $primary-purple !important;
+  margin-bottom: 15px;
+
+  .wrapper-dropdown {
+    .label {
+      color: $primary-purple !important;
+    }
+  }
+}

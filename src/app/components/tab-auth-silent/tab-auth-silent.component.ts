@@ -59,8 +59,11 @@ export class TabAuthSilentComponent implements OnInit {
 
           console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
           //microsoftTeams.authentication.notifySuccess(this.authContext.getCachedToken(environment.adal5Config.clientId));
+
           console.log("redirect to: ", this.authSerive.parseUrl(context.entityId, "pathname"));
-          this.breadcrumbsService.currentProjectUrl = this.authSerive.parseUrl(context.entityId, "pathname");
+          if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.authSerive.parseUrl(context.entityId, "pathname");
+          console.log("this.breadcrumbsService.currentProjectUrl: ", this.breadcrumbsService.currentProjectUrl);
+
           this.router.navigate([this.authSerive.parseUrl(context.entityId, "pathname")]);
         } else {
           console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));

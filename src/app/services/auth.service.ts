@@ -77,7 +77,9 @@ export class AuthService {
 
           this.userService.userInfo = userInfo;
           this.tabAuthenticated = true;
-          this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
+          
+          if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
+          console.log("this.breadcrumbsService.currentProjectUrl: ", this.breadcrumbsService.currentProjectUrl);
 
           console.log("userInfo: ", this.userService.userInfo);
           console.log("this.router: ", this.router);

@@ -12,10 +12,12 @@ export class BreadCrumbsService {
   }
 
   set currentProjectUrl(projectUrl: string) {
+    console.log("set projectUrl: ", projectUrl);
     this._currentProjectUrl = projectUrl;
   }
 
   get currentProjectUrl(): string {
+    console.log("get projectUrl: ", this._currentProjectUrl);
     return this._currentProjectUrl;
   }
 }

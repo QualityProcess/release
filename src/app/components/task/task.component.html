@@ -1,4 +1,4 @@
-<app-navbar [task]="data">
+<app-navbar>
   <mdc-list-item  [routerLink]="['./']">
     <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Edit task
   </mdc-list-item>
@@ -15,6 +15,8 @@
     <mdc-icon mdc-list-item-graphic>assignment</mdc-icon>Circle
   </mdc-list-item>
 </app-navbar>
+
+<middle-nav-bar [task]="data"></middle-nav-bar>
 
 <sub-navbar title="{{discipline?.category}}" subtitle="{{design_stage?.category}}" class="sub-navbar" [breadcrumbs]="breadcrumbs">
   <button mdc-fab #fab class="main-fab-btn"(click)="goBack()">

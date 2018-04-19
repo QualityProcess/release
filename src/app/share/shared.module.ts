@@ -43,6 +43,7 @@ import { CalculationComponent } from './../components/calculation/calculation.co
 import { DesignStageFormComponent } from './../components/design-stage-form/design-stage-form.component';
 import { DisciplineFormComponent } from './../components/discipline-form/discipline-form.component';
 import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-view/google-keep-task-view.component';
+import { MiddleNavBarComponent } from '../components/middle-nav-bar/middle-nav-bar.component';
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     QpSelectComponent,
     CalculationComponent,
     GoogleKeepTaskViewComponent,
+    MiddleNavBarComponent,
 
     // dialogs
     ConfirmDialog,
@@ -83,6 +85,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     ElevationDirective,
     PersentageDirective,
     MoveLeftDirective,
+    
   ],
   entryComponents: [ConfirmDialog, DeleteDialog, EnterFieldDialog, AuthDialog, LoginDialog, NotificationDialog],
   providers: [
@@ -109,6 +112,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
 
    // components
    NavbarComponent,
+   MiddleNavBarComponent,
    SubNavbarComponent,
    SearchComponent,
    FileUploaderComponent,

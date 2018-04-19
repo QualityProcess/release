@@ -101,6 +101,10 @@ export class GanttViewComponent implements OnInit {
 
         let granttData = [];
 
+        task_activity.task_activity_items.sort(function (a, b) {
+          return a.sort - b.sort;
+        });
+
         task_activity.task_activity_items.forEach((task_activity_item) => {
           granttData.push([task_activity_item.name, task_activity_item.name, new Date(task_activity_item.estimated_start), new Date(task_activity_item.estimated_completion), this.daysToMilliseconds(10), 100, null]);
           let dateStart = new Date(task_activity_item.estimated_start);
@@ -141,6 +145,8 @@ export class GanttViewComponent implements OnInit {
       header.appendChild(h2);
       div.appendChild(header);
       this.canvas.nativeElement.appendChild(div);
+
+      console.log(granttData1);
 
       createGanttChart(div, granttData1, {
         itemHeight: 20,
@@ -321,7 +327,8 @@ var createGanttChart = function (placeholder, data, {
   };
 
   let scaleWidth = ((svgOptions && svgOptions.width) || 600);
-  let scaleHeight = Math.max((svgOptions && svgOptions.height) || 200, data.length * itemHeight * 2);
+
+  let scaleHeight = Math.max((svgOptions && svgOptions.height) || 250, data.length * itemHeight * 2);
 
   scaleWidth -= margin.left * 2;
   scaleHeight -= margin.top * 2;
@@ -398,9 +405,9 @@ var createGanttChart = function (placeholder, data, {
   data = data.sort(function (e1, e2) {
     if (childrenCache[e1.id] && childrenCache[e2.id] && childrenCache[e1.id].length > childrenCache[e2.id].length)
       // if (moment(e1.endDate).isBefore(moment(e2.endDate)))
-      return -1;
-    else
       return 1;
+    else
+      return -1;
   });
 
   // create container element
@@ -545,17 +552,36 @@ var createGanttChart = function (placeholder, data, {
     .attr('y', (d: any) => d.y)
     .attr('width', (d: any) => d.width)
     .attr('height', (d: any) => d.height)
-    .style('fill', '#48a999')
+    .style('fill', '#008081')
     .style('cursor', 'pointer')
-    .style('stroke', '#48a999');
+    .style('stroke', '#008081');
 
-  bars.on("mouseover",  (d) => {  //Mouse event
+  bars.on("mouseover", (d) => {  //Mouse event
+
+    //Container for the gradients
+    var defs = svg.append("defs");
+
+    //Filter for the outside glow
+    var filter = defs.append("filter")
+      .attr("id", "glow");
+    filter.append("feGaussianBlur")
+      .attr("stdDeviation", "3.5")
+      .attr("result", "coloredBlur");
+    var feMerge = filter.append("feMerge");
+    feMerge.append("feMergeNode")
+      .attr("in", "coloredBlur");
+    feMerge.append("feMergeNode")
+      .attr("in", "SourceGraphic");
+
+    /*d3.select(this).select('rect')
+      .style("filter", "url(#glow)");*/
+
 
     /*let xPos = d3.select(this).select('rect').attr("x");
     let yPos = d3.select(this).select('rect').attr("y");
     let tooltip = d3.select(this)
       .append('g');
-
+    
 
     let tooltopLabel = tooltip.append('text')
       .attr('x', (d: any) => xPos)
@@ -604,6 +630,9 @@ var createGanttChart = function (placeholder, data, {
       .style("top", (d3.event.pageY - 50) + "px")*/
   })
     .on("mouseout", function (d) {  //Mouse event
+
+      /*d3.select(this)
+        .style("filter", "none");*/
 
       //d3.select(this).select('g').remove();
 

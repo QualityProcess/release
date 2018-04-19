@@ -85,8 +85,8 @@ export class ScheduleComponent implements OnInit {
       eventLimit: false,
       contentHeight: window.innerHeight - 310,
       height: window.innerHeight - 310,
-      eventBackgroundColor: '#48a999',
-      eventBorderColor: '#48a999',
+      eventBackgroundColor: '#008081',
+      eventBorderColor: '#008081',
       header: {
         left: '',
         center: 'title',

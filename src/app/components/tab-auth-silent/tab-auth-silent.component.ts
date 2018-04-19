@@ -45,18 +45,6 @@ export class TabAuthSilentComponent implements OnInit {
         this.authContext.handleWindowCallback(window.location.hash);
         if (this.authContext.getCachedUser()) {
 
-          this.authContext.acquireToken(environment.graphApi, function (error, token) {
-            if (error || !token) {
-              console.log("ADAL error occurred: " + error);
-
-              //throw new Error("Get graph token fail!");
-            }
-            else {
-              console.log("Graph token: ", token);
-          
-            }
-          });
-
           console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
           //microsoftTeams.authentication.notifySuccess(this.authContext.getCachedToken(environment.adal5Config.clientId));
 

@@ -26,10 +26,7 @@ export class NavbarComponent implements OnInit {
   username: string = 'Admin';
   isTab: boolean = false;
   breadcrumbs: BreadCrumb[];
-<<<<<<< HEAD
-=======
   currentProjectUrl: string; // if has current project
->>>>>>> dev
   @Input() task: Task;
 
   constructor(
@@ -46,13 +43,10 @@ export class NavbarComponent implements OnInit {
         this.breadcrumbs = val;
     });
 
-<<<<<<< HEAD
-=======
     if (this.breadCrumbsService.currentProjectUrl) this.currentProjectUrl = this.breadCrumbsService.currentProjectUrl.replace('matrix', '');
     
     console.log("this.currentProjectUrl: ", this.currentProjectUrl);
 
->>>>>>> dev
     console.log(this.userService.userInfo.userName);
     if (this.userService.userInfo.userName) {
       this.isTab = true;

@@ -12,11 +12,8 @@
         </mdc-menu-item>
       </mdc-menu>
   </mdc-toolbar-section>
-<<<<<<< HEAD
-    <button *ngIf="isAdmin" mdc-fab #fab class="main-fab-btn" (click)="goBack()">
-=======
+
     <button *ngIf="isAdmin; else user" mdc-fab #fab class="main-fab-btn" (click)="goBack()">
->>>>>>> dev
       <img class="main-fab-svg-image" src="/assets/icons/arrow-left.svg" alt="back" title="back" />
     </button>
     <ng-template #user>

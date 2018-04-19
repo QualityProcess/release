@@ -6,6 +6,9 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 // rxjs
 import { Observable } from 'rxjs/Observable';
 
+// environment
+import { environment } from './../../environments/environment';
+
 // services
 import { AuthService } from './../services/auth.service';
 import { UserService } from './../services/user.service'; 
@@ -24,7 +27,7 @@ export class AuthGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
 
     console.log("this.authService.isAuthenticated: ", this.authService.isAuthenticated)
-    if ( this.authService.isAuthenticated || this.authService.userInfo) { 
+    if (environment.devAccess || this.authService.isAuthenticated || this.authService.userInfo) { 
 
       if (this.authService.userInfo) {
 

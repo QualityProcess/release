@@ -6,6 +6,8 @@
 export const environment = {
   production: false,
   apiURL: "https://qualityprocess-development.herokuapp.com/api/v1",
+  devAccess: true,
+  version: "Development 0.0.1",
 
   adal5Config: {
     tenant: "common",

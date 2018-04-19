@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from './../../../environments/environment';
+
 declare var microsoftTeams: any;
 declare var AuthenticationContext: any;
 
@@ -16,23 +18,23 @@ export class TabAuthModalComponent implements OnInit {
     microsoftTeams.initialize();
 
     microsoftTeams.getContext((context) => {
-      // Generate random state string and store it, so we can verify it in the callback
-      let state = this._guid(); // _guid() is a helper function in the sample
+
+      let state = this._guid(); 
       localStorage.setItem("simple.state", state);
       localStorage.removeItem("simple.error");
+
       // Go to the Azure AD authorization endpoint
       let queryParams = {
         tenant: "common",
-        client_id: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
+        client_id: environment.azureConfiguration.clientId,
         response_type: "code",
         response_mode: "fragment",
-        //resource: "https://graph.microsoft.com/User.Read openid",
+        scope: "user.read",
         resourceId: "a5f3ffb0-fce9-47a7-b1c9-79bcadd3b46d",
         redirect_uri: window.location.origin + "/tab-auth-end",
         nonce: this._guid(),
         state: state,
-        // The context object is populated by Teams; the upn attribute
-        // is used as hinting information
+        //prompt: "admin_consent",
         login_hint: context.upn,
       };
 
@@ -69,7 +71,6 @@ export class TabAuthModalComponent implements OnInit {
       }
     }
 
-    console.log("toQueryString: ", str.join("&"));
     return str.join("&");
   }
 }

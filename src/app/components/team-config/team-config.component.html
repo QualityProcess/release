@@ -4,14 +4,27 @@
 
   <h2>Tab configuration</h2>
 
-  <mat-form-field style="color: white">
+  <qp-select [items]="sortItems"
+             bindLabel="name"
+             bindValue="sort"
+             placeholder="Sort By"
+             (change)="sortData($event.sort)"></qp-select>
+
+  <div class="list mat-elevation-z8">
+    <mat-list role="list" class="listitem">
+      <mat-list-item role="listitem"  *ngFor="let project of projects" [ngClass]="{'active': project.id == selected}" (click)="chooseProject(project)">{{ project.name }}</mat-list-item>
+    </mat-list>
+  </div>
+
+
+  <!--<mat-form-field style="color: white">
     <mat-select [panelClass]="'tabconfig-mat-select-panel'"  [(value)]="selected" placeholder="Select a project" (selectionChange)="changed()">
-      <mat-option>All projects</mat-option>
+      <mat-option>Select a project</mat-option>
       <mat-option *ngFor="let project of projects" [value]="project.id">
         {{ project.name }}
       </mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field>-->
 
 </div>
 

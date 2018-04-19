@@ -9,7 +9,7 @@
   align-items: center;
   background: $primary-purple--light;
   overflow: hidden;
-  height: calc(100vh - 20px); 
+  height: auto;
   color: $white;
 
   h2 {
@@ -21,6 +21,30 @@
 
     &:hover {
       color: $white;
+    }
+  }
+}
+
+.list {
+  background: #fff;
+  width: 230px !important;
+}
+
+.listitem {
+  cursor: pointer;
+}
+
+.active {
+  background: #eee;
+}
+
+qp-select {
+  color: $primary-purple !important;
+  margin-bottom: 15px;
+
+  .wrapper-dropdown {
+    .label {
+      color: $primary-purple !important;
     }
   }
 }

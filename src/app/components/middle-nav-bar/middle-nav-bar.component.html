@@ -1,0 +1,32 @@
+
+<mdc-toolbar class="toolbar">
+  <mdc-toolbar-row class="toolbar-row">
+    <mdc-toolbar-section [alignStart]="true" class="toolbar__mobile">
+    </mdc-toolbar-section>
+
+    <mdc-toolbar-section [alignStart]="true" class="toolbar-row__section">
+
+      <ul class="main-nav version">
+        <li class="top-list-item">
+          {{version}}
+        </li>
+      </ul>
+
+    </mdc-toolbar-section>
+
+    <mdc-toolbar-section [alignEnd]="true" [shrinkToFit]="false" class="toolbar-row__section">
+      <div class="secondary-nav-wrapper">
+        <ul class="secondary-nav">
+          <li *ngIf="task" class="top-list-item">
+            <mat-icon class="action" (click)="openDeleteDialog()">delete</mat-icon>
+          </li>
+        </ul>
+      </div>
+      <mdc-menu #menu>
+        <mdc-menu-divider></mdc-menu-divider>
+      </mdc-menu>
+      <!--<i class="material-icons" (click)="logout()">exit_to_app</i>-->
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+

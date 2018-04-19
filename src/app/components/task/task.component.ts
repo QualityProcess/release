@@ -5,8 +5,7 @@ import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
-import { TaskService } from "../../services/task.service";
-import { ProjectsService } from "../../services";
+
 import { Task } from "../../models/task";
 import { Project } from "../../models/project";
 import { Discipline } from "../../models/discipline";
@@ -14,6 +13,11 @@ import { DesignStage } from "../../models/design-stage";
 import { TaskActivity } from "../../models/task-activity";
 import { TaskActivityItem } from "../../models/task-activity-item";
 import { Location } from '@angular/common';
+
+// services
+import { UserService } from './../../services/user.service';
+import { TaskService } from "../../services/task.service";
+import { ProjectsService } from "../../services";
 
 // breadcrumbs
 import { BreadCrumbsService } from '../../services/breadcrumbs.service';
@@ -42,8 +46,10 @@ export class TaskComponent implements OnInit {
   taskActivities: TaskActivity[];
   taskActivityItems: TaskActivityItem[];
 
-  constructor(private service: TaskService,
+  constructor(
+    private service: TaskService,
     private projectService: ProjectsService,
+    private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
     private _location: Location,
@@ -77,20 +83,35 @@ export class TaskComponent implements OnInit {
   }
 
   setBreadCrumbs() {
-    this.breadCrumbsService.setBreadcrumbs([
-      {
-        label: 'Projects',
-        url: '/projects'
-      },
-      {
-        label: this.project.name,
-        url: `/projects/${this.data.project_id}/matrix`
-      },
-      {
-        label: this.discipline ? `${this.discipline.category} ${this.design_stage.category}` : '',
-        url: `/projects/${this.data.project_id}/tasks/${this.data.id}`
-      }
-    ]);
+
+    if (this.userService.isAdmin) {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: 'Projects',
+          url: '/projects'
+        },
+        {
+          label: this.project.name,
+          url: `/projects/${this.data.project_id}/matrix`
+        },
+        {
+          label: this.discipline ? `${this.discipline.category} ${this.design_stage.category}` : '',
+          url: `/projects/${this.data.project_id}/tasks/${this.data.id}`
+        }
+      ]);
+    } else {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: this.project.name,
+          url: `/projects/${this.data.project_id}/matrix`
+        },
+        {
+          label: this.discipline ? `${this.discipline.category} ${this.design_stage.category}` : '',
+          url: `/projects/${this.data.project_id}/tasks/${this.data.id}`
+        }
+      ]);
+    }
+    
   }
 
   goBack() {

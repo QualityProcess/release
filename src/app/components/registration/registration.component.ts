@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
     const val = this.registrationForm.value;
     this.loading = true;
 
-    let result = this.authService.registration(val);
+    /*let result = this.authService.registration(val);
 
     if (result === true) {
       this.router.navigate(['/login']);
@@ -45,6 +45,6 @@ export class RegistrationComponent implements OnInit {
 
       this.loading = false;
       setTimeout(() => { this.error = '' }, 4000);
-    }
+    }*/
   }
 }

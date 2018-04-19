@@ -134,7 +134,7 @@ export class BarViewComponent implements OnInit {
               isStacked: true,
               backgroundColor: { fill: 'transparent' },
               series: {
-                0: { color: '#66ff38' },
+                0: { color: '#008081' },
                 1: { color: '#efefef' },
                 2: { color: '#205510' },
                 3: { color: 'blue' },

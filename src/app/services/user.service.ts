@@ -9,11 +9,38 @@ import { User } from '../models/index';
 @Injectable()
 export class UserService {
 
-  constructor(
-    private http: Http,
-    private authenticationService: AuthService) {
+  private _username: string;
+  private _userInfo: any;
+  private _isAdmin = false;
+
+  constructor() {
+    this.userInfo = { userName: "Test" }
   }
 
+  get username(): string {
+    return this._username;
+  }
+
+  set username(name: string) {
+    console.log(name);
+    this._username = name;
+  }
+
+  get userInfo(): any {
+    return this._userInfo;
+  }
+
+  set userInfo(userInfo: any) {
+    this._userInfo = userInfo;
+  }
+
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+
+  set isAdmin(isAdmin: boolean) {
+    this._isAdmin = isAdmin;
+  }
   /*getUsers(): Observable<User[]> {
     // add authorization header with jwt token
     let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });

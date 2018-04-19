@@ -9,6 +9,14 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TaskService } from "../../services/task.service";
 import { ProjectsService } from "../../services";
 
+// models
+import { TaskPhase } from "../../models/task-phase";
+import { TaskActivity } from "../../models/task-activity";
+import { TaskActivityItem } from "../../models/task-activity-item";
+
+let minStartDate: Date;
+let maxEndDate: Date;
+
 @Component({
   selector: 'gantt-view',
   templateUrl: './gantt-view.component.html',
@@ -16,6 +24,11 @@ import { ProjectsService } from "../../services";
 })
 export class GanttViewComponent implements OnInit {
   @ViewChild('canvas') canvas;
+  public phases: TaskPhase[];
+  public taskActivities: TaskActivity[];
+  public taskActivityItems: TaskActivityItem[];
+  private subscribe: any;
+
   width: number;
   height: number;
   inputData: any;
@@ -34,7 +47,23 @@ export class GanttViewComponent implements OnInit {
   ngAfterContentInit() { }
 
   ngOnInit() {
-    this.getTask(); 
+
+    this.getPhases();
+    
+    //this.getTask(); 
+  }
+
+  getPhases() {
+    let id;
+    this.route.parent.parent.params.subscribe(params => {
+      console.log(params);
+      this.service.getTask(+params["task_id"]).subscribe(res => {
+        this.data = res;
+
+        console.log(this.data);
+        this.updateData();
+      })
+    });
   }
 
   initGantt() {
@@ -72,6 +101,10 @@ export class GanttViewComponent implements OnInit {
 
         let granttData = [];
 
+        task_activity.task_activity_items.sort(function (a, b) {
+          return a.sort - b.sort;
+        });
+
         task_activity.task_activity_items.forEach((task_activity_item) => {
           granttData.push([task_activity_item.name, task_activity_item.name, new Date(task_activity_item.estimated_start), new Date(task_activity_item.estimated_completion), this.daysToMilliseconds(10), 100, null]);
           let dateStart = new Date(task_activity_item.estimated_start);
@@ -79,8 +112,8 @@ export class GanttViewComponent implements OnInit {
           let compareDate = new Date(2000, 10, 10);
           if (dateStart > compareDate && dateEnd > compareDate) {
             granttData1.push({
-              startDate: new Date(dateStart.getUTCFullYear(), dateStart.getUTCMonth(), dateStart.getUTCDate()),
-              endDate: new Date(dateEnd.getUTCFullYear(), dateEnd.getUTCMonth(), dateEnd.getUTCDate()),
+              startDate: new Date(dateStart.getFullYear(), dateStart.getMonth(), dateStart.getDate()),
+              endDate: new Date(dateEnd.getFullYear(), dateEnd.getMonth(), dateEnd.getDate()),
               label: task_activity_item.name,
               id: 'm01',
               dependsOn: []
@@ -113,6 +146,8 @@ export class GanttViewComponent implements OnInit {
       div.appendChild(header);
       this.canvas.nativeElement.appendChild(div);
 
+      console.log(granttData1);
+
       createGanttChart(div, granttData1, {
         itemHeight: 20,
         svgOptions: {
@@ -126,6 +161,74 @@ export class GanttViewComponent implements OnInit {
     }
 
     console.log('', this.currentData);
+  }
+
+  updateData() {
+
+    if (this.subscribe) this.subscribe.unsubscribe();
+
+    // get phases
+    this.phases = this.data.task_phases.sort(function (a, b) {
+      return a.sort - b.sort;
+    });
+
+    console.log("PHASES:", this.phases);
+
+    let phaseIds = this.phases.map(phase => phase.id);
+
+    if (phaseIds.length === 0) this.loaded = true;
+
+    let allActivitiesByPhasesSubcribe = this.getAllActivitiesByPhases(phaseIds).subscribe(res => {
+      this.taskActivities = [];
+      this.taskActivities = this.taskActivities.concat(...res);
+
+      if (this.taskActivities.length === 0) this.loaded = true;
+      console.log(res);
+      this.taskActivities.sort(function (a, b) {
+        return a.sort - b.sort;
+      });
+
+      let activityIds = this.taskActivities.map(activity => activity.id);
+
+      console.log("(this.taskActivities:", this.taskActivities);
+
+      this.getAllActivityItemsByActivities(activityIds).subscribe(res => {
+        this.taskActivityItems = [];
+        console.log(res);
+        this.taskActivityItems = this.taskActivityItems.concat(...res);
+
+        this.taskActivityItems.sort(function (a, b) {
+          return a.sort - b.sort;
+        });
+
+        this.taskActivityItems.forEach((item, index, array) => {
+
+          let dateStart = new Date(item.estimated_start);
+          let dateEnd = new Date(item.estimated_completion);
+          let compareDate = new Date(2000, 10, 10);
+          if (dateStart > compareDate && dateEnd > compareDate) {
+            if (!minStartDate || dateStart < minStartDate) minStartDate = moment(dateStart);
+
+            if (!minStartDate || dateEnd < minStartDate) minStartDate = moment(dateEnd);
+
+            if (!maxEndDate || dateEnd > maxEndDate) maxEndDate = moment(dateEnd);
+
+            if (!maxEndDate || dateStart > maxEndDate) maxEndDate = moment(dateStart);
+          }
+
+         
+        });
+
+        console.log("(this.taskActivity Items:", this.taskActivityItems);
+
+        // load data completed
+        this.loaded = true;
+
+        this.getTask(); 
+      });
+
+    });
+
   }
 
   getTask() {
@@ -176,6 +279,24 @@ export class GanttViewComponent implements OnInit {
     });
   }
 
+  getAllActivitiesByPhases(phaseIds: number[]) {
+    let activitiesObservable: Observable<TaskActivity[]>[] = [];
+    phaseIds.forEach(id => {
+      activitiesObservable.push(this.service.getTaskActivitiesByPhase(+id));
+    });
+
+    return forkJoin(...activitiesObservable);
+  }
+
+  getAllActivityItemsByActivities(activityIds: number[]) {
+    let activityItemsObservable: Observable<TaskActivityItem[]>[] = [];
+    activityIds.forEach(id => {
+      activityItemsObservable.push(this.service.getTaskActivityItemsByActivity(+id));
+    });
+
+    return forkJoin(...activityItemsObservable);
+  }
+
 
 }
 
@@ -188,7 +309,17 @@ var createGanttChart = function (placeholder, data, {
   svgOptions
 }) {
   // prepare data
-  let minStartDate, maxEndDate;
+  //let minStartDate, maxEndDate;
+
+  var myTool = d3.select("body")
+    .append("div")
+    .attr("class", "mytooltip")
+    .style("opacity", "0")
+    .style("fill", "#000")
+    .style("position", "absolute")
+    .style("background", "#fff")
+    .style("display", "none");
+
 
   let margin = (svgOptions && svgOptions.margin) || {
     top: itemHeight * 2,
@@ -196,7 +327,8 @@ var createGanttChart = function (placeholder, data, {
   };
 
   let scaleWidth = ((svgOptions && svgOptions.width) || 600);
-  let scaleHeight = Math.max((svgOptions && svgOptions.height) || 200, data.length * itemHeight * 2);
+
+  let scaleHeight = Math.max((svgOptions && svgOptions.height) || 250, data.length * itemHeight * 2);
 
   scaleWidth -= margin.left * 2;
   scaleHeight -= margin.top * 2;
@@ -273,13 +405,18 @@ var createGanttChart = function (placeholder, data, {
   data = data.sort(function (e1, e2) {
     if (childrenCache[e1.id] && childrenCache[e2.id] && childrenCache[e1.id].length > childrenCache[e2.id].length)
       // if (moment(e1.endDate).isBefore(moment(e2.endDate)))
-      return -1;
-    else
       return 1;
+    else
+      return -1;
   });
 
   // create container element
   let svg = d3.select(placeholder).append('svg').attr('width', svgWidth).attr('height', svgHeight);
+
+  /*const xScale = d3.scaleTime()
+    //.domain([minStartDate.toDate(), maxEndDate.toDate()])
+    .domain([new Date(minStartDate), new Date(maxEndDate)])
+    .range([0, scaleWidth]);*/
 
   const xScale = d3.scaleTime()
     //.domain([minStartDate.toDate(), maxEndDate.toDate()])
@@ -415,8 +552,102 @@ var createGanttChart = function (placeholder, data, {
     .attr('y', (d: any) => d.y)
     .attr('width', (d: any) => d.width)
     .attr('height', (d: any) => d.height)
-    .style('fill', '#48a999')
-    .style('stroke', '#48a999');
+    .style('fill', '#008081')
+    .style('cursor', 'pointer')
+    .style('stroke', '#008081');
+
+  bars.on("mouseover", (d) => {  //Mouse event
+
+    //Container for the gradients
+    var defs = svg.append("defs");
+
+    //Filter for the outside glow
+    var filter = defs.append("filter")
+      .attr("id", "glow");
+    filter.append("feGaussianBlur")
+      .attr("stdDeviation", "3.5")
+      .attr("result", "coloredBlur");
+    var feMerge = filter.append("feMerge");
+    feMerge.append("feMergeNode")
+      .attr("in", "coloredBlur");
+    feMerge.append("feMergeNode")
+      .attr("in", "SourceGraphic");
+
+    /*d3.select(this).select('rect')
+      .style("filter", "url(#glow)");*/
+
+
+    /*let xPos = d3.select(this).select('rect').attr("x");
+    let yPos = d3.select(this).select('rect').attr("y");
+    let tooltip = d3.select(this)
+      .append('g');
+    
+
+    let tooltopLabel = tooltip.append('text')
+      .attr('x', (d: any) => xPos)
+      .attr('y', (d: any) => +yPos - 50)
+      .text((d: any) => d.tooltip)
+      .attr("fill", "#000")
+      .attr("text-anchor", "middle")
+      .style("z-index", "91");
+
+
+    var path = tooltip.append("path")
+      .data(rectangleData)
+      .enter()
+      .attr("d", (bbox: any) => `M${bbox.x} ${bbox.y} H ${bbox.x + bbox.width} V ${bbox.y + bbox.height} H${bbox.x + bbox.width / 2} L${bbox.x} ${bbox.y + 50} L${bbox.x + bbox.width / 4}  ${bbox.y + bbox.height} H${bbox.x} L ${bbox.x} ${bbox.y} `)
+      .style("z-index", "90")
+      .style("fill", "#fff")
+      .style("stroke", "#666")
+      .style("stroke-width", "1.5px");
+
+    var rect = tooltip.append("rect")
+      .attr("x", bbox.x)
+      .attr("y", bbox.y)
+      .attr("width", bbox.width)
+      .attr("height", bbox.height)
+      .style("z-index", "90")
+      .style("fill", "#fff")
+      .style("stroke", "#666")
+      .style("stroke-width", "1.5px");*/
+
+    /*d3.select(this)
+      .transition()
+      .duration(500)
+      .attr("x", function (d) { return -30; })
+      .style("cursor", "pointer")
+      .attr("width", 60)
+    myTool
+      .transition()  //Opacity transition when the tooltip appears
+      .duration(500)
+      .style("opacity", "1")
+      .style("display", "block")  //The tooltip appears
+
+    myTool
+      .html(
+      "<div id='thumbnail'><span>" + polylineData.tooltip + "</span></div>")
+      .style("left", (d3.event.pageX - 50) + "px")
+      .style("top", (d3.event.pageY - 50) + "px")*/
+  })
+    .on("mouseout", function (d) {  //Mouse event
+
+      /*d3.select(this)
+        .style("filter", "none");*/
+
+      //d3.select(this).select('g').remove();
+
+      /*d3.select(this)
+        .transition()
+        .duration(500)
+        .attr("x", function (d) { return -20; })
+        .style("cursor", "normal")
+        .attr("width", 40)
+      myTool
+        .transition()  //Opacity transition when the tooltip disappears
+        .duration(500)
+        .style("opacity", "0")
+        .style("display", "none")  //The tooltip disappears*/
+    });
 
   bars
     .append('text')
@@ -434,10 +665,11 @@ var createGanttChart = function (placeholder, data, {
 function ganttTickFunc(t0, t1, step) {
   var startTime = new Date(t0),
     endTime = new Date(t1), times = [];
-  endTime.setUTCDate(endTime.getUTCDate() + 1);
+  endTime.setDate(endTime.getDate());
   while (startTime < endTime) {
-    startTime.setUTCDate(startTime.getUTCDate() + 2);
+    startTime.setDate(startTime.getDate());
     times.push(new Date(startTime));
   }
   return times;
 }
+

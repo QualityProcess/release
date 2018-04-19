@@ -4,5 +4,30 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiURL: "https://qualityprocess-development.herokuapp.com/api/v1",
+  devAccess: true,
+  version: "Development 0.0.1",
+
+  adal5Config: {
+    tenant: "common",
+    clientId: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
+    redirectUri: window.location.origin + "/tab-auth-silent",
+    cacheLocation: "localStorage",
+    navigateToLoginRequestUrl: false,
+    extraQueryParameters: "",
+    resource: "https://graph.microsoft.com/"
+  },
+  azureConfiguration: {
+    tenant: "common",
+    clientId: "ee2ec70a-88b0-4a5d-8ae2-e924d65965f9",
+    redirectUri: window.location.origin + "/tab-auth-end",
+    cacheLocation: "localStorage",
+    navigateToLoginRequestUrl: false,
+    prompt: "admin_consent",
+    extraQueryParameters: "",
+    resource: "https://graph.microsoft.com/"
+  },
+
+  graphApi: "https://graph.microsoft.com"
 };

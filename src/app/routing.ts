@@ -17,7 +17,9 @@ const appRoutes: Routes = [
   { path: 'tab-auth', component: TabAuthComponent },
   { path: 'tab-auth-modal', loadChildren: './components/tab-auth-modal/tab-auth-modal.module#TabAuthModalModule' },
   { path: 'tab-auth-end', loadChildren: './components/tab-auth-end/tab-auth-end.module#TabAuthEndModule' },
+  { path: 'tab-auth-silent', loadChildren: './components/tab-auth-silent/tab-auth-silent.module#TabAuthSilentModule' },
   { path: 'resetpassword', component: ResetPasswordComponent },
+  { path: 'access-fail', loadChildren: './components/access-fail/access-fail.module#AccessFailModule'},
   {
     path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard, IsSecureGuard]
   },

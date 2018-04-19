@@ -1,21 +1,31 @@
+// core
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ProjectsService } from "../../services";
-import { TaskService } from "../../services/task.service";
-import { Project } from '../../models/project';
-import { Task } from '../../models/task';
+import { BrowserModule } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Directive, EventEmitter, HostListener, ElementRef, Renderer2, Output } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ConfirmDialog } from "../dialogs/dialog";
 import { MatSnackBar } from '@angular/material';
 
+
+// models
+import { Project } from '../../models/project';
+import { Task } from '../../models/task';
+
+// dialogs
+import { ConfirmDialog } from "../dialogs/dialog";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+
+// services
+import { UserService } from './../../services/user.service'; 
+import { ProjectsService } from "../../services";
+import { TaskService } from "../../services/task.service";
 
 // breadcrumbs
 import { BreadCrumbsService } from '../../services/breadcrumbs.service';
 import { BreadCrumb } from './../../models/breadcrumb';
 
-import { BrowserModule } from '@angular/platform-browser'
+// rxjs
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/from';
@@ -37,6 +47,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   project: Project;
   listOfProjects: Project[];
   selectedDuplicateProject: Project;
+  isAdmin: boolean;
 
   breadcrumbs: BreadCrumb[];
   duplicationSubscribe: any;
@@ -69,6 +80,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   constructor(
     private service: ProjectsService,
     private taskService: TaskService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private elementRef: ElementRef,
@@ -90,6 +102,8 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     this.project = this.route.snapshot.data.projectData;
     this.listOfProjects = this.route.snapshot.data.projectsData;
 
+    this.isAdmin = this.userService.isAdmin;
+
     this.listOfProjects.find((project, index, list) => {
       if (project.id === this.project.id) {
         list.splice(index, 1);
@@ -97,7 +111,6 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
       return project.id === this.project.id;
     });
 
-    console.log(this.listOfProjects);
     this.setBreadCrumbs();
     
     this.data = this.route.snapshot.data.projectMatrixData;
@@ -156,16 +169,27 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
   }
 
   setBreadCrumbs() {
-    this.breadCrumbsService.setBreadcrumbs([
-      {
-        label: 'Projects',
-        url: '/projects'
-      },
-      {
-        label: this.project.name,
-        url: `/projects/${this.project.id}/matrix`
-      },
-    ]);
+
+    if (this.userService.isAdmin) {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: 'Projects',
+          url: '/projects'
+        },
+        {
+          label: this.project.name,
+          url: `/projects/${this.project.id}/matrix`
+        },
+      ]);
+    } else {
+      this.breadCrumbsService.setBreadcrumbs([
+        {
+          label: this.project.name,
+          url: `/projects/${this.project.id}/matrix`
+        },
+      ]);
+    }
+  
   }
 
   createTask(projectId, disciplineId, designStageId) {
@@ -193,7 +217,7 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+
       if (result) {
         this.duplicate(duplicationProject);
       }
@@ -263,8 +287,7 @@ export class DraggableDirective {
   }
 
   is_touch_device() {
-    console.log(window.ontouchstart);
-    console.log(navigator.maxTouchPoints);
+
     return 'ontouchstart' in window || navigator.maxTouchPoints;      
   };
 
@@ -281,8 +304,6 @@ export class DraggableDirective {
 
       this.startX = e.changedTouches[0].clientX + parseInt(dx);
       this.startY = e.changedTouches[0].clientY + parseInt(dy);
-
-      console.log("startX: ", this.startX);
     });
 
     this.touchEnd$.subscribe((e: TouchEvent) => {
@@ -344,11 +365,7 @@ export class DraggableDirective {
 
   moveTo(dx: number, dy: number) {
 
-    console.log("start: ", dy);
-
     const transform = this.element.nativeElement.style.transform.match(/translate\((-?\d+(?:\.\d*)?)px, (-?\d+(?:\.\d*)?)px\)/);
-
-    console.log("dy: ", transform[2]);
 
     //dx = dx + parseInt(transform[1]);
     //dy = dy + parseInt(transform[2]);
@@ -366,8 +383,6 @@ export class DraggableDirective {
       this.prevX = dx;
     }
 
-
-
     if (dx + parseInt(transform[1]) > 0) dx = parseInt(transform[1]);
     if (dy + parseInt(transform[2]) > 0) dy = parseInt(transform[2]);
 
@@ -375,7 +390,7 @@ export class DraggableDirective {
 
     dx = +dx.toFixed(2);
     dy = +dy.toFixed(2);
-    console.log("final: ", dy);
+
     this.element.nativeElement.style.transform = `translate(${dx}px, ${dy}px)`;
     //this.element.nativeElement.setAttribute("style", this.CSS.translate(dx, dy));
   }

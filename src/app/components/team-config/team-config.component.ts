@@ -24,7 +24,12 @@ declare var AuthenticationContext: any;
 export class TeamConfigComponent implements OnInit {
 
   selected = '';
+  selectedProject: any;
   projects: Project[];
+  sortItems = [
+    { sort: 'name', name: 'Name (A to Z)' },
+    { sort: 'name-revers', name: 'Name (Z to A)' },
+  ];
 
   constructor(
     private renderer: Renderer2,
@@ -60,14 +65,12 @@ export class TeamConfigComponent implements OnInit {
     });
      
     console.log("isMSTab: sdfds");
-    this.service.isMSTab = true;
 
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler( saveEvent => {
 
       console.log(this.createTabUrl());
       console.log(this.getProjectName());
-
 
       microsoftTeams.settings.setSettings({
         contentUrl: this.createTabUrl(),
@@ -84,13 +87,11 @@ export class TeamConfigComponent implements OnInit {
         this.renderer.addClass(document.body, 'theme-' + (theme === 'default' ? 'light' : theme));
       }
     }
-
-    
      
   }
 
   createTabUrl() {
-    return typeof this.selected !== 'undefined' ? `${window.location.protocol}//${window.location.host}/projects/${this.selected}/matrix` : `${window.location.protocol}//${window.location.host}/projects`;
+    return `${window.location.protocol}//${window.location.host}/projects/${this.selected}/matrix`;
   }
 
   getProjectName(): string {
@@ -98,7 +99,8 @@ export class TeamConfigComponent implements OnInit {
       return project.id === +this.selected;
     });
 
-    return typeof this.selected !== 'undefined' ? project.name : 'Projects';
+    //return typeof this.selected !== 'undefined' ? project.name : 'Projects';
+    return 'QP';
   }
 
   changed(){
@@ -107,4 +109,28 @@ export class TeamConfigComponent implements OnInit {
     //microsoftTeams.settings.setValidityState(this.selected === 'first' || this.selected === 'second');
   }
 
+  sortData(name) {
+    const data = this.projects.slice();
+
+    this.projects = data.sort((a, b) => {
+      let isAsc = 'asc';
+      switch (name) {
+        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'name-revers': return compare(a.name, b.name, null);
+        default: return 0;
+      }
+    });
+  }
+
+  chooseProject(project) {
+    console.log(project);
+    this.selected = project.id;
+    microsoftTeams.settings.setValidityState(true);
+  }
+
+}
+
+function compare(a: any, b: any, isAsc: any) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

@@ -1,13 +1,22 @@
 // core
 import { Injectable, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { isPlatformServer, isPlatformBrowser, Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // rxjs
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
+
+// environment
+import { environment } from './../../environments/environment';
+
+// adal
+import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
+
+// services
+import { UserService } from './user.service';
 
 // global variables
 declare var microsoftTeams: any; 
@@ -16,64 +25,136 @@ declare var AuthenticationContext: any;
 @Injectable()
 export class AuthService {
 
-  config = {
-    //tenant: 'atomiconium.onmicrosoft.com',
-    clientId: 'ee2ec70a-88b0-4a5d-8ae2-e924d65965f9',
-    redirectUri: window.location.origin + "/tab-auth-end",
-    cacheLocation: "localStorage",
-    navigateToLoginRequestUrl: false,
-    extraQueryParameters: "",
-  }
-
   authContext: any;
+
+  private tabAuthenticated: boolean = false;
+  private _isSilentAuthentication: boolean = false;
   private msContext: any;
   private _token: string;
   private _username: string;
+  private _userInfo: any;
   private _isMSTab: boolean = false;
+  public isTabAuthenticated: boolean = false;
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject('localStorage') private localStorage: any,
+    private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private adal5Service: Adal5Service,
+    private userService: UserService
   ) {
+
     //get token from local storage
     if (isPlatformBrowser(this.platformId)) {
 
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._token = currentUser && currentUser.token;
     }
+  }
+
+  // AAD tab authentication - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-tab-aad
+  tabAuthentication() {
+
+    this._isSilentAuthentication = false;
+
+    microsoftTeams.initialize();
+
+    microsoftTeams.authentication.authenticate({
+      url: window.location.origin + "/tab-auth-modal",
+      width: 600,
+      height: 535,
+      successCallback: (result) => {
+        console.log("Success: ", result);
+
+        microsoftTeams.getContext((context) => {
+          console.log("MS tab context: ", context);
+
+          let userInfo = { userName: context.upn };
+
+          this.userService.userInfo = userInfo;
+          this.tabAuthenticated = true;
+
+          console.log("userInfo: ", this.userService.userInfo);
+          console.log("this.router: ", this.router);
+          console.log("parseUrl: ", this.parseUrl(context.entityId, "pathname"));
+
+          this.goToTabPage(context);
+          
+        });
+
+      },
+      failureCallback: (reason) => {
+        console.log("Fail: ", reason);
+        this.goToLoginPage();
+      }
+    });
+
+  }
+
+  goToTabPage(context) {
+
+    console.log(this.router);
+    if (context.entityId) {
+      this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+    } else {
+      this.router.navigate(["projects"]);
+    }
+  }
+
+  goToLoginPage() {
+    this.router.navigate(["login"]);
+  }
+
+  get userInfo(): any {
+    return this.authContext ? this.authContext.getCachedUser() : null;
+  }
+
+  get authenticated(): boolean {
+    return this.adal5Service.userInfo.authenticated;
+  }
+
+  get isSilentAuthentication(): boolean {
+    console.log("get: ", this._isSilentAuthentication);
+    return this._isSilentAuthentication;
+  }
+
+  set isSilentAuthentication(value: boolean) {
+    this._isSilentAuthentication = value;
+
+    console.log("value: ", value);
+    console.log("set: ", this._isSilentAuthentication);
     
   }
 
-  loginWithMSTeams() {
+  //  Silent authentication AAD - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-silent-AAD
+  silentAuthentication() {
+
+    this._isSilentAuthentication = true;
     
     microsoftTeams.initialize();
-    console.log("Start loginWithMSTeams", microsoftTeams);
 
     microsoftTeams.getContext((context) => {
-      console.log("Start 1");
-      console.log(context);
+     
+      console.log("MS tab context: ", context);
 
       this.msContext = context;
 
-      // Generate random state string and store it, so we can verify it in the callback
-      let state = this._guid(); // _guid() is a helper function in the sample
+      // Generate random state string and store it, we can verify it in the callback
+      let state = this._guid();
       localStorage.setItem("simple.state", state);
       localStorage.removeItem("simple.error");
 
       if (context.upn) {
-        this.config.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
-      } else {
-        this.config.extraQueryParameters = "scope=openid+profile";
+        environment.adal5Config.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
+      }else{
+        environment.adal5Config.extraQueryParameters = "scope=openid+profile";
       }
 
-      
+      this.authContext = new AuthenticationContext(environment.adal5Config);
 
-      this.authContext = new AuthenticationContext(this.config);
-
-      console.log(this.authContext);
-      //this.authContext.login();
+      console.log("Azure ad object:", this.authContext);
 
       // See if there's a cached user and it matches the expected user
       let user = this.authContext.getCachedUser();
@@ -81,19 +162,31 @@ export class AuthService {
       console.log("context.upn: ", context.upn);
 
       if (user) {
-        console.log("user.userName: ", user.userName);
         if (user.userName !== context.upn) {
           // User doesn't match, clear the cache
           this.authContext.clearCache();
         }
+
+        // get Graph token
+        this.getGraphToken();
       }
 
-      let token = this.authContext.getCachedToken(this.config.clientId);
+      let token = this.authContext.getCachedToken(environment.adal5Config.clientId);
 
       if (token) {
-        console.log("succsess: ", this.accessToken);
-        console.log("auth redirect: ", context.entityId);
-        console.log(this.parseUrl(context.entityId, "pathname"));
+
+        console.log("SSO succsess with token: ", token);
+
+        
+
+        if (this.authContext) {
+          console.log(this.authContext.getCachedUser());
+        }
+
+        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : context.upn;
+        this.userService.username = context.upn;
+
+        // redirect to MS tab 
         this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
       } else {
         // No token, or token is expired
@@ -118,16 +211,39 @@ export class AuthService {
     });
   }
 
-  public get accessToken() {
-    return this.authContext ? this.authContext.getCachedToken(this.config.clientId) : null;
+  getGraphToken(){
+    this.authContext.acquireToken(environment.graphApi, function (error, token) {
+      if (error || !token) {
+        console.log("ADAL error occurred: " + error);
+        
+        //throw new Error("Get graph token fail!");
+      }
+      else {
+        console.log("Graph token: ", token);
+        this.getGraphData(token).subscribe((data) => {
+          console.log("Graph data: ", data);
+        });
+      }
+    });
   }
 
-  public get userInfo() {
+  getGraphData(token): Observable<{}>  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+
+    return this.http.get(`${environment.graphApi}`, httpOptions);
+  }
+
+  public get accessToken() {
     return this.authContext ? this.authContext.getCachedUser() : null;
-  } 
+  }
 
   public get isAuthenticated() {
-    return this.userInfo && this.accessToken;
+    return this.tabAuthenticated || this.accessToken;
   }
 
   parseUrl(string, prop) {
@@ -158,95 +274,15 @@ export class AuthService {
         // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
       } else {
         console.log("refreshToken: ", this.msContext.upn);
-        this.username = this.msContext.upn;
+
+        this.userService.userInfo = this.authContext ? this.authContext.getCachedUser() : null;
         this.router.navigate(['projects']);
       }
     });
   }
 
-
   setAccessToken(value: string) {
     this._token = value;
-  }
-
-  getToken() {
-    return this._token;
-  }
-
-  get username(): string {
-    return this._username;
-  }
-
-  set username(name: string) {
-    this._username = name;
-  }
-
-  get isMSTab(): boolean {
-    return this._isMSTab;
-  }
-
-  set isMSTab(isTab: boolean) {
-    this._isMSTab = isTab;
-  }
-
-  get token(): string {
-    return this._token;
-  }
-
-  login(email: string, password: string): boolean {
-
-    if (isPlatformBrowser(this.platformId)) {
-
-      if (email == "test@test" && password == "test") {
-
-        let token = 'fake-token';
-        this._token = token;
-
-
-
-        console.log('AuthService login');
-        // store username and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify({ token: token }));
-        // return true to indicate successful login
-        return true;
-      } else {
-        // return false to indicate failed login
-        return false;
-      }
-
-    } 
-  
-    if (isPlatformServer(this.platformId)) {
-      console.log('AuthService login server');
-      return true;
-    }
-
-    /*return this.http.post<any>('/api/login', JSON.stringify({ email: email, password: password }))
-      .map((response: any) => {
-        // login successful if there's a jwt token in the response
-        let token = response.json() && response.json().token;
-        if (token) {
-          // set token property
-          this.token = token;
-
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({ token: token }));
-
-          // return true to indicate successful login
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-      })*/
-  }
-
-  registration(data: any) : boolean {
-    return true;
-  }
-
-  resetPassword(email: string) : string {
-    return 'Answer from fake server';
   }
 
   logout(): void {

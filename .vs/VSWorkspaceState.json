@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\node_modules\\fullcalendar",
-    "\\src"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\team-config",
+    "\\src\\app\\guard"
   ],
-  "SelectedNode": "\\src\\app",
+  "SelectedNode": "\\src\\app\\guard\\admin.guard.ts",
   "PreviewInSolutionExplorer": false
 }

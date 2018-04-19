@@ -1,14 +1,17 @@
 // core
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 // libraries
 import { MaterialModule } from './../framework/material/material.module';
 import { PrimengModule } from './../framework/material/primeng.module';
 import { MaterialMDCModule } from './../framework/material/material-mdc.module';
 import { DragulaService, DragulaModule } from 'ng2-dragula';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';  
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { Adal5Service, Adal5HTTPService } from 'adal-angular5'; 
 
 // services
 import { BreadCrumbsService } from './../services/breadcrumbs.service';
@@ -16,8 +19,10 @@ import { BreadCrumbsService } from './../services/breadcrumbs.service';
 // dialogs
 import { ConfirmDialog } from './../components/dialogs/dialog';
 import { DeleteDialog } from './../components/dialogs/delete-dialog';
+import { EnterFieldDialog } from './../components/dialogs/enter-field-dialog';
 import { AuthDialog } from './../components/dialogs/auth-dialog';
 import { LoginDialog } from './../components/login/login-dialog';
+import { NotificationDialog } from './../components/dialogs/notification-dialog';
 
 // directives
 import { DraggableDirective } from './../components/project-matrix/project-matrix.component';
@@ -38,6 +43,7 @@ import { CalculationComponent } from './../components/calculation/calculation.co
 import { DesignStageFormComponent } from './../components/design-stage-form/design-stage-form.component';
 import { DisciplineFormComponent } from './../components/discipline-form/discipline-form.component';
 import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-view/google-keep-task-view.component';
+import { MiddleNavBarComponent } from '../components/middle-nav-bar/middle-nav-bar.component';
 
 @NgModule({
   imports: [
@@ -48,6 +54,8 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     PrimengModule,
     DragulaModule,
     Ng2GoogleChartsModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
 
@@ -60,12 +68,15 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     QpSelectComponent,
     CalculationComponent,
     GoogleKeepTaskViewComponent,
+    MiddleNavBarComponent,
 
     // dialogs
     ConfirmDialog,
     DeleteDialog,
+    EnterFieldDialog,
     AuthDialog,
     LoginDialog,
+    NotificationDialog,
 
     // directives
     PrimeDragulaDirective,
@@ -74,13 +85,20 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
     ElevationDirective,
     PersentageDirective,
     MoveLeftDirective,
+    
   ],
-  entryComponents: [ConfirmDialog, DeleteDialog, AuthDialog, LoginDialog],
+  entryComponents: [ConfirmDialog, DeleteDialog, EnterFieldDialog, AuthDialog, LoginDialog, NotificationDialog],
   providers: [
 
     // directives
     DragulaService,
+
+    // services
     BreadCrumbsService,
+
+    // adal service
+    Adal5Service,
+    { provide: Adal5HTTPService, useFactory: Adal5HTTPService.factory, deps: [HttpClient, Adal5Service] },
   ],
  exports: [
 
@@ -94,6 +112,7 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
 
    // components
    NavbarComponent,
+   MiddleNavBarComponent,
    SubNavbarComponent,
    SearchComponent,
    FileUploaderComponent,
@@ -106,8 +125,10 @@ import { GoogleKeepTaskViewComponent } from './../components/google-keep-task-vi
    // dialogs
    ConfirmDialog,
    DeleteDialog,
+   EnterFieldDialog,
    AuthDialog,
    LoginDialog,
+   NotificationDialog,
 
    // directives
    DraggableDirective,

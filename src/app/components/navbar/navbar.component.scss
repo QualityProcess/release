@@ -34,7 +34,7 @@
         &:first-child {
           .top-list-item {
             a {
-              padding-left: 0;
+              padding-left: 0!important;
             }
           }
         }
@@ -44,6 +44,8 @@
           font-size: 0.8em;
           list-style: none;
           text-transform: uppercase;
+
+
         }
 
         @include phone() {
@@ -65,29 +67,41 @@
         }
       }
 
-      .secondary-nav {
-        font-size: 12px;
+      .secondary-nav-wrapper {
 
-        .top-list-item {
-          float: left;
-          list-style: none;
-          text-transform: uppercase;
-          position: relative;
-          line-height: initial;
+        .secondary-nav {
+          font-size: 12px;
+          @include flex();
+          align-items: center;
+          justify-content: flex-end;
+          text-align: end;
+          margin: 0;
 
-          .top-link.dropdown-menu {
-            &:before {
-              content: "";
-              position: absolute;
-              width: 0;
-              height: 0;
-              border: 5px solid transparent;
-              border-top: 5px solid $primary-gray--dark;
-              top: -25%;
-              right: 0;
-              margin: 9px 0 0;
-              -webkit-transition: border-color .2s ease;
-              transition: border-color .2s ease;
+          .top-list-item {
+            float: left;
+            list-style: none;
+            text-transform: uppercase;
+            position: relative;
+            line-height: initial;
+
+            .mat-icon {
+              font-size: 18px;
+            }
+
+            .top-link.dropdown-menu {
+              &:before {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                border: 5px solid transparent;
+                border-top: 5px solid $primary-gray--dark;
+                top: -25%;
+                right: 0;
+                margin: 9px 0 0;
+                -webkit-transition: border-color .2s ease;
+                transition: border-color .2s ease;
+              }
             }
           }
         }

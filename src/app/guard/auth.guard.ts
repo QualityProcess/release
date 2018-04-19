@@ -6,8 +6,12 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 // rxjs
 import { Observable } from 'rxjs/Observable';
 
+// environment
+import { environment } from './../../environments/environment';
+
 // services
 import { AuthService } from './../services/auth.service';
+import { UserService } from './../services/user.service'; 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -17,13 +21,26 @@ export class AuthGuard implements CanActivate {
    @Inject(PLATFORM_ID) private platformId: Object,
    @Inject('localStorage') private localStorage: any,
    private authService: AuthService,
+   private userService: UserService,
 ) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
 
-    if (this.authService.userInfo || localStorage.getItem('currentUser')) {
+    console.log("this.authService.isAuthenticated: ", this.authService.isAuthenticated)
+    if (environment.devAccess || this.authService.isAuthenticated || this.authService.userInfo) { 
+
+      if (this.authService.userInfo) {
+
+        // set user data
+        this.userService.userInfo = this.authService.userInfo;
+        console.log("User logged in: ", this.authService.userInfo);
+      }
+      console.log("Guard true");
       return true;
     } else {
+
+       // go to Silent authentication AAD
+      console.log("Guard false");
       this.router.navigate(['/tab-auth']);
       return false;
     }

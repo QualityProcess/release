@@ -16,6 +16,8 @@
   </mdc-list-item>
 </app-navbar>
 
+<middle-nav-bar [task]="data"></middle-nav-bar>
+
 <sub-navbar title="{{discipline?.category}}" subtitle="{{design_stage?.category}}" class="sub-navbar" [breadcrumbs]="breadcrumbs">
   <button mdc-fab #fab class="main-fab-btn"(click)="goBack()">
     <img class="main-fab-svg-image" src="/assets/icons/arrow-left.svg" alt="back" title="back" />

@@ -652,7 +652,7 @@ var createGanttChart = function (placeholder, data, {
   bars
     .append('text')
     .style('stroke', '#ffffff')
-    .style('font-family', '"Roboto Thin", "Roboto", "Helvetica Neue", "Arial", sans - serif!important'),
+    .style('font-family', '"Roboto Thin", "Roboto", "Helvetica Neue", "Arial", sans-serif!important')
     .attr('x', (d: any) => d.labelX)
     .attr('y', (d: any) => d.labelY)
     .text((d: any) => d.label);

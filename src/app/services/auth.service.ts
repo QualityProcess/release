@@ -17,6 +17,7 @@ import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
 // services
 import { UserService } from './user.service';
+import { BreadCrumbsService } from './breadcrumbs.service';
 
 // global variables
 declare var microsoftTeams: any; 
@@ -43,7 +44,8 @@ export class AuthService {
     private router: Router,
     private location: Location,
     private adal5Service: Adal5Service,
-    private userService: UserService
+    private userService: UserService,
+    private breadcrumbsService: BreadCrumbsService
   ) {
 
     //get token from local storage
@@ -75,6 +77,7 @@ export class AuthService {
 
           this.userService.userInfo = userInfo;
           this.tabAuthenticated = true;
+          this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
 
           console.log("userInfo: ", this.userService.userInfo);
           console.log("this.router: ", this.router);

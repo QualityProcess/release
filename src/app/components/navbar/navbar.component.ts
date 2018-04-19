@@ -43,7 +43,8 @@ export class NavbarComponent implements OnInit {
         this.breadcrumbs = val;
     });
 
-    this.currentProjectUrl = this.breadCrumbsService.currentProjectUrl.replace('matrix', '');
+    if (this.breadCrumbsService.currentProjectUrl) this.currentProjectUrl = this.breadCrumbsService.currentProjectUrl.replace('matrix', '');
+    
     console.log("this.currentProjectUrl: ", this.currentProjectUrl);
 
     console.log(this.userService.userInfo.userName);

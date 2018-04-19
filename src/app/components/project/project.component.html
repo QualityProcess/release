@@ -6,6 +6,11 @@
   <button mdc-fab #fab class="main-fab-btn" [routerLink]="['/projects', project.id, 'edit']">
     <mdc-icon>edit</mdc-icon>
   </button>
+  <mdc-toolbar-section [alignEnd]="true" class="toolbar-row__section sub-menu">
+    <button mat-button [routerLink]="['/projects', project.id, 'matrix']">Matrix</button>
+    <button mat-button [routerLink]="['/projects', project.id, 'urls']">Links</button>
+    <button mat-button (click)="openDeleteDialog()">Delete</button>
+  </mdc-toolbar-section>
   <search (onChange)="setFilter($event)" class="search"></search> 
 </sub-navbar>
 <div class="layout-wrapper">

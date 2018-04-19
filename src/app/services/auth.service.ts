@@ -17,6 +17,7 @@ import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
 // services
 import { UserService } from './user.service';
+import { BreadCrumbsService } from './breadcrumbs.service';
 
 // global variables
 declare var microsoftTeams: any; 
@@ -43,7 +44,8 @@ export class AuthService {
     private router: Router,
     private location: Location,
     private adal5Service: Adal5Service,
-    private userService: UserService
+    private userService: UserService,
+    private breadcrumbsService: BreadCrumbsService
   ) {
 
     //get token from local storage
@@ -69,16 +71,13 @@ export class AuthService {
         console.log("Success: ", result);
 
         microsoftTeams.getContext((context) => {
-          console.log("MS tab context: ", context);
 
           let userInfo = { userName: context.upn };
 
           this.userService.userInfo = userInfo;
           this.tabAuthenticated = true;
-
-          console.log("userInfo: ", this.userService.userInfo);
-          console.log("this.router: ", this.router);
-          console.log("parseUrl: ", this.parseUrl(context.entityId, "pathname"));
+          
+          if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
 
           this.goToTabPage(context);
           
@@ -116,16 +115,11 @@ export class AuthService {
   }
 
   get isSilentAuthentication(): boolean {
-    console.log("get: ", this._isSilentAuthentication);
     return this._isSilentAuthentication;
   }
 
   set isSilentAuthentication(value: boolean) {
-    this._isSilentAuthentication = value;
-
-    console.log("value: ", value);
-    console.log("set: ", this._isSilentAuthentication);
-    
+    this._isSilentAuthentication = value;   
   }
 
   //  Silent authentication AAD - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-silent-AAD
@@ -137,8 +131,6 @@ export class AuthService {
 
     microsoftTeams.getContext((context) => {
      
-      console.log("MS tab context: ", context);
-
       this.msContext = context;
 
       // Generate random state string and store it, we can verify it in the callback
@@ -160,6 +152,7 @@ export class AuthService {
       let user = this.authContext.getCachedUser();
 
       console.log("context.upn: ", context.upn);
+      if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
 
       if (user) {
         if (user.userName !== context.upn) {
@@ -176,7 +169,7 @@ export class AuthService {
       if (token) {
 
         console.log("SSO succsess with token: ", token);
-
+        if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
         
 
         if (this.authContext) {
@@ -193,20 +186,6 @@ export class AuthService {
         console.log("fail: No token, or token is expired");
         this.refreshToken();
       }
-
-      /*if (this.authContext.isCallback(window.location.hash)) {
-        console.log("window.location.hash: ", window.location.hash);
-        this.authContext.handleWindowCallback(window.location.hash);
-        if (this.authContext.getCachedUser()) {
-          console.log(" microsoftTeams.authentication.notifySuccess");
-          microsoftTeams.authentication.notifySuccess();
-        } else {
-          console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
-          let err = this.authContext.getLoginError();
-          microsoftTeams.authentication.notifyFailure(err);
-          console.log("sdf");
-        }
-      }*/
 
     });
   }

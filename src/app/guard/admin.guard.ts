@@ -11,7 +11,8 @@ import { environment } from './../../environments/environment';
 
 // services
 import { AuthService } from './../services/auth.service';
-import { UserService } from './../services/user.service'; 
+import { UserService } from './../services/user.service';
+import { BreadCrumbsService } from './../services/breadcrumbs.service';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
@@ -22,6 +23,7 @@ export class AdminGuard implements CanActivate {
    @Inject('localStorage') private localStorage: any,
    private authService: AuthService,
    private userService: UserService,
+   private breadcrumbsService: BreadCrumbsService
 ) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
@@ -34,7 +36,13 @@ export class AdminGuard implements CanActivate {
 
        // go to Silent authentication AAD
       console.log("Guard false");
-      this.router.navigate(['/access-fail']);
+
+      if (this.breadcrumbsService.currentProjectUrl) {
+        this.router.navigate([this.breadcrumbsService.currentProjectUrl]);
+      } else {
+        this.router.navigate(['/access-fail']);
+      }
+      
       return false;
     }
   }

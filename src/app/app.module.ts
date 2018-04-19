@@ -24,6 +24,9 @@ import { IsSecureGuard } from './guard/https.guard';
 import { AuthService, UserService, ProjectsService } from './services';
 import { TaskService } from './services/task.service';
 
+// services
+import { BreadCrumbsService } from './services/breadcrumbs.service';
+
 // Error Handlers
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { MessageService } from './services/message.service';
@@ -85,6 +88,7 @@ import { PhasesComponent } from './components/phases/phases.component';
     UserService,
     ProjectsService,
     TaskService,
+    BreadCrumbsService,
 
     // guards
     AuthGuard,

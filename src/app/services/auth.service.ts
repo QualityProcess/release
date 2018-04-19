@@ -17,6 +17,10 @@ import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
 
 // services
 import { UserService } from './user.service';
+<<<<<<< HEAD
+=======
+import { BreadCrumbsService } from './breadcrumbs.service';
+>>>>>>> dev
 
 // global variables
 declare var microsoftTeams: any; 
@@ -43,7 +47,12 @@ export class AuthService {
     private router: Router,
     private location: Location,
     private adal5Service: Adal5Service,
+<<<<<<< HEAD
     private userService: UserService
+=======
+    private userService: UserService,
+    private breadcrumbsService: BreadCrumbsService
+>>>>>>> dev
   ) {
 
     //get token from local storage
@@ -52,6 +61,7 @@ export class AuthService {
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._token = currentUser && currentUser.token;
     }
+<<<<<<< HEAD
   }
 
   // AAD tab authentication - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-tab-aad
@@ -128,6 +138,76 @@ export class AuthService {
     
   }
 
+=======
+  }
+
+  // AAD tab authentication - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-tab-aad
+  tabAuthentication() {
+
+    this._isSilentAuthentication = false;
+
+    microsoftTeams.initialize();
+
+    microsoftTeams.authentication.authenticate({
+      url: window.location.origin + "/tab-auth-modal",
+      width: 600,
+      height: 535,
+      successCallback: (result) => {
+        console.log("Success: ", result);
+
+        microsoftTeams.getContext((context) => {
+
+          let userInfo = { userName: context.upn };
+
+          this.userService.userInfo = userInfo;
+          this.tabAuthenticated = true;
+          
+          if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
+
+          this.goToTabPage(context);
+          
+        });
+
+      },
+      failureCallback: (reason) => {
+        console.log("Fail: ", reason);
+        this.goToLoginPage();
+      }
+    });
+
+  }
+
+  goToTabPage(context) {
+
+    console.log(this.router);
+    if (context.entityId) {
+      this.router.navigate([this.parseUrl(context.entityId, "pathname")]);
+    } else {
+      this.router.navigate(["projects"]);
+    }
+  }
+
+  goToLoginPage() {
+    this.router.navigate(["login"]);
+  }
+
+  get userInfo(): any {
+    return this.authContext ? this.authContext.getCachedUser() : null;
+  }
+
+  get authenticated(): boolean {
+    return this.adal5Service.userInfo.authenticated;
+  }
+
+  get isSilentAuthentication(): boolean {
+    return this._isSilentAuthentication;
+  }
+
+  set isSilentAuthentication(value: boolean) {
+    this._isSilentAuthentication = value;   
+  }
+
+>>>>>>> dev
   //  Silent authentication AAD - details https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/authentication/auth-silent-AAD
   silentAuthentication() {
 
@@ -137,8 +217,11 @@ export class AuthService {
 
     microsoftTeams.getContext((context) => {
      
+<<<<<<< HEAD
       console.log("MS tab context: ", context);
 
+=======
+>>>>>>> dev
       this.msContext = context;
 
       // Generate random state string and store it, we can verify it in the callback
@@ -160,6 +243,7 @@ export class AuthService {
       let user = this.authContext.getCachedUser();
 
       console.log("context.upn: ", context.upn);
+      if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
 
       if (user) {
         if (user.userName !== context.upn) {
@@ -176,7 +260,11 @@ export class AuthService {
       if (token) {
 
         console.log("SSO succsess with token: ", token);
+<<<<<<< HEAD
 
+=======
+        if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
+>>>>>>> dev
         
 
         if (this.authContext) {
@@ -193,20 +281,6 @@ export class AuthService {
         console.log("fail: No token, or token is expired");
         this.refreshToken();
       }
-
-      /*if (this.authContext.isCallback(window.location.hash)) {
-        console.log("window.location.hash: ", window.location.hash);
-        this.authContext.handleWindowCallback(window.location.hash);
-        if (this.authContext.getCachedUser()) {
-          console.log(" microsoftTeams.authentication.notifySuccess");
-          microsoftTeams.authentication.notifySuccess();
-        } else {
-          console.log("this.authContext.getLoginError()", this.authContext.getLoginError());
-          let err = this.authContext.getLoginError();
-          microsoftTeams.authentication.notifyFailure(err);
-          console.log("sdf");
-        }
-      }*/
 
     });
   }
@@ -227,6 +301,25 @@ export class AuthService {
     });
   }
 
+<<<<<<< HEAD
+  getGraphToken(){
+    this.authContext.acquireToken(environment.graphApi, function (error, token) {
+      if (error || !token) {
+        console.log("ADAL error occurred: " + error);
+        
+        //throw new Error("Get graph token fail!");
+      }
+      else {
+        console.log("Graph token: ", token);
+        this.getGraphData(token).subscribe((data) => {
+          console.log("Graph data: ", data);
+        });
+      }
+    });
+  }
+
+=======
+>>>>>>> dev
   getGraphData(token): Observable<{}>  {
     const httpOptions = {
       headers: new HttpHeaders({

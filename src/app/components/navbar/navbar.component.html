@@ -55,7 +55,12 @@
   <mdc-drawer-content>
     <mdc-list-group>
       <mdc-list>
-        <mdc-list-item routerLink="/projects">
+
+        <mdc-list-item *ngIf="currentProjectUrl" routerLink="{{currentProjectUrl}}">
+          <mdc-icon mdc-list-item-graphic>email</mdc-icon>Project
+        </mdc-list-item>
+
+        <mdc-list-item *ngIf="!currentProjectUrl" routerLink="/projects">
           <mdc-icon mdc-list-item-graphic>email</mdc-icon>Projects
         </mdc-list-item>
 

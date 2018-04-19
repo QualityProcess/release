@@ -1,10 +1,19 @@
+// core
 import { Component, OnInit } from '@angular/core';
-
-import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
+// rxjs
+import 'rxjs/add/operator/switchMap';
+import { Observable } from 'rxjs/Observable';
+
+// dialogs
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DeleteDialog } from "../dialogs/delete-dialog";
+
+// services
 import { ProjectsService } from '../../services/projects.service';
+
+// models
 import { Project } from '../../models/project';
 
 @Component({
@@ -20,7 +29,8 @@ export class ProjectComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ProjectsService
+    private service: ProjectsService,
+    public dialog: MatDialog
   ) {  }
 
   ngOnInit() {
@@ -34,6 +44,30 @@ export class ProjectComponent implements OnInit {
   setFilter(filterValue: string) {
     this.filterValue = typeof this.filterValue === 'undefined' ? '' : filterValue;
     console.log('product Value: ', filterValue); 
+  }
+
+  openDeleteDialog() {
+    let dialogRef = this.dialog.open(DeleteDialog, {
+      width: '350px',
+      data: {
+        project: this.project,
+        title: `Delete project ${this.project.name}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result) {
+        this.delete(this.project);
+      }
+    });
+  }
+
+  delete(project: Project) {
+
+    this.service.deleteProject(project.id).subscribe(res => {
+      this.router.navigate(['projects']);
+    });
   }
 
 }

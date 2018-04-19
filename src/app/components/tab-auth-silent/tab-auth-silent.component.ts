@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 // services
 import { AuthService } from './../../services/auth.service';
+<<<<<<< HEAD
+=======
+import { BreadCrumbsService } from './../../services/breadcrumbs.service';
+>>>>>>> dev
 
 // environment
 import { environment } from './../../../environments/environment';
@@ -20,7 +24,12 @@ export class TabAuthSilentComponent implements OnInit {
 
   constructor(
     private router: Router,
+<<<<<<< HEAD
     private authSerive: AuthService
+=======
+    private authSerive: AuthService,
+    private breadcrumbsService: BreadCrumbsService
+>>>>>>> dev
   ) { }
 
   ngOnInit() {
@@ -43,6 +52,7 @@ export class TabAuthSilentComponent implements OnInit {
         this.authContext.handleWindowCallback(window.location.hash);
         if (this.authContext.getCachedUser()) {
 
+<<<<<<< HEAD
           this.authContext.acquireToken(environment.graphApi, function (error, token) {
             if (error || !token) {
               console.log("ADAL error occurred: " + error);
@@ -58,6 +68,15 @@ export class TabAuthSilentComponent implements OnInit {
           console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
           microsoftTeams.authentication.notifySuccess(this.authContext.getCachedToken(environment.adal5Config.clientId));
           console.log("redirect to: ", this.authSerive.parseUrl(context.entityId, "pathname"));
+=======
+          console.log("Silent success: ", this.authContext.getCachedToken(environment.adal5Config.clientId));
+          //microsoftTeams.authentication.notifySuccess(this.authContext.getCachedToken(environment.adal5Config.clientId));
+
+          console.log("redirect to: ", this.authSerive.parseUrl(context.entityId, "pathname"));
+          if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.authSerive.parseUrl(context.entityId, "pathname");
+          console.log("this.breadcrumbsService.currentProjectUrl: ", this.breadcrumbsService.currentProjectUrl);
+
+>>>>>>> dev
           this.router.navigate([this.authSerive.parseUrl(context.entityId, "pathname")]);
         } else {
           console.log("Silent fail: ", this.authContext.getCachedToken(environment.adal5Config.clientId));

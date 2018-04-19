@@ -4,9 +4,15 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
+<<<<<<< HEAD
   production: false,
   apiURL: "https://qualityprocess-development.herokuapp.com/api/v1",
   devAccess: true,
+=======
+  production: true,
+  apiURL: "https://qualityprocess-development.herokuapp.com/api/v1",
+  devAccess: false,
+>>>>>>> dev
   version: "Development 0.0.1",
 
   adal5Config: {

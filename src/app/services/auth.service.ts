@@ -165,6 +165,7 @@ export class AuthService {
       let user = this.authContext.getCachedUser();
 
       console.log("context.upn: ", context.upn);
+      if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
 
       if (user) {
         if (user.userName !== context.upn) {
@@ -181,7 +182,7 @@ export class AuthService {
       if (token) {
 
         console.log("SSO succsess with token: ", token);
-
+        if (context.entityId) this.breadcrumbsService.currentProjectUrl = this.parseUrl(context.entityId, "pathname");
         
 
         if (this.authContext) {

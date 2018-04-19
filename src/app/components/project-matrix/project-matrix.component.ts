@@ -208,6 +208,10 @@ export class ProjectMatrixComponent implements OnInit, AfterViewInit {
     this.router.navigate(['projects']);
   }
 
+  goBackUser() {
+    this.router.navigate(['projects', this.project.id]);
+  }
+
   openDialog(duplicationProject) { 
     let dialogRef = this.dialog.open(ConfirmDialog, {
       width: '350px',

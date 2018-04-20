@@ -58,10 +58,9 @@
         @include phone() {
           display: none;
         }
-
-        @include tablet() {
+        /* @include tablet() {
           display: none;
-        }
+        }*/
       }
 
       .main-nav.breadcrumbs {

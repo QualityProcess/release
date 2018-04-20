@@ -50,15 +50,14 @@
 
         .top-list-item {
           float: left;
-          font-size: 0.8em;
+          font-size: 0.9em;
           list-style: none;
           text-transform: uppercase;
         }
-
-        @include phone() {
+        /* @include phone() {
           display: none;
         }
-        /* @include tablet() {
+        @include tablet() {
           display: none;
         }*/
       }

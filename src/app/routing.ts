@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   { path: 'resetpassword', component: ResetPasswordComponent },
   { path: 'access-fail', loadChildren: './components/access-fail/access-fail.module#AccessFailModule'},
   {
-    path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard, IsSecureGuard]
+    path: '', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard/*, IsSecureGuard*/]
   },
   { path: '**', redirectTo: 'projects' } 
 ];

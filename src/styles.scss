@@ -47,6 +47,10 @@ $custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, H
   }
 }
 
+.mdc-toolbar__row {
+  min-height: 30px!important;
+}
+
 .mat-dialog-container {
   background: $primary-gray--light;
   color: $black;

@@ -3,9 +3,12 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { Router, ParamMap } from '@angular/router';
 import { Sort } from '@angular/material';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+// dialogs
 import { DeleteDialog } from "../dialogs/delete-dialog";
+import { NotificationDialog } from "../dialogs/notification-dialog";
+
 import { ProjectsService } from "../../services";
 import { Project } from "../../models/project";
 import { SelectItem } from 'primeng/api';
@@ -119,7 +122,19 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(['projects', project.id]);
   }
 
-  openDeleteDialog(project){
+  openDeleteDialog(project) {
+
+    if (project.is_template) {
+      let dialogRefNotification = this.dialog.open(NotificationDialog, {
+        width: '350px',
+        data: {
+          title: `You can not delete a project template`
+        }
+      });
+
+      return;
+    };
+
     let dialogRef = this.dialog.open(DeleteDialog, {
       width: '350px',
       data: {

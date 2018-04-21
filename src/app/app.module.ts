@@ -23,6 +23,7 @@ import { IsSecureGuard } from './guard/https.guard';
 // services
 import { AuthService, UserService, ProjectsService } from './services';
 import { TaskService } from './services/task.service';
+import { NavBarService } from './services/nav-bar.service';
 
 // services
 import { BreadCrumbsService } from './services/breadcrumbs.service';
@@ -89,6 +90,7 @@ import { PhasesComponent } from './components/phases/phases.component';
     ProjectsService,
     TaskService,
     BreadCrumbsService,
+    NavBarService,
 
     // guards
     AuthGuard,

@@ -14,7 +14,7 @@ export class UserService {
   private _isAdmin = false;
 
   constructor() {
-    this.userInfo = { userName: "Test" }
+    this.userInfo = { userName: "Developer" }
   }
 
   get username(): string {

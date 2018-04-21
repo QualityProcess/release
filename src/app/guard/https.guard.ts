@@ -1,11 +1,16 @@
 import {Injectable, isDevMode} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot} from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
+
+// environment
+import { environment } from './../../environments/environment';
 
 @Injectable()
 export class IsSecureGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (!(isDevMode()) && (location.protocol !== 'https:')) {
+    //console.log()
+
+    if (!environment.devAccess && !(isDevMode()) && (location.protocol !== 'https:')) {
       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
       return false;
     }

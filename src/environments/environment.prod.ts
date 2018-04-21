@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  apiURL: "https://qualityprocess.herokuapp.com/api/v1",
+  apiURL: "https://api.qp.heritageorient.com/api/v1",
   devAccess: false,
-  version: "Version 0.0.1",
+  version: "Version 0.0.1 BETA",
 
   adal5Config: {
     tenant: "indoeng.com",

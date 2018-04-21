@@ -1,24 +1,35 @@
-import { Component, OnInit, OnDestroy, Input, ViewChildren, QueryList } from '@angular/core';
 
+// core
+import { Component, OnInit, OnDestroy, Input, ViewChildren, QueryList } from '@angular/core';
+import { CollectionViewer, DataSource } from "@angular/cdk/collections";
+import { Router, ParamMap, ActivatedRoute } from '@angular/router';
+
+// models
+import { Task } from "../../models/task";
 import { TaskPhase } from "../../models/task-phase";
 import { TaskActivity } from "../../models/task-activity";
 import { TaskActivityItem } from "../../models/task-activity-item";
-import { TaskService } from "../../services/task.service";
+
+// dialogs
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MatTableDataSource } from '@angular/material';
 import { DeleteDialog } from "../dialogs/delete-dialog";
 
-// services
-import { UserService } from './../../services/user.service'; 
+// libraries
+import { MatTableDataSource } from '@angular/material';
+import { DragulaService } from 'ng2-dragula';
+import * as XLSX from 'xlsx';
 
-import { CollectionViewer, DataSource } from "@angular/cdk/collections";
+// services
+import { UserService } from './../../services/user.service';
+import { TaskService } from "../../services/task.service";
+import { NavBarService } from "../../services/nav-bar.service";
+
+// rxjs
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/Rx';
-import { DragulaService } from 'ng2-dragula';
-import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { merge } from 'rxjs/observable/merge';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'config-task', 
@@ -27,6 +38,7 @@ import { merge } from 'rxjs/observable/merge';
 })
 export class ConfigTaskComponent implements OnInit, OnDestroy {
 
+  task: Task;
   phases: TaskPhase[];
   taskActivities: TaskActivity[] = [];
   taskActivityItems: TaskActivityItem[] = [];
@@ -34,11 +46,15 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
   loaded = false;
   subscribe: any;
   orderSubscribe: any;
-  deleteActivitySubcribe: any
+  deleteActivitySubcribe: any;
+  private exportData: any;
+  private exportHeaders = ['Name', 'Is checked', '%', 'Estimated hours', 'Actual hours', 'Start date', 'End date', 'Checked by', 'Checked date', 'QA', 'QA by', 'QA date', 'Link', 'Note'];
+  private exportFields = ['name', 'is_enabled', 'percentage_complete', 'hours_estimated', 'hours_actual', 'estimated_start', 'estimated_completion', 'checked_by', 'checked_on', 'is_locked', 'qa_by', 'qa_date', 'link', 'customisation'];
 
   constructor(
  private service: TaskService,
  private userService: UserService,
+ private navBarService: NavBarService,
  public dialog: MatDialog,
  private router: Router,
  private route: ActivatedRoute,
@@ -51,6 +67,9 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.updateData();
+    this.navBarService.downloadTaskToExel.subscribe(() => {
+      this.exportToExel();
+    });
   }
 
 
@@ -63,13 +82,12 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
     if (this.subscribe) this.subscribe.unsubscribe();
 
     let data = this.route.snapshot.data.taskData;
+    this.task = data;
 
     // get phases
     this.phases = data.task_phases.sort(function (a, b) {
       return a.sort - b.sort;
     });
-
-    console.log("PHASES:", this.phases);
 
     let phaseIds = this.phases.map(phase => phase.id);
 
@@ -87,11 +105,8 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
 
       let activityIds = this.taskActivities.map(activity => activity.id);
 
-      console.log("(this.taskActivities:", this.taskActivities);
-
       this.getAllActivityItemsByActivities(activityIds).subscribe(res => {
         this.taskActivityItems = [];
-        console.log(res);
         this.taskActivityItems = this.taskActivityItems.concat(...res);
 
         this.taskActivityItems.sort(function (a, b) {
@@ -109,8 +124,6 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
           }
           
         });
-
-        console.log("(this.taskActivity Items:", this.taskActivityItems);
 
         // load data completed
         this.loaded = true;
@@ -279,11 +292,118 @@ export class ConfigTaskComponent implements OnInit, OnDestroy {
       return +activity.id === +act.id
     });
 
-    console.log('DELETE ACTIVITY');
-
     /*this.deleteActivitySubcribe = this.service.deleteTaskActivity(activity.id).subscribe(res => {
       this.updateData();
     });*/
+  }
+
+
+  /**
+   * export data to exel using xlsx - https://www.npmjs.com/package/xlsx
+   */
+  private export() {
+
+    let getTaskActivityNameById = (task_activity_id: number): string => {
+      let activity = this.taskActivities.find(activity => activity.id === task_activity_id);
+
+      return activity.name;
+    };
+
+    let getPhaseNameById = (phaseId: number): string => {
+      let phase = this.phases.find(phase => phase.id === phaseId);
+
+      return phase.name;
+    };
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+
+    this.exportData.forEach((phase, phaseIndex) => {
+
+      /* worksheet */
+      let ws: XLSX.WorkSheet;
+      let output = [];
+
+      output.push([""].concat(this.exportHeaders));
+
+      phase.task_activities.forEach((acitivity, index, array) => {
+        
+        output.push([acitivity.name]);
+        
+        acitivity.task_activity_items.forEach((item, index, array) => {
+
+          let outputFiels = [];
+          outputFiels.push("");
+          this.exportFields.forEach( field => {
+            if (item.hasOwnProperty(field)) {
+              let cell;
+              if (field === 'estimated_start' || field === 'estimated_completion' || field === 'checked_on' || field === 'qa_date') {
+                if (new Date(item[field]) > new Date(2000, 10, 10)) {
+                  cell = new Date(item[field]);
+                } else {
+                  cell = "";
+                }
+              } else {
+                cell = item[field];
+              }
+              outputFiels.push(cell);
+            };
+          })
+
+          output.push(outputFiels)
+        });
+      });
+
+      ws = XLSX.utils.aoa_to_sheet(output);
+      XLSX.utils.book_append_sheet(wb, ws, phase.category);
+    })
+
+    /* save to file */
+    XLSX.writeFile(wb, `${this.task.name}.xlsx`);
+    
+  }
+
+  exportToExel() {
+
+    this.service.getTask(this.task.id).subscribe(res => {
+        this.exportData = res;
+
+        let response$ = forkJoin(this.service.getTaskActivities(), this.service.getTaskActivityItems());
+
+        response$.subscribe(result => {
+
+          this.exportData.task_phases.sort(function (a, b) {
+            return a.sort - b.sort;
+          });
+
+          this.exportData.task_phases.forEach((taksPhase, index, taskPhases) => {
+
+            taskPhases[index].task_activities = result[0].filter(item => {
+              return item.task_phase_id == taskPhases[index].id;
+            });
+
+            taskPhases[index].task_activities.sort(function (a, b) {
+              return a.sort - b.sort;
+            });
+
+            taskPhases[index].task_activities.forEach((task_activity, i, task_activities) => {
+              task_activities[i].task_activity_items = result[1].filter(item => {
+                return item.task_activity_id == task_activities[i].id;
+              });
+
+              task_activities[i].task_activity_items = task_activities[i].task_activity_items.sort(function (a, b) {
+                return a.sort - b.sort;
+              });
+
+            });
+
+          });
+
+          this.exportData = this.exportData.task_phases;
+
+          this.export();
+        });
+      });
   }
 
   formatDate(date): string {

@@ -4,6 +4,7 @@ export interface Project {
   id: number;
   name: string;
   description: string;
+  is_template: boolean;
   created_at: Date;
   updated_at: Date;
   image: {

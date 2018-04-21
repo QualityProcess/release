@@ -66,6 +66,7 @@
     "rxjs": "^5.5.6",
     "sortablejs": "^1.7.0",
     "ts-loader": "^3.5.0",
+    "xlsx": "^0.12.10",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

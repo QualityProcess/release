@@ -92,13 +92,8 @@ import { MiddleNavBarComponent } from '../components/middle-nav-bar/middle-nav-b
 
     // directives
     DragulaService,
-
-    // services
-<<<<<<< HEAD
-    BreadCrumbsService,
-=======
     //BreadCrumbsService,
->>>>>>> dev
+
 
     // adal service
     Adal5Service,

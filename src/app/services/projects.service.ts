@@ -21,16 +21,6 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectsService {
-<<<<<<< HEAD
-
-  // was testing https://afternoon-bastion-71141.herokuapp.com/api/v1
-  // dev - https://qualityprocess-development.herokuapp.com/api/v1
-  // staging - https://qualityprocess-staging.herokuapp.com/api/v1
-  // production - https://qualityprocess.herokuapp.com/api/v1
-
-  private apiUrl: string = 'https://qualityprocess-staging.herokuapp.com/api/v1';  // API URL
-=======
->>>>>>> dev
 
   private apiUrl: string = environment.apiURL; 
 

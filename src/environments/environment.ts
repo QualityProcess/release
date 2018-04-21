@@ -5,7 +5,7 @@
 
 export const environment = {
   production: true,
-  apiURL: "http://dev.api.qp.heritageorient.com/api/v1",
+  apiURL: "https://qualityprocess-development.herokuapp.com/api/v1",
   devAccess: true,
   version: "Development 0.0.1 BETA",
 

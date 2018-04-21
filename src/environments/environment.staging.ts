@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiURL: "https://staging.api.qp.heritageorient.com/api/v1",
+  apiURL: "https://qualityprocess-staging.herokuapp.com/api/v1",
   devAccess: false,
   version: "Staging 0.0.1 BETA",
 

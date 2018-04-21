@@ -47,6 +47,10 @@ $custom-typography: mat-typography-config( $font-family: 'Roboto Thin, Roboto, H
   }
 }
 
+.mdc-toolbar__row {
+  min-height: 30px!important;
+}
+
 .mat-dialog-container {
   background: $primary-gray--light;
   color: $black;
@@ -394,6 +398,51 @@ a {
 
 
 /*  -------------------    END NAV BAR  -----------------------------*/
+
+/*  -------------------   MIDDLE NAVBAR ----------------------------*/
+
+.middle-navbar {
+  .secondary-nav-wrapper {
+
+    .secondary-nav {
+      font-size: 12px;
+      @include flex();
+      align-items: center;
+      justify-content: flex-end;
+      text-align: end;
+      margin: 0;
+
+      .top-list-item {
+        float: left;
+        list-style: none;
+        text-transform: uppercase;
+        position: relative;
+        line-height: initial;
+
+        .mat-icon {
+          font-size: 18px;
+          line-height: 0;
+        }
+
+        .top-link.dropdown-menu {
+          &:before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-top: 5px solid $primary-gray--dark;
+            top: -25%;
+            right: 0;
+            margin: 9px 0 0;
+            -webkit-transition: border-color .2s ease;
+            transition: border-color .2s ease;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 /*  -------------------    SUB NAV BAR  -----------------------------*/

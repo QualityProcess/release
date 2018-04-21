@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   apiURL: "https://qualityprocess-staging.herokuapp.com/api/v1",
   devAccess: false,
-  version: "Staging 0.0.1",
+  version: "Staging 0.0.1 BETA",
 
   adal5Config: {
     clientId: "3e601a4c-6044-484c-a4cc-6009313d76ae",

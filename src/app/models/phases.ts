@@ -8,6 +8,7 @@ export interface Phases {
   created_at: Date;
   updated_at: Date;
   is_enabled: boolean;
+  task_id: number;
   image: {
     url: string;
     thumbnail: {

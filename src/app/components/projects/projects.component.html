@@ -53,7 +53,7 @@
                 <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', project.id, 'urls']">link</mdc-icon>
                 <mdc-icon mdcCardAction="icon" class="icon" (click)="onSelect(project)">remove_red_eye</mdc-icon>
                 <mdc-icon mdcCardAction="icon" class="icon" [routerLink]="['../', 'projects', project.id, 'edit']">edit</mdc-icon>
-                <mdc-icon mdcCardAction="icon" class="icon" (click)="openDeleteDialog(project)">delete</mdc-icon>
+                <mdc-icon *ngIf="!project.is_template" mdcCardAction="icon" class="icon" (click)="openDeleteDialog(project)">delete</mdc-icon>
               </mdc-card-action-icons>
             </mdc-card-actions>
           </mdc-card>

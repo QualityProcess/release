@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 // frameworks
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
+
+// rxjs
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/Rx';
@@ -318,6 +320,12 @@ export class ActivityTableComponent implements OnInit {
         event[1].parentElement.lastElementChild.style.display = 'none';
     }
   }
+
+  /**
+   * 
+   * @param item
+   * @param property
+   */
 
   openCreateFieldDialog(item, property) {
     let dialogRef = this.dialog.open(EnterFieldDialog, {

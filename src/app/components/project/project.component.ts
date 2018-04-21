@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 // dialogs
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DeleteDialog } from "../dialogs/delete-dialog";
+import { NotificationDialog } from "../dialogs/notification-dialog";
 
 // services
 import { ProjectsService } from '../../services/projects.service';
@@ -47,6 +48,17 @@ export class ProjectComponent implements OnInit {
   }
 
   openDeleteDialog() {
+    if (this.project.is_template) {
+      let dialogRefNotification = this.dialog.open(NotificationDialog, {
+        width: '350px',
+        data: {
+          title: `You can not delete a project template`
+        }
+      });
+
+      return;
+    };
+
     let dialogRef = this.dialog.open(DeleteDialog, {
       width: '350px',
       data: {

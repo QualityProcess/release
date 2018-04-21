@@ -31,7 +31,8 @@ export class ProjectFormComponent implements OnInit, OnChanges {
     this.addProject = this.fb.group({
       name: [typeof this._project === 'undefined' ? null : this._project.name, Validators.required],
       description: typeof this._project === 'undefined' ? null : this._project.description,
-      image: [{ value: typeof this._project === 'undefined' ? null : this._project.image.url, disabled: false }]
+      image: [{ value: typeof this._project === 'undefined' ? null : this._project.image.url, disabled: false }],
+      is_template: typeof this._project === 'undefined' ? null : this._project.is_template,
     });
   }
 

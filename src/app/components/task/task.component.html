@@ -16,7 +16,14 @@
   </mdc-list-item>
 </app-navbar>
 
-<middle-nav-bar [task]="data"></middle-nav-bar>
+<middle-nav-bar [task]="data">
+  <li class="top-list-item">
+    <mat-icon class="action" (click)="downloadTaskToExel()">file_download</mat-icon>
+  </li>
+  <li class="top-list-item">
+    <mat-icon class="action" (click)="openDeleteDialog()">delete</mat-icon>
+  </li>
+</middle-nav-bar>
 
 <sub-navbar title="{{discipline?.category}}" subtitle="{{design_stage?.category}}" class="sub-navbar" [breadcrumbs]="breadcrumbs">
   <button mdc-fab #fab class="main-fab-btn"(click)="goBack()">

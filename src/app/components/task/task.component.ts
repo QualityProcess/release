@@ -14,14 +14,21 @@ import { TaskActivity } from "../../models/task-activity";
 import { TaskActivityItem } from "../../models/task-activity-item";
 import { Location } from '@angular/common';
 
+// dialogs
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DeleteDialog } from "../dialogs/delete-dialog";
+
 // services
 import { UserService } from './../../services/user.service';
 import { TaskService } from "../../services/task.service";
 import { ProjectsService } from "../../services";
+import { NavBarService } from "../../services/nav-bar.service";
 
 // breadcrumbs
 import { BreadCrumbsService } from '../../services/breadcrumbs.service';
 import { BreadCrumb } from './../../models/breadcrumb';
+
+import { ConfigTaskComponent } from "./../config-task/config-task.component";
 
 
 @Component({
@@ -46,14 +53,18 @@ export class TaskComponent implements OnInit {
   taskActivities: TaskActivity[];
   taskActivityItems: TaskActivityItem[];
 
+  private configTaskComponent: ConfigTaskComponent;
+
   constructor(
     private service: TaskService,
     private projectService: ProjectsService,
     private userService: UserService,
+    private navBarService: NavBarService,
     private router: Router,
     private route: ActivatedRoute,
     private _location: Location,
-    private breadCrumbsService: BreadCrumbsService
+    private breadCrumbsService: BreadCrumbsService,
+    public dialog: MatDialog
   ) {
     this.views['googleKeepView'] = true;
     this.views['horizontalHistogramView'] = false;
@@ -112,6 +123,33 @@ export class TaskComponent implements OnInit {
       ]);
     }
     
+  }
+
+  downloadTaskToExel() {
+    this.navBarService.onDownloadTaskToExel(); 
+  }
+
+  openDeleteDialog() {
+    let dialogRef = this.dialog.open(DeleteDialog, {
+      width: '350px',
+      data: {
+        task: this.data,
+        title: `Delete task ${this.data.name}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result) {
+        this.delete();
+      }
+    });
+  }
+
+  delete() {
+    this.service.deleteTask(this.data.id).subscribe(res => {
+      this.router.navigate(['/projects', this.data.project_id, 'matrix']);
+    });
   }
 
   goBack() {
